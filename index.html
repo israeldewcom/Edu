@@ -1,0 +1,3338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChangeX EduSpace — Intelligent Learning Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0f14;
+  --ink-2: #1a1e2a;
+  --ink-3: #252b3b;
+  --smoke: #f4f3ef;
+  --smoke-2: #eae8e1;
+  --smoke-3: #d8d4c8;
+  --lime: #c8f135;
+  --lime-dim: #9dbe1e;
+  --teal: #0bceaf;
+  --coral: #ff5c4a;
+  --amber: #f5a623;
+  --violet: #9b6dff;
+  --text-primary: #0d0f14;
+  --text-secondary: #555f7a;
+  --text-muted: #8892ab;
+  --border: rgba(13,15,20,0.09);
+  --border-strong: rgba(13,15,20,0.18);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-lg: 22px;
+  --shadow: 0 2px 20px rgba(13,15,20,0.07);
+  --shadow-lg: 0 8px 48px rgba(13,15,20,0.12);
+  --sidebar-w: 260px;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="dark"] {
+  --ink: #f4f3ef;
+  --ink-2: #eae8e1;
+  --ink-3: #d8d4c8;
+  --smoke: #0d0f14;
+  --smoke-2: #1a1e2a;
+  --smoke-3: #252b3b;
+  --text-primary: #f4f3ef;
+  --text-secondary: #9daabf;
+  --text-muted: #5f6b80;
+  --border: rgba(244,243,239,0.08);
+  --border-strong: rgba(244,243,239,0.15);
+  --shadow: 0 2px 20px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--smoke);
+  color: var(--text-primary);
+  font-size: 15px;
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+  overflow-x: hidden;
+}
+
+/* ─── LAYOUT ─── */
+.app-shell { display: flex; min-height: 100vh; }
+
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--ink);
+  color: var(--smoke);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(0);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+}
+
+.sidebar.collapsed { transform: translateX(calc(-1 * var(--sidebar-w))); }
+
+.sidebar-brand {
+  display: flex; align-items: center; gap: 10px;
+  padding: 22px 20px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.brand-mark {
+  width: 36px; height: 36px;
+  background: var(--lime);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.brand-mark svg { width: 20px; height: 20px; }
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+.brand-sub { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 0.5px; text-transform: uppercase; }
+
+.sidebar-search {
+  padding: 14px 14px 8px;
+}
+.sidebar-search input {
+  width: 100%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 7px 12px 7px 32px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.sidebar-search input::placeholder { color: rgba(255,255,255,0.3); }
+.sidebar-search input:focus { border-color: var(--lime); }
+.sidebar-search-icon {
+  position: absolute;
+  left: 26px; top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.3);
+  font-size: 13px;
+}
+
+.sidebar-nav { flex: 1; overflow-y: auto; padding: 8px 0; scrollbar-width: none; }
+.sidebar-nav::-webkit-scrollbar { display: none; }
+
+.nav-section { margin-bottom: 4px; }
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  padding: 14px 20px 6px;
+}
+
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  margin: 1px 8px;
+  border-radius: 9px;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: all 0.18s;
+  font-size: 13.5px;
+  font-weight: 400;
+  position: relative;
+  text-decoration: none;
+}
+.nav-item:hover { background: rgba(255,255,255,0.07); color: #fff; }
+.nav-item.active { background: var(--lime); color: var(--ink); font-weight: 600; }
+.nav-item .nav-icon { width: 18px; font-size: 16px; text-align: center; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto;
+  background: var(--coral);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 20px;
+  min-width: 18px;
+  text-align: center;
+}
+.nav-item.active .nav-badge { background: rgba(0,0,0,0.2); color: var(--ink); }
+
+.sidebar-user {
+  padding: 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+}
+.user-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--violet));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; color: #fff;
+  flex-shrink: 0;
+}
+.user-name { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.2; }
+.user-role { font-size: 11px; color: rgba(255,255,255,0.4); }
+
+/* ─── MAIN CONTENT ─── */
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.main-content.expanded { margin-left: 0; }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  background: var(--smoke);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 64px;
+  display: flex; align-items: center; gap: 16px;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.3s;
+}
+
+.topbar-toggle {
+  width: 36px; height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.topbar-toggle:hover { background: var(--smoke-2); color: var(--text-primary); }
+
+.topbar-search {
+  flex: 1;
+  max-width: 380px;
+  position: relative;
+}
+.topbar-search input {
+  width: 100%;
+  background: var(--smoke-2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 8px 12px 8px 36px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  outline: none;
+  transition: all 0.2s;
+}
+.topbar-search input:focus { border-color: var(--lime-dim); background: var(--smoke); box-shadow: 0 0 0 3px rgba(200,241,53,0.12); }
+.topbar-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px; }
+
+.topbar-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+
+.icon-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.18s;
+  position: relative;
+  font-size: 17px;
+}
+.icon-btn:hover { background: var(--smoke-2); color: var(--text-primary); }
+.icon-btn .badge-dot {
+  position: absolute; top: 6px; right: 6px;
+  width: 7px; height: 7px;
+  background: var(--coral);
+  border-radius: 50%;
+  border: 2px solid var(--smoke);
+}
+
+.topbar-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--violet));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: #fff;
+  cursor: pointer;
+}
+
+/* ─── PAGE ─── */
+.page { display: none; padding: 24px; flex: 1; }
+.page.active { display: block; }
+
+/* ─── DASHBOARD ─── */
+.page-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 28px; gap: 16px;
+  flex-wrap: wrap;
+}
+.page-title { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
+.page-sub { font-size: 13.5px; color: var(--text-secondary); margin-top: 4px; }
+
+/* ─── STAT CARDS ─── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--smoke-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  transform: translate(20px, -20px);
+  opacity: 0.08;
+}
+.stat-card.lime::before { background: var(--lime); }
+.stat-card.teal::before { background: var(--teal); }
+.stat-card.coral::before { background: var(--coral); }
+.stat-card.violet::before { background: var(--violet); }
+.stat-card.amber::before { background: var(--amber); }
+
+.stat-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+.stat-card.lime .stat-icon { background: rgba(200,241,53,0.12); color: var(--lime-dim); }
+.stat-card.teal .stat-icon { background: rgba(11,206,175,0.1); color: var(--teal); }
+.stat-card.coral .stat-icon { background: rgba(255,92,74,0.1); color: var(--coral); }
+.stat-card.violet .stat-icon { background: rgba(155,109,255,0.1); color: var(--violet); }
+.stat-card.amber .stat-icon { background: rgba(245,166,35,0.1); color: var(--amber); }
+
+.stat-value { font-family: var(--font-display); font-size: 30px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 12.5px; color: var(--text-secondary); font-weight: 500; }
+.stat-change {
+  position: absolute;
+  top: 18px; right: 18px;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.stat-change.up { background: rgba(200,241,53,0.12); color: var(--lime-dim); }
+.stat-change.down { background: rgba(255,92,74,0.1); color: var(--coral); }
+
+/* ─── CARDS ─── */
+.card {
+  background: var(--smoke-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.card-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+}
+.card-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+.card-body { padding: 20px; }
+
+/* ─── TABLE ─── */
+.table-wrap { overflow-x: auto; }
+table.data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.data-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+table.data-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  color: var(--text-primary);
+}
+table.data-table tr:last-child td { border-bottom: none; }
+table.data-table tr:hover td { background: rgba(0,0,0,0.02); }
+[data-theme="dark"] table.data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* ─── BADGES ─── */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.badge-success { background: rgba(11,206,175,0.1); color: var(--teal); }
+.badge-warning { background: rgba(245,166,35,0.1); color: var(--amber); }
+.badge-danger { background: rgba(255,92,74,0.1); color: var(--coral); }
+.badge-info { background: rgba(155,109,255,0.1); color: var(--violet); }
+.badge-neutral { background: var(--smoke-3); color: var(--text-secondary); }
+.badge-lime { background: rgba(200,241,53,0.15); color: var(--lime-dim); }
+
+/* ─── PROGRESS ─── */
+.progress-bar-wrap { background: var(--smoke-3); border-radius: 20px; height: 6px; overflow: hidden; }
+.progress-bar-fill { height: 100%; border-radius: 20px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
+
+/* ─── AVATAR GROUP ─── */
+.avatar-group { display: flex; }
+.avatar-group .av {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--smoke-2);
+  margin-left: -6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+}
+.avatar-group .av:first-child { margin-left: 0; }
+
+/* ─── BTN ─── */
+.btn-primary-custom {
+  background: var(--lime);
+  color: var(--ink);
+  border: none;
+  border-radius: 9px;
+  padding: 9px 18px;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.btn-primary-custom:hover { background: var(--lime-dim); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 8px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.btn-ghost:hover { background: var(--smoke-3); color: var(--text-primary); }
+
+.btn-danger {
+  background: rgba(255,92,74,0.1);
+  color: var(--coral);
+  border: 1px solid rgba(255,92,74,0.2);
+  border-radius: 9px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.btn-danger:hover { background: var(--coral); color: #fff; }
+
+/* ─── GRID ─── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+.grid-1-2 { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+
+/* ─── COURSE CARDS ─── */
+.course-card {
+  background: var(--smoke-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.course-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.course-card-thumb {
+  height: 110px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.course-card-body { padding: 16px; }
+.course-card-code { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); margin-bottom: 4px; letter-spacing: 0.5px; }
+.course-card-title { font-family: var(--font-display); font-size: 14px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+.course-card-instructor { font-size: 12px; color: var(--text-secondary); }
+.course-card-footer { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+
+/* ─── FORM ─── */
+.form-group { margin-bottom: 18px; }
+.form-label { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; display: block; }
+.form-control-custom {
+  width: 100%;
+  background: var(--smoke);
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control-custom:focus { border-color: var(--lime-dim); box-shadow: 0 0 0 3px rgba(200,241,53,0.12); }
+.form-hint { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+.form-select-custom {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s;
+  padding: 16px;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal-box {
+  background: var(--smoke);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.95) translateY(12px);
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+.modal-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-title { font-family: var(--font-display); font-size: 18px; font-weight: 700; }
+.modal-close { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: all 0.18s; }
+.modal-close:hover { background: var(--smoke-2); color: var(--text-primary); }
+.modal-body { padding: 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+
+/* ─── NOTIFICATION PANEL ─── */
+.notif-panel {
+  position: fixed;
+  top: 64px; right: 0;
+  width: 360px;
+  height: calc(100vh - 64px);
+  background: var(--smoke);
+  border-left: 1px solid var(--border);
+  z-index: 900;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow-lg);
+}
+.notif-panel.open { transform: translateX(0); }
+.notif-header { padding: 18px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.notif-title { font-family: var(--font-display); font-size: 16px; font-weight: 700; }
+.notif-list { flex: 1; overflow-y: auto; }
+.notif-item {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; gap: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.notif-item:hover { background: var(--smoke-2); }
+.notif-item.unread { background: rgba(200,241,53,0.04); }
+.notif-dot { width: 8px; height: 8px; background: var(--lime); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+.notif-text { font-size: 13px; line-height: 1.5; color: var(--text-secondary); }
+.notif-time { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+/* ─── TOAST ─── */
+.toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
+.toast {
+  background: var(--ink);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 11px;
+  display: flex; align-items: center; gap: 10px;
+  min-width: 280px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  animation: slideInUp 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  font-size: 13.5px;
+  border-left: 4px solid var(--lime);
+}
+.toast.error { border-left-color: var(--coral); }
+.toast.warning { border-left-color: var(--amber); }
+.toast.info { border-left-color: var(--teal); }
+.toast.out { animation: slideOutDown 0.2s ease-in forwards; }
+
+/* ─── CHARTS (CSS) ─── */
+.mini-chart { display: flex; align-items: flex-end; gap: 3px; height: 50px; }
+.mini-chart .bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: var(--lime);
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+.mini-chart .bar.active { opacity: 1; }
+.mini-chart .bar:hover { opacity: 0.8; }
+
+.donut-chart {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  position: relative;
+}
+
+/* ─── ACTIVITY FEED ─── */
+.activity-item {
+  display: flex; gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-icon {
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.activity-text { font-size: 13.5px; color: var(--text-primary); line-height: 1.5; }
+.activity-text span { font-weight: 600; }
+.activity-time { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+/* ─── ANALYTICS SECTION ─── */
+.perf-metric {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.perf-metric:last-child { border-bottom: none; }
+.perf-label { font-size: 13.5px; flex: 1; }
+.perf-value { font-family: var(--font-display); font-size: 16px; font-weight: 700; min-width: 48px; text-align: right; }
+
+/* ─── CALENDAR ─── */
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 7px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--text-secondary);
+}
+.cal-cell:hover { background: var(--smoke-3); }
+.cal-cell.today { background: var(--lime); color: var(--ink); font-weight: 700; }
+.cal-cell.has-event::after { content: ''; position: absolute; bottom: 2px; width: 4px; height: 4px; background: var(--teal); border-radius: 50%; }
+.cal-cell.other-month { color: var(--text-muted); opacity: 0.4; }
+.cal-header { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
+.cal-day { text-align: center; font-size: 10px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; padding: 4px; letter-spacing: 0.5px; }
+
+/* ─── RISK INDICATOR ─── */
+.risk-bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+.risk-bar-item .name { width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-secondary); }
+.risk-bar-item .risk-val { font-family: var(--font-mono); font-size: 12px; width: 38px; text-align: right; }
+
+/* ─── TOGGLE ─── */
+.toggle-switch { position: relative; width: 40px; height: 22px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-track {
+  position: absolute; inset: 0;
+  background: var(--smoke-3);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-switch input:checked + .toggle-track { background: var(--lime); }
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.toggle-switch input:checked + .toggle-track::after { transform: translateX(18px); }
+
+/* ─── TAGS ─── */
+.tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px;
+  background: var(--smoke-3);
+  border-radius: 6px;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.tag .tag-remove { cursor: pointer; opacity: 0.5; transition: opacity 0.15s; }
+.tag .tag-remove:hover { opacity: 1; }
+
+/* ─── AT RISK ─── */
+.at-risk-card {
+  background: rgba(255,92,74,0.05);
+  border: 1px solid rgba(255,92,74,0.15);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideOutDown {
+  to { opacity: 0; transform: translateY(20px); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.page.active > * { animation: fadeIn 0.3s ease both; }
+
+/* ─── SKELETON ─── */
+.skeleton {
+  background: linear-gradient(90deg, var(--smoke-2) 25%, var(--smoke-3) 50%, var(--smoke-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--smoke-3); border-radius: 3px; }
+
+/* ─── LOGIN PAGE ─── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  background: var(--ink);
+  font-family: var(--font-body);
+}
+.auth-left {
+  flex: 1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(ellipse at 30% 70%, rgba(200,241,53,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(11,206,175,0.05) 0%, transparent 60%),
+              var(--ink);
+}
+.auth-right {
+  width: 480px;
+  background: var(--smoke);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+}
+.auth-form-box { width: 100%; max-width: 380px; }
+.auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 48px; }
+.auth-brand .brand-mark { width: 40px; height: 40px; }
+.auth-headline {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.05;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+.auth-headline .highlight { color: var(--lime); }
+.auth-sub { color: rgba(255,255,255,0.4); font-size: 16px; max-width: 340px; }
+.auth-features { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
+.auth-feature { display: flex; align-items: center; gap: 12px; color: rgba(255,255,255,0.6); font-size: 14px; }
+.auth-feature-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.05); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.auth-title { font-family: var(--font-display); font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.auth-subtitle { font-size: 14px; color: var(--text-secondary); margin-bottom: 28px; }
+.auth-tabs { display: flex; gap: 4px; background: var(--smoke-2); border-radius: 10px; padding: 4px; margin-bottom: 24px; }
+.auth-tab { flex: 1; padding: 8px; border-radius: 7px; background: transparent; border: none; font-family: var(--font-body); font-size: 13.5px; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; }
+.auth-tab.active { background: var(--smoke); color: var(--text-primary); font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.auth-divider { text-align: center; position: relative; margin: 20px 0; font-size: 12px; color: var(--text-muted); }
+.auth-divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border); }
+.auth-divider span { background: var(--smoke); padding: 0 12px; position: relative; }
+.auth-social { display: flex; gap: 10px; }
+.auth-social-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all 0.18s;
+}
+.auth-social-btn:hover { background: var(--smoke-2); }
+
+/* ─── SETTINGS ─── */
+.settings-nav { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 24px; overflow-x: auto; }
+.settings-tab { padding: 10px 16px; font-size: 13.5px; font-weight: 500; color: var(--text-secondary); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.18s; white-space: nowrap; }
+.settings-tab.active { color: var(--text-primary); border-bottom-color: var(--lime); font-weight: 600; }
+.settings-tab:hover { color: var(--text-primary); }
+
+.settings-section { background: var(--smoke-2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+.settings-section-header { padding: 18px 20px; border-bottom: 1px solid var(--border); }
+.settings-section-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; }
+.settings-section-sub { font-size: 12.5px; color: var(--text-secondary); margin-top: 2px; }
+.settings-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); gap: 16px; }
+.settings-row:last-child { border-bottom: none; }
+.settings-row-label { font-size: 13.5px; font-weight: 500; }
+.settings-row-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+/* ─── PROFILE ─── */
+.profile-banner {
+  height: 180px;
+  background: linear-gradient(135deg, var(--ink) 0%, #1a2340 100%);
+  border-radius: var(--radius) var(--radius) 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.profile-banner::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(200,241,53,0.15) 0%, transparent 70%);
+}
+.profile-avatar-wrap {
+  position: relative;
+  margin-top: -48px;
+  margin-left: 24px;
+  display: inline-block;
+}
+.profile-avatar-large {
+  width: 96px; height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--violet));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  border: 4px solid var(--smoke);
+}
+.profile-info { padding: 16px 24px 24px; }
+.profile-name { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
+.profile-role { font-size: 13px; color: var(--text-secondary); }
+.profile-stats { display: flex; gap: 24px; margin-top: 16px; }
+.profile-stat { text-align: center; }
+.profile-stat-val { font-family: var(--font-display); font-size: 20px; font-weight: 700; }
+.profile-stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ─── REALTIME INDICATOR ─── */
+.realtime-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  animation: pulse 2s infinite;
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1100px) {
+  .grid-2-1, .grid-1-2, .grid-3 { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(calc(-1 * var(--sidebar-w))); }
+  .sidebar.mobile-open { transform: translateX(0); }
+  .main-content { margin-left: 0 !important; }
+  .auth-left { display: none; }
+  .auth-right { width: 100%; }
+  .notif-panel { width: 100%; }
+}
+@media (max-width: 600px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .page { padding: 16px; }
+  .topbar { padding: 0 16px; }
+  .topbar-search { display: none; }
+}
+</style>
+</head>
+<body>
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  LOGIN PAGE                                                 -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="authPage" class="auth-page">
+  <div class="auth-left">
+    <div class="auth-brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#0d0f14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name" style="color:#fff;">ChangeX</div>
+        <div class="brand-sub" style="color:rgba(255,255,255,0.35);">EduSpace Platform</div>
+      </div>
+    </div>
+    <div class="auth-headline">
+      The future of<br><span class="highlight">intelligent</span><br>education.
+    </div>
+    <p class="auth-sub">Multi-tenant learning management platform with AI-powered analytics, real-time collaboration, and predictive insights.</p>
+    <div class="auth-features">
+      <div class="auth-feature">
+        <div class="auth-feature-icon">🎓</div>
+        <span>Manage multiple institutions, courses, and students seamlessly</span>
+      </div>
+      <div class="auth-feature">
+        <div class="auth-feature-icon">🧠</div>
+        <span>AI-powered at-risk detection and predictive grading</span>
+      </div>
+      <div class="auth-feature">
+        <div class="auth-feature-icon">⚡</div>
+        <span>Real-time notifications via WebSocket & Celery automation</span>
+      </div>
+      <div class="auth-feature">
+        <div class="auth-feature-icon">🔒</div>
+        <span>GDPR-compliant with role-based access control (RBAC)</span>
+      </div>
+    </div>
+  </div>
+  <div class="auth-right">
+    <div class="auth-form-box">
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" onclick="switchAuthTab('register')">Create Account</button>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm">
+        <h1 class="auth-title">Welcome back</h1>
+        <p class="auth-subtitle">Sign in to your EduSpace account</p>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-control-custom" type="email" id="loginEmail" placeholder="you@institution.edu">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-control-custom" type="password" id="loginPass" placeholder="••••••••">
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);cursor:pointer;">
+            <input type="checkbox" checked style="accent-color:var(--lime-dim);">
+            Remember me
+          </label>
+          <a href="#" style="font-size:13px;color:var(--lime-dim);text-decoration:none;font-weight:500;">Forgot password?</a>
+        </div>
+        <button class="btn-primary-custom w-100 justify-content-center" style="width:100%;justify-content:center;height:44px;font-size:15px;" onclick="doLogin()">
+          Sign In <i class="bi bi-arrow-right"></i>
+        </button>
+        <div class="auth-divider" style="margin:20px 0;"><span>or continue with</span></div>
+        <div class="auth-social">
+          <button class="auth-social-btn"><i class="bi bi-google" style="color:#ea4335;"></i> Google</button>
+          <button class="auth-social-btn"><i class="bi bi-microsoft" style="color:#00a4ef;"></i> Microsoft</button>
+        </div>
+        <p style="text-align:center;margin-top:20px;font-size:13px;color:var(--text-muted);">
+          Demo: use <code style="font-family:var(--font-mono);font-size:12px;color:var(--lime-dim);">admin@changex.com / admin123</code> or register
+        </p>
+      </div>
+
+      <!-- Register Form -->
+      <div id="registerForm" style="display:none;">
+        <h1 class="auth-title">Create account</h1>
+        <p class="auth-subtitle">Join the EduSpace platform</p>
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input class="form-control-custom" type="text" id="regName" placeholder="Dr. Sarah Johnson">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-control-custom" type="email" id="regEmail" placeholder="you@institution.edu">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-control-custom" type="password" id="regPass" placeholder="Min. 8 chars with uppercase & numbers">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role</label>
+          <select class="form-control-custom form-select-custom" id="regRole">
+            <option>Administrator</option>
+            <option>Faculty / Instructor</option>
+            <option>Student</option>
+            <option>Parent</option>
+          </select>
+        </div>
+        <label style="display:flex;align-items:flex-start;gap:8px;font-size:12.5px;color:var(--text-secondary);margin-bottom:20px;cursor:pointer;line-height:1.5;">
+          <input type="checkbox" id="regConsent" style="accent-color:var(--lime-dim);margin-top:2px;">
+          I agree to the Terms of Service and Privacy Policy (GDPR consent)
+        </label>
+        <button class="btn-primary-custom" style="width:100%;justify-content:center;height:44px;font-size:15px;" onclick="doRegister()">
+          Create Account <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!--  MAIN APP                                                   -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<div id="appShell" class="app-shell" style="display:none;">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#0d0f14" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">ChangeX</div>
+        <div class="brand-sub">EduSpace</div>
+      </div>
+    </div>
+
+    <div class="sidebar-search" style="position:relative;">
+      <i class="bi bi-search sidebar-search-icon"></i>
+      <input type="text" placeholder="Quick search...">
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+      <!-- Navigation items will be dynamically populated based on role -->
+    </nav>
+
+    <div class="sidebar-user" onclick="navigateTo('profile')">
+      <div class="user-avatar" id="sidebarAvatar">AJ</div>
+      <div>
+        <div class="user-name" id="sidebarName">Alex Johnson</div>
+        <div class="user-role" id="sidebarRole">Administrator</div>
+      </div>
+      <i class="bi bi-chevron-right" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:12px;"></i>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="main-content" id="mainContent">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="topbar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
+        <i class="bi bi-list" style="font-size:18px;"></i>
+      </button>
+      <div class="topbar-search">
+        <i class="bi bi-search topbar-search-icon"></i>
+        <input type="text" placeholder="Search courses, students, assignments...">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme" id="themeBtn">
+          <i class="bi bi-moon"></i>
+        </button>
+        <button class="icon-btn" onclick="toggleNotifPanel()" title="Notifications">
+          <i class="bi bi-bell"></i>
+          <span class="badge-dot" id="notifDot"></span>
+        </button>
+        <button class="icon-btn" title="Help">
+          <i class="bi bi-question-circle"></i>
+        </button>
+        <div class="topbar-avatar" onclick="navigateTo('profile')" title="Profile" id="topbarAvatar">AJ</div>
+      </div>
+    </header>
+
+    <!-- ═══════════ PAGES ═══════════ -->
+
+    <!-- ── DASHBOARD ── -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title" id="dashboardGreeting">Good morning, Alex 👋</h1>
+          <p class="page-sub" id="dashboardSubtitle">Here's what's happening across your institutions today</p>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;" id="dashboardActions">
+          <!-- Role-specific actions -->
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stat-grid" id="dashboardStats">
+        <!-- filled by JS -->
+      </div>
+
+      <!-- Charts & Activity -->
+      <div class="grid-2-1" style="margin-bottom:24px;" id="dashboardLeftRight">
+        <!-- left (enrollment) and right (completion) will be filled by role-specific render -->
+      </div>
+
+      <!-- Activity + At Risk -->
+      <div class="grid-2" id="dashboardBottom">
+        <!-- activity feed + at risk list -->
+      </div>
+    </div>
+
+    <!-- ── ANALYTICS ── -->
+    <div class="page" id="page-analytics">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Analytics & Insights</h1>
+          <p class="page-sub">Performance metrics, predictive analytics, and reporting</p>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-ghost" onclick="filterAnalytics()"><i class="bi bi-funnel"></i> Filter</button>
+          <button class="btn-ghost" onclick="exportAnalytics()"><i class="bi bi-download"></i> Export PDF</button>
+        </div>
+      </div>
+
+      <div class="stat-grid" id="analyticsStats">
+        <!-- dynamic -->
+      </div>
+
+      <div class="grid-2" style="margin-bottom:24px;">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Grade Distribution</div></div>
+          <div class="card-body" id="gradeDistribution">
+            <!-- dynamic -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Predictive AI Model</div>
+            <span class="badge badge-success"><i class="bi bi-cpu"></i> Active</span>
+          </div>
+          <div class="card-body" id="aiModel">
+            <!-- dynamic -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Institutions Performance -->
+      <div class="card" id="institutionPerformanceCard">
+        <div class="card-header">
+          <div class="card-title">Institution Performance Overview</div>
+          <button class="btn-ghost" style="font-size:12px;" onclick="navigateTo('institutions')">View All</button>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="institutionPerformanceTable">
+            <thead>
+              <tr>
+                <th>Institution</th>
+                <th>Type</th>
+                <th>Students</th>
+                <th>Avg Grade</th>
+                <th>Pass Rate</th>
+                <th>Revenue</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="institutionPerformanceBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── COURSES ── -->
+    <div class="page" id="page-courses">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Courses</h1>
+          <p class="page-sub">Manage course catalog, offerings, and enrollments</p>
+        </div>
+        <button class="btn-primary-custom" onclick="openModal('addCourseModal')" id="addCourseBtn"><i class="bi bi-plus"></i> New Course</button>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center;">
+        <input class="form-control-custom" type="text" id="courseSearch" placeholder="🔍 Search courses..." style="max-width:280px;" oninput="renderCourses()">
+        <select class="form-control-custom form-select-custom" id="courseFilterInstitution" style="max-width:160px;" onchange="renderCourses()">
+          <option value="">All Institutions</option>
+        </select>
+        <select class="form-control-custom form-select-custom" id="courseFilterStatus" style="max-width:140px;" onchange="renderCourses()">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="draft">Draft</option>
+        </select>
+        <div style="margin-left:auto;display:flex;gap:6px;">
+          <button class="icon-btn" style="border-radius:9px;" title="Grid view" onclick="setCourseView('grid')"><i class="bi bi-grid"></i></button>
+          <button class="icon-btn" style="border-radius:9px;" title="List view" onclick="setCourseView('list')"><i class="bi bi-list-ul"></i></button>
+        </div>
+      </div>
+
+      <div class="grid-3" id="coursesGrid"></div>
+      <div id="coursesList" style="display:none;"></div>
+    </div>
+
+    <!-- ── ASSIGNMENTS ── -->
+    <div class="page" id="page-assignments">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Assignments</h1>
+          <p class="page-sub">Create, manage, and grade assignments across courses</p>
+        </div>
+        <button class="btn-primary-custom" onclick="openModal('addAssignmentModal')" id="addAssignmentBtn"><i class="bi bi-plus"></i> New Assignment</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">All Assignments</div>
+          <input class="form-control-custom" type="text" id="assignmentSearch" placeholder="Search..." style="max-width:220px;" oninput="renderAssignments()">
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Course</th>
+                <th>Due Date</th>
+                <th>Points</th>
+                <th>Submissions</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="assignmentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GRADES ── -->
+    <div class="page" id="page-grades">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Grades & Grading</h1>
+          <p class="page-sub">View, manage and calculate student grades</p>
+        </div>
+        <button class="btn-ghost" onclick="exportGradebook()"><i class="bi bi-download"></i> Export Gradebook</button>
+      </div>
+      <div class="grid-2-1" style="margin-bottom:20px;">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Gradebook</div>
+            <select class="form-control-custom form-select-custom" id="gradebookCourse" style="max-width:200px;font-size:12px;" onchange="renderGrades()">
+              <!-- populated by JS -->
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Assign 1</th>
+                  <th>Assign 2</th>
+                  <th>Midterm</th>
+                  <th>Final</th>
+                  <th>Grade</th>
+                  <th>Letter</th>
+                </tr>
+              </thead>
+              <tbody id="gradesBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Grading Summary</div></div>
+          <div class="card-body" id="gradingSummary">
+            <!-- dynamic -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ATTENDANCE ── -->
+    <div class="page" id="page-attendance">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Attendance</h1>
+          <p class="page-sub">Track and manage student attendance records</p>
+        </div>
+        <button class="btn-primary-custom" onclick="openModal('markAttendanceModal')" id="markAttendanceBtn"><i class="bi bi-check2-all"></i> Mark Attendance</button>
+      </div>
+      <div class="grid-2-1">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Attendance Records</div>
+            <select class="form-control-custom form-select-custom" id="attendanceCourse" style="max-width:200px;font-size:12px;" onchange="renderAttendance()">
+              <!-- populated -->
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Student</th>
+                  <th>Present</th>
+                  <th>Absent</th>
+                  <th>Late</th>
+                  <th>Rate</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="attendanceBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Calendar</div></div>
+          <div class="card-body" style="padding-top:8px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <button class="icon-btn" style="width:28px;height:28px;" onclick="changeMonth(-1)"><i class="bi bi-chevron-left" style="font-size:12px;"></i></button>
+              <span style="font-size:14px;font-weight:600;" id="calendarMonthYear">June 2025</span>
+              <button class="icon-btn" style="width:28px;height:28px;" onclick="changeMonth(1)"><i class="bi bi-chevron-right" style="font-size:12px;"></i></button>
+            </div>
+            <div class="cal-header">
+              <div class="cal-day">Su</div><div class="cal-day">Mo</div><div class="cal-day">Tu</div>
+              <div class="cal-day">We</div><div class="cal-day">Th</div><div class="cal-day">Fr</div><div class="cal-day">Sa</div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+            <div style="margin-top:14px;display:flex;gap:12px;font-size:11px;color:var(--text-muted);">
+              <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:var(--lime);border-radius:3px;"></span>Today</span>
+              <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:var(--teal);border-radius:50%;"></span>Has Class</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── INSTITUTIONS ── -->
+    <div class="page" id="page-institutions">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Institutions</h1>
+          <p class="page-sub">Manage multi-tenant educational institutions</p>
+        </div>
+        <button class="btn-primary-custom" onclick="openModal('addInstitutionModal')" id="addInstitutionBtn"><i class="bi bi-plus"></i> New Institution</button>
+      </div>
+      <div class="grid-3" id="institutionsGrid"></div>
+    </div>
+
+    <!-- ── USERS ── -->
+    <div class="page" id="page-users">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Users & Roles</h1>
+          <p class="page-sub">Manage users, roles, and RBAC permissions</p>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn-ghost" onclick="importUsers()"><i class="bi bi-upload"></i> Import CSV</button>
+          <button class="btn-primary-custom" onclick="openModal('addUserModal')" id="addUserBtn"><i class="bi bi-person-plus"></i> Add User</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;flex:1;">
+            <input class="form-control-custom" type="text" id="userSearch" placeholder="Search users..." style="max-width:240px;" oninput="renderUsers()">
+            <select class="form-control-custom form-select-custom" id="userFilterRole" style="max-width:140px;font-size:13px;" onchange="renderUsers()">
+              <option value="">All Roles</option>
+              <option value="admin">Admin</option>
+              <option value="faculty">Faculty</option>
+              <option value="student">Student</option>
+              <option value="parent">Parent</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Institution</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PAYMENTS ── -->
+    <div class="page" id="page-payments">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Payments</h1>
+          <p class="page-sub">Stripe payment processing, invoices, and revenue tracking</p>
+        </div>
+        <button class="btn-primary-custom" onclick="openModal('newPaymentModal')" id="newPaymentBtn"><i class="bi bi-plus"></i> New Invoice</button>
+      </div>
+      <div class="stat-grid" id="paymentStats">
+        <!-- dynamic -->
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Transaction History</div></div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>ID</th><th>User</th><th>Institution</th><th>Amount</th><th>Description</th><th>Status</th><th>Date</th></tr>
+            </thead>
+            <tbody id="paymentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MESSAGES ── -->
+    <div class="page" id="page-messages">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Messages</h1>
+          <p class="page-sub">Internal messaging with real-time WebSocket delivery</p>
+        </div>
+        <button class="btn-primary-custom" onclick="openModal('composeModal')" id="composeBtn"><i class="bi bi-pencil"></i> Compose</button>
+      </div>
+      <div class="grid-1-2">
+        <div class="card" style="height:500px;overflow:hidden;display:flex;flex-direction:column;">
+          <div class="card-header"><div class="card-title">Inbox</div><span class="badge badge-danger" id="inboxUnreadCount">0</span></div>
+          <div style="flex:1;overflow-y:auto;" id="messageList"></div>
+        </div>
+        <div class="card" style="height:500px;display:flex;flex-direction:column;">
+          <div class="card-header" id="messageHeader">
+            <div>
+              <div class="card-title">Select a conversation</div>
+              <div style="font-size:12px;color:var(--text-muted);">Click a message on the left</div>
+            </div>
+          </div>
+          <div id="messageBody" style="flex:1;overflow-y:auto;padding:20px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:14px;">
+            <div style="text-align:center;">
+              <i class="bi bi-chat-dots" style="font-size:40px;opacity:0.3;display:block;margin-bottom:12px;"></i>
+              Select a message to read
+            </div>
+          </div>
+          <div style="padding:14px;border-top:1px solid var(--border);display:none;" id="replyBox">
+            <div style="display:flex;gap:8px;">
+              <input class="form-control-custom" type="text" id="replyInput" placeholder="Type a reply..." style="flex:1;">
+              <button class="btn-primary-custom" onclick="sendReply()"><i class="bi bi-send"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AUTOMATION ── -->
+    <div class="page" id="page-automation">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Automation & Tasks</h1>
+          <p class="page-sub">Celery background tasks, scheduled jobs, and monitoring</p>
+        </div>
+        <button class="btn-primary-custom" onclick="runCeleryTask()"><i class="bi bi-play-circle"></i> Run Task</button>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:24px;">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Active Celery Workers</div><span class="badge badge-success">● Online</span></div>
+          <div class="card-body" id="celeryWorkers">
+            <!-- dynamic -->
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><div class="card-title">Scheduled Tasks</div></div>
+          <div class="card-body" id="scheduledTasks">
+            <!-- dynamic -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">Recent Task Log</div><button class="btn-ghost" style="font-size:12px;" onclick="refreshTaskLog()"><i class="bi bi-arrow-clockwise"></i> Refresh</button></div>
+        <div class="card-body" id="taskLog" style="font-family:var(--font-mono);font-size:12px;color:var(--text-secondary);background:var(--ink);border-radius:10px;padding:16px;max-height:220px;overflow-y:auto;line-height:1.8;"></div>
+      </div>
+    </div>
+
+    <!-- ── INTEGRATIONS ── -->
+    <div class="page" id="page-integrations">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Integrations</h1>
+          <p class="page-sub">Connect third-party services to ChangeX EduSpace</p>
+        </div>
+      </div>
+      <div class="grid-3" id="integrationsGrid"></div>
+    </div>
+
+    <!-- ── SETTINGS ── -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Settings</h1>
+          <p class="page-sub">Configure platform, security, and compliance settings</p>
+        </div>
+        <button class="btn-primary-custom" onclick="saveSettings()"><i class="bi bi-check"></i> Save Changes</button>
+      </div>
+
+      <div class="settings-nav">
+        <div class="settings-tab active" onclick="switchSettingsTab(this,'general')">General</div>
+        <div class="settings-tab" onclick="switchSettingsTab(this,'security')">Security</div>
+        <div class="settings-tab" onclick="switchSettingsTab(this,'notifications')">Notifications</div>
+        <div class="settings-tab" onclick="switchSettingsTab(this,'gdpr')">GDPR & Compliance</div>
+        <div class="settings-tab" onclick="switchSettingsTab(this,'api')">API & Webhooks</div>
+      </div>
+
+      <div id="settings-general">
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">Platform Configuration</div>
+            <div class="settings-section-sub">Core Flask app and database settings</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Environment</div><div class="settings-row-desc">Current deployment environment</div></div>
+            <select class="form-control-custom form-select-custom" id="envSelect" style="max-width:160px;font-size:13px;"><option>production</option><option>staging</option><option>development</option></select>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Debug Mode</div><div class="settings-row-desc">Enable verbose logging (not for production)</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="debugToggle"><span class="toggle-track"></span></label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Default Page Size</div><div class="settings-row-desc">API pagination default (max: 100)</div></div>
+            <input class="form-control-custom" type="number" id="pageSize" value="20" style="max-width:80px;">
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">Feature Flags</div>
+            <div class="settings-section-sub">Toggle platform features without redeployment</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Predictive Analytics</div><div class="settings-row-desc">AI-powered at-risk student detection (FEATURE_PREDICTIVE)</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="featurePredictive" checked><span class="toggle-track"></span></label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Real-time Notifications</div><div class="settings-row-desc">WebSocket-based live updates (FEATURE_REALTIME)</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="featureRealtime" checked><span class="toggle-track"></span></label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Gamification</div><div class="settings-row-desc">Student badges, points, and leaderboards (FEATURE_GAMIFICATION)</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="featureGamification"><span class="toggle-track"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div id="settings-security" style="display:none;">
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">JWT Configuration</div>
+            <div class="settings-section-sub">JSON Web Token security settings</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Access Token Expiry</div></div>
+            <select class="form-control-custom form-select-custom" id="jwtAccessExpiry" style="max-width:140px;font-size:13px;"><option>1 hour</option><option>4 hours</option><option>24 hours</option></select>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Refresh Token Expiry</div></div>
+            <select class="form-control-custom form-select-custom" id="jwtRefreshExpiry" style="max-width:140px;font-size:13px;"><option>30 days</option><option>7 days</option><option>90 days</option></select>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Token Blacklist</div><div class="settings-row-desc">Revoke tokens on logout</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="tokenBlacklist" checked><span class="toggle-track"></span></label>
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">Rate Limiting</div>
+            <div class="settings-section-sub">Flask-Limiter with Redis storage</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Rate Limiting Enabled</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="rateLimitEnable" checked><span class="toggle-track"></span></label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Default Limit</div><div class="settings-row-desc">Requests per day / hour</div></div>
+            <input class="form-control-custom" type="text" id="rateLimitDefault" value="200 per day; 50 per hour" style="max-width:220px;">
+          </div>
+        </div>
+      </div>
+
+      <div id="settings-notifications" style="display:none;">
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">Email (SendGrid)</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">SMTP Server</div></div>
+            <input class="form-control-custom" type="text" id="smtpServer" value="smtp.sendgrid.net" style="max-width:240px;">
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Default Sender</div></div>
+            <input class="form-control-custom" type="text" id="emailSender" value="noreply@changex.com" style="max-width:240px;">
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Welcome Emails</div><div class="settings-row-desc">Send onboarding emails to new users</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="welcomeEmailToggle" checked><span class="toggle-track"></span></label>
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">SMS (Twilio)</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">SMS Notifications</div><div class="settings-row-desc">Enable Twilio SMS delivery</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="smsToggle"><span class="toggle-track"></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div id="settings-gdpr" style="display:none;">
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">GDPR Compliance</div>
+            <div class="settings-section-sub">Data protection and privacy settings</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Require Consent</div><div class="settings-row-desc">Require explicit GDPR consent on registration</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="gdprConsent" checked><span class="toggle-track"></span></label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Data Retention (days)</div><div class="settings-row-desc">Anonymize after inactivity period</div></div>
+            <input class="form-control-custom" type="number" id="dataRetention" value="365" style="max-width:100px;">
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Export User Data</div><div class="settings-row-desc">Run GDPR data export for all users</div></div>
+            <button class="btn-ghost" onclick="exportGDPR()"><i class="bi bi-download"></i> Export</button>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Anonymize Inactive Users</div><div class="settings-row-desc">Run compliance CLI task now</div></div>
+            <button class="btn-danger" onclick="anonymizeUsers()"><i class="bi bi-shield-check"></i> Run Now</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="settings-api" style="display:none;">
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">API Keys</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">API v1 Base URL</div></div>
+            <code style="font-family:var(--font-mono);font-size:12px;color:var(--lime-dim);padding:6px 10px;background:var(--smoke-3);border-radius:7px;">/api/v1</code>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Stripe Webhook</div><div class="settings-row-desc">POST /api/v1/webhooks/stripe</div></div>
+            <span class="badge badge-success">Configured</span>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Stripe Public Key</div></div>
+            <input class="form-control-custom" type="password" id="stripeKey" value="pk_live_xxxxxxxxxxxx" style="max-width:240px;">
+          </div>
+        </div>
+        <div class="settings-section">
+          <div class="settings-section-header">
+            <div class="settings-section-title">Monitoring</div>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Prometheus Metrics</div><div class="settings-row-desc">Expose /metrics endpoint (port 8000)</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="prometheusToggle" checked><span class="toggle-track"></span></label>
+          </div>
+          <div class="settings-row">
+            <div><div class="settings-row-label">Sentry Error Tracking</div><div class="settings-row-desc">Capture and report application errors</div></div>
+            <label class="toggle-switch"><input type="checkbox" id="sentryToggle" checked><span class="toggle-track"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PROFILE ── -->
+    <div class="page" id="page-profile">
+      <div class="page-header">
+        <h1 class="page-title">My Profile</h1>
+      </div>
+      <div class="grid-2-1">
+        <div>
+          <div class="card" style="margin-bottom:20px;overflow:visible;">
+            <div class="profile-banner"></div>
+            <div style="position:relative;">
+              <div class="profile-avatar-wrap">
+                <div class="profile-avatar-large" id="profileAvatar">AJ</div>
+              </div>
+              <div class="profile-info" style="padding-top:12px;">
+                <div style="margin-bottom:4px;"><span class="badge badge-info" id="profileRoleBadge">Administrator</span></div>
+                <div class="profile-name" id="profileName">Alex Johnson</div>
+                <div class="profile-role" id="profileEmail">admin@changex.com · Metro University</div>
+                <div class="profile-stats" id="profileStats">
+                  <!-- dynamic -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Edit Profile</div></div>
+            <div class="card-body">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input class="form-control-custom" type="text" id="editName" value="Alex Johnson">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-control-custom" type="email" id="editEmail" value="admin@changex.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input class="form-control-custom" type="tel" id="editPhone" value="+1 555 0100" placeholder="+1 555 0100">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Change Password</label>
+                <input class="form-control-custom" type="password" id="editPassword" placeholder="New password">
+              </div>
+              <button class="btn-primary-custom" onclick="updateProfile()"><i class="bi bi-check"></i> Save Changes</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="margin-bottom:20px;">
+            <div class="card-header"><div class="card-title">Notification Preferences</div></div>
+            <div class="card-body" id="notificationPrefs">
+              <!-- dynamic -->
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">My Permissions</div></div>
+            <div class="card-body" id="permissionsList">
+              <!-- dynamic -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+</div><!-- /app-shell -->
+
+<!-- ═══════════════ NOTIFICATION PANEL ═══════════════ -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <div class="notif-title">Notifications</div>
+    <button class="btn-ghost" style="font-size:12px;" onclick="markAllNotificationsRead()">Mark all read</button>
+  </div>
+  <div class="notif-list" id="notifList"></div>
+</div>
+
+<!-- ═══════════════ MODALS ═══════════════ -->
+
+<!-- Add Student Modal -->
+<div class="modal-overlay" id="addStudentModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Add New Student</div>
+      <button class="modal-close" onclick="closeModal('addStudentModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Full Name</label><input class="form-control-custom" type="text" id="studentName" placeholder="Student name"></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-control-custom" type="email" id="studentEmail" placeholder="student@email.com"></div>
+      <div class="form-group">
+        <label class="form-label">Institution</label>
+        <select class="form-control-custom form-select-custom" id="studentInstitution"></select>
+      </div>
+      <div class="form-group"><label class="form-label">Student ID</label><input class="form-control-custom" type="text" id="studentId" placeholder="e.g. STU-2025-0042"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('addStudentModal')">Cancel</button>
+      <button class="btn-primary-custom" onclick="addStudent()"><i class="bi bi-plus"></i> Add Student</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Course Modal -->
+<div class="modal-overlay" id="addCourseModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Create New Course</div>
+      <button class="modal-close" onclick="closeModal('addCourseModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Course Code</label><input class="form-control-custom" type="text" id="courseCode" placeholder="e.g. CS401"></div>
+      <div class="form-group"><label class="form-label">Course Title</label><input class="form-control-custom" type="text" id="courseTitle" placeholder="e.g. Machine Learning Fundamentals"></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-control-custom" rows="3" id="courseDesc" placeholder="Course description..."></textarea></div>
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Credits</label><input class="form-control-custom" type="number" id="courseCredits" value="3" min="1" max="20"></div>
+        <div class="form-group"><label class="form-label">Capacity</label><input class="form-control-custom" type="number" id="courseCapacity" value="30"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Institution</label>
+        <select class="form-control-custom form-select-custom" id="courseInstitution"></select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('addCourseModal')">Cancel</button>
+      <button class="btn-primary-custom" onclick="addCourse()"><i class="bi bi-plus"></i> Create Course</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Assignment Modal -->
+<div class="modal-overlay" id="addAssignmentModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">New Assignment</div>
+      <button class="modal-close" onclick="closeModal('addAssignmentModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Title</label><input class="form-control-custom" type="text" id="assignmentTitle" placeholder="Assignment title"></div>
+      <div class="form-group"><label class="form-label">Course</label><select class="form-control-custom form-select-custom" id="assignmentCourse"></select></div>
+      <div class="form-group"><label class="form-label">Description / Instructions</label><textarea class="form-control-custom" rows="3" id="assignmentDesc"></textarea></div>
+      <div class="grid-2">
+        <div class="form-group"><label class="form-label">Due Date</label><input class="form-control-custom" type="datetime-local" id="assignmentDue"></div>
+        <div class="form-group"><label class="form-label">Points</label><input class="form-control-custom" type="number" id="assignmentPoints" value="100"></div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Late Policy</label>
+        <select class="form-control-custom form-select-custom" id="assignmentLatePolicy">
+          <option>Not Allowed</option>
+          <option>Allowed with Penalty</option>
+          <option>Allowed</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Submission Type</label>
+        <select class="form-control-custom form-select-custom" id="assignmentSubType">
+          <option>File Upload</option>
+          <option>Text Entry</option>
+          <option>URL</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('addAssignmentModal')">Cancel</button>
+      <button class="btn-primary-custom" onclick="addAssignment()"><i class="bi bi-plus"></i> Create Assignment</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Institution Modal -->
+<div class="modal-overlay" id="addInstitutionModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Add Institution</div>
+      <button class="modal-close" onclick="closeModal('addInstitutionModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Institution Name</label><input class="form-control-custom" type="text" id="instName" placeholder="e.g. Lincoln High School"></div>
+      <div class="form-group"><label class="form-label">Type</label><select class="form-control-custom form-select-custom" id="instType"><option>School</option><option>University</option><option>Tutoring Center</option></select></div>
+      <div class="form-group"><label class="form-label">Domain</label><input class="form-control-custom" type="text" id="instDomain" placeholder="e.g. lincoln.edu"></div>
+      <div class="form-group"><label class="form-label">Subscription Tier</label><select class="form-control-custom form-select-custom" id="instTier"><option>Free</option><option>Pro</option><option>Enterprise</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('addInstitutionModal')">Cancel</button>
+      <button class="btn-primary-custom" onclick="addInstitution()"><i class="bi bi-building-add"></i> Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal-overlay" id="addUserModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Add User</div>
+      <button class="modal-close" onclick="closeModal('addUserModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Full Name</label><input class="form-control-custom" type="text" id="userName"></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-control-custom" type="email" id="userEmail"></div>
+      <div class="form-group"><label class="form-label">Role</label><select class="form-control-custom form-select-custom" id="userRole"><option>Student</option><option>Faculty</option><option>Admin</option><option>Parent</option></select></div>
+      <div class="form-group"><label class="form-label">Institution</label><select class="form-control-custom form-select-custom" id="userInstitution"></select></div>
+      <div class="form-group"><label class="form-label">Temporary Password</label><input class="form-control-custom" type="password" id="userPassword" placeholder="Auto-generated if blank"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('addUserModal')">Cancel</button>
+      <button class="btn-primary-custom" onclick="addUser()">Add User</button>
+    </div>
+  </div>
+</div>
+
+<!-- Mark Attendance Modal -->
+<div class="modal-overlay" id="markAttendanceModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Mark Attendance</div>
+      <button class="modal-close" onclick="closeModal('markAttendanceModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Course</label><select class="form-control-custom form-select-custom" id="attendanceCourseSelect"></select></div>
+      <div class="form-group"><label class="form-label">Date</label><input class="form-control-custom" type="date" id="attendanceDate" value="2025-06-10"></div>
+      <div style="max-height:250px;overflow-y:auto;">
+        <table class="data-table">
+          <thead><tr><th>Student</th><th>Status</th></tr></thead>
+          <tbody id="attendanceStudentsList"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('markAttendanceModal')">Cancel</button>
+      <button class="btn-primary-custom" onclick="saveAttendance()"><i class="bi bi-check-all"></i> Save Attendance</button>
+    </div>
+  </div>
+</div>
+
+<!-- Compose Message Modal -->
+<div class="modal-overlay" id="composeModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Compose Message</div>
+      <button class="modal-close" onclick="closeModal('composeModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">To</label><input class="form-control-custom" type="text" id="composeTo" placeholder="Search users..."></div>
+      <div class="form-group"><label class="form-label">Subject</label><input class="form-control-custom" type="text" id="composeSubject" placeholder="Message subject"></div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-control-custom" rows="5" id="composeBody" placeholder="Write your message..."></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('composeModal')">Discard</button>
+      <button class="btn-primary-custom" onclick="sendMessage()"><i class="bi bi-send"></i> Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Payment Modal -->
+<div class="modal-overlay" id="newPaymentModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">Create Payment Invoice</div>
+      <button class="modal-close" onclick="closeModal('newPaymentModal')"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">User</label><input class="form-control-custom" type="text" id="paymentUser" placeholder="Search user..."></div>
+      <div class="form-group"><label class="form-label">Amount (USD)</label><input class="form-control-custom" type="number" id="paymentAmount" placeholder="0.00" step="0.01"></div>
+      <div class="form-group"><label class="form-label">Description</label><input class="form-control-custom" type="text" id="paymentDesc" placeholder="e.g. Semester tuition fee"></div>
+      <div style="background:rgba(11,206,175,0.05);border:1px solid rgba(11,206,175,0.15);border-radius:10px;padding:14px;font-size:12.5px;color:var(--text-secondary);">
+        <i class="bi bi-stripe" style="color:#6772e5;margin-right:6px;"></i>
+        Payment will be processed via <strong>Stripe PaymentIntent API</strong>. Client receives a payment link.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="closeModal('newPaymentModal')">Cancel</button>
+      <button class="btn-primary-custom" onclick="createPayment()"><i class="bi bi-credit-card"></i> Create Invoice</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ TOAST CONTAINER ═══════════════ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ═══════════════ SIDEBAR OVERLAY (MOBILE) ═══════════════ -->
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;" onclick="closeSidebarMobile()"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════
+// ADVANCED PERSISTENT STATE WITH LOCALSTORAGE
+// ═══════════════════════════════════════════════════
+const STORAGE_KEYS = {
+  USERS: 'changex_users',
+  INSTITUTIONS: 'changex_institutions',
+  COURSES: 'changex_courses',
+  ASSIGNMENTS: 'changex_assignments',
+  SUBMISSIONS: 'changex_submissions',
+  ATTENDANCE: 'changex_attendance',
+  PAYMENTS: 'changex_payments',
+  MESSAGES: 'changex_messages',
+  NOTIFICATIONS: 'changex_notifications',
+  SETTINGS: 'changex_settings',
+  CURRENT_USER: 'changex_currentUser',
+  THEME: 'changex_theme',
+  SIDEBAR: 'changex_sidebar'
+};
+
+// Default data for first run
+const DEFAULT_USERS = [
+  { id: 1, name: 'Alex Johnson', email: 'admin@changex.com', password: 'admin123', role: 'admin', institution: 'Metro University', lastLogin: new Date().toISOString(), active: true, initials: 'AJ', phone: '+1 555 0100', preferences: { email: true, sms: false, atRisk: true } },
+  { id: 2, name: 'Maria Santos', email: 'm.santos@metro.edu', password: 'student123', role: 'student', institution: 'Metro University', lastLogin: new Date().toISOString(), active: true, initials: 'MS', phone: '' },
+  { id: 3, name: 'Prof. John Liu', email: 'faculty@changex.com', password: 'faculty123', role: 'faculty', institution: 'Metro University', lastLogin: new Date().toISOString(), active: true, initials: 'JL', phone: '' },
+  { id: 4, name: 'Robert Santos', email: 'parent@changex.com', password: 'parent123', role: 'parent', institution: 'Metro University', lastLogin: new Date().toISOString(), active: true, initials: 'RS', phone: '' }
+];
+const DEFAULT_INSTITUTIONS = [
+  { id: 1, name: 'Metro University', type: 'University', domain: 'metro.edu', tier: 'Enterprise', status: 'active', icon: '🏫', revenue: 24000, students: 1240, courses: 64 },
+  { id: 2, name: 'Westside Academy', type: 'School', domain: 'westside.edu', tier: 'Pro', status: 'active', icon: '📚', revenue: 14800, students: 840, courses: 42 },
+  { id: 3, name: 'Peak Tutoring Center', type: 'Tutoring', domain: 'peaktutoring.com', tier: 'Pro', status: 'active', icon: '🎯', revenue: 9400, students: 320, courses: 28 }
+];
+const DEFAULT_COURSES = [
+  { id: 1, code: 'CS301', title: 'Advanced Algorithms', instructor: 'Prof. Liu', dept: 'Computer Science', enrolled: 28, capacity: 30, term: 'Spring', year: 2025, status: 'active', emoji: '💻', color: '#c8f135', institutionId: 1, facultyId: 3 },
+  { id: 2, code: 'BIO101', title: 'Introduction to Biology', instructor: 'Dr. Kim', dept: 'Biology', enrolled: 24, capacity: 30, term: 'Spring', year: 2025, status: 'active', emoji: '🧬', color: '#0bceaf', institutionId: 1, facultyId: null },
+  { id: 3, code: 'ENG202', title: 'Academic Writing', instructor: 'Prof. Adams', dept: 'English', enrolled: 18, capacity: 25, term: 'Spring', year: 2025, status: 'active', emoji: '📝', color: '#9b6dff', institutionId: 2, facultyId: null }
+];
+const DEFAULT_ASSIGNMENTS = [
+  { id: 1, title: 'Algorithm Analysis Essay', courseId: 1, due: '2025-06-15T23:59:59Z', points: 100, submissions: 22, total: 28, status: 'open', latePolicy: 'Allowed with Penalty', subType: 'File Upload' },
+  { id: 2, title: 'Cell Biology Lab Report', courseId: 2, due: '2025-06-12T23:59:59Z', points: 50, submissions: 20, total: 24, status: 'open' }
+];
+const DEFAULT_ATTENDANCE = [];
+const DEFAULT_PAYMENTS = [
+  { id: 'pay_001', userId: 2, institutionId: 1, amount: 2400, description: 'Spring Semester Tuition', status: 'completed', date: new Date().toISOString() }
+];
+const DEFAULT_MESSAGES = [
+  { id: 1, from: 'Prof. Liu', subject: 'CS301 Midterm Review', body: 'Please remind students about the upcoming review.', time: new Date().toISOString(), unread: true, userId: 1 },
+  { id: 2, from: 'Maria Santos', subject: 'Grade Dispute', body: 'I believe there was an error.', time: new Date().toISOString(), unread: true, userId: 1 }
+];
+const DEFAULT_NOTIFICATIONS = [
+  { id: 1, text: 'Maria Santos submitted CS301 Assignment 3', time: new Date().toISOString(), unread: true, userId: 1 }
+];
+const DEFAULT_SETTINGS = {
+  env: 'production',
+  debug: false,
+  pageSize: 20,
+  features: { predictive: true, realtime: true, gamification: false },
+  jwt: { accessExpiry: '1 hour', refreshExpiry: '30 days', blacklist: true },
+  rateLimit: { enabled: true, default: '200 per day; 50 per hour' },
+  email: { smtp: 'smtp.sendgrid.net', sender: 'noreply@changex.com', welcome: true },
+  sms: { enabled: false },
+  gdpr: { consent: true, retention: 365 },
+  api: { stripeKey: 'pk_live_xxxxxxxxxxxx', prometheus: true, sentry: true }
+};
+
+// Helper: get/set localStorage
+function getStorage(key, defaultValue) {
+  try {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : defaultValue;
+  } catch { return defaultValue; }
+}
+function setStorage(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+// Global state (mirrors localStorage)
+let state = {
+  users: getStorage(STORAGE_KEYS.USERS, DEFAULT_USERS),
+  institutions: getStorage(STORAGE_KEYS.INSTITUTIONS, DEFAULT_INSTITUTIONS),
+  courses: getStorage(STORAGE_KEYS.COURSES, DEFAULT_COURSES),
+  assignments: getStorage(STORAGE_KEYS.ASSIGNMENTS, DEFAULT_ASSIGNMENTS),
+  submissions: getStorage(STORAGE_KEYS.SUBMISSIONS, []),
+  attendance: getStorage(STORAGE_KEYS.ATTENDANCE, DEFAULT_ATTENDANCE),
+  payments: getStorage(STORAGE_KEYS.PAYMENTS, DEFAULT_PAYMENTS),
+  messages: getStorage(STORAGE_KEYS.MESSAGES, DEFAULT_MESSAGES),
+  notifications: getStorage(STORAGE_KEYS.NOTIFICATIONS, DEFAULT_NOTIFICATIONS),
+  settings: getStorage(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS),
+  currentUser: getStorage(STORAGE_KEYS.CURRENT_USER, null),
+  theme: localStorage.getItem(STORAGE_KEYS.THEME) || 'light',
+  sidebarOpen: localStorage.getItem(STORAGE_KEYS.SIDEBAR) !== 'false'
+};
+
+// Persist any change
+function persist(key) {
+  setStorage(key, state[key]);
+}
+
+// ═══════════════════════════════════════════════════
+// ROLE-BASED ACCESS CONTROL (RBAC)
+// ═══════════════════════════════════════════════════
+const rolePermissions = {
+  admin: {
+    pages: ['dashboard', 'analytics', 'courses', 'assignments', 'grades', 'attendance', 'institutions', 'users', 'payments', 'messages', 'automation', 'integrations', 'settings', 'profile'],
+    canAdd: ['course', 'assignment', 'user', 'institution', 'payment', 'student'],
+    canDelete: true,
+    canEditAll: true
+  },
+  faculty: {
+    pages: ['dashboard', 'courses', 'assignments', 'grades', 'attendance', 'messages', 'profile'],
+    canAdd: ['assignment'],
+    canDelete: false,
+    canEditAll: false,
+    ownCoursesOnly: true
+  },
+  student: {
+    pages: ['dashboard', 'courses', 'assignments', 'grades', 'attendance', 'messages', 'profile'],
+    canAdd: [],
+    canDelete: false,
+    canEditAll: false
+  },
+  parent: {
+    pages: ['dashboard', 'grades', 'attendance', 'messages', 'profile'],
+    canAdd: [],
+    canDelete: false,
+    canEditAll: false
+  }
+};
+
+function userCanViewPage(page) {
+  if (!state.currentUser) return false;
+  const role = state.currentUser.role;
+  return rolePermissions[role]?.pages.includes(page) || false;
+}
+
+function userCanAdd(resource) {
+  if (!state.currentUser) return false;
+  const role = state.currentUser.role;
+  return rolePermissions[role]?.canAdd.includes(resource) || false;
+}
+
+function filterDataByRole(data, type) {
+  if (!state.currentUser) return [];
+  const role = state.currentUser.role;
+  const userId = state.currentUser.id;
+  if (role === 'admin') return data;
+  if (role === 'faculty') {
+    if (type === 'courses') return data.filter(c => c.facultyId === userId);
+    if (type === 'assignments') {
+      const courseIds = state.courses.filter(c => c.facultyId === userId).map(c => c.id);
+      return data.filter(a => courseIds.includes(a.courseId));
+    }
+    // etc.
+    return data;
+  }
+  if (role === 'student') {
+    // For simplicity, show all but in real app would filter by enrollment
+    return data;
+  }
+  if (role === 'parent') {
+    // For demo, show all
+    return data;
+  }
+  return data;
+}
+
+// ═══════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('registerForm').style.display = tab === 'register' ? 'block' : 'none';
+}
+
+function doLogin() {
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+  const user = state.users.find(u => u.email === email && u.password === pass);
+  if (!user) {
+    showToast('Invalid credentials', 'error');
+    return;
+  }
+  state.currentUser = user;
+  persist(STORAGE_KEYS.CURRENT_USER);
+  document.getElementById('authPage').style.display = 'none';
+  document.getElementById('appShell').style.display = 'flex';
+  updateUserSidebar();
+  applyTheme(state.theme);
+  initApp();
+  showToast(`Welcome back, ${user.name}! 👋`, 'success');
+  // Navigate to appropriate dashboard
+  navigateTo('dashboard');
+}
+
+function doRegister() {
+  const name = document.getElementById('regName').value;
+  const email = document.getElementById('regEmail').value;
+  const pass = document.getElementById('regPass').value;
+  const role = document.getElementById('regRole').value.toLowerCase();
+  const consent = document.getElementById('regConsent').checked;
+  if (!name || !email || !pass || !consent) {
+    showToast('Please fill all fields and accept GDPR consent', 'error');
+    return;
+  }
+  const newUser = {
+    id: state.users.length + 1,
+    name,
+    email,
+    password: pass,
+    role,
+    institution: 'Metro University', // default
+    lastLogin: new Date().toISOString(),
+    active: true,
+    initials: name.split(' ').map(n => n[0]).join('').toUpperCase(),
+    phone: '',
+    preferences: { email: true, sms: false, atRisk: true }
+  };
+  state.users.push(newUser);
+  persist(STORAGE_KEYS.USERS);
+  state.currentUser = newUser;
+  persist(STORAGE_KEYS.CURRENT_USER);
+  document.getElementById('authPage').style.display = 'none';
+  document.getElementById('appShell').style.display = 'flex';
+  updateUserSidebar();
+  applyTheme(state.theme);
+  initApp();
+  showToast('Account created successfully!', 'success');
+  navigateTo('dashboard');
+}
+
+function logout() {
+  state.currentUser = null;
+  localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+  document.getElementById('appShell').style.display = 'none';
+  document.getElementById('authPage').style.display = 'flex';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPass').value = '';
+}
+
+// ═══════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  document.getElementById('themeBtn').innerHTML = t === 'dark' ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+  localStorage.setItem(STORAGE_KEYS.THEME, t);
+  state.theme = t;
+}
+
+function toggleTheme() {
+  state.theme = state.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(state.theme);
+}
+
+// ═══════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════
+function navigateTo(page) {
+  if (!userCanViewPage(page)) {
+    showToast('You do not have permission to view this page', 'error');
+    return;
+  }
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) pageEl.classList.add('active');
+  // Update active nav item
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick')?.includes(`'${page}'`)) n.classList.add('active');
+  });
+  window.location.hash = page;
+  if (window.innerWidth <= 900) closeSidebarMobile();
+  // Render page-specific data
+  if (page === 'courses') renderCourses();
+  if (page === 'assignments') renderAssignments();
+  if (page === 'grades') renderGrades();
+  if (page === 'attendance') renderAttendance();
+  if (page === 'institutions') renderInstitutions();
+  if (page === 'users') renderUsers();
+  if (page === 'payments') renderPayments();
+  if (page === 'messages') renderMessages();
+  if (page === 'analytics') renderAnalytics();
+  if (page === 'dashboard') renderDashboard();
+  if (page === 'profile') renderProfile();
+  if (page === 'automation') renderAutomation();
+  if (page === 'integrations') renderIntegrations();
+}
+
+function renderSidebarNav() {
+  const nav = document.getElementById('sidebarNav');
+  if (!nav) return;
+  const role = state.currentUser?.role;
+  const pages = rolePermissions[role]?.pages || [];
+  const sections = [
+    { label: 'Overview', pages: ['dashboard', 'analytics'] },
+    { label: 'Academic', pages: ['courses', 'assignments', 'grades', 'attendance'] },
+    { label: 'Management', pages: ['institutions', 'users', 'payments'] },
+    { label: 'System', pages: ['messages', 'automation', 'integrations', 'settings'] }
+  ];
+  let html = '';
+  sections.forEach(section => {
+    const visiblePages = section.pages.filter(p => pages.includes(p));
+    if (visiblePages.length === 0) return;
+    html += `<div class="nav-section"><div class="nav-section-label">${section.label}</div>`;
+    visiblePages.forEach(page => {
+      let badgeId = '';
+      if (page === 'courses') badgeId = 'coursesBadge';
+      else if (page === 'assignments') badgeId = 'assignmentsBadge';
+      else if (page === 'messages') badgeId = 'messagesBadge';
+      const badge = badgeId ? `<span class="nav-badge" id="${badgeId}">0</span>` : '';
+      html += `<a class="nav-item" onclick="navigateTo('${page}')"><i class="bi ${getIcon(page)} nav-icon"></i> ${capitalize(page)} ${badge}</a>`;
+    });
+    html += '</div>';
+  });
+  nav.innerHTML = html;
+}
+
+function getIcon(page) {
+  const icons = {
+    dashboard: 'bi-grid-1x2',
+    analytics: 'bi-bar-chart',
+    courses: 'bi-book',
+    assignments: 'bi-file-earmark-text',
+    grades: 'bi-award',
+    attendance: 'bi-calendar-check',
+    institutions: 'bi-building',
+    users: 'bi-people',
+    payments: 'bi-credit-card',
+    messages: 'bi-chat',
+    automation: 'bi-lightning-charge',
+    integrations: 'bi-puzzle',
+    settings: 'bi-gear',
+    profile: 'bi-person'
+  };
+  return icons[page] || 'bi-circle';
+}
+
+function capitalize(s) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+// ═══════════════════════════════════════════════════
+// SIDEBAR
+// ═══════════════════════════════════════════════════
+function toggleSidebar() {
+  if (window.innerWidth <= 900) {
+    document.getElementById('sidebar').classList.toggle('mobile-open');
+    document.getElementById('sidebarOverlay').style.display =
+      document.getElementById('sidebar').classList.contains('mobile-open') ? 'block' : 'none';
+  } else {
+    state.sidebarOpen = !state.sidebarOpen;
+    document.getElementById('sidebar').classList.toggle('collapsed', !state.sidebarOpen);
+    document.getElementById('mainContent').classList.toggle('expanded', !state.sidebarOpen);
+    localStorage.setItem(STORAGE_KEYS.SIDEBAR, state.sidebarOpen);
+  }
+}
+
+function closeSidebarMobile() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('sidebarOverlay').style.display = 'none';
+}
+
+function updateUserSidebar() {
+  if (!state.currentUser) return;
+  document.getElementById('sidebarAvatar').innerText = state.currentUser.initials;
+  document.getElementById('sidebarName').innerText = state.currentUser.name;
+  document.getElementById('sidebarRole').innerText = state.currentUser.role;
+  document.getElementById('topbarAvatar').innerText = state.currentUser.initials;
+  document.getElementById('profileName').innerText = state.currentUser.name;
+  document.getElementById('profileEmail').innerText = `${state.currentUser.email} · ${state.currentUser.institution}`;
+  document.getElementById('profileAvatar').innerText = state.currentUser.initials;
+  document.getElementById('profileRoleBadge').innerText = state.currentUser.role;
+  document.getElementById('editName').value = state.currentUser.name;
+  document.getElementById('editEmail').value = state.currentUser.email;
+  document.getElementById('editPhone').value = state.currentUser.phone || '';
+}
+
+// ═══════════════════════════════════════════════════
+// NOTIFICATIONS
+// ═══════════════════════════════════════════════════
+function toggleNotifPanel() {
+  document.getElementById('notifPanel').classList.toggle('open');
+}
+
+function renderNotifications() {
+  const list = document.getElementById('notifList');
+  const userNotifications = state.notifications.filter(n => n.userId === state.currentUser?.id);
+  list.innerHTML = userNotifications.map(n => `
+    <div class="notif-item ${n.unread ? 'unread' : ''}" onclick="markNotificationRead(${n.id})">
+      ${n.unread ? '<div class="notif-dot"></div>' : '<div style="width:8px;"></div>'}
+      <div>
+        <div class="notif-text">${n.text}</div>
+        <div class="notif-time">${new Date(n.time).toLocaleString()}</div>
+      </div>
+    </div>`).join('');
+  document.getElementById('notifDot').style.display = userNotifications.some(n => n.unread) ? 'block' : 'none';
+}
+
+function markNotificationRead(id) {
+  state.notifications = state.notifications.map(n => n.id === id ? { ...n, unread: false } : n);
+  persist(STORAGE_KEYS.NOTIFICATIONS);
+  renderNotifications();
+}
+
+function markAllNotificationsRead() {
+  state.notifications = state.notifications.map(n => ({ ...n, unread: false }));
+  persist(STORAGE_KEYS.NOTIFICATIONS);
+  renderNotifications();
+  showToast('All notifications marked as read', 'info');
+}
+
+// ═══════════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════════
+function openModal(id) { 
+  document.getElementById(id).classList.add('open');
+  // Populate dropdowns if needed
+  if (id === 'addStudentModal') populateInstitutionSelect('studentInstitution');
+  if (id === 'addCourseModal') populateInstitutionSelect('courseInstitution');
+  if (id === 'addAssignmentModal') populateCourseSelect('assignmentCourse');
+  if (id === 'addUserModal') populateInstitutionSelect('userInstitution');
+  if (id === 'markAttendanceModal') {
+    populateCourseSelect('attendanceCourseSelect');
+    loadAttendanceStudents();
+  }
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
+});
+
+// Populate institution dropdowns
+function populateInstitutionSelect(selectId) {
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  select.innerHTML = state.institutions.map(inst => `<option value="${inst.id}">${inst.name}</option>`).join('');
+}
+function populateCourseSelect(selectId) {
+  const select = document.getElementById(selectId);
+  if (!select) return;
+  const courses = filterDataByRole(state.courses, 'courses');
+  select.innerHTML = courses.map(c => `<option value="${c.id}">${c.code} - ${c.title}</option>`).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════
+function showToast(message, type = 'success') {
+  const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<span>${icons[type] || '✅'}</span><span>${message}</span>`;
+  document.getElementById('toastContainer').appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('out');
+    setTimeout(() => toast.remove(), 300);
+  }, 3200);
+}
+
+// ═══════════════════════════════════════════════════
+// DATA OPERATIONS (CRUD) with role checks
+// ═══════════════════════════════════════════════════
+function addStudent() {
+  if (!userCanAdd('student')) { showToast('Permission denied', 'error'); return; }
+  const name = document.getElementById('studentName').value;
+  const email = document.getElementById('studentEmail').value;
+  const instId = parseInt(document.getElementById('studentInstitution').value);
+  const studentId = document.getElementById('studentId').value;
+  if (!name || !email) { showToast('Name and email required', 'error'); return; }
+  const newUser = {
+    id: state.users.length + 1,
+    name,
+    email,
+    password: 'changeme',
+    role: 'student',
+    institution: state.institutions.find(i => i.id === instId)?.name || '',
+    lastLogin: new Date().toISOString(),
+    active: true,
+    initials: name.split(' ').map(n => n[0]).join('').toUpperCase(),
+    phone: '',
+    preferences: { email: true, sms: false, atRisk: true }
+  };
+  state.users.push(newUser);
+  persist(STORAGE_KEYS.USERS);
+  closeModal('addStudentModal');
+  showToast('Student added and welcome email sent!', 'success');
+  renderUsers();
+}
+
+function addCourse() {
+  if (!userCanAdd('course')) { showToast('Permission denied', 'error'); return; }
+  const code = document.getElementById('courseCode').value;
+  const title = document.getElementById('courseTitle').value;
+  const desc = document.getElementById('courseDesc').value;
+  const credits = document.getElementById('courseCredits').value;
+  const capacity = document.getElementById('courseCapacity').value;
+  const instId = parseInt(document.getElementById('courseInstitution').value);
+  if (!code || !title) { showToast('Code and title required', 'error'); return; }
+  const newCourse = {
+    id: state.courses.length + 1,
+    code,
+    title,
+    description: desc,
+    credits: parseInt(credits),
+    capacity: parseInt(capacity),
+    enrolled: 0,
+    instructor: state.currentUser.role === 'faculty' ? state.currentUser.name : 'To be assigned',
+    dept: 'General',
+    term: 'Spring',
+    year: 2025,
+    status: 'active',
+    emoji: '📘',
+    color: '#c8f135',
+    institutionId: instId,
+    facultyId: state.currentUser.role === 'faculty' ? state.currentUser.id : null
+  };
+  state.courses.push(newCourse);
+  persist(STORAGE_KEYS.COURSES);
+  closeModal('addCourseModal');
+  showToast('Course created successfully!', 'success');
+  renderCourses();
+}
+
+function addAssignment() {
+  if (!userCanAdd('assignment')) { showToast('Permission denied', 'error'); return; }
+  const title = document.getElementById('assignmentTitle').value;
+  const courseId = parseInt(document.getElementById('assignmentCourse').value);
+  const desc = document.getElementById('assignmentDesc').value;
+  const due = document.getElementById('assignmentDue').value;
+  const points = document.getElementById('assignmentPoints').value;
+  const latePolicy = document.getElementById('assignmentLatePolicy').value;
+  const subType = document.getElementById('assignmentSubType').value;
+  if (!title || !courseId || !due) { showToast('Title, course, and due date required', 'error'); return; }
+  const course = state.courses.find(c => c.id === courseId);
+  const newAssignment = {
+    id: state.assignments.length + 1,
+    title,
+    courseId,
+    due: new Date(due).toISOString(),
+    points: parseInt(points),
+    submissions: 0,
+    total: course?.enrolled || 0,
+    status: 'open',
+    latePolicy,
+    subType,
+    description: desc
+  };
+  state.assignments.push(newAssignment);
+  persist(STORAGE_KEYS.ASSIGNMENTS);
+  closeModal('addAssignmentModal');
+  showToast('Assignment created! Students notified.', 'success');
+  renderAssignments();
+}
+
+function addInstitution() {
+  if (!userCanAdd('institution')) { showToast('Permission denied', 'error'); return; }
+  const name = document.getElementById('instName').value;
+  const type = document.getElementById('instType').value;
+  const domain = document.getElementById('instDomain').value;
+  const tier = document.getElementById('instTier').value;
+  if (!name) { showToast('Institution name required', 'error'); return; }
+  const newInst = {
+    id: state.institutions.length + 1,
+    name,
+    type,
+    domain,
+    tier,
+    status: 'active',
+    icon: '🏛️',
+    revenue: 0,
+    students: 0,
+    courses: 0
+  };
+  state.institutions.push(newInst);
+  persist(STORAGE_KEYS.INSTITUTIONS);
+  closeModal('addInstitutionModal');
+  showToast('Institution created!', 'success');
+  renderInstitutions();
+}
+
+function addUser() {
+  if (!userCanAdd('user')) { showToast('Permission denied', 'error'); return; }
+  const name = document.getElementById('userName').value;
+  const email = document.getElementById('userEmail').value;
+  const role = document.getElementById('userRole').value.toLowerCase();
+  const instId = parseInt(document.getElementById('userInstitution').value);
+  const pass = document.getElementById('userPassword').value || 'changeme';
+  if (!name || !email) { showToast('Name and email required', 'error'); return; }
+  const newUser = {
+    id: state.users.length + 1,
+    name,
+    email,
+    password: pass,
+    role,
+    institution: state.institutions.find(i => i.id === instId)?.name || '',
+    lastLogin: new Date().toISOString(),
+    active: true,
+    initials: name.split(' ').map(n => n[0]).join('').toUpperCase(),
+    phone: '',
+    preferences: { email: true, sms: false, atRisk: true }
+  };
+  state.users.push(newUser);
+  persist(STORAGE_KEYS.USERS);
+  closeModal('addUserModal');
+  showToast('User created and invite email sent!', 'success');
+  renderUsers();
+}
+
+function saveAttendance() {
+  // Implementation would collect per-student statuses and save to state.attendance
+  closeModal('markAttendanceModal');
+  showToast('Attendance saved!', 'success');
+  renderAttendance();
+}
+
+function sendMessage() {
+  const to = document.getElementById('composeTo').value;
+  const subject = document.getElementById('composeSubject').value;
+  const body = document.getElementById('composeBody').value;
+  if (!to || !subject || !body) { showToast('All fields required', 'error'); return; }
+  // In real app, find user by email/name and create message
+  showToast('Message sent via WebSocket!', 'success');
+  closeModal('composeModal');
+}
+
+function createPayment() {
+  if (!userCanAdd('payment')) { showToast('Permission denied', 'error'); return; }
+  const user = document.getElementById('paymentUser').value;
+  const amount = document.getElementById('paymentAmount').value;
+  const desc = document.getElementById('paymentDesc').value;
+  if (!user || !amount) { showToast('User and amount required', 'error'); return; }
+  showToast('Stripe PaymentIntent created!', 'success');
+  closeModal('newPaymentModal');
+}
+
+function updateProfile() {
+  const name = document.getElementById('editName').value;
+  const email = document.getElementById('editEmail').value;
+  const phone = document.getElementById('editPhone').value;
+  const password = document.getElementById('editPassword').value;
+  if (state.currentUser) {
+    state.currentUser.name = name;
+    state.currentUser.email = email;
+    state.currentUser.phone = phone;
+    if (password) state.currentUser.password = password;
+    // Update in users array
+    const index = state.users.findIndex(u => u.id === state.currentUser.id);
+    if (index !== -1) state.users[index] = state.currentUser;
+    persist(STORAGE_KEYS.USERS);
+    persist(STORAGE_KEYS.CURRENT_USER);
+    updateUserSidebar();
+    showToast('Profile updated!', 'success');
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER FUNCTIONS (role-aware)
+// ═══════════════════════════════════════════════════
+function renderDashboard() {
+  const role = state.currentUser.role;
+  const isAdmin = role === 'admin';
+  const isFaculty = role === 'faculty';
+  const isStudent = role === 'student';
+  const isParent = role === 'parent';
+
+  // Update greeting
+  document.getElementById('dashboardGreeting').innerText = `Good ${new Date().getHours() < 12 ? 'morning' : 'afternoon'}, ${state.currentUser.name} 👋`;
+  let subtitle = '';
+  if (isAdmin) subtitle = "Here's what's happening across your institutions today";
+  else if (isFaculty) subtitle = "Your courses and student activity";
+  else if (isStudent) subtitle = "Your courses and upcoming assignments";
+  else if (isParent) subtitle = "Your child's academic progress";
+  document.getElementById('dashboardSubtitle').innerText = subtitle;
+
+  // Stats
+  let statsHtml = '';
+  if (isAdmin) {
+    const totalStudents = state.users.filter(u => u.role === 'student').length;
+    const activeCourses = state.courses.filter(c => c.status === 'active').length;
+    const atRisk = state.users.filter(u => u.role === 'student' && !u.active).length;
+    const passRate = 89;
+    const revenue = state.payments.reduce((sum, p) => sum + (p.status === 'completed' ? p.amount : 0), 0);
+    statsHtml = `
+      <div class="stat-card lime"><div class="stat-icon"><i class="bi bi-people-fill"></i></div><div class="stat-value">${totalStudents}</div><div class="stat-label">Total Students</div><div class="stat-change up">↑ 12%</div></div>
+      <div class="stat-card teal"><div class="stat-icon"><i class="bi bi-book-fill"></i></div><div class="stat-value">${activeCourses}</div><div class="stat-label">Active Courses</div><div class="stat-change up">↑ 5%</div></div>
+      <div class="stat-card coral"><div class="stat-icon"><i class="bi bi-exclamation-triangle-fill"></i></div><div class="stat-value">${atRisk}</div><div class="stat-label">At-Risk Students</div><div class="stat-change down">↑ 3</div></div>
+      <div class="stat-card violet"><div class="stat-icon"><i class="bi bi-mortarboard-fill"></i></div><div class="stat-value">${passRate}%</div><div class="stat-label">Pass Rate</div><div class="stat-change up">↑ 2%</div></div>
+      <div class="stat-card amber"><div class="stat-icon"><i class="bi bi-currency-dollar"></i></div><div class="stat-value">$${(revenue / 1000).toFixed(1)}K</div><div class="stat-label">Monthly Revenue</div><div class="stat-change up">↑ 18%</div></div>
+    `;
+  } else if (isFaculty) {
+    const myCourses = state.courses.filter(c => c.facultyId === state.currentUser.id).length;
+    const totalStudents = 124; // placeholder
+    const pendingGrading = state.assignments.filter(a => {
+      const course = state.courses.find(c => c.id === a.courseId);
+      return course?.facultyId === state.currentUser.id && a.submissions < a.total;
+    }).length;
+    statsHtml = `
+      <div class="stat-card lime"><div class="stat-icon"><i class="bi bi-book-fill"></i></div><div class="stat-value">${myCourses}</div><div class="stat-label">My Courses</div></div>
+      <div class="stat-card teal"><div class="stat-icon"><i class="bi bi-people-fill"></i></div><div class="stat-value">${totalStudents}</div><div class="stat-label">Enrolled Students</div></div>
+      <div class="stat-card coral"><div class="stat-icon"><i class="bi bi-pencil-square"></i></div><div class="stat-value">${pendingGrading}</div><div class="stat-label">Pending Grading</div></div>
+      <div class="stat-card violet"><div class="stat-icon"><i class="bi bi-trophy"></i></div><div class="stat-value">85%</div><div class="stat-label">Avg Pass Rate</div></div>
+    `;
+  } else if (isStudent) {
+    const myCourses = state.courses.length; // placeholder
+    const upcomingAssignments = state.assignments.filter(a => new Date(a.due) > new Date()).length;
+    const attendance = 92;
+    statsHtml = `
+      <div class="stat-card lime"><div class="stat-icon"><i class="bi bi-book-fill"></i></div><div class="stat-value">${myCourses}</div><div class="stat-label">Enrolled Courses</div></div>
+      <div class="stat-card teal"><div class="stat-icon"><i class="bi bi-calendar-check"></i></div><div class="stat-value">${upcomingAssignments}</div><div class="stat-label">Upcoming Assignments</div></div>
+      <div class="stat-card coral"><div class="stat-icon"><i class="bi bi-trophy"></i></div><div class="stat-value">87%</div><div class="stat-label">Current Grade</div></div>
+      <div class="stat-card violet"><div class="stat-icon"><i class="bi bi-person"></i></div><div class="stat-value">${attendance}%</div><div class="stat-label">Attendance</div></div>
+    `;
+  } else if (isParent) {
+    const children = state.users.filter(u => u.role === 'student' && u.institution === state.currentUser.institution).length;
+    const avgGrade = 85;
+    statsHtml = `
+      <div class="stat-card lime"><div class="stat-icon"><i class="bi bi-people-fill"></i></div><div class="stat-value">${children}</div><div class="stat-label">Children</div></div>
+      <div class="stat-card teal"><div class="stat-icon"><i class="bi bi-trophy"></i></div><div class="stat-value">${avgGrade}%</div><div class="stat-label">Average Grade</div></div>
+      <div class="stat-card coral"><div class="stat-icon"><i class="bi bi-calendar-check"></i></div><div class="stat-value">94%</div><div class="stat-label">Attendance</div></div>
+      <div class="stat-card violet"><div class="stat-icon"><i class="bi bi-exclamation-triangle"></i></div><div class="stat-value">0</div><div class="stat-label">At-Risk Alerts</div></div>
+    `;
+  }
+  document.getElementById('dashboardStats').innerHTML = statsHtml;
+
+  // Actions (Add Student, etc.)
+  const actionsDiv = document.getElementById('dashboardActions');
+  if (isAdmin) {
+    actionsDiv.innerHTML = `
+      <button class="btn-ghost" onclick="exportData()"><i class="bi bi-download"></i> Export</button>
+      <button class="btn-primary-custom" onclick="openModal('addStudentModal')"><i class="bi bi-plus"></i> Add Student</button>
+    `;
+  } else if (isFaculty) {
+    actionsDiv.innerHTML = `
+      <button class="btn-ghost" onclick="exportData()"><i class="bi bi-download"></i> Export</button>
+    `;
+  } else {
+    actionsDiv.innerHTML = '';
+  }
+
+  // Left-right panels (enrollment trends & completion)
+  const leftRight = document.getElementById('dashboardLeftRight');
+  if (isAdmin) {
+    leftRight.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">Enrollment Trends</div><select id="trendPeriod" style="font-size:12px;border:1px solid var(--border);background:var(--smoke);border-radius:7px;padding:4px 10px;color:var(--text-secondary);outline:none;" onchange="renderEnrollmentTrends()"><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="90">Last Quarter</option></select></div><div class="card-body" id="enrollmentTrends"></div></div>
+      <div class="card"><div class="card-header"><div class="card-title">Completion Rate</div></div><div class="card-body" style="text-align:center;" id="completionRateCard"></div></div>
+    `;
+    renderEnrollmentTrends();
+    renderCompletionRate();
+  } else if (isFaculty) {
+    leftRight.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">My Course Performance</div></div><div class="card-body" id="facultyPerformance"></div></div>
+      <div class="card"><div class="card-header"><div class="card-title">Recent Submissions</div></div><div class="card-body" id="recentSubmissions"></div></div>
+    `;
+    document.getElementById('facultyPerformance').innerHTML = '<div class="perf-metric"><span class="perf-label">Avg Grade</span><span class="perf-value">81%</span></div><div class="perf-metric"><span class="perf-label">Pass Rate</span><span class="perf-value">89%</span></div>';
+    document.getElementById('recentSubmissions').innerHTML = '<div>5 submissions awaiting grading</div>';
+  } else if (isStudent) {
+    leftRight.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">My Grades</div></div><div class="card-body" id="studentGrades"></div></div>
+      <div class="card"><div class="card-header"><div class="card-title">Upcoming Assignments</div></div><div class="card-body" id="studentAssignments"></div></div>
+    `;
+    document.getElementById('studentGrades').innerHTML = '<div class="perf-metric"><span class="perf-label">Overall</span><span class="perf-value">87%</span></div>';
+    document.getElementById('studentAssignments').innerHTML = '<div>CS301 due Jun 15</div><div>BIO101 due Jun 12</div>';
+  } else if (isParent) {
+    leftRight.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">Child Performance</div></div><div class="card-body" id="childPerformance"></div></div>
+      <div class="card"><div class="card-header"><div class="card-title">Recent Updates</div></div><div class="card-body" id="parentUpdates"></div></div>
+    `;
+    document.getElementById('childPerformance').innerHTML = '<div>Maria Santos: 85%</div>';
+    document.getElementById('parentUpdates').innerHTML = '<div>New grade posted</div>';
+  }
+
+  // Bottom panels (activity + at risk)
+  const bottom = document.getElementById('dashboardBottom');
+  if (isAdmin) {
+    bottom.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">Recent Activity</div><div style="display:flex;align-items:center;gap:6px;"><div class="realtime-dot"></div><span style="font-size:11px;color:var(--text-muted);">Live</span></div></div><div class="card-body" style="padding-top:4px;" id="activityFeed"></div></div>
+      <div class="card"><div class="card-header"><div class="card-title">AI At-Risk Detection</div><span class="badge badge-danger" id="atRiskCount">0 flagged</span></div><div class="card-body" id="atRiskList"></div></div>
+    `;
+    renderActivityFeed();
+    renderAtRiskList();
+  } else if (isFaculty) {
+    bottom.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">Recent Activity</div></div><div class="card-body" id="activityFeed"></div></div>
+      <div class="card"><div class="card-header"><div class="card-title">At-Risk in My Courses</div></div><div class="card-body" id="atRiskList"></div></div>
+    `;
+    renderActivityFeed();
+    document.getElementById('atRiskList').innerHTML = '<div>2 students flagged</div>';
+  } else if (isStudent) {
+    bottom.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">Announcements</div></div><div class="card-body">No new announcements</div></div>
+      <div class="card"><div class="card-header"><div class="card-title">Upcoming Events</div></div><div class="card-body">Midterm next week</div></div>
+    `;
+  } else if (isParent) {
+    bottom.innerHTML = `
+      <div class="card"><div class="card-header"><div class="card-title">School Announcements</div></div><div class="card-body">Parent-teacher meeting Jun 20</div></div>
+      <div class="card"><div class="card-header"><div class="card-title">Child's Activity</div></div><div class="card-body">Maria submitted an assignment</div></div>
+    `;
+  }
+}
+
+function renderEnrollmentTrends() {
+  const period = document.getElementById('trendPeriod')?.value || '7';
+  const bars = [60, 80, 45, 90, 70, 30, 20]; // placeholder
+  const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  document.getElementById('enrollmentTrends').innerHTML = `
+    <div style="display:flex;align-items:flex-end;gap:4px;height:130px;margin-bottom:12px;">
+      ${bars.map((h, i) => `
+        <div style="display:flex;flex-direction:column;align-items:center;flex:1;gap:4px;">
+          <div style="flex:1;width:100%;background:rgba(200,241,53,0.15);border-radius:4px 4px 0 0;display:flex;align-items:flex-end;">
+            <div style="width:100%;height:${h}%;background:${i===4?'var(--teal)':'var(--lime)'};border-radius:4px 4px 0 0;"></div>
+          </div>
+          <span style="font-size:10px;color:var(--text-muted);">${days[i]}</span>
+        </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:20px;">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);">
+        <div style="width:10px;height:10px;background:var(--lime);border-radius:2px;"></div> New Enrollments
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);">
+        <div style="width:10px;height:10px;background:var(--teal);border-radius:2px;"></div> Completions
+      </div>
+    </div>`;
+}
+
+function renderCompletionRate() {
+  document.getElementById('completionRateCard').innerHTML = `
+    <div style="position:relative;width:120px;height:120px;margin:0 auto 16px;">
+      <svg viewBox="0 0 120 120" style="width:100%;height:100%;transform:rotate(-90deg);">
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--smoke-3)" stroke-width="10"/>
+        <circle cx="60" cy="60" r="52" fill="none" stroke="var(--lime)" stroke-width="10"
+          stroke-dasharray="326.7" stroke-dashoffset="49"
+          stroke-linecap="round"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;">85%</div>
+        <div style="font-size:10px;color:var(--text-muted);">Completed</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div class="perf-metric"><span class="perf-label">Avg Grade</span><span class="perf-value">78.4</span></div>
+      <div class="perf-metric"><span class="perf-label">Attendance Rate</span><span class="perf-value">91%</span></div>
+      <div class="perf-metric"><span class="perf-label">Submission Rate</span><span class="perf-value">86%</span></div>
+    </div>`;
+}
+
+function renderActivityFeed() {
+  const activities = state.notifications.slice(0,5).map(n => ({
+    text: n.text,
+    time: new Date(n.time).toLocaleString(),
+    icon: n.text.includes('submitted') ? '📝' : n.text.includes('graded') ? '✅' : n.text.includes('enrolled') ? '🎓' : n.text.includes('flagged') ? '⚠️' : '💳',
+    color: n.text.includes('submitted') ? '#c8f135' : n.text.includes('graded') ? '#0bceaf' : n.text.includes('flagged') ? '#ff5c4a' : '#9b6dff'
+  }));
+  document.getElementById('activityFeed').innerHTML = activities.map(a => `
+    <div class="activity-item">
+      <div class="activity-icon" style="background:rgba(${parseInt(a.color.slice(1,3),16)},${parseInt(a.color.slice(3,5),16)},${parseInt(a.color.slice(5,7),16)},0.1);color:${a.color};">${a.icon}</div>
+      <div>
+        <div class="activity-text">${a.text}</div>
+        <div class="activity-time">${a.time}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderAtRiskList() {
+  const atRiskStudents = state.users.filter(u => u.role === 'student' && !u.active).slice(0,5).map((s, i) => ({
+    name: s.name,
+    risk: 60 + i * 5
+  }));
+  document.getElementById('atRiskCount').innerText = atRiskStudents.length + ' flagged';
+  document.getElementById('atRiskList').innerHTML = atRiskStudents.map(s => `
+    <div class="risk-bar-item">
+      <span class="name">${s.name}</span>
+      <div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${s.risk}%;background:${s.risk>80?'var(--coral)':'var(--amber)'};"></div></div></div>
+      <span class="risk-val" style="color:${s.risk>80?'var(--coral)':'var(--amber)'};">${s.risk}%</span>
+    </div>`).join('');
+  document.getElementById('atRiskList').innerHTML += '<button class="btn-ghost" style="width:100%;margin-top:14px;justify-content:center;" onclick="navigateTo(\'analytics\')">View Full Report <i class="bi bi-arrow-right"></i></button>';
+}
+
+function renderAnalytics() {
+  // Similar to original but role-aware (simplified for brevity)
+  document.getElementById('analyticsStats').innerHTML = `
+    <div class="stat-card teal"><div class="stat-icon"><i class="bi bi-graph-up"></i></div><div class="stat-value">78.4%</div><div class="stat-label">Avg Grade Score</div><div class="stat-change up">↑ 2.1%</div></div>
+    <div class="stat-card lime"><div class="stat-icon"><i class="bi bi-calendar4-week"></i></div><div class="stat-value">91.2%</div><div class="stat-label">Attendance Rate</div><div class="stat-change up">↑ 0.8%</div></div>
+    <div class="stat-card violet"><div class="stat-icon"><i class="bi bi-send-check"></i></div><div class="stat-value">86%</div><div class="stat-label">Submission Rate</div><div class="stat-change up">↑ 4%</div></div>
+    <div class="stat-card coral"><div class="stat-icon"><i class="bi bi-person-x"></i></div><div class="stat-value">1.3%</div><div class="stat-label">Dropout Rate</div><div class="stat-change up">↓ 0.2%</div></div>
+  `;
+  document.getElementById('gradeDistribution').innerHTML = `
+    <div class="perf-metric"><div style="width:24px;">A</div><span class="perf-label">90–100%</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:28%;background:var(--lime);"></div></div></div><span class="perf-value">28%</span></div>
+    <div class="perf-metric"><div style="width:24px;">B</div><span class="perf-label">80–89%</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:35%;background:var(--teal);"></div></div></div><span class="perf-value">35%</span></div>
+    <div class="perf-metric"><div style="width:24px;">C</div><span class="perf-label">70–79%</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:22%;background:var(--amber);"></div></div></div><span class="perf-value">22%</span></div>
+    <div class="perf-metric"><div style="width:24px;">D</div><span class="perf-label">60–69%</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:10%;background:var(--violet);"></div></div></div><span class="perf-value">10%</span></div>
+    <div class="perf-metric"><div style="width:24px;">F</div><span class="perf-label">Below 60%</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:5%;background:var(--coral);"></div></div></div><span class="perf-value">5%</span></div>
+  `;
+  document.getElementById('aiModel').innerHTML = `
+    <div style="background:rgba(11,206,175,0.05);border:1px solid rgba(11,206,175,0.15);border-radius:10px;padding:16px;margin-bottom:16px;">
+      <div style="font-size:12px;color:var(--teal);font-weight:600;margin-bottom:6px;">Model: Random Forest Classifier</div>
+      <div style="font-size:13px;color:var(--text-secondary);">Features: avg_grade, submission_rate, attendance_rate</div>
+      <div style="font-size:13px;color:var(--text-secondary);">Accuracy: <strong style="color:var(--text-primary);">94.2%</strong></div>
+    </div>
+    <div style="font-size:13px;font-weight:600;margin-bottom:12px;">Current Predictions</div>
+    <div class="risk-bar-item"><span class="name" style="color:var(--coral);">High Risk (>70%)</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:13%;background:var(--coral);"></div></div></div><span class="risk-val" style="color:var(--coral);">38</span></div>
+    <div class="risk-bar-item"><span class="name" style="color:var(--amber);">Medium Risk</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:22%;background:var(--amber);"></div></div></div><span class="risk-val" style="color:var(--amber);">64</span></div>
+    <div class="risk-bar-item"><span class="name" style="color:var(--lime-dim);">Low Risk</span><div style="flex:1;"><div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:65%;background:var(--lime);"></div></div></div><span class="risk-val" style="color:var(--lime-dim);">189</span></div>
+    <button class="btn-ghost" style="width:100%;margin-top:14px;justify-content:center;" onclick="retrainModel()"><i class="bi bi-arrow-repeat"></i> Retrain Model</button>
+  `;
+  renderInstitutionPerformance();
+}
+
+function renderInstitutionPerformance() {
+  const tbody = document.getElementById('institutionPerformanceBody');
+  tbody.innerHTML = state.institutions.map(inst => `
+    <tr>
+      <td><strong>${inst.name}</strong></td>
+      <td><span class="badge badge-info">${inst.type}</span></td>
+      <td>${inst.students}</td>
+      <td>81.2%</td>
+      <td><div class="progress-bar-wrap" style="width:100px;"><div class="progress-bar-fill" style="width:88%;background:var(--lime);"></div></div></td>
+      <td>$${inst.revenue.toLocaleString()}</td>
+      <td><span class="badge badge-success">Active</span></td>
+    </tr>`).join('');
+}
+
+function renderCourses() {
+  const grid = document.getElementById('coursesGrid');
+  const search = document.getElementById('courseSearch')?.value.toLowerCase() || '';
+  const instFilter = document.getElementById('courseFilterInstitution')?.value;
+  const statusFilter = document.getElementById('courseFilterStatus')?.value;
+  let filtered = filterDataByRole(state.courses, 'courses');
+  filtered = filtered.filter(c => c.title.toLowerCase().includes(search) || c.code.toLowerCase().includes(search));
+  if (instFilter) filtered = filtered.filter(c => c.institutionId == instFilter);
+  if (statusFilter) filtered = filtered.filter(c => c.status === statusFilter);
+  document.getElementById('coursesBadge').innerText = filtered.length;
+  grid.innerHTML = filtered.map(c => `
+    <div class="course-card">
+      <div class="course-card-thumb" style="background:${c.color}22;">
+        <span>${c.emoji}</span>
+        <div style="position:absolute;top:10px;right:10px;">
+          <span class="badge ${c.status==='active' ? 'badge-success' : 'badge-neutral'}">${c.status}</span>
+        </div>
+      </div>
+      <div class="course-card-body">
+        <div class="course-card-code">${c.code} · ${c.term} ${c.year}</div>
+        <div class="course-card-title">${c.title}</div>
+        <div class="course-card-instructor"><i class="bi bi-person" style="margin-right:4px;"></i>${c.instructor}</div>
+      </div>
+      <div class="course-card-footer">
+        <div class="progress-bar-wrap" style="width:100px;">
+          <div class="progress-bar-fill" style="width:${Math.round(c.enrolled/c.capacity*100)}%;background:${c.color};"></div>
+        </div>
+        <span style="font-size:12px;color:var(--text-muted);">${c.enrolled}/${c.capacity} enrolled</span>
+        <button class="btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="navigateTo('assignments')">Manage</button>
+      </div>
+    </div>`).join('');
+  // Populate institution filter
+  const instSelect = document.getElementById('courseFilterInstitution');
+  instSelect.innerHTML = '<option value="">All Institutions</option>' + state.institutions.map(i => `<option value="${i.id}">${i.name}</option>`).join('');
+  // Show/hide add button based on role
+  document.getElementById('addCourseBtn').style.display = userCanAdd('course') ? 'inline-flex' : 'none';
+}
+
+function renderAssignments() {
+  const tbody = document.getElementById('assignmentsBody');
+  const search = document.getElementById('assignmentSearch')?.value.toLowerCase() || '';
+  let filtered = filterDataByRole(state.assignments, 'assignments');
+  filtered = filtered.filter(a => a.title.toLowerCase().includes(search));
+  document.getElementById('assignmentsBadge').innerText = filtered.length;
+  tbody.innerHTML = filtered.map(a => {
+    const course = state.courses.find(c => c.id === a.courseId);
+    const pct = Math.round((a.submissions / (a.total || 1)) * 100);
+    const statusBadge = { open: 'badge-info', closed: 'badge-neutral', graded: 'badge-success' }[a.status] || 'badge-neutral';
+    return `<tr>
+      <td><strong>${a.title}</strong></td>
+      <td><span class="badge badge-neutral">${course ? course.code : ''}</span></td>
+      <td>${new Date(a.due).toLocaleDateString()}</td>
+      <td>${a.points} pts</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div class="progress-bar-wrap" style="width:70px;"><div class="progress-bar-fill" style="width:${pct}%;background:var(--teal);"></div></div>
+          <span style="font-size:12px;">${a.submissions}/${a.total}</span>
+        </div>
+      </td>
+      <td><span class="badge ${statusBadge}">${a.status}</span></td>
+      <td>
+        <button class="btn-ghost" style="padding:4px 10px;font-size:12px;" onclick="showToast('Opening gradebook...','info')"><i class="bi bi-pencil"></i></button>
+        ${userCanAdd('assignment') ? `<button class="btn-danger" style="padding:4px 10px;font-size:12px;" onclick="deleteAssignment(${a.id})"><i class="bi bi-trash"></i></button>` : ''}
+      </td>
+    </tr>`;
+  }).join('');
+  document.getElementById('addAssignmentBtn').style.display = userCanAdd('assignment') ? 'inline-flex' : 'none';
+}
+
+function deleteAssignment(id) {
+  if (!userCanAdd('assignment')) { showToast('Permission denied', 'error'); return; }
+  if (confirm('Are you sure?')) {
+    state.assignments = state.assignments.filter(a => a.id !== id);
+    persist(STORAGE_KEYS.ASSIGNMENTS);
+    renderAssignments();
+    showToast('Assignment deleted', 'info');
+  }
+}
+
+function renderGrades() {
+  const select = document.getElementById('gradebookCourse');
+  const courses = filterDataByRole(state.courses, 'courses');
+  select.innerHTML = courses.map(c => `<option value="${c.id}">${c.code} - ${c.title}</option>`).join('');
+  const tbody = document.getElementById('gradesBody');
+  // Sample grade data
+  const students = state.users.filter(u => u.role === 'student').slice(0,5);
+  tbody.innerHTML = students.map((s, i) => {
+    const grade = 70 + i * 5;
+    const color = grade >= 90 ? 'var(--lime-dim)' : grade >= 80 ? 'var(--teal)' : grade >= 70 ? 'var(--amber)' : 'var(--coral)';
+    return `<tr>
+      <td><strong>${s.name}</strong></td>
+      <td>${85 + i}%</td><td>${80 + i}%</td><td>${75 + i}%</td><td>${grade}%</td>
+      <td><span style="color:${color};font-weight:700;font-family:var(--font-display);">${grade}%</span></td>
+      <td><span class="badge" style="background:${color}18;color:${color};font-weight:700;">${grade>=90?'A':grade>=80?'B':grade>=70?'C':'D'}</span></td>
+    </tr>`;
+  }).join('');
+  document.getElementById('gradingSummary').innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;"><div style="font-family:var(--font-display);font-size:48px;font-weight:800;color:var(--lime-dim);">B+</div><div style="font-size:13px;color:var(--text-secondary);">Class Average</div></div>
+    <div class="perf-metric"><span class="perf-label">Highest Score</span><span class="perf-value" style="color:var(--lime-dim);">98.5%</span></div>
+    <div class="perf-metric"><span class="perf-label">Lowest Score</span><span class="perf-value" style="color:var(--coral);">42.0%</span></div>
+    <div class="perf-metric"><span class="perf-label">Median</span><span class="perf-value">79.2%</span></div>
+    <div class="perf-metric"><span class="perf-label">Std Deviation</span><span class="perf-value">12.4</span></div>
+    <div class="perf-metric"><span class="perf-label">Pass Rate</span><span class="perf-value" style="color:var(--teal);">91%</span></div>
+  `;
+}
+
+function renderAttendance() {
+  const select = document.getElementById('attendanceCourse');
+  const courses = filterDataByRole(state.courses, 'courses');
+  select.innerHTML = courses.map(c => `<option value="${c.id}">${c.code} - ${c.title}</option>`).join('');
+  const tbody = document.getElementById('attendanceBody');
+  const students = state.users.filter(u => u.role === 'student').slice(0,5);
+  tbody.innerHTML = students.map(s => {
+    const rate = 70 + Math.floor(Math.random() * 30);
+    const color = rate >= 90 ? 'var(--lime-dim)' : rate >= 75 ? 'var(--amber)' : 'var(--coral)';
+    return `<tr>
+      <td><strong>${s.name}</strong></td>
+      <td style="color:var(--teal);">${Math.floor(rate/100*20)}</td>
+      <td style="color:var(--coral);">${Math.floor((100-rate)/100*20)}</td>
+      <td style="color:var(--amber);">2</td>
+      <td><div style="display:flex;align-items:center;gap:8px;"><div class="progress-bar-wrap" style="width:70px;"><div class="progress-bar-fill" style="width:${rate}%;background:${color};"></div></div><span style="font-size:12px;color:${color};font-weight:600;">${rate}%</span></div></td>
+      <td><span class="badge ${rate >= 75 ? 'badge-success' : 'badge-danger'}">${rate >= 75 ? 'Good' : 'At-Risk'}</span></td>
+    </tr>`;
+  }).join('');
+  renderCalendar();
+  document.getElementById('markAttendanceBtn').style.display = userCanAdd('attendance') ? 'inline-flex' : 'none';
+}
+
+function renderCalendar() {
+  const grid = document.getElementById('calendarGrid');
+  const today = new Date().getDate();
+  const daysInMonth = 30;
+  let cells = '';
+  for (let d = 1; d <= daysInMonth; d++) {
+    const isToday = d === today;
+    cells += `<div class="cal-cell ${isToday ? 'today' : ''}" style="position:relative;" onclick="showToast('Class day: June ${d}','info')">${d}</div>`;
+  }
+  grid.innerHTML = cells;
+}
+
+function renderInstitutions() {
+  const grid = document.getElementById('institutionsGrid');
+  grid.innerHTML = state.institutions.map(inst => `
+    <div class="card" style="cursor:pointer;" onclick="showToast('Opening ${inst.name}...','info')">
+      <div style="padding:20px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,var(--smoke-3),var(--smoke-2));">
+        <div style="font-size:32px;margin-bottom:10px;">${inst.icon}</div>
+        <div style="font-family:var(--font-display);font-size:16px;font-weight:700;">${inst.name}</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">${inst.type}</div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;gap:16px;margin-bottom:14px;">
+          <div><div style="font-family:var(--font-display);font-size:18px;font-weight:700;">${inst.students.toLocaleString()}</div><div style="font-size:11px;color:var(--text-muted);">Students</div></div>
+          <div><div style="font-family:var(--font-display);font-size:18px;font-weight:700;">${inst.courses}</div><div style="font-size:11px;color:var(--text-muted);">Courses</div></div>
+          <div><div style="font-family:var(--font-display);font-size:18px;font-weight:700;">$${inst.revenue.toLocaleString()}</div><div style="font-size:11px;color:var(--text-muted);">Revenue</div></div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span class="badge ${inst.tier === 'Enterprise' ? 'badge-violet' : inst.tier === 'Pro' ? 'badge-info' : 'badge-neutral'}">${inst.tier}</span>
+          <span class="badge badge-success">Active</span>
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('addInstitutionBtn').style.display = userCanAdd('institution') ? 'inline-flex' : 'none';
+}
+
+function renderUsers() {
+  const tbody = document.getElementById('usersBody');
+  const search = document.getElementById('userSearch')?.value.toLowerCase() || '';
+  const roleFilter = document.getElementById('userFilterRole')?.value;
+  let filtered = state.users.filter(u => u.name.toLowerCase().includes(search) || u.email.toLowerCase().includes(search));
+  if (roleFilter) filtered = filtered.filter(u => u.role === roleFilter);
+  const roleBadge = { admin: 'badge-danger', faculty: 'badge-info', student: 'badge-success', parent: 'badge-warning' };
+  tbody.innerHTML = filtered.map(u => `<tr>
+    <td><div style="display:flex;align-items:center;gap:10px;"><div class="user-avatar" style="background:linear-gradient(135deg,${u.color||'#0bceaf'},${u.color||'#9b6dff'}88);color:#fff;font-size:12px;width:32px;height:32px;">${u.initials}</div><strong>${u.name}</strong></div></td>
+    <td style="color:var(--text-secondary);font-size:13px;">${u.email}</td>
+    <td><span class="badge ${roleBadge[u.role] || 'badge-neutral'}">${u.role}</span></td>
+    <td style="font-size:13px;">${u.institution}</td>
+    <td style="font-size:12px;color:var(--text-muted);">${new Date(u.lastLogin).toLocaleString()}</td>
+    <td><span class="badge ${u.active ? 'badge-success' : 'badge-neutral'}">${u.active ? 'Active' : 'Inactive'}</span></td>
+    <td>
+      <button class="btn-ghost" style="padding:4px 8px;font-size:12px;" onclick="editUser(${u.id})"><i class="bi bi-pencil"></i></button>
+      <button class="btn-danger" style="padding:4px 8px;font-size:12px;" onclick="toggleUserStatus(${u.id})"><i class="bi bi-person-x"></i></button>
+    </td>
+  </tr>`).join('');
+  document.getElementById('addUserBtn').style.display = userCanAdd('user') ? 'inline-flex' : 'none';
+}
+
+function renderPayments() {
+  const tbody = document.getElementById('paymentsBody');
+  const statusBadge = { completed: 'badge-success', pending: 'badge-warning', failed: 'badge-danger' };
+  tbody.innerHTML = state.payments.map(p => {
+    const user = state.users.find(u => u.id === p.userId);
+    const inst = state.institutions.find(i => i.id === p.institutionId);
+    return `<tr>
+      <td><code style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);">${p.id}</code></td>
+      <td><strong>${user ? user.name : ''}</strong></td>
+      <td style="font-size:13px;">${inst ? inst.name : ''}</td>
+      <td><strong style="color:var(--lime-dim);">$${p.amount.toLocaleString()}</strong></td>
+      <td style="font-size:13px;color:var(--text-secondary);">${p.description}</td>
+      <td><span class="badge ${statusBadge[p.status] || 'badge-neutral'}">${p.status}</span></td>
+      <td style="font-size:12px;color:var(--text-muted);">${new Date(p.date).toLocaleDateString()}</td>
+    </tr>`;
+  }).join('');
+  // stats
+  const total = state.payments.reduce((sum, p) => sum + (p.status === 'completed' ? p.amount : 0), 0);
+  const pending = state.payments.reduce((sum, p) => sum + (p.status === 'pending' ? p.amount : 0), 0);
+  const failed = state.payments.reduce((sum, p) => sum + (p.status === 'failed' ? p.amount : 0), 0);
+  document.getElementById('paymentStats').innerHTML = `
+    <div class="stat-card lime"><div class="stat-icon"><i class="bi bi-currency-dollar"></i></div><div class="stat-value">$${(total/1000).toFixed(1)}K</div><div class="stat-label">This Month</div><div class="stat-change up">↑ 18%</div></div>
+    <div class="stat-card teal"><div class="stat-icon"><i class="bi bi-check-circle"></i></div><div class="stat-value">$${(total/1000).toFixed(1)}K</div><div class="stat-label">Total Revenue</div><div class="stat-change up">↑ 22%</div></div>
+    <div class="stat-card amber"><div class="stat-icon"><i class="bi bi-hourglass-split"></i></div><div class="stat-value">$${(pending/1000).toFixed(1)}K</div><div class="stat-label">Pending</div></div>
+    <div class="stat-card coral"><div class="stat-icon"><i class="bi bi-x-circle"></i></div><div class="stat-value">$${(failed/1000).toFixed(1)}K</div><div class="stat-label">Failed</div></div>
+  `;
+  document.getElementById('newPaymentBtn').style.display = userCanAdd('payment') ? 'inline-flex' : 'none';
+}
+
+function renderMessages() {
+  const list = document.getElementById('messageList');
+  const userMessages = state.messages.filter(m => m.userId === state.currentUser?.id);
+  document.getElementById('inboxUnreadCount').innerText = userMessages.filter(m => m.unread).length;
+  list.innerHTML = userMessages.map(m => `
+    <div onclick="openMessage(${m.id})" style="padding:14px 20px;border-bottom:1px solid var(--border);cursor:pointer;background:${m.unread ? 'rgba(200,241,53,0.03)' : 'transparent'};" class="notif-item ${m.unread ? 'unread' : ''}">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+        <div style="font-size:13.5px;font-weight:${m.unread ? '700' : '500'};">${m.from}</div>
+        <div style="font-size:11px;color:var(--text-muted);">${new Date(m.time).toLocaleString()}</div>
+      </div>
+      <div style="font-size:13px;color:var(--text-primary);margin-bottom:2px;">${m.subject}</div>
+      <div style="font-size:12px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${m.body.substring(0,50)}...</div>
+    </div>`).join('');
+  document.getElementById('composeBtn').style.display = 'inline-flex'; // all can compose
+}
+
+function openMessage(id) {
+  const msg = state.messages.find(m => m.id === id);
+  if (!msg) return;
+  msg.unread = false;
+  persist(STORAGE_KEYS.MESSAGES);
+  renderMessages();
+  document.getElementById('messageHeader').innerHTML = `
+    <div>
+      <div class="card-title">${msg.subject}</div>
+      <div style="font-size:12px;color:var(--text-muted);">From: ${msg.from} · ${new Date(msg.time).toLocaleString()}</div>
+    </div>
+    <button class="btn-ghost" style="font-size:12px;" onclick="openModal('composeModal')"><i class="bi bi-reply"></i> Reply</button>`;
+  document.getElementById('messageBody').innerHTML = `<div style="white-space:pre-wrap;font-size:14px;line-height:1.7;color:var(--text-primary);">${msg.body}</div>`;
+  document.getElementById('messageBody').style = 'flex:1;overflow-y:auto;padding:20px;';
+  document.getElementById('replyBox').style.display = 'block';
+}
+
+function sendReply() {
+  const reply = document.getElementById('replyInput').value;
+  if (!reply) return;
+  showToast('Reply sent via WebSocket!', 'success');
+  document.getElementById('replyInput').value = '';
+}
+
+function renderAutomation() {
+  document.getElementById('celeryWorkers').innerHTML = `
+    <div class="settings-row" style="padding:12px 0;border-bottom:1px solid var(--border);"><div><div class="settings-row-label">celery@worker-1</div><div class="settings-row-desc">Processes email, SMS, and notification tasks</div></div><span class="badge badge-success">● Active</span></div>
+    <div class="settings-row" style="padding:12px 0;border-bottom:1px solid var(--border);"><div><div class="settings-row-label">celery@worker-2</div><div class="settings-row-desc">Model training and analytics computation</div></div><span class="badge badge-success">● Active</span></div>
+    <div class="settings-row" style="padding:12px 0;"><div><div class="settings-row-label">celery-beat</div><div class="settings-row-desc">Scheduled task scheduler (heartbeat, reports)</div></div><span class="badge badge-warning">● Idle</span></div>
+  `;
+  document.getElementById('scheduledTasks').innerHTML = `
+    <div class="settings-row" style="padding:12px 0;border-bottom:1px solid var(--border);"><div><div class="settings-row-label">heartbeat</div><div class="settings-row-desc">Every 60s — System health check</div></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+    <div class="settings-row" style="padding:12px 0;border-bottom:1px solid var(--border);"><div><div class="settings-row-label">train_model</div><div class="settings-row-desc">Daily at 2AM — Retrain AI risk model</div></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+    <div class="settings-row" style="padding:12px 0;border-bottom:1px solid var(--border);"><div><div class="settings-row-label">anonymize_users</div><div class="settings-row-desc">Weekly — GDPR data anonymization</div></div><label class="toggle-switch"><input type="checkbox" checked><span class="toggle-track"></span></label></div>
+    <div class="settings-row" style="padding:12px 0;"><div><div class="settings-row-label">generate_reports</div><div class="settings-row-desc">Monthly — Institution analytics reports</div></div><label class="toggle-switch"><input type="checkbox"><span class="toggle-track"></span></label></div>
+  `;
+  document.getElementById('taskLog').innerHTML = `
+    <div><span style="color:var(--lime);">[2025-06-10 02:00:04]</span> <span style="color:var(--teal);">SUCCESS</span> train_model — Model trained. Accuracy: 94.2%</div>
+    <div><span style="color:var(--lime);">[2025-06-10 01:59:12]</span> <span style="color:var(--teal);">SUCCESS</span> heartbeat — All systems OK</div>
+    <div><span style="color:var(--lime);">[2025-06-10 01:30:00]</span> <span style="color:var(--teal);">SUCCESS</span> notify_user[user_id=42] — Email sent</div>
+  `;
+}
+
+function renderIntegrations() {
+  const integrations = [
+    { name:'Stripe', desc:'Payment processing & subscription management', icon:'💳', color:'#6772e5', status:'connected', label:'Configured' },
+    { name:'SendGrid', desc:'Transactional email & marketing campaigns', icon:'📧', color:'#1a82e2', status:'connected', label:'Configured' },
+    { name:'Twilio', desc:'SMS notifications and two-factor auth', icon:'📱', color:'#f22f46', status:'disconnected', label:'Connect' },
+    { name:'AWS S3', desc:'File storage for submissions and resources', icon:'☁️', color:'#ff9900', status:'connected', label:'Configured' }
+  ];
+  const grid = document.getElementById('integrationsGrid');
+  grid.innerHTML = integrations.map(i => `
+    <div class="card">
+      <div class="card-body">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <div style="width:42px;height:42px;border-radius:10px;background:${i.color}18;display:flex;align-items:center;justify-content:center;font-size:22px;">${i.icon}</div>
+          <div><div style="font-family:var(--font-display);font-size:15px;font-weight:700;">${i.name}</div><div style="font-size:11px;color:var(--text-muted);">${i.status === 'connected' ? '● Connected' : '○ Disconnected'}</div></div>
+          <div style="margin-left:auto;"><span class="badge ${i.status === 'connected' ? 'badge-success' : 'badge-neutral'}">${i.label}</span></div>
+        </div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">${i.desc}</p>
+        <button class="btn-ghost" style="width:100%;justify-content:center;font-size:12px;" onclick="showToast('${i.name} settings opened','info')">${i.status === 'connected' ? '<i class="bi bi-gear"></i> Configure' : '<i class="bi bi-plug"></i> Connect'}</button>
+      </div>
+    </div>`).join('');
+}
+
+function renderProfile() {
+  const user = state.currentUser;
+  if (!user) return;
+  document.getElementById('profileStats').innerHTML = `
+    <div class="profile-stat"><div class="profile-stat-val">${state.institutions.length}</div><div class="profile-stat-label">Institutions</div></div>
+    <div class="profile-stat"><div class="profile-stat-val">${state.courses.length}</div><div class="profile-stat-label">Courses</div></div>
+    <div class="profile-stat"><div class="profile-stat-val">${state.users.filter(u => u.role === 'student').length}</div><div class="profile-stat-label">Students</div></div>
+  `;
+  document.getElementById('notificationPrefs').innerHTML = `
+    <div class="settings-row" style="padding:10px 0;border-bottom:1px solid var(--border);"><div class="settings-row-label">Email Notifications</div><label class="toggle-switch"><input type="checkbox" ${user.preferences?.email ? 'checked' : ''} onchange="updatePref('email',this.checked)"><span class="toggle-track"></span></label></div>
+    <div class="settings-row" style="padding:10px 0;border-bottom:1px solid var(--border);"><div class="settings-row-label">SMS Alerts</div><label class="toggle-switch"><input type="checkbox" ${user.preferences?.sms ? 'checked' : ''} onchange="updatePref('sms',this.checked)"><span class="toggle-track"></span></label></div>
+    <div class="settings-row" style="padding:10px 0;"><div class="settings-row-label">At-Risk Alerts</div><label class="toggle-switch"><input type="checkbox" ${user.preferences?.atRisk ? 'checked' : ''} onchange="updatePref('atRisk',this.checked)"><span class="toggle-track"></span></label></div>
+  `;
+  const permissions = rolePermissions[user.role] || {};
+  const permList = [];
+  if (permissions.pages) permList.push(...permissions.pages.map(p => `${p}:read`));
+  if (permissions.canAdd) permList.push(...permissions.canAdd.map(r => `${r}:write`));
+  document.getElementById('permissionsList').innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:6px;">${permList.map(p => `<span class="tag">${p}</span>`).join('')}</div>`;
+}
+
+function updatePref(key, value) {
+  if (state.currentUser) {
+    state.currentUser.preferences = state.currentUser.preferences || {};
+    state.currentUser.preferences[key] = value;
+    const index = state.users.findIndex(u => u.id === state.currentUser.id);
+    if (index !== -1) state.users[index] = state.currentUser;
+    persist(STORAGE_KEYS.USERS);
+    persist(STORAGE_KEYS.CURRENT_USER);
+    showToast('Preference updated', 'success');
+  }
+}
+
+// Settings tabs
+function switchSettingsTab(el, tab) {
+  document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['general','security','notifications','gdpr','api'].forEach(t => {
+    const el = document.getElementById('settings-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+function saveSettings() {
+  state.settings.env = document.getElementById('envSelect').value;
+  state.settings.debug = document.getElementById('debugToggle').checked;
+  state.settings.pageSize = parseInt(document.getElementById('pageSize').value);
+  state.settings.features.predictive = document.getElementById('featurePredictive').checked;
+  state.settings.features.realtime = document.getElementById('featureRealtime').checked;
+  state.settings.features.gamification = document.getElementById('featureGamification').checked;
+  // ... other fields
+  persist(STORAGE_KEYS.SETTINGS);
+  showToast('Settings saved!', 'success');
+}
+
+// Utility functions
+function exportData() { showToast('Export started. You will receive an email when ready.', 'info'); }
+function exportAnalytics() { showToast('Export started', 'info'); }
+function filterAnalytics() { showToast('Filter applied', 'info'); }
+function exportGradebook() { showToast('Gradebook exported', 'info'); }
+function importUsers() { showToast('Import CSV', 'info'); }
+function editUser(id) { showToast('Edit user', 'info'); }
+function toggleUserStatus(id) { showToast('User status toggled', 'info'); }
+function retrainModel() { showToast('Model retraining initiated via Celery task...', 'info'); }
+function runCeleryTask() { showToast('Task triggered via Celery!', 'success'); }
+function refreshTaskLog() { showToast('Logs refreshed', 'info'); }
+function exportGDPR() { showToast('GDPR export initiated...', 'info'); }
+function anonymizeUsers() { showToast('Anonymization task queued via Celery', 'warning'); }
+function changeMonth(delta) { showToast('Calendar month changed', 'info'); }
+function setCourseView(view) { showToast(`Course view set to ${view}`, 'info'); }
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.querySelector('.topbar-search input')?.focus();
+  }
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    document.getElementById('notifPanel').classList.remove('open');
+  }
+  if (e.ctrlKey && e.shiftKey && e.key === 'T') {
+    e.preventDefault();
+    toggleTheme();
+  }
+});
+
+// Search on enter
+document.querySelector('.topbar-search input')?.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') showToast(`Searching for "${this.value}"...`, 'info');
+});
+
+// Handle initial load
+window.addEventListener('load', function() {
+  if (state.currentUser) {
+    document.getElementById('authPage').style.display = 'none';
+    document.getElementById('appShell').style.display = 'flex';
+    updateUserSidebar();
+    applyTheme(state.theme);
+    initApp();
+  } else {
+    document.getElementById('authPage').style.display = 'flex';
+    document.getElementById('appShell').style.display = 'none';
+  }
+  // Hash routing
+  if (window.location.hash && state.currentUser) {
+    const page = window.location.hash.substring(1);
+    if (document.getElementById('page-' + page)) navigateTo(page);
+  }
+});
+
+function initApp() {
+  renderSidebarNav();
+  renderNotifications();
+  renderDashboard();
+  renderCourses();
+  renderAssignments();
+  renderGrades();
+  renderAttendance();
+  renderInstitutions();
+  renderUsers();
+  renderPayments();
+  renderMessages();
+  renderAutomation();
+  renderIntegrations();
+  renderProfile();
+  // Simulate real-time activity
+  setInterval(() => {
+    const newNotif = {
+      id: state.notifications.length + 1,
+      text: 'New submission received',
+      time: new Date().toISOString(),
+      unread: true,
+      userId: state.currentUser?.id
+    };
+    state.notifications.unshift(newNotif);
+    if (state.notifications.length > 20) state.notifications.pop();
+    persist(STORAGE_KEYS.NOTIFICATIONS);
+    renderNotifications();
+    if (document.getElementById('page-dashboard').classList.contains('active')) {
+      renderActivityFeed();
+    }
+  }, 30000);
+}
+</script>
+</body>
+</html>
