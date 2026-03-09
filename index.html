@@ -1658,18 +1658,7 @@ tbody tr:hover{background:var(--bg-hover)}
                 <label class="form-label">Amount (₦)</label>
                 <div class="input-icon-wrap">
                   <i class="icon fa fa-naira-sign"></i>
-                  <input type="number" class="form-input" id="withdrawAmount" placeholder="Min. ₦4,000" min="4000" oninput="calcWithdrawalFee()"/>
-                </div>
-                <div class="form-hint">Minimum withdrawal: ₦4,000</div>
-              </div>
-              <div class="summary-box" id="withdrawSummary" style="display:none">
-                <div class="summary-row"><span class="label">Requested Amount</span><span class="value font-mono" id="wAmtReq">₦0</span></div>
-                <div class="summary-row"><span class="label">Platform Fee (10%)</span><span class="value text-crimson font-mono" id="wFee">-₦0</span></div>
-                <div class="summary-row"><span class="label">You Receive</span><span class="value emerald font-mono fw-600" id="wNet">₦0</span></div>
-              </div>
-              <div class="form-group">
-                <label class="form-label">Payment Method</label>
-                <select class="form-input" id="withdrawMethod">
+                  <input type="number" class="form-UI">
                   <option value="bank">Bank Transfer</option>
                   <option value="crypto">Crypto (USDT)</option>
                 </select>
@@ -2337,7 +2326,7 @@ const MIN_WITHDRAWAL = 4000;
 const PLATFORM_FEE = 0.10;
 const REFERRAL_COMMISSION = 0.10;
 const WELCOME_BONUS = 100;
-const API_URL = 'https://api.luckyinvestment.com/v1';  // Replace with your actual backend URL
+const API_URL = 'https://real-wealthy-1.onrender.com';  // Replace with your actual backend URL
 
 /* ─── CURRENCY RATES (vs NGN) ─── */
 const CURRENCY_RATES = {NGN:1,USD:0.00065,EUR:0.00060,GBP:0.00052,GHS:0.0087,KES:0.085,ZAR:0.012};
