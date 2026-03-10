@@ -2748,16 +2748,16 @@ async function loadInvestments() {
   renderMyInvestments();
 }
 
-/* 8 global indexes as fallback plans */
+/* 8 global indexes as fallback plans (updated to match backend stock plans) */
 const FALLBACK_PLANS = [
-  { _id: 'plan1', name: 'S&P 500', description: 'Top 500 US companies', raw_material: 'USA', category: 'Large Cap', daily_interest: 0.85, total_interest: 25.5, duration: 30, min_amount: 5000, max_amount: 10000000, icon: '🇺🇸', is_popular: true, color: 'rgba(59,130,246,0.12)' },
-  { _id: 'plan2', name: 'Dow Jones', description: '30 blue-chip US stocks', raw_material: 'USA', category: 'Blue Chip', daily_interest: 0.72, total_interest: 21.6, duration: 30, min_amount: 7000, max_amount: 10000000, icon: '🏭', color: 'rgba(59,130,246,0.12)' },
-  { _id: 'plan3', name: 'NASDAQ', description: 'Tech-heavy index', raw_material: 'USA', category: 'Technology', daily_interest: 1.10, total_interest: 33.0, duration: 30, min_amount: 8000, max_amount: 10000000, icon: '📡', color: 'rgba(59,130,246,0.12)' },
-  { _id: 'plan4', name: 'Nikkei 225', description: 'Japan’s premier index', raw_material: 'Japan', category: 'Asia', daily_interest: 0.65, total_interest: 19.5, duration: 30, min_amount: 6000, max_amount: 10000000, icon: '🗾', color: 'rgba(251,191,36,0.12)' },
-  { _id: 'plan5', name: 'FTSE 100', description: 'UK’s top 100 companies', raw_material: 'UK', category: 'Europe', daily_interest: 0.60, total_interest: 18.0, duration: 30, min_amount: 5000, max_amount: 10000000, icon: '🇬🇧', color: 'rgba(16,185,129,0.12)' },
-  { _id: 'plan6', name: 'DAX', description: '40 major German firms', raw_material: 'Germany', category: 'Europe', daily_interest: 0.68, total_interest: 20.4, duration: 30, min_amount: 6000, max_amount: 10000000, icon: '🇩🇪', color: 'rgba(251,191,36,0.12)' },
-  { _id: 'plan7', name: 'Shanghai Composite', description: 'All A-shares in Shanghai', raw_material: 'China', category: 'Asia', daily_interest: 0.95, total_interest: 28.5, duration: 30, min_amount: 10000, max_amount: 10000000, icon: '🇨🇳', color: 'rgba(244,63,94,0.12)' },
-  { _id: 'plan8', name: 'Sensex', description: '30 large Indian stocks', raw_material: 'India', category: 'Asia', daily_interest: 0.80, total_interest: 24.0, duration: 30, min_amount: 5000, max_amount: 10000000, icon: '🇮🇳', color: 'rgba(56,189,248,0.12)' }
+  { _id: 'plan1', name: 'StableGrowth Ltd.', description: 'Invest in a diversified portfolio of blue‑chip stocks with stable returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 15, total_interest: 15 * 20, duration: 20, min_amount: 3000, max_amount: 50000, icon: '📈', is_popular: true, color: 'rgba(16,185,129,0.12)' },
+  { _id: 'plan2', name: 'Global Equity Fund', description: 'A mix of international stocks offering medium risk and higher returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 20, total_interest: 20 * 20, duration: 20, min_amount: 50000, max_amount: 500000, icon: '🌍', color: 'rgba(59,130,246,0.12)' },
+  { _id: 'plan3', name: 'HighYield Ventures', description: 'Aggressive growth stocks for maximum returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 25, total_interest: 25 * 20, duration: 20, min_amount: 100000, max_amount: 1000000, icon: '🚀', color: 'rgba(244,63,94,0.12)' },
+  { _id: 'plan4', name: 'Dividend Kings Inc.', description: 'Companies with a long history of consistent dividend payments.', raw_material: 'Stocks', category: 'stocks', daily_interest: 19, total_interest: 19 * 15, duration: 15, min_amount: 5500, max_amount: 25000, icon: '💵', color: 'rgba(251,191,36,0.12)' },
+  { _id: 'plan5', name: 'Industrial Select Fund', description: 'Focus on industrial and manufacturing sector stocks.', raw_material: 'Stocks', category: 'stocks', daily_interest: 17, total_interest: 17 * 15, duration: 15, min_amount: 15000, max_amount: 150000, icon: '🏭', color: 'rgba(100,116,130,0.12)' },
+  { _id: 'plan6', name: 'Sustainable Future ETF', description: 'Invest in environmentally and socially responsible companies.', raw_material: 'Stocks', category: 'stocks', daily_interest: 19, total_interest: 19 * 15, duration: 15, min_amount: 20000, max_amount: 200000, icon: '🌱', color: 'rgba(56,189,248,0.12)' },
+  { _id: 'plan7', name: 'Energy Sector Leaders', description: 'Top companies in the energy sector, including renewables.', raw_material: 'Stocks', category: 'stocks', daily_interest: 23, total_interest: 23 * 9, duration: 9, min_amount: 75000, max_amount: 750000, icon: '⚡', color: 'rgba(249,115,22,0.12)' },
+  { _id: 'plan8', name: 'Consumer Staples Fund', description: 'Stocks of essential consumer goods companies with steady demand.', raw_material: 'Stocks', category: 'stocks', daily_interest: 21, total_interest: 21 * 9, duration: 9, min_amount: 30000, max_amount: 300000, icon: '🛒', color: 'rgba(139,69,19,0.12)' }
 ];
 
 async function renderPlans() {
@@ -2766,7 +2766,7 @@ async function renderPlans() {
     appState.plans = (plansData.plans && plansData.plans.length) ? plansData.plans : FALLBACK_PLANS;
   } catch (err) {
     appState.plans = FALLBACK_PLANS;
-    Toast.info('Using sample plans', 'Loading global index plans');
+    Toast.info('Using sample plans', 'Loading stock plans');
   }
   const grid = document.getElementById('plansGrid');
   grid.innerHTML = appState.plans.map(plan => `
