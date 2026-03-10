@@ -1446,15 +1446,15 @@
         </div>
       </section>
 
-      <!-- INVESTMENTS SECTION with 8 Global Index Plans -->
+      <!-- INVESTMENTS SECTION with 8 Stock Investment Plans (matching backend) -->
       <section id="investments-section" class="section">
         <div class="breadcrumb"><i class="fa fa-home"></i><span class="sep">/</span><span>Investments</span></div>
         <div class="section-header">
-          <h1>Global Index Plans</h1>
-          <p>Invest in world‑leading stock market indexes</p>
+          <h1>Stock Investment Plans</h1>
+          <p>Invest in top‑performing stock market funds</p>
         </div>
         <div class="tabs">
-          <button class="tab-btn active" onclick="switchInvTab('plans',this)">📊 Index Plans</button>
+          <button class="tab-btn active" onclick="switchInvTab('plans',this)">📊 Available Plans</button>
           <button class="tab-btn" onclick="switchInvTab('my',this)">💼 My Investments</button>
         </div>
 
@@ -2298,12 +2298,12 @@
 
 </div><!-- /#app -->
 
-<!-- ========== ORIGINAL SCRIPT (PRESERVED) ========== -->
+<!-- ========== ORIGINAL SCRIPT (PRESERVED) WITH UPDATED FALLBACK PLANS ========== -->
 <script>
 /* ===== LUCKY INVESTMENT — BACKEND INTEGRATION (UNCHANGED FUNCTIONALITY) ===== */
-/* The entire original JavaScript block from the user's code is preserved below. 
+/* The entire original JavaScript block from the user's code is preserved below.
    Only the visual design (CSS) and some HTML structure (class additions) have been upgraded.
-   Added fallback for 8 global index plans in renderPlans(). */
+   Added fallback for 8 stock investment plans in renderPlans(). */
 /* ─── CONSTANTS ─── */
 const APP_NAME = 'Lucky Investment';
 const BRAND_PREFIX = 'luckyinv_';
@@ -2748,16 +2748,16 @@ async function loadInvestments() {
   renderMyInvestments();
 }
 
-/* 8 global indexes as fallback plans (updated to match backend stock plans) */
+/* 8 STOCK INVESTMENT PLANS (matching backend) */
 const FALLBACK_PLANS = [
-  { _id: 'plan1', name: 'StableGrowth Ltd.', description: 'Invest in a diversified portfolio of blue‑chip stocks with stable returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 15, total_interest: 15 * 20, duration: 20, min_amount: 3000, max_amount: 50000, icon: '📈', is_popular: true, color: 'rgba(16,185,129,0.12)' },
-  { _id: 'plan2', name: 'Global Equity Fund', description: 'A mix of international stocks offering medium risk and higher returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 20, total_interest: 20 * 20, duration: 20, min_amount: 50000, max_amount: 500000, icon: '🌍', color: 'rgba(59,130,246,0.12)' },
-  { _id: 'plan3', name: 'HighYield Ventures', description: 'Aggressive growth stocks for maximum returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 25, total_interest: 25 * 20, duration: 20, min_amount: 100000, max_amount: 1000000, icon: '🚀', color: 'rgba(244,63,94,0.12)' },
-  { _id: 'plan4', name: 'Dividend Kings Inc.', description: 'Companies with a long history of consistent dividend payments.', raw_material: 'Stocks', category: 'stocks', daily_interest: 19, total_interest: 19 * 15, duration: 15, min_amount: 5500, max_amount: 25000, icon: '💵', color: 'rgba(251,191,36,0.12)' },
-  { _id: 'plan5', name: 'Industrial Select Fund', description: 'Focus on industrial and manufacturing sector stocks.', raw_material: 'Stocks', category: 'stocks', daily_interest: 17, total_interest: 17 * 15, duration: 15, min_amount: 15000, max_amount: 150000, icon: '🏭', color: 'rgba(100,116,130,0.12)' },
-  { _id: 'plan6', name: 'Sustainable Future ETF', description: 'Invest in environmentally and socially responsible companies.', raw_material: 'Stocks', category: 'stocks', daily_interest: 19, total_interest: 19 * 15, duration: 15, min_amount: 20000, max_amount: 200000, icon: '🌱', color: 'rgba(56,189,248,0.12)' },
-  { _id: 'plan7', name: 'Energy Sector Leaders', description: 'Top companies in the energy sector, including renewables.', raw_material: 'Stocks', category: 'stocks', daily_interest: 23, total_interest: 23 * 9, duration: 9, min_amount: 75000, max_amount: 750000, icon: '⚡', color: 'rgba(249,115,22,0.12)' },
-  { _id: 'plan8', name: 'Consumer Staples Fund', description: 'Stocks of essential consumer goods companies with steady demand.', raw_material: 'Stocks', category: 'stocks', daily_interest: 21, total_interest: 21 * 9, duration: 9, min_amount: 30000, max_amount: 300000, icon: '🛒', color: 'rgba(139,69,19,0.12)' }
+  { _id: 'plan1', name: 'StableGrowth Ltd.', description: 'Invest in a diversified portfolio of blue‑chip stocks with stable returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 15, total_interest: 15*20, duration: 20, min_amount: 3000, max_amount: 50000, icon: '📈', is_popular: true, color: 'rgba(16,185,129,0.12)' },
+  { _id: 'plan2', name: 'Global Equity Fund', description: 'A mix of international stocks offering medium risk and higher returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 20, total_interest: 20*20, duration: 20, min_amount: 50000, max_amount: 500000, icon: '🌍', color: 'rgba(251,191,36,0.12)' },
+  { _id: 'plan3', name: 'HighYield Ventures', description: 'Aggressive growth stocks for maximum returns.', raw_material: 'Stocks', category: 'stocks', daily_interest: 25, total_interest: 25*20, duration: 20, min_amount: 100000, max_amount: 1000000, icon: '🚀', color: 'rgba(220,38,38,0.12)' },
+  { _id: 'plan4', name: 'Dividend Kings Inc.', description: 'Companies with a long history of consistent dividend payments.', raw_material: 'Stocks', category: 'stocks', daily_interest: 19, total_interest: 19*15, duration: 15, min_amount: 5500, max_amount: 25000, icon: '💵', color: 'rgba(139,69,19,0.12)' },
+  { _id: 'plan5', name: 'Industrial Select Fund', description: 'Focus on industrial and manufacturing sector stocks.', raw_material: 'Stocks', category: 'stocks', daily_interest: 17, total_interest: 17*15, duration: 15, min_amount: 15000, max_amount: 150000, icon: '🏭', color: 'rgba(192,192,192,0.12)' },
+  { _id: 'plan6', name: 'Sustainable Future ETF', description: 'Invest in environmentally and socially responsible companies.', raw_material: 'Stocks', category: 'stocks', daily_interest: 19, total_interest: 19*15, duration: 15, min_amount: 20000, max_amount: 200000, icon: '🌱', color: 'rgba(139,69,19,0.12)' },
+  { _id: 'plan7', name: 'Energy Sector Leaders', description: 'Top companies in the energy sector, including renewables.', raw_material: 'Stocks', category: 'stocks', daily_interest: 23, total_interest: 23*9, duration: 9, min_amount: 75000, max_amount: 750000, icon: '⚡', color: 'rgba(65,105,225,0.12)' },
+  { _id: 'plan8', name: 'Consumer Staples Fund', description: 'Stocks of essential consumer goods companies with steady demand.', raw_material: 'Stocks', category: 'stocks', daily_interest: 21, total_interest: 21*9, duration: 9, min_amount: 30000, max_amount: 300000, icon: '🛒', color: 'rgba(255,107,107,0.12)' }
 ];
 
 async function renderPlans() {
@@ -2766,7 +2766,7 @@ async function renderPlans() {
     appState.plans = (plansData.plans && plansData.plans.length) ? plansData.plans : FALLBACK_PLANS;
   } catch (err) {
     appState.plans = FALLBACK_PLANS;
-    Toast.info('Using sample plans', 'Loading stock plans');
+    Toast.info('Using sample plans', 'Loading stock investment plans');
   }
   const grid = document.getElementById('plansGrid');
   grid.innerHTML = appState.plans.map(plan => `
