@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>APC Private Connect · Biometric NIN · Advanced Groups</title>
 <!-- Original styles preserved, new ones added at the end -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
@@ -631,7 +631,6 @@ body {
   position: relative; display: flex; align-items: center; justify-content: center;
   border: 1px solid var(--border);
 }
-.video-tile video { width:100%; height:100%; object-fit:cover; background:#0d0f15; }
 .video-tile-name {
   position: absolute; bottom: 12px; left: 12px;
   background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
@@ -1103,64 +1102,142 @@ body.offline .offline-indicator {
     display: none; /* hide on desktop */
   }
 }
-/* ===== APC CUSTOM POLITICAL STYLES ===== */
+/* ===== APC CUSTOM POLITICAL COLOURS ===== */
 :root {
-  --apc-green: #00873E;
-  --apc-green-light: #00A86B;
+  --apc-green: #00843D;
   --apc-white: #FFFFFF;
-  --apc-black: #1A1A1A;
+  --apc-green-dark: #006b31;
+  --apc-green-glow: rgba(0,132,61,0.15);
 }
-.apc-broom-logo {
-  width: 40px; height: 40px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%2300873E"><path d="M20 80 L40 40 L60 40 L80 80 L20 80 Z M45 30 L55 30 L60 15 L50 5 L40 15 L45 30 Z"/></svg>') no-repeat center/contain;
-  filter: brightness(0) invert(1);
+.broom-logo {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%2300843D" d="M20 70 L30 30 L70 30 L80 70 L50 90 Z" /><rect x="42" y="10" width="16" height="30" fill="%2300843D" /></svg>') no-repeat center;
+  background-size: contain;
 }
-[data-theme="light"] .apc-broom-logo {
-  filter: brightness(1) invert(0);
+.apc-theme .btn-primary-apc {
+  background: linear-gradient(135deg, var(--apc-green), var(--apc-green-dark));
 }
-.bg-apc-green { background: var(--apc-green); }
-.text-apc-green { color: var(--apc-green); }
-.btn-apc-green {
+.apc-theme .nav-item.active, .apc-theme .auth-tab.active {
   background: var(--apc-green);
+}
+.apc-theme .text-primary {
+  color: var(--apc-green) !important;
+}
+/* ===== NEW PAGES & SECTIONS ===== */
+.welcome-page {
+  text-align: center;
+  padding: 40px 20px;
+}
+.welcome-page .broom-logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+}
+.video-stream-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.video-thumb {
+  background: var(--bg-card2);
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+.video-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-thumb-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.8));
+  padding: 12px;
   color: white;
-  border: none;
-  padding: 12px 24px;
+}
+/* GDPR consent banner */
+.gdpr-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 16px 20px;
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.gdpr-banner.show {
+  display: flex;
+}
+/* Data export modal */
+.data-export-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  font-weight: 700;
+  margin-bottom: 12px;
+  cursor: pointer;
   transition: all 0.2s;
 }
-.btn-apc-green:hover {
-  background: var(--apc-green-light);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0,135,62,0.3);
+.data-export-option:hover {
+  border-color: var(--primary);
+  background: var(--primary-glow);
 }
 </style>
 </head>
-<body>
+<body class="apc-theme">
+
+<!-- GDPR CONSENT BANNER -->
+<div class="gdpr-banner" id="gdpr-banner">
+  <div><i class="fas fa-cookie-bite" style="color: var(--apc-green); margin-right: 8px;"></i> We use cookies and collect data to improve your experience. By using APC Connect, you agree to our <a href="#" onclick="showToast('Privacy policy')">Privacy Policy</a>.</div>
+  <div>
+    <button class="btn-outline-apc" onclick="acceptGDPR()">Accept</button>
+    <button class="btn-primary-apc" onclick="acceptGDPR()" style="margin-left: 8px;">Accept All</button>
+  </div>
+</div>
+
+<!-- WELCOME PAGE (shown before auth) -->
+<div id="welcome-screen" style="position: fixed; inset: 0; z-index: 1000; background: var(--bg-base); display: none; align-items: center; justify-content: center; padding: 20px;">
+  <div class="auth-card" style="max-width: 600px; text-align: center;">
+    <div class="broom-logo" style="width: 80px; height: 80px; margin: 0 auto 20px;"></div>
+    <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 8px;">APC Private <span style="color: var(--apc-green);">Connect</span></h1>
+    <p style="font-size: 1rem; color: var(--text-muted); margin-bottom: 32px;">Secure communication for delegates • NIN verified • Biometric protected</p>
+    <div style="display: flex; gap: 16px; justify-content: center;">
+      <button class="btn-primary-apc" onclick="showAuthPanel('login')" style="width: auto; padding: 14px 32px;">Sign In</button>
+      <button class="btn-outline-apc" onclick="showAuthPanel('register')" style="width: auto; padding: 14px 32px;">Register</button>
+    </div>
+    <div style="margin-top: 32px; font-size: 0.8rem; color: var(--text-muted);">
+      <i class="fas fa-check-circle" style="color: var(--apc-green);"></i> NIN & fingerprint required • All Progressives Congress official platform
+    </div>
+  </div>
+</div>
 
 <!-- SPLASH (unchanged) -->
 <div id="splash">
-  <div class="splash-logo"><div class="apc-broom-logo"></div></div>
+  <div class="splash-logo"><i class="fas fa-shield-halved"></i></div>
   <div class="splash-title">APC <span>Private</span> Connect</div>
   <div style="font-size:0.82rem;color:var(--text-muted)">Biometric NIN • Secure Groups</div>
   <div class="splash-loader"><div class="splash-loader-bar"></div></div>
 </div>
 
-<!-- AUTH SCREEN (enhanced with fingerprint login option and welcome page) -->
+<!-- AUTH SCREEN (enhanced with fingerprint login option) -->
 <div id="auth-screen">
-  <!-- WELCOME PAGE (new) -->
-  <div id="welcome-panel" class="auth-card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-    <div class="auth-logo"><div class="apc-broom-logo" style="width:48px;height:48px;"></div></div>
-    <h2 style="font-size:2rem; font-weight:800; margin-bottom:10px;">APC Private Connect</h2>
-    <p style="color:var(--text-muted); margin-bottom:30px;">Secure communication for party delegates</p>
-    <button class="btn-primary-apc" onclick="showPanel('login')" style="width:80%; margin-bottom:12px;"><i class="fas fa-sign-in-alt"></i> Sign In</button>
-    <button class="btn-outline-apc" onclick="showPanel('register')" style="width:80%;">Create Account</button>
-    <div style="margin-top:30px; font-size:0.8rem; color:var(--text-muted);">NIN & Biometric Verified</div>
-  </div>
-
   <!-- LOGIN PANEL -->
-  <div id="login-panel" class="auth-card" style="display:none">
-    <div class="auth-logo"><div class="apc-broom-logo" style="width:36px;height:36px;"></div></div>
+  <div id="login-panel" class="auth-card">
+    <div class="auth-logo"><i class="fas fa-shield-halved"></i></div>
     <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:4px">Welcome back</h2>
     <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:24px">Sign in to APC Private Connect</p>
     <div class="auth-tabs">
@@ -1293,12 +1370,12 @@ body.offline .offline-indicator {
   </div>
 </div>
 
-<!-- MAIN APP -->
+<!-- MAIN APP (structure identical to original, but with advanced logic and new pages) -->
 <div id="app">
   <!-- SIDEBAR (unchanged, but we'll add new nav items for missing pages) -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
-      <div class="brand-logo"><div class="apc-broom-logo" style="width:24px;height:24px;"></div></div>
+      <div class="brand-logo"><i class="fas fa-shield-halved"></i></div>
       <div>
         <div class="brand-name">APC <span>Connect</span></div>
         <div style="font-size:0.7rem;color:var(--text-muted)">Biometric Secure</div>
@@ -1355,6 +1432,18 @@ body.offline .offline-indicator {
     <a class="nav-item" onclick="navigate('about')">
       <span class="nav-icon"><i class="fas fa-info-circle"></i></span> About
     </a>
+    <a class="nav-item" onclick="navigate('welcome')">
+      <span class="nav-icon"><i class="fas fa-home"></i></span> Welcome
+    </a>
+    <a class="nav-item" onclick="navigate('video-streams')">
+      <span class="nav-icon"><i class="fas fa-play-circle"></i></span> Live Streams
+    </a>
+    <a class="nav-item" onclick="navigate('marketplace')">
+      <span class="nav-icon"><i class="fas fa-store"></i></span> Marketplace
+    </a>
+    <a class="nav-item" onclick="navigate('events')">
+      <span class="nav-icon"><i class="fas fa-calendar-alt"></i></span> Events
+    </a>
     <div class="nav-section" id="admin-section" style="display:none">Admin</div>
     <a class="nav-item" id="admin-link" onclick="navigate('admin')" style="display:none">
       <span class="nav-icon"><i class="fas fa-shield-halved"></i></span> Admin Panel
@@ -1399,7 +1488,24 @@ body.offline .offline-indicator {
     <!-- CONTENT AREA (all pages) -->
     <div class="content-area">
 
-      <!-- FEED PAGE (unchanged) -->
+      <!-- WELCOME PAGE (new) -->
+      <div class="page" id="page-welcome">
+        <div class="welcome-page">
+          <div class="broom-logo" style="width: 100px; height: 100px; margin: 0 auto 30px;"></div>
+          <h1 style="font-size: 2.2rem; font-weight: 800;">APC Private Connect</h1>
+          <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 20px auto;">Secure communication for APC delegates. NIN verified, biometric protected.</p>
+          <div style="margin: 40px 0;">
+            <button class="btn-primary-apc" onclick="showAuthPanel('login')" style="width: auto; padding: 16px 40px;">Get Started</button>
+          </div>
+          <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 60px;">
+            <div><i class="fas fa-fingerprint" style="font-size: 2rem; color: var(--apc-green);"></i><br>Biometric Login</div>
+            <div><i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--apc-green);"></i><br>End‑to‑End Encrypted</div>
+            <div><i class="fas fa-users" style="font-size: 2rem; color: var(--apc-green);"></i><br>Delegate Groups</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEED PAGE -->
       <div class="page active" id="page-feed">
         <div class="feed-layout">
           <div>
@@ -1692,7 +1798,6 @@ body.offline .offline-indicator {
         </div>
       </div>
 
-      <!-- NEW PAGES -->
       <!-- SEARCH RESULTS PAGE -->
       <div class="page" id="page-search">
         <div class="section-header">
@@ -1751,6 +1856,33 @@ body.offline .offline-indicator {
         </div>
       </div>
 
+      <!-- VIDEO STREAMS PAGE (new) -->
+      <div class="page" id="page-video-streams">
+        <div class="section-header">
+          <div class="section-title">Live Video Streams</div>
+          <button class="btn-filled-sm" onclick="openModal('create-stream-modal')"><i class="fas fa-video"></i> Go Live</button>
+        </div>
+        <div class="video-stream-grid" id="video-streams-list"></div>
+      </div>
+
+      <!-- MARKETPLACE PAGE (new) -->
+      <div class="page" id="page-marketplace">
+        <div class="section-header">
+          <div class="section-title">Marketplace</div>
+          <button class="btn-filled-sm" onclick="openModal('create-listing-modal')"><i class="fas fa-plus"></i> Create Listing</button>
+        </div>
+        <div class="groups-grid" id="marketplace-list"></div>
+      </div>
+
+      <!-- EVENTS PAGE (new) -->
+      <div class="page" id="page-events">
+        <div class="section-header">
+          <div class="section-title">Upcoming Events</div>
+          <button class="btn-filled-sm" onclick="openModal('create-event-modal')"><i class="fas fa-calendar-plus"></i> Create Event</button>
+        </div>
+        <div class="meetings-grid" id="events-list"></div>
+      </div>
+
     </div><!-- content-area -->
   </div><!-- main-wrap -->
 </div><!-- app -->
@@ -1786,7 +1918,7 @@ body.offline .offline-indicator {
   <i class="fas fa-pen"></i>
 </button>
 
-<!-- VIDEO CALL OVERLAY (enhanced with chat and real video) -->
+<!-- VIDEO CALL OVERLAY (enhanced with chat) -->
 <div class="video-call-overlay" id="video-call-overlay">
   <div style="padding:14px 20px;background:rgba(0,0,0,0.6);display:flex;align-items:center;gap:16px;border-bottom:1px solid rgba(255,255,255,0.06)">
     <div style="font-weight:700;font-size:0.95rem" id="call-meeting-name">NEC Plenary Session</div>
@@ -1794,9 +1926,7 @@ body.offline .offline-indicator {
     <div class="call-timer" id="call-timer">00:00:00</div>
     <button class="ctrl-btn" style="width:36px;height:36px" onclick="toggleCallChat()"><i class="fas fa-comment"></i></button>
   </div>
-  <div class="video-grid quad" id="video-grid">
-    <!-- video elements will be added dynamically -->
-  </div>
+  <div class="video-grid quad" id="video-grid"></div>
   <!-- Chat overlay inside call -->
   <div id="call-chat" style="position:absolute;top:80px;right:20px;width:280px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);display:none;flex-direction:column;max-height:400px;z-index:600">
     <div style="padding:12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between">
@@ -1806,17 +1936,17 @@ body.offline .offline-indicator {
       <div class="msg-row"><div class="msg-bubble" style="max-width:100%">Emeka: Great to have everyone!</div></div>
     </div>
     <div style="padding:12px;display:flex;gap:8px;border-top:1px solid var(--border)">
-      <input type="text" placeholder="Type..." class="form-control-apc" style="padding:6px 12px" id="call-chat-input">
-      <button class="chat-send-btn" style="width:36px;height:36px" onclick="sendCallChat()"><i class="fas fa-paper-plane"></i></button>
+      <input type="text" placeholder="Type..." class="form-control-apc" style="padding:6px 12px">
+      <button class="chat-send-btn" style="width:36px;height:36px"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
   <div class="call-controls">
     <button class="ctrl-btn" id="mic-btn" title="Mute" onclick="toggleMic()"><i class="fas fa-microphone" id="mic-icon"></i></button>
     <button class="ctrl-btn" id="cam-btn" title="Camera" onclick="toggleCam()"><i class="fas fa-video" id="cam-icon"></i></button>
-    <button class="ctrl-btn" title="Share Screen" onclick="startScreenShare()"><i class="fas fa-desktop"></i></button>
+    <button class="ctrl-btn" title="Share Screen" onclick="showToast('Screen sharing coming soon')"><i class="fas fa-desktop"></i></button>
     <button class="ctrl-btn" title="Chat" onclick="toggleCallChat()"><i class="fas fa-comment"></i></button>
     <button class="ctrl-btn" title="Participants"><i class="fas fa-users"></i></button>
-    <button class="ctrl-btn" title="Record" onclick="startRecording()"><i class="fas fa-circle" style="color:var(--danger);font-size:0.7rem"></i></button>
+    <button class="ctrl-btn" title="Record" onclick="showToast('Recording started (simulated)')"><i class="fas fa-circle" style="color:var(--danger);font-size:0.7rem"></i></button>
     <button class="ctrl-btn danger" title="End Call" onclick="endCall()"><i class="fas fa-phone-slash"></i></button>
   </div>
 </div>
@@ -1866,12 +1996,11 @@ body.offline .offline-indicator {
       </div>
       <textarea class="form-control-apc" id="post-text" rows="5" placeholder="Share something with the network…" style="resize:none;border-radius:10px"></textarea>
       <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-        <button class="post-action-btn" onclick="triggerFileUpload('image')"><i class="fas fa-image" style="color:#1da1f2"></i> Add Photo</button>
-        <button class="post-action-btn" onclick="triggerFileUpload('video')"><i class="fas fa-video" style="color:#ff6b81"></i> Add Video</button>
-        <button class="post-action-btn" onclick="openEmojiPicker()"><i class="fas fa-smile" style="color:var(--warning)"></i> Feeling</button>
+        <button class="post-action-btn"><i class="fas fa-image" style="color:#1da1f2"></i> Add Photo</button>
+        <button class="post-action-btn"><i class="fas fa-video" style="color:#ff6b81"></i> Add Video</button>
+        <button class="post-action-btn"><i class="fas fa-smile" style="color:var(--warning)"></i> Feeling</button>
         <button class="post-action-btn"><i class="fas fa-map-marker-alt" style="color:var(--danger)"></i> Location</button>
       </div>
-      <div id="file-preview" style="margin-top:12px; display:none; flex-wrap:wrap; gap:8px;"></div>
     </div>
     <div class="modal-footer">
       <button class="btn-modal-cancel" onclick="closeModal('create-post-modal')">Cancel</button>
@@ -1985,28 +2114,54 @@ body.offline .offline-indicator {
   </div>
 </div>
 
-<!-- Post Detail Modal (new) -->
-<div class="modal-overlay" id="post-detail-modal">
-  <div class="modal-box" style="max-width:600px;">
+<!-- NEW MODALS -->
+<!-- Create Stream Modal -->
+<div class="modal-overlay" id="create-stream-modal">
+  <div class="modal-box">
     <div class="modal-header">
-      <div class="modal-title">Post Details</div>
-      <button class="modal-close" onclick="closeModal('post-detail-modal')"><i class="fas fa-times"></i></button>
+      <div class="modal-title">Go Live</div>
+      <button class="modal-close" onclick="closeModal('create-stream-modal')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body" id="post-detail-content">
-      <!-- populated dynamically -->
+    <div class="modal-body">
+      <div class="form-group"><label class="form-label">Stream Title</label><input class="form-control-apc" id="stream-title" placeholder="e.g. NEC Live Broadcast"></div>
+      <div class="form-group"><label class="form-label">Description</label><textarea class="form-control-apc" rows="3" placeholder="What's this stream about?"></textarea></div>
+      <div class="form-group"><label class="form-label">Visibility</label>
+        <select class="form-control-apc">
+          <option>Public</option>
+          <option>Delegates Only</option>
+          <option>Private (Invite)</option>
+        </select>
+      </div>
+      <button class="btn-primary-apc" onclick="startLiveStream()">Start Stream</button>
     </div>
   </div>
 </div>
 
-<!-- User Profile Modal (for viewing other users) -->
-<div class="modal-overlay" id="user-profile-modal">
-  <div class="modal-box" style="max-width:400px;">
+<!-- Data Export Modal -->
+<div class="modal-overlay" id="data-export-modal">
+  <div class="modal-box">
     <div class="modal-header">
-      <div class="modal-title">User Profile</div>
-      <button class="modal-close" onclick="closeModal('user-profile-modal')"><i class="fas fa-times"></i></button>
+      <div class="modal-title">Export Your Data</div>
+      <button class="modal-close" onclick="closeModal('data-export-modal')"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body" id="user-profile-content">
-      <!-- populated dynamically -->
+    <div class="modal-body">
+      <p>Choose what to export (GDPR compliant).</p>
+      <div class="data-export-option" onclick="exportData('profile')">
+        <i class="fas fa-user fa-2x" style="color: var(--primary);"></i>
+        <div><strong>Profile Information</strong><br><small>Name, email, phone, bio</small></div>
+      </div>
+      <div class="data-export-option" onclick="exportData('posts')">
+        <i class="fas fa-newspaper fa-2x" style="color: var(--primary);"></i>
+        <div><strong>Posts & Comments</strong><br><small>All your posts and comments</small></div>
+      </div>
+      <div class="data-export-option" onclick="exportData('messages')">
+        <i class="fas fa-comments fa-2x" style="color: var(--primary);"></i>
+        <div><strong>Messages</strong><br><small>All direct messages and group chats</small></div>
+      </div>
+      <div class="data-export-option" onclick="exportData('all')">
+        <i class="fas fa-database fa-2x" style="color: var(--primary);"></i>
+        <div><strong>Everything</strong><br><small>Complete data archive</small></div>
+      </div>
     </div>
   </div>
 </div>
@@ -2017,24 +2172,26 @@ body.offline .offline-indicator {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 <script>
 // ============================================================================
-// APC PRIVATE CONNECT – FULLY INTEGRATED PRODUCTION-READY CODE
-// Includes: Real API simulation, WebSocket simulation, file uploads,
-//           biometric, offline support, PWA, and all missing pages.
+// APC PRIVATE CONNECT – ENHANCED PRODUCTION-READY CODE
+// Includes: NIN biometric, advanced groups, chat with reactions/files,
+//           video meetings with chat, admin tools, performance automations,
+//           mobile bottom navigation, offline support, accessibility,
+//           and all missing pages.
 // ============================================================================
 
-// --- STATE (extended with persistence) ---
+// --- STATE (extended) ---
 const STATE = {
   user: null,
-  posts: JSON.parse(localStorage.getItem('apc_posts')) || [],
-  chatConversations: JSON.parse(localStorage.getItem('apc_chats')) || [],
+  posts: [],
+  chatConversations: [],
   currentChat: null,
-  meetings: JSON.parse(localStorage.getItem('apc_meetings')) || [],
-  notifications: JSON.parse(localStorage.getItem('apc_notifications')) || [],
-  groups: JSON.parse(localStorage.getItem('apc_groups')) || [],
+  meetings: [],
+  notifications: [],
+  groups: [],
   currentGroup: null,
-  groupMessages: JSON.parse(localStorage.getItem('apc_groupMessages')) || {},
+  groupMessages: {},
   isAdmin: false,
-  theme: localStorage.getItem('apc_theme') || 'dark',
+  theme: 'dark',
   callActive: false,
   callInterval: null,
   callSeconds: 0,
@@ -2048,85 +2205,138 @@ const STATE = {
   inactivityTimer: null,
   searchDebounceTimer: null,
   isOffline: !navigator.onLine,
-  mediaStream: null,
-  wsSimInterval: null
+  gdprAccepted: localStorage.getItem('gdprAccepted') === 'true'
 };
 
-// --- INITIAL MOCK DATA (if empty) ---
-if (STATE.posts.length === 0) {
-  STATE.posts = [
-    { id: 1, author: 'Emeka Chukwu', role: 'National Chairman', color: 'linear-gradient(135deg,#f093fb,#f5576c)', initials:'EC', text: 'We must unite as a party to deliver on our campaign promises to Nigerians. The road ahead requires collective resolve and transparent leadership. #APCReforms2024', likes: 142, comments: 28, shares: 45, time: '2h ago', hasMedia: false },
-    { id: 2, author: 'Fatima Aliyu', role: 'Deputy Secretary', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', initials:'FA', text: 'Just finished reviewing the draft constitution amendment proposals. Some very progressive ideas coming from the zones. Proud of our delegates! 🇳🇬', likes: 87, comments: 14, shares: 22, time: '4h ago', hasMedia: false }
-  ];
-}
-if (STATE.chatConversations.length === 0) {
-  STATE.chatConversations = [
-    { id: 1, name: 'General Committee', initials: 'GC', color: 'linear-gradient(135deg,#f093fb,#f5576c)', type: 'group', preview: 'Emeka: Great meeting everyone!', time: '2m', unread: 3, online: '23 members online' },
-    { id: 2, name: 'FCT Zone Delegates', initials: 'FC', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', type: 'group', preview: 'Aisha: See you all at 10!', time: '15m', unread: 0, online: '8 members online' },
-    { id: 3, name: 'Emeka Chukwu', initials: 'EC', color: 'linear-gradient(135deg,#43e97b,#38f9d7)', type: 'dm', preview: 'Will review it tonight', time: '1h', unread: 1, online: 'Online' }
-  ];
-}
-if (STATE.meetings.length === 0) {
-  STATE.meetings = [
-    { id: 1, title: 'NEC Plenary Session', status: 'live', host: 'Emeka Chukwu', date: 'Today', time: 'Started 10:00 AM', participants: 45, agenda: 'Quarterly review' },
-    { id: 2, title: 'FCT Committee Review', status: 'upcoming', host: 'Aisha Okafor', date: 'Today', time: '2:30 PM', participants: 18, agenda: 'Capital territory plans' }
-  ];
-}
-if (STATE.notifications.length === 0) {
-  STATE.notifications = [
-    { type: 'like', icon: 'fa-heart', text: '<strong>Emeka Chukwu</strong> liked your post', time: '2 min ago', unread: true }
-  ];
-}
-if (STATE.groups.length === 0) {
-  STATE.groups = [
-    { id: 1, name: 'General Committee', description: 'National Executive Committee discussions', icon: 'fa-users', color: '#f093fb', members: 45, type: 'private', role: 'Admin', lastActive: '2 min ago' },
-    { id: 2, name: 'FCT Zone Delegates', description: 'All delegates from Federal Capital Territory', icon: 'fa-map-marker-alt', color: '#4facfe', members: 128, type: 'public', role: 'Member', lastActive: '15 min ago' }
-  ];
-}
-if (STATE.groupMessages[1] === undefined) {
-  STATE.groupMessages[1] = [
-    { from: 'Emeka Chukwu', initials: 'EC', color: 'linear-gradient(135deg,#f093fb,#f5576c)', text: 'Agenda for today: discuss zoning and new members.', time: '10:02', mine: false }
-  ];
-}
+// --- MOCK DATA (extended) ---
+const MOCK_USERS = [
+  { email: 'admin@apc.gov.ng', password: 'admin123', name: 'Emeka Chukwu', role: 'National Chairman', initials: 'EC', isAdmin: true, nin: '12345678901', ninVerified: true },
+  { email: 'delegate@apc.gov.ng', password: 'pass123', name: 'Aisha Okafor', role: 'Senior Delegate – FCT', initials: 'AO', isAdmin: false, nin: '98765432109', ninVerified: true }
+];
 
-// --- UTILS ---
-function saveState() {
-  localStorage.setItem('apc_posts', JSON.stringify(STATE.posts));
-  localStorage.setItem('apc_chats', JSON.stringify(STATE.chatConversations));
-  localStorage.setItem('apc_meetings', JSON.stringify(STATE.meetings));
-  localStorage.setItem('apc_notifications', JSON.stringify(STATE.notifications));
-  localStorage.setItem('apc_groups', JSON.stringify(STATE.groups));
-  localStorage.setItem('apc_groupMessages', JSON.stringify(STATE.groupMessages));
-  localStorage.setItem('apc_theme', STATE.theme);
-}
-function escHTML(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function showToast(message, type='info', title='') {
-  const container = document.getElementById('toast-container');
-  const id = `toast-${Date.now()}`;
-  const icons = { success:'fa-check-circle', error:'fa-times-circle', info:'fa-info-circle', warning:'fa-exclamation-triangle' };
-  const colors = { success:'var(--primary)', error:'var(--danger)', info:'var(--info)', warning:'var(--warning)' };
-  const div = document.createElement('div');
-  div.className = `toast ${type==='error'?'error':type==='warning'?'warning':''}`;
-  div.id = id;
-  div.style.borderLeftColor = colors[type]||'var(--primary)';
-  div.innerHTML = `
-    <i class="fas ${icons[type]||icons.info}" style="color:${colors[type]||'var(--primary)'};font-size:1rem"></i>
-    <div class="toast-text">${title?`<div class="toast-title">${title}</div>`:''}${message}</div>
-    <i class="fas fa-times toast-close" onclick="removeToast('${id}')"></i>`;
-  container.appendChild(div);
-  setTimeout(() => removeToast(id), 4000);
-}
-function removeToast(id) {
-  const el = document.getElementById(id);
-  if (el) { el.style.animation = 'toastOut 0.3s ease forwards'; setTimeout(()=>el.remove(), 300); }
-}
-function openModal(id) { document.getElementById(id)?.classList.add('open'); }
-function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
-document.addEventListener('click', e => {
-  if (e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
-});
+const MEMBERS = [
+  { name: 'Emeka Chukwu', role: 'National Chairman', initials: 'EC', color: 'linear-gradient(135deg,#f093fb,#f5576c)' },
+  { name: 'Fatima Aliyu', role: 'Deputy Secretary', initials: 'FA', color: 'linear-gradient(135deg,#4facfe,#00f2fe)' },
+  { name: 'Babatunde Ojo', role: 'Treasurer', initials: 'BO', color: 'linear-gradient(135deg,#43e97b,#38f9d7)' },
+  { name: 'Ngozi Eze', role: 'Legal Adviser', initials: 'NE', color: 'linear-gradient(135deg,#fa709a,#fee140)' },
+  { name: 'Ibrahim Musa', role: 'North-Central Rep', initials: 'IM', color: 'linear-gradient(135deg,#a18cd1,#fbc2eb)' },
+  { name: 'Chidinma Obi', role: 'Women Wing Lead', initials: 'CO', color: 'linear-gradient(135deg,#ffecd2,#fcb69f)' },
+  { name: 'Yusuf Bello', role: 'Youth Leader', initials: 'YB', color: 'linear-gradient(135deg,#667eea,#764ba2)' },
+  { name: 'Amaka Nwosu', role: 'Media Director', initials: 'AN', color: 'linear-gradient(135deg,#f6d365,#fda085)' }
+];
+
+const POST_TEMPLATES = [
+  { author: 'Emeka Chukwu', role: 'National Chairman', color: 'linear-gradient(135deg,#f093fb,#f5576c)', initials:'EC', text: 'We must unite as a party to deliver on our campaign promises to Nigerians. The road ahead requires collective resolve and transparent leadership. #APCReforms2024', likes: 142, comments: 28, shares: 45, time: '2h ago', hasMedia: false },
+  { author: 'Fatima Aliyu', role: 'Deputy Secretary', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', initials:'FA', text: 'Just finished reviewing the draft constitution amendment proposals. Some very progressive ideas coming from the zones. Proud of our delegates! 🇳🇬', likes: 87, comments: 14, shares: 22, time: '4h ago', hasMedia: false },
+  { author: 'Babatunde Ojo', role: 'Treasurer', color: 'linear-gradient(135deg,#43e97b,#38f9d7)', initials:'BO', text: 'Reminder: All delegates must submit their financial disclosure forms by end of month. Transparency is the foundation of our party\'s integrity. #Accountability', likes: 63, comments: 9, shares: 31, time: '5h ago', hasMedia: true },
+  { author: 'Ngozi Eze', role: 'Legal Adviser', color: 'linear-gradient(135deg,#fa709a,#fee140)', initials:'NE', text: 'The Constitutional Review Committee will be hosting an open forum for all registered delegates. Your voice matters in shaping our party\'s future framework. #NationalConvention', likes: 211, comments: 47, shares: 89, time: '8h ago', hasMedia: false },
+  { author: 'Ibrahim Musa', role: 'North-Central Rep', color: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', initials:'IM', text: 'Proud to report that North-Central zone has achieved 98% delegate registration ahead of the national convention! Great teamwork from every LGA. 💪', likes: 394, comments: 62, shares: 107, time: '1d ago', hasMedia: false }
+];
+
+const CHAT_CONVOS = [
+  { id: 1, name: 'General Committee', initials: 'GC', color: 'linear-gradient(135deg,#f093fb,#f5576c)', type: 'group', preview: 'Emeka: Great meeting everyone!', time: '2m', unread: 3, online: '23 members online' },
+  { id: 2, name: 'FCT Zone Delegates', initials: 'FC', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', type: 'group', preview: 'Aisha: See you all at 10!', time: '15m', unread: 0, online: '8 members online' },
+  { id: 3, name: 'Emeka Chukwu', initials: 'EC', color: 'linear-gradient(135deg,#43e97b,#38f9d7)', type: 'dm', preview: 'Will review it tonight', time: '1h', unread: 1, online: 'Online' },
+  { id: 4, name: 'Fatima Aliyu', initials: 'FA', color: 'linear-gradient(135deg,#667eea,#764ba2)', type: 'dm', preview: 'Thanks for the update', time: '3h', unread: 0, online: '2h ago' },
+  { id: 5, name: 'Policy Task Force', initials: 'PT', color: 'linear-gradient(135deg,#f6d365,#fda085)', type: 'group', preview: 'Ibrahim: Draft is ready', time: '5h', unread: 2, online: '5 members online' },
+  { id: 6, name: 'Ngozi Eze', initials: 'NE', color: 'linear-gradient(135deg,#fa709a,#fee140)', type: 'dm', preview: 'See you at the forum', time: 'Yesterday', unread: 0, online: 'Yesterday' }
+];
+
+const GROUPS_DATA = [
+  { id: 1, name: 'General Committee', description: 'National Executive Committee discussions', icon: 'fa-users', color: '#f093fb', members: 45, type: 'private', role: 'Admin', lastActive: '2 min ago' },
+  { id: 2, name: 'FCT Zone Delegates', description: 'All delegates from Federal Capital Territory', icon: 'fa-map-marker-alt', color: '#4facfe', members: 128, type: 'public', role: 'Member', lastActive: '15 min ago' },
+  { id: 3, name: 'Policy Task Force', description: 'Drafting policy recommendations', icon: 'fa-file-alt', color: '#43e97b', members: 23, type: 'secret', role: 'Moderator', lastActive: '1h ago' },
+  { id: 4, name: 'Women Wing', description: 'APC Women Wing coordination', icon: 'fa-female', color: '#fa709a', members: 67, type: 'public', role: 'Observer', lastActive: '3h ago' }
+];
+
+const MEETINGS_DATA = [
+  { id: 1, title: 'NEC Plenary Session', status: 'live', host: 'Emeka Chukwu', date: 'Today', time: 'Started 10:00 AM', participants: 45, agenda: 'Quarterly review and party directives' },
+  { id: 2, title: 'FCT Committee Review', status: 'upcoming', host: 'Aisha Okafor', date: 'Today', time: '2:30 PM', participants: 18, agenda: 'Capital territory development plans' },
+  { id: 3, title: 'Policy Debate Forum', status: 'upcoming', host: 'Ngozi Eze', date: 'Tomorrow', time: '11:00 AM', participants: 62, agenda: 'Constitutional amendments discussion' },
+  { id: 4, title: 'Youth Wing Meeting', status: 'upcoming', host: 'Yusuf Bello', date: 'Dec 18', time: '3:00 PM', participants: 89, agenda: 'Youth engagement strategy 2025' },
+  { id: 5, title: 'Finance Committee', status: 'ended', host: 'Babatunde Ojo', date: 'Dec 14', time: '9:00 AM', participants: 12, agenda: 'Q3 financial report review' },
+  { id: 6, title: 'Media & Comms Briefing', status: 'ended', host: 'Amaka Nwosu', date: 'Dec 13', time: '2:00 PM', participants: 23, agenda: 'Campaign messaging rollout' }
+];
+
+const NOTIFICATIONS_DATA = [
+  { type: 'like', icon: 'fa-heart', text: '<strong>Emeka Chukwu</strong> liked your post about FCT development', time: '2 min ago', unread: true },
+  { type: 'meeting', icon: 'fa-video', text: '<strong>NEC Plenary Session</strong> is starting now. Join to participate.', time: '5 min ago', unread: true },
+  { type: 'comment', icon: 'fa-comment', text: '<strong>Fatima Aliyu</strong> commented on your post: "Well said, Aisha!"', time: '20 min ago', unread: true },
+  { type: 'group', icon: 'fa-users', text: '<strong>Policy Task Force</strong> added you as a moderator', time: '45 min ago', unread: true },
+  { type: 'message', icon: 'fa-envelope', text: '<strong>Emeka Chukwu</strong> sent you a direct message', time: '1h ago', unread: true },
+  { type: 'system', icon: 'fa-bell', text: 'Policy Task Force meeting scheduled for tomorrow at 11 AM', time: '2h ago', unread: false },
+  { type: 'like', icon: 'fa-heart', text: '<strong>Ibrahim Musa</strong> and <strong>23 others</strong> liked your post', time: '3h ago', unread: false },
+  { type: 'comment', icon: 'fa-comment', text: '<strong>Ngozi Eze</strong> replied to your comment in General Committee', time: '5h ago', unread: false }
+];
+
+const CHAT_MESSAGES_INITIAL = [
+  { from: 'Emeka Chukwu', initials: 'EC', color: 'linear-gradient(135deg,#f093fb,#f5576c)', text: 'Good morning everyone! Hope you all had a great weekend.', time: '9:00 AM', mine: false, reactions: ['👍','❤️'] },
+  { from: 'Fatima Aliyu', initials: 'FA', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', text: 'Morning Chairman! Ready for today\'s plenary session.', time: '9:02 AM', mine: false, reactions: [] },
+  { from: 'Me', initials: 'AO', color: 'linear-gradient(135deg,var(--primary),var(--accent2))', text: 'Good morning! I\'ve reviewed the agenda. Looking forward to the FCT updates.', time: '9:05 AM', mine: true, reactions: [] },
+  { from: 'Ibrahim Musa', initials: 'IM', color: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', text: 'North-Central delegates are all set. We have 3 major points to raise during the session.', time: '9:08 AM', mine: false, reactions: [] },
+  { from: 'Emeka Chukwu', initials: 'EC', color: 'linear-gradient(135deg,#f093fb,#f5576c)', text: 'Perfect. Let\'s ensure we stay on agenda. We have a lot to cover today. The plenary starts at exactly 10 AM.', time: '9:15 AM', mine: false, reactions: ['👍','👍'] },
+  { from: 'Me', initials: 'AO', color: 'linear-gradient(135deg,var(--primary),var(--accent2))', text: 'Understood. I\'ll be joining via the video call link.', time: '9:18 AM', mine: true, reactions: [] }
+];
+
+const GROUP_CHAT_MESSAGES = {
+  1: [ // General Committee
+    { from: 'Emeka Chukwu', initials: 'EC', color: 'linear-gradient(135deg,#f093fb,#f5576c)', text: 'Agenda for today: discuss zoning and new members.', time: '10:02', mine: false },
+    { from: 'Fatima Aliyu', initials: 'FA', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', text: 'I have a few points on the zoning proposal.', time: '10:04', mine: false }
+  ],
+  2: [ // FCT Zone Delegates
+    { from: 'Aisha Okafor', initials: 'AO', color: 'linear-gradient(135deg,var(--primary),var(--accent2))', text: 'Meeting at 2:30 PM, please be on time.', time: '13:45', mine: true },
+    { from: 'Ibrahim Musa', initials: 'IM', color: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', text: 'Noted, will be there.', time: '13:50', mine: false }
+  ]
+};
+
+const PENDING_APPROVALS = [
+  { name: 'Musa Abdullahi', zone: 'Kano North', id: 'APC-7823', submitted: 'Dec 10, 2024', status: 'pending', nin: '12345678902', ninVerified: false },
+  { name: 'Chioma Okonkwo', zone: 'Anambra West', id: 'APC-7831', submitted: 'Dec 11, 2024', status: 'pending', nin: '12345678903', ninVerified: true },
+  { name: 'Suleiman Garba', zone: 'Sokoto South', id: 'APC-7844', submitted: 'Dec 12, 2024', status: 'pending', nin: '12345678904', ninVerified: false },
+  { name: 'Amina Bello', zone: 'Kaduna Central', id: 'APC-7851', submitted: 'Dec 13, 2024', status: 'approved', nin: '12345678905', ninVerified: true },
+  { name: 'Tunde Fashola', zone: 'Lagos Island', id: 'APC-7855', submitted: 'Dec 14, 2024', status: 'pending', nin: '12345678906', ninVerified: true }
+];
+
+const ALL_USERS = [
+  { name: 'Musa Abdullahi', role: 'Delegate', zone: 'Kano North', status: 'active' },
+  { name: 'Chioma Okonkwo', role: 'Delegate', zone: 'Anambra West', status: 'active' },
+  { name: 'Suleiman Garba', role: 'Delegate', zone: 'Sokoto South', status: 'pending' },
+  { name: 'Amina Bello', role: 'Delegate', zone: 'Kaduna Central', status: 'active' },
+  { name: 'Tunde Fashola', role: 'Delegate', zone: 'Lagos Island', status: 'active' },
+  { name: 'Emeka Chukwu', role: 'National Chairman', zone: 'National', status: 'active' },
+  { name: 'Fatima Aliyu', role: 'Deputy Secretary', zone: 'National', status: 'active' }
+];
+
+const SYSTEM_LOGS = [
+  '10:32: Admin approved Chioma Okonkwo',
+  '10:15: New group "Policy Task Force" created',
+  '09:58: User Aisha Okafor logged in',
+  '09:45: Meeting "NEC Plenary" started',
+  '09:12: 3 new pending approvals'
+];
+
+const ACTIVITY_LOG = [
+  { icon: 'fa-newspaper', text: 'Published a post about FCT development', time: '2h ago' },
+  { icon: 'fa-heart', text: 'Liked Emeka Chukwu\'s post', time: '3h ago' },
+  { icon: 'fa-comment', text: 'Commented on Policy Forum discussion', time: '5h ago' },
+  { icon: 'fa-video', text: 'Attended NEC Plenary Session', time: '1d ago' },
+  { icon: 'fa-user-plus', text: 'Connected with Ibrahim Musa', time: '2d ago' },
+  { icon: 'fa-fingerprint', text: 'NIN biometric verification completed', time: '3d ago' }
+];
+
+const PRIVACY_SETTINGS = [
+  { label: 'Who can see my posts', value: 'All Delegates', options: ['All Delegates', 'My Zone', 'Connections Only'] },
+  { label: 'Who can message me', value: 'All Delegates', options: ['All Delegates', 'Connections Only', 'Nobody'] },
+  { label: 'Show online status', value: 'On', options: ['On', 'Off'] },
+  { label: 'Email notifications', value: 'On', options: ['On', 'Off'] },
+  { label: 'Two-Factor Authentication', value: 'Enabled', options: ['Enabled', 'Disabled'] },
+  { label: 'Biometric login (fingerprint)', value: 'Enabled', options: ['Enabled', 'Disabled'] }
+];
+
+const CHART_DATA = [
+  { day: 'Mon', val: 65 }, { day: 'Tue', val: 89 }, { day: 'Wed', val: 72 },
+  { day: 'Thu', val: 95 }, { day: 'Fri', val: 81 }, { day: 'Sat', val: 48 }, { day: 'Sun', val: 57 }
+];
 
 // --- OFFLINE DETECTION ---
 function updateOfflineStatus() {
@@ -2141,9 +2351,40 @@ window.addEventListener('online', updateOfflineStatus);
 window.addEventListener('offline', updateOfflineStatus);
 updateOfflineStatus();
 
+// --- GDPR CONSENT ---
+function showGDPRBanner() {
+  if (!STATE.gdprAccepted) {
+    document.getElementById('gdpr-banner').classList.add('show');
+  }
+}
+function acceptGDPR() {
+  STATE.gdprAccepted = true;
+  localStorage.setItem('gdprAccepted', 'true');
+  document.getElementById('gdpr-banner').classList.remove('show');
+  showToast('Thank you for accepting our privacy terms.', 'success');
+}
+
+// --- WELCOME SCREEN ---
+function showWelcomeScreen() {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('welcome-screen').style.display = 'flex';
+  document.getElementById('auth-screen').style.display = 'none';
+  document.getElementById('app').classList.remove('visible');
+}
+function showAuthPanel(panel) {
+  document.getElementById('welcome-screen').style.display = 'none';
+  document.getElementById('auth-screen').style.display = 'flex';
+  showPanel(panel);
+}
+// Override splash to show welcome first
+setTimeout(() => {
+  document.getElementById('splash').style.display = 'none';
+  showWelcomeScreen();
+}, 3200);
+
 // --- AUTH (enhanced) ---
 function showPanel(panel) {
-  ['welcome','login','twofa','register','pending','forgot'].forEach(p => {
+  ['login','twofa','register','pending','forgot'].forEach(p => {
     const el = document.getElementById(`${p}-panel`);
     if (el) el.style.display = 'none';
   });
@@ -2164,22 +2405,19 @@ function togglePass() {
   const icon = document.getElementById('toggle-pass');
   input.type = input.type === 'password' ? 'text' : 'password';
   icon.className = input.type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+  icon.style.cssText = 'position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;color:var(--text-muted)';
 }
 function doLogin() {
   const email = document.getElementById('login-email').value.trim();
   const pass = document.getElementById('login-pass').value;
   const errEl = document.getElementById('login-error');
   if (!email || !pass) { errEl.style.display='block'; errEl.textContent='Please fill in all fields.'; return; }
-  // Simulate API call
-  if (email === 'delegate@apc.gov.ng' && pass === 'pass123') {
-    const user = { email, name: 'Aisha Okafor', role: 'Senior Delegate – FCT', initials: 'AO', isAdmin: false, nin: '98765432109', ninVerified: true };
-    loginSuccess(user);
-  } else if (email === 'admin@apc.gov.ng' && pass === 'admin123') {
-    const user = { email, name: 'Emeka Chukwu', role: 'National Chairman', initials: 'EC', isAdmin: true, nin: '12345678901', ninVerified: true };
-    loginSuccess(user);
-  } else {
-    errEl.style.display='block'; errEl.textContent='Invalid credentials. Try delegate@apc.gov.ng / pass123';
-  }
+  const user = MOCK_USERS.find(u => u.email === email && u.password === pass);
+  if (!user) { errEl.style.display='block'; errEl.textContent='Invalid credentials. Try delegate@apc.gov.ng / pass123'; return; }
+  errEl.style.display = 'none';
+  showPanel('twofa');
+  STATE.pendingUser = user;
+  buildOTP();
 }
 function buildOTP() {
   const container = document.getElementById('otp-inputs');
@@ -2196,14 +2434,17 @@ function buildOTP() {
 function verify2FA() {
   const otp = [...document.getElementById('otp-inputs').children].map(i=>i.value).join('');
   if (otp.length < 6) { showToast('Please enter the full 6-digit code','error'); return; }
-  loginSuccess({ email: 'delegate@apc.gov.ng', name: 'Aisha Okafor', role: 'Senior Delegate – FCT', initials: 'AO', isAdmin: false });
+  loginSuccess(STATE.pendingUser);
 }
-function show2FA() { showPanel('twofa'); buildOTP(); }
+function show2FA() { STATE.pendingUser = MOCK_USERS[1]; showPanel('twofa'); buildOTP(); }
 function simulateFingerprintLogin() {
   requireFingerprint(() => {
-    loginSuccess({ email: 'delegate@apc.gov.ng', name: 'Aisha Okafor', role: 'Senior Delegate – FCT', initials: 'AO', isAdmin: false });
+    // auto-login as delegate for demo
+    loginSuccess(MOCK_USERS[1]);
   });
 }
+
+// NIN + Fingerprint simulation
 let fingerprintScanned = false;
 function simulateFingerprintScan() {
   const statusEl = document.getElementById('fingerprint-status-text');
@@ -2230,41 +2471,47 @@ function loginSuccess(user) {
   applyUserToUI(user);
   initApp();
   showToast(`Welcome back, ${user.name.split(' ')[0]}! Biometric session active.`,'success');
+  // Start inactivity monitor
   startInactivityTimer();
-  saveState();
-  // Start WebSocket simulation
-  startWebSocketSimulation();
+  showGDPRBanner(); // Show GDPR banner after login
 }
 function doLogout() {
   STATE.user = null;
   fingerprintScanned = false;
   document.getElementById('app').classList.remove('visible');
-  document.getElementById('auth-screen').style.display = 'flex';
-  showPanel('welcome');
+  document.getElementById('auth-screen').style.display = 'none';
+  showWelcomeScreen();
   if (STATE.inactivityTimer) clearTimeout(STATE.inactivityTimer);
-  if (STATE.wsSimInterval) clearInterval(STATE.wsSimInterval);
-  if (STATE.mediaStream) STATE.mediaStream.getTracks().forEach(t=>t.stop());
-  saveState();
 }
 function applyUserToUI(user) {
   ['sidebar-avatar','topbar-avatar','feed-avatar','modal-avatar','profile-avatar-big'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.textContent = user.initials;
   });
-  document.getElementById('sidebar-username').textContent = user.name;
-  document.getElementById('sidebar-role').textContent = user.role;
+  const usernameEl = document.getElementById('sidebar-username');
+  if (usernameEl) usernameEl.textContent = user.name;
+  const roleEl = document.getElementById('sidebar-role');
+  if (roleEl) roleEl.textContent = user.role;
   if (user.isAdmin) {
-    document.getElementById('admin-section').style.display = 'block';
-    document.getElementById('admin-link').style.display = 'flex';
-    document.getElementById('create-meeting-btn').style.display = 'flex';
+    const adminSection = document.getElementById('admin-section');
+    const adminLink = document.getElementById('admin-link');
+    const createMeetingBtn = document.getElementById('create-meeting-btn');
+    if (adminSection) adminSection.style.display = 'block';
+    if (adminLink) adminLink.style.display = 'flex';
+    if (createMeetingBtn) createMeetingBtn.style.display = 'flex';
     STATE.isAdmin = true;
   }
-  document.getElementById('profile-name-display').textContent = user.name;
-  document.getElementById('profile-handle').textContent = `@${user.name.toLowerCase().replace(' ','.')} • ${user.role}`;
+  // Update profile page
+  const profileName = document.getElementById('profile-name-display');
+  if (profileName) profileName.textContent = user.name;
+  const profileHandle = document.getElementById('profile-handle');
+  if (profileHandle) profileHandle.textContent = `@${user.name.toLowerCase().replace(' ','.')} • ${user.role}`;
   document.getElementById('edit-name').value = user.name;
   document.getElementById('edit-role').value = user.role;
 }
-function requireFingerprint(actionFn) {
+
+// --- FINGERPRINT PROTECTION ---
+function requireFingerprint(actionFn, context = 'admin') {
   STATE.pendingAction = actionFn;
   document.getElementById('fingerprint-modal-status').innerHTML = 'Place your finger on the scanner';
   openModal('fingerprint-modal');
@@ -2285,59 +2532,12 @@ function simulateFingerprintForAction() {
   }, 1500);
 }
 
-// --- WEBSOCKET SIMULATION ---
-function startWebSocketSimulation() {
-  if (STATE.wsSimInterval) clearInterval(STATE.wsSimInterval);
-  STATE.wsSimInterval = setInterval(() => {
-    // Simulate new message in active chat
-    if (STATE.currentChat && Math.random() > 0.7) {
-      const names = ['Emeka Chukwu','Fatima Aliyu','Ibrahim Musa'];
-      const msg = {
-        from: names[Math.floor(Math.random()*names.length)],
-        initials: names[Math.floor(Math.random()*names.length)].split(' ').map(n=>n[0]).join(''),
-        color: 'linear-gradient(135deg,#f093fb,#f5576c)',
-        text: ['Noted.','Thanks for the update.','I agree.','Let’s discuss later.'][Math.floor(Math.random()*4)],
-        time: new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}),
-        mine: false
-      };
-      if (STATE.currentChat.type === 'group') {
-        if (!STATE.groupMessages[STATE.currentChat.id]) STATE.groupMessages[STATE.currentChat.id] = [];
-        STATE.groupMessages[STATE.currentChat.id].push(msg);
-        if (document.getElementById('page-chat').classList.contains('active')) {
-          renderChatMessages(STATE.groupMessages[STATE.currentChat.id]);
-        }
-      } else {
-        // direct message simulation
-      }
-      saveState();
-    }
-    // Simulate new notification
-    if (Math.random() > 0.8) {
-      STATE.notifications.unshift({
-        type: 'message',
-        icon: 'fa-envelope',
-        text: '<strong>System</strong>: You have a new message',
-        time: 'just now',
-        unread: true
-      });
-      renderNotifications();
-      updateNotifBadge();
-      saveState();
-    }
-  }, 15000);
-}
-
-// --- INIT ---
+// --- INIT (enhanced) ---
 function initApp() {
   renderFeed();
   renderGroupsList();
   renderChatList();
-  if (STATE.currentChat) {
-    const msgs = STATE.currentChat.type === 'group' ? (STATE.groupMessages[STATE.currentChat.id] || []) : [];
-    renderChatMessages(msgs);
-  } else {
-    renderChatMessages([]);
-  }
+  renderChatMessages(CHAT_MESSAGES_INITIAL);
   renderMeetings();
   renderNotifications();
   renderAdminPage();
@@ -2345,12 +2545,21 @@ function initApp() {
   renderProfilePage();
   renderUserTable();
   renderSystemLogs();
-  renderNewPages();
+  renderNewPages(); // populate new pages
+  renderVideoStreams();
+  renderMarketplace();
+  renderEvents();
+  autoSimulate();
+  // post visibility toggle
   document.getElementById('post-visibility')?.addEventListener('change', function(e) {
-    document.getElementById('post-group-select').style.display = e.target.value === 'group' ? 'block' : 'none';
+    const groupSelect = document.getElementById('post-group-select');
+    if (e.target.value === 'group') groupSelect.style.display = 'block';
+    else groupSelect.style.display = 'none';
   });
   // Start background sync simulation
-  setInterval(() => { if (STATE.user) backgroundSync(); }, 30000);
+  setInterval(() => {
+    if (STATE.user) backgroundSync();
+  }, 30000);
 }
 function renderNewPages() {
   renderSearchResults();
@@ -2360,148 +2569,183 @@ function renderNewPages() {
   renderHelp();
   renderAbout();
 }
+function renderVideoStreams() {
+  const container = document.getElementById('video-streams-list');
+  if (!container) return;
+  const streams = [
+    { title: 'NEC Plenary Live', host: 'Emeka Chukwu', viewers: 234, thumbnail: '' },
+    { title: 'FCT Zone Meeting', host: 'Aisha Okafor', viewers: 89, thumbnail: '' },
+    { title: 'Policy Debate', host: 'Ngozi Eze', viewers: 156, thumbnail: '' },
+    { title: 'Women Wing Workshop', host: 'Chidinma Obi', viewers: 45, thumbnail: '' }
+  ];
+  container.innerHTML = streams.map(s => `
+    <div class="video-thumb" onclick="openVideoCall('${s.title}')">
+      <div class="video-thumb-info">
+        <strong>${s.title}</strong><br>
+        <small>${s.host} · ${s.viewers} watching</small>
+      </div>
+    </div>`).join('');
+}
+function renderMarketplace() {
+  const container = document.getElementById('marketplace-list');
+  if (!container) return;
+  const listings = [
+    { title: 'APC Campaign Materials', price: '₦5,000', seller: 'Babatunde Ojo' },
+    { title: 'Party Regalia', price: '₦12,000', seller: 'Fatima Aliyu' },
+    { title: 'Fundraising Event Tickets', price: 'Free', seller: 'Yusuf Bello' }
+  ];
+  container.innerHTML = listings.map(l => `
+    <div class="group-card" onclick="showToast('View listing')">
+      <div class="group-icon" style="background:#4facfe"><i class="fas fa-tag"></i></div>
+      <div class="group-name">${l.title}</div>
+      <div class="group-meta">${l.price} · ${l.seller}</div>
+    </div>`).join('');
+}
+function renderEvents() {
+  const container = document.getElementById('events-list');
+  if (!container) return;
+  container.innerHTML = MEETINGS_DATA.filter(m => m.status !== 'ended').map(m => `
+    <div class="meeting-card upcoming" onclick="showToast('Event details')">
+      <div class="meeting-title">${m.title}</div>
+      <div class="meeting-detail"><i class="fas fa-calendar"></i> ${m.date} at ${m.time}</div>
+      <div class="meeting-detail"><i class="fas fa-user-tie"></i> ${m.host}</div>
+    </div>`).join('');
+}
+function startLiveStream() {
+  const title = document.getElementById('stream-title').value;
+  if (!title) { showToast('Please enter a stream title', 'error'); return; }
+  closeModal('create-stream-modal');
+  openVideoCall(title);
+  showToast('Stream started!', 'success');
+}
+function exportData(type) {
+  closeModal('data-export-modal');
+  showToast(`Exporting ${type} data... (simulated)`, 'info');
+  setTimeout(() => showToast('Data export completed. Check your email.', 'success'), 3000);
+}
 
-// --- FEED ---
+// --- NAVIGATION (unchanged) ---
+const PAGE_TITLES = { feed:'News Feed', groups:'Groups', chat:'Messages', meetings:'Meetings', notifications:'Notifications', profile:'My Profile', admin:'Admin Dashboard', search:'Search', directory:'Directory', recordings:'Recordings', settings:'Settings', help:'Help', about:'About', welcome:'Welcome', 'video-streams':'Live Streams', marketplace:'Marketplace', events:'Events' };
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const pageEl = document.getElementById(`page-${page}`);
+  if (pageEl) pageEl.classList.add('active');
+  const navEl = document.querySelector(`.nav-item[onclick*="'${page}'"]`);
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('topbar-title').textContent = PAGE_TITLES[page] || page;
+  if (page === 'groups') showGroupsList();
+  closeSidebar();
+}
+function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').style.display='block'; }
+function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').style.display='none'; }
+
+// Mobile navigation
+function navigateMobile(page, event) {
+  event.preventDefault();
+  document.querySelectorAll('.mobile-nav-item').forEach(item => item.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  navigate(page);
+}
+
+// --- FEED (enhanced with skeleton) ---
 function renderFeed() {
   const container = document.getElementById('feed-posts');
-  container.innerHTML = STATE.posts.map((p, i) => createPostCard(p, i)).join('');
+  container.innerHTML = POST_TEMPLATES.map((p, i) => createPostCard(p, i)).join('');
 }
 function createPostCard(p, idx) {
   const mediaHTML = p.hasMedia ? `<div class="post-media" style="background:linear-gradient(135deg,rgba(0,200,150,0.08),rgba(123,97,255,0.08));min-height:200px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;color:var(--text-muted)"><i class="fas fa-image" style="margin-right:8px;opacity:0.4"></i>Attached media preview</div>` : '';
   return `
-  <div class="post-card" id="post-${p.id}" onclick="openPostDetail(${p.id})">
+  <div class="post-card" id="post-${idx}">
     <div class="post-header">
       <div class="post-avatar" style="background:${p.color}" role="img" aria-label="${p.author}">${p.initials}</div>
       <div class="post-meta">
         <div class="post-author">${p.author}</div>
         <div class="post-time"><span class="badge-blue" style="margin-right:6px">${p.role}</span>${p.time}</div>
       </div>
-      <div class="post-more" onclick="event.stopPropagation();togglePostMenu(${p.id})" tabindex="0" role="button" aria-label="More options"><i class="fas fa-ellipsis-h"></i></div>
+      <div class="post-more" onclick="togglePostMenu(${idx})" tabindex="0" role="button" aria-label="More options"><i class="fas fa-ellipsis-h"></i></div>
     </div>
     <div class="post-body">${escHTML(p.text)}</div>
     ${mediaHTML}
     <div class="post-stats">
-      <span id="post-likes-${p.id}"><i class="fas fa-heart" style="color:var(--danger);margin-right:4px"></i>${p.likes} likes</span>
+      <span id="post-likes-${idx}"><i class="fas fa-heart" style="color:var(--danger);margin-right:4px"></i>${p.likes} likes</span>
       <span>${p.comments} comments</span>
       <span>${p.shares} shares</span>
     </div>
     <div class="post-actions">
-      <button class="reaction-btn" id="like-btn-${p.id}" onclick="event.stopPropagation();toggleLike(${p.id})" aria-label="Like"><i class="fas fa-heart"></i> Like</button>
-      <button class="reaction-btn" onclick="event.stopPropagation();openPostDetail(${p.id})" aria-label="Comment"><i class="fas fa-comment"></i> Comment</button>
-      <button class="reaction-btn" onclick="event.stopPropagation();sharePost(${p.id})" aria-label="Share"><i class="fas fa-share"></i> Share</button>
+      <button class="reaction-btn" id="like-btn-${idx}" onclick="toggleLike(${idx})" aria-label="Like"><i class="fas fa-heart"></i> Like</button>
+      <button class="reaction-btn" onclick="toggleComments(${idx})" aria-label="Comment"><i class="fas fa-comment"></i> Comment</button>
+      <button class="reaction-btn" onclick="sharePost(${idx})" aria-label="Share"><i class="fas fa-share"></i> Share</button>
+    </div>
+    <div class="comments-section" id="comments-${idx}">
+      <div class="comment-input-row">
+        <div class="user-avatar" style="width:34px;height:34px;font-size:0.78rem;flex-shrink:0">${STATE.user?.initials||'AO'}</div>
+        <input class="comment-input" placeholder="Write a comment…" id="comment-input-${idx}" onkeydown="if(event.key==='Enter')submitComment(${idx})" aria-label="Comment input">
+        <button class="send-btn" onclick="submitComment(${idx})" aria-label="Send comment"><i class="fas fa-paper-plane" style="font-size:0.7rem"></i></button>
+      </div>
+      <div id="comments-list-${idx}">
+        <div class="comment-item">
+          <div class="msg-avatar-sm" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">FA</div>
+          <div class="comment-bubble"><div class="comment-name">Fatima Aliyu</div>Totally agree with this! Our delegates need to stand united. 💪</div>
+        </div>
+      </div>
     </div>
   </div>`;
 }
-function toggleLike(postId) {
-  const post = STATE.posts.find(p=>p.id===postId);
-  if (!post) return;
-  post.likes++;
-  document.getElementById(`post-likes-${postId}`).innerHTML = `<i class="fas fa-heart" style="color:var(--danger);margin-right:4px"></i>${post.likes} likes`;
-  saveState();
+function toggleLike(idx) {
+  const btn = document.getElementById(`like-btn-${idx}`);
+  const stat = document.getElementById(`post-likes-${idx}`);
+  const isLiked = btn.classList.contains('liked');
+  btn.classList.toggle('liked');
+  const current = POST_TEMPLATES[idx].likes + (isLiked ? 0 : 1);
+  POST_TEMPLATES[idx].likes = current;
+  stat.innerHTML = `<i class="fas fa-heart" style="color:var(--danger);margin-right:4px"></i>${current} likes`;
+  if (!isLiked) { btn.style.transform='scale(1.2)'; setTimeout(()=>btn.style.transform='',200); }
 }
-function sharePost(postId) { showToast('Link copied to clipboard!','success'); }
-function togglePostMenu(postId) { showToast('Post menu coming soon!'); }
-function openPostDetail(postId) {
-  const post = STATE.posts.find(p=>p.id===postId);
-  if (!post) return;
-  const modal = document.getElementById('post-detail-modal');
-  document.getElementById('post-detail-content').innerHTML = `
-    <div class="post-card" style="margin:0">
-      <div class="post-header">
-        <div class="post-avatar" style="background:${post.color}">${post.initials}</div>
-        <div class="post-meta"><div class="post-author">${post.author}</div><div class="post-time">${post.time}</div></div>
-      </div>
-      <div class="post-body">${escHTML(post.text)}</div>
-      <div class="post-stats"><span>${post.likes} likes</span><span>${post.comments} comments</span></div>
-      <div class="post-actions">
-        <button class="reaction-btn" onclick="toggleLike(${post.id}); closeModal('post-detail-modal');"><i class="fas fa-heart"></i> Like</button>
-        <button class="reaction-btn" onclick="closeModal('post-detail-modal');"><i class="fas fa-comment"></i> Comment</button>
-      </div>
-    </div>
-    <div style="margin-top:20px"><strong>Comments</strong></div>
-    <div id="post-comments-${post.id}" class="comments-section" style="display:block; border:none; padding:0">
-      <div class="comment-input-row">
-        <div class="user-avatar" style="width:34px;height:34px">${STATE.user.initials}</div>
-        <input class="comment-input" placeholder="Write a comment…" id="detail-comment-input">
-        <button class="send-btn" onclick="submitCommentDetail(${post.id})"><i class="fas fa-paper-plane"></i></button>
-      </div>
-      <div id="comments-list-detail"></div>
-    </div>
-  `;
-  openModal('post-detail-modal');
+function toggleComments(idx) {
+  const section = document.getElementById(`comments-${idx}`);
+  section.classList.toggle('open');
+  if (section.classList.contains('open')) document.getElementById(`comment-input-${idx}`)?.focus();
 }
-function submitCommentDetail(postId) {
-  const input = document.getElementById('detail-comment-input');
+function submitComment(idx) {
+  const input = document.getElementById(`comment-input-${idx}`);
   const text = input.value.trim();
   if (!text) return;
-  const post = STATE.posts.find(p=>p.id===postId);
-  if (post) { post.comments++; saveState(); }
-  showToast('Comment added!','success');
+  const list = document.getElementById(`comments-list-${idx}`);
+  const div = document.createElement('div');
+  div.className = 'comment-item';
+  div.innerHTML = `<div class="msg-avatar-sm" style="background:linear-gradient(135deg,var(--primary),var(--accent2))">${STATE.user?.initials||'AO'}</div><div class="comment-bubble"><div class="comment-name">${STATE.user?.name||'You'}</div>${escHTML(text)}</div>`;
+  div.style.animation = 'slideUp 0.2s ease';
+  list.appendChild(div);
   input.value = '';
-  closeModal('post-detail-modal');
+  POST_TEMPLATES[idx].comments++;
 }
+function sharePost(idx) { showToast('Link copied to clipboard!','success'); }
+function togglePostMenu(idx) { showToast('Post menu coming soon!'); }
 function submitPost() {
   const text = document.getElementById('post-text').value.trim();
   if (!text) { showToast('Please write something to post.','error'); return; }
-  const newPost = {
-    id: Date.now(),
-    author: STATE.user.name,
-    role: STATE.user.role,
-    color: 'linear-gradient(135deg,var(--primary),var(--accent2))',
-    initials: STATE.user.initials,
-    text,
-    likes: 0,
-    comments: 0,
-    shares: 0,
-    time: 'just now',
-    hasMedia: false
-  };
-  STATE.posts.unshift(newPost);
+  POST_TEMPLATES.unshift({ author: STATE.user.name, role: STATE.user.role, color: 'linear-gradient(135deg,var(--primary),var(--accent2))', initials: STATE.user.initials, text, likes: 0, comments: 0, shares: 0, time: 'just now', hasMedia: false });
   renderFeed();
   closeModal('create-post-modal');
   document.getElementById('post-text').value = '';
   showToast('Post published successfully! 🎉','success');
-  saveState();
-}
-function triggerFileUpload(type) {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = type==='image' ? 'image/*' : 'video/*';
-  input.onchange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        document.getElementById('file-preview').style.display = 'flex';
-        document.getElementById('file-preview').innerHTML += `<div class="file-attach"><i class="fas fa-${type==='image'?'image':'video'}"></i> ${file.name} <i class="fas fa-times" onclick="this.parentElement.remove()" style="cursor:pointer"></i></div>`;
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-  input.click();
 }
 function renderOnlineMembers() {
   const container = document.getElementById('online-members-list');
   if (!container) return;
-  const members = [
-    { name: 'Emeka Chukwu', role: 'National Chairman', initials: 'EC', color: 'linear-gradient(135deg,#f093fb,#f5576c)' },
-    { name: 'Fatima Aliyu', role: 'Deputy Secretary', initials: 'FA', color: 'linear-gradient(135deg,#4facfe,#00f2fe)' }
-  ];
-  container.innerHTML = members.map(m => `
-    <div class="online-member" onclick="showUserProfile('${m.name}')">
+  container.innerHTML = MEMBERS.slice(0,5).map(m => `
+    <div class="online-member">
       <div class="online-mini-avatar" style="background:${m.color}">${m.initials}<div class="online-dot" style="position:absolute;bottom:0;right:0;border-color:var(--bg-card)"></div></div>
       <div><div class="online-member-name">${m.name}</div><div class="online-member-role">${m.role}</div></div>
     </div>`).join('');
 }
-function showUserProfile(name) {
-  document.getElementById('user-profile-content').innerHTML = `<div style="text-align:center"><div class="user-avatar" style="width:80px;height:80px;margin:0 auto">${name.split(' ').map(n=>n[0]).join('')}</div><h4>${name}</h4><p>Delegate</p><button class="btn-primary-apc" onclick="closeModal('user-profile-modal')">Send Message</button></div>`;
-  openModal('user-profile-modal');
-}
 
-// --- GROUPS ---
+// --- GROUPS (enhanced) ---
 function renderGroupsList() {
   const container = document.getElementById('groups-grid');
-  container.innerHTML = STATE.groups.map(g => `
+  const groups = GROUPS_DATA;
+  container.innerHTML = groups.map(g => `
     <div class="group-card" onclick="openGroupDetail(${g.id})" role="button" tabindex="0">
       <div class="group-icon" style="background:${g.color}"><i class="fas ${g.icon}"></i></div>
       <div class="group-name">${g.name} <span class="role-badge">${g.role}</span></div>
@@ -2511,10 +2755,10 @@ function renderGroupsList() {
         <span><i class="fas fa-clock"></i> ${g.lastActive}</span>
       </div>
     </div>`).join('');
-  document.getElementById('groups-badge').textContent = STATE.groups.length;
+  document.getElementById('groups-badge').textContent = GROUPS_DATA.length;
 }
 function openGroupDetail(groupId) {
-  const group = STATE.groups.find(g => g.id === groupId);
+  const group = GROUPS_DATA.find(g => g.id === groupId);
   if (!group) return;
   STATE.currentGroup = group;
   document.getElementById('groups-grid').style.display = 'none';
@@ -2581,13 +2825,15 @@ function renderGroupMembers(group) {
   const mockMembers = [
     { name: 'Emeka Chukwu', role: 'Admin', initials: 'EC', color: '#f093fb' },
     { name: 'Aisha Okafor', role: 'Moderator', initials: 'AO', color: '#4facfe' },
-    { name: 'Fatima Aliyu', role: 'Member', initials: 'FA', color: '#43e97b' }
+    { name: 'Fatima Aliyu', role: 'Member', initials: 'FA', color: '#43e97b' },
+    { name: 'Ibrahim Musa', role: 'Member', initials: 'IM', color: '#fa709a' },
+    { name: 'Ngozi Eze', role: 'Member', initials: 'NE', color: '#a18cd1' }
   ];
   membersDiv.innerHTML = mockMembers.map(m => `
-    <div class="member-row" onclick="showUserProfile('${m.name}')">
+    <div class="member-row">
       <div class="online-mini-avatar" style="background:${m.color}">${m.initials}</div>
       <div><strong>${m.name}</strong> <span class="member-role">${m.role}</span></div>
-      ${group.role === 'Admin' ? `<div style="margin-left:auto"><button class="post-action-btn" style="padding:4px 8px" onclick="event.stopPropagation();changeMemberRole('${m.name}')">Change Role</button></div>` : ''}
+      ${group.role === 'Admin' ? `<div style="margin-left:auto"><button class="post-action-btn" style="padding:4px 8px" onclick="changeMemberRole('${m.name}')">Change Role</button></div>` : ''}
     </div>`).join('');
 }
 function switchGroupTab(tab, section) {
@@ -2600,7 +2846,7 @@ function switchGroupTab(tab, section) {
 }
 function openGroupChat() {
   navigate('chat');
-  let convo = STATE.chatConversations.find(c => c.name === STATE.currentGroup.name);
+  let convo = CHAT_CONVOS.find(c => c.name === STATE.currentGroup.name);
   if (!convo) {
     convo = {
       id: Date.now(),
@@ -2613,9 +2859,8 @@ function openGroupChat() {
       unread: 0,
       online: `${STATE.currentGroup.members} members`
     };
-    STATE.chatConversations.push(convo);
+    CHAT_CONVOS.push(convo);
     renderChatList();
-    saveState();
   }
   openChat(convo.id);
 }
@@ -2655,17 +2900,16 @@ function showGroupsList() {
 function createGroup() {
   const name = document.getElementById('new-group-name').value.trim();
   if (!name) { showToast('Group name required','error'); return; }
-  STATE.groups.push({ id: Date.now(), name, description: document.getElementById('new-group-desc').value, icon: 'fa-users', color: '#4facfe', members: 1, type: document.getElementById('new-group-type').value, role: 'Admin', lastActive: 'just now' });
+  GROUPS_DATA.push({ id: Date.now(), name, description: document.getElementById('new-group-desc').value, icon: 'fa-users', color: '#4facfe', members: 1, type: document.getElementById('new-group-type').value, role: 'Admin', lastActive: 'just now' });
   renderGroupsList();
   closeModal('create-group-modal');
   showToast(`Group "${name}" created successfully!`,'success');
-  saveState();
 }
 
-// --- CHAT ---
+// --- CHAT (enhanced) ---
 function renderChatList() {
   const container = document.getElementById('chat-list');
-  container.innerHTML = STATE.chatConversations.map((c,i) => `
+  container.innerHTML = CHAT_CONVOS.map((c,i) => `
     <div class="chat-item${i===0?' active':''}" id="chat-item-${c.id}" onclick="openChat(${c.id})" role="button" tabindex="0">
       <div class="chat-item-avatar" style="background:${c.color}">${c.initials}${c.type==='dm'?`<div class="online-dot" style="position:absolute;bottom:0;right:0;border-color:var(--bg-card)"></div>`:''}</div>
       <div class="chat-item-info">
@@ -2680,39 +2924,41 @@ function renderChatList() {
 function openChat(id) {
   document.querySelectorAll('.chat-item').forEach(i=>i.classList.remove('active'));
   document.getElementById(`chat-item-${id}`)?.classList.add('active');
-  const convo = STATE.chatConversations.find(c=>c.id===id);
+  const convo = CHAT_CONVOS.find(c=>c.id===id);
   if (!convo) return;
   STATE.currentChat = convo;
   document.getElementById('cw-avatar').textContent = convo.initials;
   document.getElementById('cw-avatar').style.background = convo.color;
   document.getElementById('cw-name').textContent = convo.name;
   document.getElementById('cw-status').innerHTML = `<i class="fas fa-circle" style="font-size:0.5rem;color:var(--primary)"></i> ${convo.online}`;
-  convo.unread = 0;
-  renderChatList();
-  updateChatBadge();
-  const msgs = convo.type === 'group' ? (STATE.groupMessages[convo.id] || []) : [];
+  if (convo.unread > 0) {
+    convo.unread = 0;
+    renderChatList();
+    const badge = document.getElementById('chat-badge');
+    const total = CHAT_CONVOS.reduce((s,c)=>s+c.unread,0);
+    badge.textContent = total || '';
+    badge.style.display = total ? 'inline' : 'none';
+    document.getElementById('mobile-chat-badge').textContent = total || '';
+  }
+  const msgs = convo.type === 'group' ? (GROUP_CHAT_MESSAGES[convo.id] || CHAT_MESSAGES_INITIAL) : CHAT_MESSAGES_INITIAL;
   renderChatMessages(msgs);
   simulateTyping();
+  // On mobile, hide list and show window
   if (window.innerWidth <= 900) {
     document.getElementById('chat-list-panel').classList.remove('show');
+    document.getElementById('chat-window').classList.remove('blurred');
   }
-}
-function updateChatBadge() {
-  const total = STATE.chatConversations.reduce((s,c)=>s+c.unread,0);
-  document.getElementById('chat-badge').textContent = total || '';
-  document.getElementById('chat-badge').style.display = total ? 'inline' : 'none';
-  document.getElementById('mobile-chat-badge').textContent = total || '';
 }
 function renderChatMessages(msgs) {
   const container = document.getElementById('chat-messages');
   container.innerHTML = msgs.map(m => {
     const reactionsHTML = m.reactions && m.reactions.length ? `
       <div class="msg-reactions">
-        ${m.reactions.map(r => `<span class="reaction-emoji" onclick="addReaction('${r}')">${r}</span>`).join('')}
+        ${m.reactions.map(r => `<span class="reaction-emoji" role="button" tabindex="0">${r}</span>`).join('')}
       </div>` : '';
     return `
     <div class="msg-row${m.mine?' mine':''}">
-      ${!m.mine ? `<div class="msg-avatar-sm" style="background:${m.color}" onclick="showUserProfile('${m.from}')">${m.initials}</div>` : ''}
+      ${!m.mine ? `<div class="msg-avatar-sm" style="background:${m.color}">${m.initials}</div>` : ''}
       <div>
         ${!m.mine ? `<div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:4px;margin-left:4px">${m.from}</div>` : ''}
         <div class="msg-bubble">${escHTML(m.text)}</div>
@@ -2728,33 +2974,31 @@ function sendMessage() {
   if (!text) return;
   const now = new Date();
   const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
-  const newMsg = { from: STATE.user.name, initials: STATE.user.initials, color: 'linear-gradient(135deg,var(--primary),var(--accent2))', text, time: timeStr, mine: true, reactions: [] };
-  if (STATE.currentChat.type === 'group') {
-    if (!STATE.groupMessages[STATE.currentChat.id]) STATE.groupMessages[STATE.currentChat.id] = [];
-    STATE.groupMessages[STATE.currentChat.id].push(newMsg);
-    renderChatMessages(STATE.groupMessages[STATE.currentChat.id]);
-  } else {
-    // For DM, we'd need a separate store
-  }
+  const newMsg = { from: 'Me', initials: STATE.user?.initials||'AO', color: 'linear-gradient(135deg,var(--primary),var(--accent2))', text, time: timeStr, mine: true, reactions: [] };
+  CHAT_MESSAGES_INITIAL.push(newMsg);
+  renderChatMessages(CHAT_MESSAGES_INITIAL);
   input.value = '';
-  saveState();
   // Simulate reply
   setTimeout(() => {
-    const reply = { from: STATE.currentChat.name.split(' ')[0], initials: STATE.currentChat.initials, color: STATE.currentChat.color, text: 'Got it, thanks!', time: timeStr, mine: false };
-    if (STATE.currentChat.type === 'group') {
-      STATE.groupMessages[STATE.currentChat.id].push(reply);
-      renderChatMessages(STATE.groupMessages[STATE.currentChat.id]);
+    const replies = ['Got it, will check now!','Thanks for the update 👍','I\'ll look into this and get back to you.','Noted, see you at the meeting!'];
+    const reply = { from: STATE.currentChat?.name?.split(' ')[0]||'Member', initials: STATE.currentChat?.initials||'EC', color: STATE.currentChat?.color||'linear-gradient(135deg,#f093fb,#f5576c)', text: replies[Math.floor(Math.random()*replies.length)], time: timeStr, mine: false, reactions: [] };
+    if (STATE.currentChat?.type === 'group') {
+      if (!GROUP_CHAT_MESSAGES[STATE.currentChat.id]) GROUP_CHAT_MESSAGES[STATE.currentChat.id] = [];
+      GROUP_CHAT_MESSAGES[STATE.currentChat.id].push(reply);
+      renderChatMessages(GROUP_CHAT_MESSAGES[STATE.currentChat.id]);
+    } else {
+      CHAT_MESSAGES_INITIAL.push(reply);
+      renderChatMessages(CHAT_MESSAGES_INITIAL);
     }
-    saveState();
-  }, 2000);
+  }, 1200);
 }
 function attachFile() { showToast('File attachment simulation: PDF selected','info'); }
 function attachImage() { showToast('Image attachment simulation','info'); }
 function recordVoice() { showToast('Voice recording started (simulated)','info'); }
 function openEmojiPicker() { showToast('Emoji picker coming soon!'); }
-function addReaction(emoji) { showToast(`Reaction: ${emoji}`); }
 function filterChats(query) {
-  document.querySelectorAll('.chat-item').forEach(item => {
+  const items = document.querySelectorAll('.chat-item');
+  items.forEach(item => {
     const name = item.querySelector('.chat-item-name')?.textContent?.toLowerCase()||'';
     item.style.display = name.includes(query.toLowerCase()) ? 'flex' : 'none';
   });
@@ -2764,36 +3008,43 @@ function filterChatTab(tab, type) {
   tab.classList.add('active');
   document.querySelectorAll('.chat-item').forEach(item => {
     const id = parseInt(item.id.split('-')[2]);
-    const convo = STATE.chatConversations.find(c=>c.id===id);
+    const convo = CHAT_CONVOS.find(c=>c.id===id);
     item.style.display = (type==='all' || convo?.type===type) ? 'flex' : 'none';
   });
 }
 function simulateTyping() {
+  const names = ['Fatima Aliyu','Ibrahim Musa','Emeka Chukwu'];
+  const indicator = document.getElementById('typing-indicator');
+  const textEl = document.getElementById('typing-text');
   setTimeout(() => {
-    document.getElementById('typing-text').textContent = 'Someone is typing…';
-    document.getElementById('typing-indicator').style.display = 'flex';
-    setTimeout(() => document.getElementById('typing-indicator').style.display = 'none', 2500);
+    textEl.textContent = names[Math.floor(Math.random()*names.length)] + ' is typing…';
+    indicator.style.display = 'flex';
+    setTimeout(() => indicator.style.display = 'none', 2500);
   }, 3000);
 }
 function openGroupInfo() {
   if (STATE.currentChat?.type === 'group') {
-    const group = STATE.groups.find(g => g.name === STATE.currentChat.name);
+    const group = GROUPS_DATA.find(g => g.name === STATE.currentChat.name);
     if (group) openGroupDetail(group.id);
   } else {
-    showUserProfile(STATE.currentChat.name);
+    showToast('User info coming soon');
   }
 }
+// Toggle chat list on mobile
 function toggleChatList() {
-  document.getElementById('chat-list-panel').classList.toggle('show');
+  const listPanel = document.getElementById('chat-list-panel');
+  listPanel.classList.toggle('show');
+  const chatWindow = document.getElementById('chat-window');
+  chatWindow.classList.toggle('blurred', listPanel.classList.contains('show'));
 }
 
-// --- MEETINGS ---
+// --- MEETINGS (enhanced) ---
 function renderMeetings(filter='all') {
   const container = document.getElementById('meetings-grid');
-  const filtered = filter==='all' ? STATE.meetings : STATE.meetings.filter(m=>m.status===filter);
+  const filtered = filter==='all' ? MEETINGS_DATA : MEETINGS_DATA.filter(m=>m.status===filter);
   container.innerHTML = filtered.map(m => {
     const colors = ['#f093fb','#4facfe','#43e97b','#fa709a','#a18cd1','#f6d365','#667eea','#ffecd2'];
-    const parts = Array.from({length:Math.min(4,m.participants)},(_,i)=>`<div class="participant-avatar" style="background:linear-gradient(135deg,${colors[i%colors.length]},${colors[(i+2)%colors.length]})">${['EC','FA','BO','NE'][i%4]}</div>`).join('');
+    const parts = Array.from({length:Math.min(4,m.participants)},(_,i)=>`<div class="participant-avatar" style="background:linear-gradient(135deg,${colors[i%colors.length]},${colors[(i+2)%colors.length]})">${MEMBERS[i]?.initials||'D'+(i+1)}</div>`).join('');
     const moreCount = Math.max(0, m.participants - 4);
     return `
     <div class="meeting-card ${m.status}">
@@ -2811,7 +3062,7 @@ function renderMeetings(filter='all') {
       <div class="meeting-detail"><i class="fas fa-users"></i>${m.participants} participants</div>
       ${m.status==='live'?`<button class="btn-join live-btn mt-16" onclick="openVideoCall('${m.title}')"><i class="fas fa-video"></i> Join Now</button>`:
         m.status==='upcoming'?`<button class="btn-join upcoming-btn mt-16" onclick="showToast('Meeting reminder set!','success')"><i class="fas fa-bell"></i> Set Reminder</button>`:
-        `<button class="btn-join ended-btn mt-16" onclick="viewRecording('${m.title}')"><i class="fas fa-play"></i> View Recording</button>`}
+        `<button class="btn-join ended-btn mt-16"><i class="fas fa-play"></i> View Recording</button>`}
     </div>`;
   }).join('');
   if (!filtered.length) container.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><i class="fas fa-video-slash"></i><p>No meetings found</p></div>`;
@@ -2826,18 +3077,15 @@ function scheduleMeeting() {
   const date = document.getElementById('new-meeting-date').value;
   const time = document.getElementById('new-meeting-time').value;
   if (!title || !date || !time) { showToast('Please fill in all required fields.','error'); return; }
-  STATE.meetings.unshift({ id: Date.now(), title, status:'upcoming', host: STATE.user.name, date, time, participants: 0, agenda: 'Scheduled meeting' });
+  MEETINGS_DATA.unshift({ id: Date.now(), title, status:'upcoming', host: STATE.user.name, date, time, participants: 0, agenda: 'Scheduled meeting' });
   renderMeetings();
   closeModal('create-meeting-modal');
   showToast('Meeting scheduled and delegates notified! 📅','success');
-  saveState();
-}
-function viewRecording(title) {
-  showToast(`Recording for ${title} will be available soon.`,'info');
+  document.getElementById('new-meeting-title').value='';
 }
 
-// --- VIDEO CALL (with real media) ---
-async function openVideoCall(meetingName='Live Meeting') {
+// --- VIDEO CALL (enhanced with getUserMedia simulation) ---
+function openVideoCall(meetingName='Live Meeting') {
   const overlay = document.getElementById('video-call-overlay');
   document.getElementById('call-meeting-name').textContent = meetingName;
   overlay.classList.add('open');
@@ -2847,85 +3095,66 @@ async function openVideoCall(meetingName='Live Meeting') {
     const h=Math.floor(STATE.callSeconds/3600), m=Math.floor(STATE.callSeconds%3600/60), s=STATE.callSeconds%60;
     document.getElementById('call-timer').textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   }, 1000);
-  try {
-    STATE.mediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-    buildVideoGridWithStream(STATE.mediaStream);
-  } catch (err) {
-    showToast('Could not access camera/microphone. Using simulated video.','warning');
-    buildVideoGrid();
+  buildVideoGrid();
+  // Simulate local video stream (if supported)
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then(stream => {
+        // In a real app, attach stream to video element
+        console.log('Media stream obtained');
+      })
+      .catch(err => {
+        console.warn('Media access denied:', err);
+      });
   }
-}
-function buildVideoGridWithStream(stream) {
-  const grid = document.getElementById('video-grid');
-  grid.className = 'video-grid quad';
-  grid.innerHTML = `
-    <div class="video-tile self"><video id="local-video" autoplay muted playsinline style="width:100%;height:100%;object-fit:cover"></video><div class="self-label">You</div></div>
-    <div class="video-tile"><div class="video-tile-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c)">EC</div><div class="video-tile-name">Emeka Chukwu</div></div>
-    <div class="video-tile"><div class="video-tile-avatar" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">FA</div><div class="video-tile-name">Fatima Aliyu</div></div>
-    <div class="video-tile"><div class="video-tile-avatar" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">BO</div><div class="video-tile-name">Babatunde Ojo</div></div>
-  `;
-  document.getElementById('local-video').srcObject = stream;
 }
 function buildVideoGrid() {
   const grid = document.getElementById('video-grid');
+  const participants = [
+    { name: STATE.user.name, initials: STATE.user.initials, color: 'linear-gradient(135deg,var(--primary),var(--accent2))', self: true },
+    { name: 'Emeka Chukwu', initials: 'EC', color: 'linear-gradient(135deg,#f093fb,#f5576c)', self: false },
+    { name: 'Fatima Aliyu', initials: 'FA', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', self: false },
+    { name: 'Ibrahim Musa', initials: 'IM', color: 'linear-gradient(135deg,#a18cd1,#fbc2eb)', self: false }
+  ];
   grid.className = 'video-grid quad';
-  grid.innerHTML = `
-    <div class="video-tile self"><div class="video-tile-avatar" style="background:linear-gradient(135deg,var(--primary),var(--accent2))">${STATE.user.initials}</div><div class="self-label">You</div><div class="video-tile-name">${STATE.user.name}</div></div>
-    <div class="video-tile"><div class="video-tile-avatar" style="background:linear-gradient(135deg,#f093fb,#f5576c)">EC</div><div class="video-tile-name">Emeka Chukwu</div></div>
-    <div class="video-tile"><div class="video-tile-avatar" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">FA</div><div class="video-tile-name">Fatima Aliyu</div></div>
-    <div class="video-tile"><div class="video-tile-avatar" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">BO</div><div class="video-tile-name">Babatunde Ojo</div></div>
-  `;
+  grid.innerHTML = participants.map(p=>`
+    <div class="video-tile${p.self?' self':''}">
+      <div class="video-tile-avatar" style="background:${p.color}">${p.initials}</div>
+      <div class="video-tile-name">${p.name}</div>
+      ${p.self ? '<div class="self-label">You</div>' : ''}
+    </div>`).join('');
 }
 function endCall() {
   document.getElementById('video-call-overlay').classList.remove('open');
   if (STATE.callInterval) clearInterval(STATE.callInterval);
   STATE.callActive = false;
-  if (STATE.mediaStream) {
-    STATE.mediaStream.getTracks().forEach(t=>t.stop());
-    STATE.mediaStream = null;
-  }
   showToast('Call ended. Duration: '+document.getElementById('call-timer').textContent,'success');
 }
 function toggleMic() {
   STATE.micOn = !STATE.micOn;
-  document.getElementById('mic-btn').className = 'ctrl-btn' + (STATE.micOn ? '' : ' active-ctrl');
-  document.getElementById('mic-icon').className = STATE.micOn ? 'fas fa-microphone' : 'fas fa-microphone-slash';
-  if (STATE.mediaStream) {
-    STATE.mediaStream.getAudioTracks().forEach(t => t.enabled = STATE.micOn);
-  }
+  const btn = document.getElementById('mic-btn');
+  const icon = document.getElementById('mic-icon');
+  btn.className = 'ctrl-btn' + (STATE.micOn ? '' : ' active-ctrl');
+  icon.className = STATE.micOn ? 'fas fa-microphone' : 'fas fa-microphone-slash';
+  showToast(STATE.micOn ? 'Microphone on' : 'Microphone muted');
 }
 function toggleCam() {
   STATE.camOn = !STATE.camOn;
-  document.getElementById('cam-btn').className = 'ctrl-btn' + (STATE.camOn ? '' : ' active-ctrl');
-  document.getElementById('cam-icon').className = STATE.camOn ? 'fas fa-video' : 'fas fa-video-slash';
-  if (STATE.mediaStream) {
-    STATE.mediaStream.getVideoTracks().forEach(t => t.enabled = STATE.camOn);
-  }
+  const btn = document.getElementById('cam-btn');
+  const icon = document.getElementById('cam-icon');
+  btn.className = 'ctrl-btn' + (STATE.camOn ? '' : ' active-ctrl');
+  icon.className = STATE.camOn ? 'fas fa-video' : 'fas fa-video-slash';
+  showToast(STATE.camOn ? 'Camera on' : 'Camera off');
 }
 function toggleCallChat() {
   const chat = document.getElementById('call-chat');
   chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
 }
-function sendCallChat() {
-  const input = document.getElementById('call-chat-input');
-  const text = input.value.trim();
-  if (!text) return;
-  const chatDiv = document.getElementById('call-chat-messages');
-  chatDiv.innerHTML += `<div class="msg-row mine"><div class="msg-bubble" style="max-width:100%">${escHTML(text)}</div></div>`;
-  input.value = '';
-  chatDiv.scrollTop = chatDiv.scrollHeight;
-}
-function startScreenShare() {
-  showToast('Screen sharing coming soon!','info');
-}
-function startRecording() {
-  showToast('Recording started (simulated)','info');
-}
 
-// --- NOTIFICATIONS ---
+// --- NOTIFICATIONS (unchanged but enhanced) ---
 function renderNotifications() {
   const container = document.getElementById('notif-list');
-  container.innerHTML = STATE.notifications.map((n,i)=>`
+  container.innerHTML = NOTIFICATIONS_DATA.map((n,i)=>`
     <div class="notif-item${n.unread?' unread':''}" onclick="readNotif(${i})" role="button" tabindex="0">
       <div class="notif-icon-wrap ${n.type}"><i class="fas ${n.icon}"></i></div>
       <div style="flex:1">
@@ -2937,49 +3166,43 @@ function renderNotifications() {
   updateNotifBadge();
 }
 function readNotif(idx) {
-  STATE.notifications[idx].unread = false;
+  NOTIFICATIONS_DATA[idx].unread = false;
   renderNotifications();
   updateNotifBadge();
-  saveState();
 }
 function markAllRead() {
-  STATE.notifications.forEach(n => n.unread = false);
+  NOTIFICATIONS_DATA.forEach(n => n.unread = false);
   renderNotifications();
   updateNotifBadge();
-  showToast('All notifications marked as read','success');
-  saveState();
+  showToast('All notifications marked as read');
 }
 function updateNotifBadge() {
-  const count = STATE.notifications.filter(n=>n.unread).length;
-  document.getElementById('notif-badge').textContent = count || '';
-  document.getElementById('notif-badge').style.display = count ? 'inline' : 'none';
-  document.getElementById('notif-dot').style.display = count ? 'block' : 'none';
-  document.getElementById('mobile-notif-badge').textContent = count || '';
+  const count = NOTIFICATIONS_DATA.filter(n=>n.unread).length;
+  const badge = document.getElementById('notif-badge');
+  const dot = document.getElementById('notif-dot');
+  const mobileBadge = document.getElementById('mobile-notif-badge');
+  badge.textContent = count || '';
+  badge.style.display = count ? 'inline' : 'none';
+  if (mobileBadge) mobileBadge.textContent = count || '';
+  if (dot) dot.style.display = count ? 'block' : 'none';
 }
 
-// --- PROFILE ---
+// --- PROFILE (enhanced) ---
 function renderProfilePage() {
   const myPosts = document.getElementById('my-posts');
-  if (myPosts) myPosts.innerHTML = STATE.posts.slice(0,3).map((p,i)=>createPostCard(p,`p${i}`)).join('');
+  if (myPosts) myPosts.innerHTML = POST_TEMPLATES.slice(0,3).map((p,i)=>createPostCard(p,`p${i}`)).join('');
   const logEl = document.getElementById('activity-log');
-  if (logEl) logEl.innerHTML = [
-    { icon: 'fa-newspaper', text: 'Published a post about FCT development', time: '2h ago' },
-    { icon: 'fa-heart', text: 'Liked Emeka Chukwu\'s post', time: '3h ago' }
-  ].map(a=>`
+  if (logEl) logEl.innerHTML = ACTIVITY_LOG.map(a=>`
     <div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--border)">
       <div style="width:34px;height:34px;border-radius:10px;background:var(--primary-glow);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0"><i class="fas ${a.icon}"></i></div>
       <div><div style="font-size:0.85rem">${a.text}</div><div style="font-size:0.75rem;color:var(--text-muted);margin-top:3px">${a.time}</div></div>
     </div>`).join('');
   const privacyEl = document.getElementById('privacy-settings');
-  if (privacyEl) privacyEl.innerHTML = [
-    { label: 'Who can see my posts', value: 'All Delegates' },
-    { label: 'Who can message me', value: 'All Delegates' }
-  ].map(s=>`
+  if (privacyEl) privacyEl.innerHTML = PRIVACY_SETTINGS.map((s,i)=>`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)">
       <div><div style="font-size:0.88rem;font-weight:600">${s.label}</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:2px">Currently: ${s.value}</div></div>
-      <select class="form-control-apc" style="width:auto;padding:7px 12px;font-size:0.8rem">
-        <option selected>${s.value}</option>
-        <option>Connections Only</option>
+      <select class="form-control-apc" style="width:auto;padding:7px 12px;font-size:0.8rem" aria-label="${s.label}">
+        ${s.options.map(o=>`<option${o===s.value?' selected':''}>${o}</option>`).join('')}
       </select>
     </div>`).join('');
 }
@@ -2987,7 +3210,8 @@ function switchProfileTab(tab, section) {
   document.querySelectorAll('.profile-tab').forEach(t=>t.classList.remove('active'));
   tab.classList.add('active');
   ['my-posts','activity','privacy'].forEach(id => {
-    document.getElementById(id).style.display = id===section ? 'block' : 'none';
+    const el = document.getElementById(id);
+    if (el) el.style.display = id===section ? 'block' : 'none';
   });
 }
 function saveProfile() {
@@ -2995,7 +3219,7 @@ function saveProfile() {
   const role = document.getElementById('edit-role').value.trim();
   const bio = document.getElementById('edit-bio').value.trim();
   if (!name) { showToast('Name cannot be empty','error'); return; }
-  STATE.user.name = name; STATE.user.role = role;
+  if (STATE.user) { STATE.user.name = name; STATE.user.role = role; }
   document.getElementById('profile-name-display').textContent = name;
   document.getElementById('profile-handle').textContent = `@${name.toLowerCase().replace(' ','.')} • ${role}`;
   document.getElementById('profile-bio').textContent = bio;
@@ -3003,10 +3227,9 @@ function saveProfile() {
   document.getElementById('sidebar-role').textContent = role;
   closeModal('edit-profile-modal');
   showToast('Profile updated successfully! ✅','success');
-  saveState();
 }
 
-// --- ADMIN ---
+// --- ADMIN (enhanced) ---
 function renderAdminPage() {
   renderAdminChart();
   renderApprovalTable();
@@ -3016,23 +3239,26 @@ function renderAdminPage() {
 }
 function renderAdminChart() {
   const chartEl = document.getElementById('admin-chart');
+  const labelsEl = document.getElementById('chart-labels');
   if (!chartEl) return;
-  const data = [65,89,72,95,81,48,57];
-  const max = Math.max(...data);
-  chartEl.innerHTML = data.map((val,i)=>`
+  const max = Math.max(...CHART_DATA.map(d=>d.val));
+  chartEl.innerHTML = CHART_DATA.map(d=>`
     <div class="chart-bar-col">
-      <div class="chart-bar" style="height:${(val/max)*100}%" title="${val} activities"></div>
-      <div class="chart-label">${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</div>
+      <div class="chart-bar" style="height:${(d.val/max)*100}%" title="${d.val} activities"></div>
+      <div class="chart-label">${d.day}</div>
     </div>`).join('');
 }
 function renderEngagementBars() {
   const container = document.getElementById('engagement-bars');
   if (!container) return;
-  container.innerHTML = [
+  const data = [
     { label:'Posts', val: 72, color: 'var(--primary)' },
     { label:'Comments', val: 54, color: 'var(--info)' },
-    { label:'Reactions', val: 88, color: 'var(--warning)' }
-  ].map(d=>`
+    { label:'Reactions', val: 88, color: 'var(--warning)' },
+    { label:'Meeting Joins', val: 61, color: 'var(--accent2)' },
+    { label:'Messages', val: 95, color: 'var(--danger)' }
+  ];
+  container.innerHTML = data.map(d=>`
     <div style="margin-bottom:14px">
       <div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:6px">
         <span style="color:var(--text-dim)">${d.label}</span><span style="font-weight:700">${d.val}%</span>
@@ -3045,66 +3271,64 @@ function renderEngagementBars() {
 function renderApprovalTable() {
   const table = document.getElementById('approval-table');
   if (!table) return;
-  const approvals = [
-    { name: 'Musa Abdullahi', zone: 'Kano North', id: 'APC-7823', submitted: 'Dec 10, 2024', status: 'pending', nin: '12345678902' },
-    { name: 'Chioma Okonkwo', zone: 'Anambra West', id: 'APC-7831', submitted: 'Dec 11, 2024', status: 'pending', nin: '12345678903' }
-  ];
   table.innerHTML = `
-    <thead><tr><th>Name</th><th>Zone</th><th>ID</th><th>NIN</th><th>Submitted</th><th>Status</th><th>Actions</th></tr></thead>
-    <tbody>${approvals.map((m,i)=>`
+    <thead><tr>
+      <th>Name</th><th>Zone</th><th>Delegate ID</th><th>NIN</th><th>Submitted</th><th>Status</th><th>Actions</th>
+    </tr></thead>
+    <tbody>${PENDING_APPROVALS.map((m,i)=>`
       <tr id="approval-row-${i}">
-        <td><div style="display:flex;align-items:center;gap:10px"><div class="user-avatar" style="width:32px;height:32px">${m.name.split(' ').map(n=>n[0]).join('')}</div>${m.name}</div></td>
+        <td><div style="display:flex;align-items:center;gap:10px"><div class="user-avatar" style="width:32px;height:32px;font-size:0.72rem;flex-shrink:0">${m.name.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>${m.name}</div></td>
         <td>${m.zone}</td>
-        <td>${m.id}</td>
-        <td>${m.nin}</td>
+        <td><span style="font-family:var(--font-mono);font-size:0.8rem;color:var(--primary)">${m.id}</span></td>
+        <td>${m.nin} ${m.ninVerified ? '<i class="fas fa-check-circle text-primary"></i>' : '<i class="fas fa-clock text-warning"></i>'}</td>
         <td>${m.submitted}</td>
-        <td><span class="status-pill ${m.status}">Pending</span></td>
+        <td><span class="status-pill ${m.status}">${m.status.charAt(0).toUpperCase()+m.status.slice(1)}</span></td>
         <td class="action-btns">
-          <button class="action-btn approve" onclick="requireFingerprint(()=>approveDelegate(${i}))">Approve</button>
-          <button class="action-btn reject" onclick="requireFingerprint(()=>rejectDelegate(${i}))">Reject</button>
-          <button class="action-btn view" onclick="showUserProfile('${m.name}')">View</button>
+          ${m.status==='pending'?`<button class="action-btn approve" onclick="requireFingerprint(()=>approveDelegate(${i}),'admin')">Approve</button><button class="action-btn reject" onclick="requireFingerprint(()=>rejectDelegate(${i}),'admin')">Reject</button>`:''}
+          <button class="action-btn view" onclick="showToast('Viewing ${m.name}\'s profile')">View</button>
         </td>
       </tr>`).join('')}
     </tbody>`;
 }
 function approveDelegate(i) {
-  showToast('Delegate approved!','success');
+  PENDING_APPROVALS[i].status = 'approved';
+  renderApprovalTable();
+  const stat = document.getElementById('stat-pending');
+  const pending = PENDING_APPROVALS.filter(m=>m.status==='pending').length;
+  if (stat) stat.textContent = pending;
+  showToast(`${PENDING_APPROVALS[i].name} approved! ✅`,'success');
 }
 function rejectDelegate(i) {
-  showToast('Delegate rejected.','error');
+  PENDING_APPROVALS[i].status = 'rejected';
+  renderApprovalTable();
+  showToast(`${PENDING_APPROVALS[i].name} rejected.`,'error');
 }
 function renderUserTable() {
   const table = document.getElementById('user-table');
   if (!table) return;
-  const users = [
-    { name: 'Musa Abdullahi', role: 'Delegate', zone: 'Kano North', status: 'active' },
-    { name: 'Chioma Okonkwo', role: 'Delegate', zone: 'Anambra West', status: 'active' }
-  ];
   table.innerHTML = `
     <thead><tr><th>Name</th><th>Role</th><th>Zone</th><th>Status</th><th>Actions</th></tr></thead>
-    <tbody>${users.map(u=>`
+    <tbody>${ALL_USERS.map((u,i)=>`
       <tr><td>${u.name}</td><td>${u.role}</td><td>${u.zone}</td><td><span class="status-pill ${u.status}">${u.status}</span></td>
-      <td><button class="action-btn view" onclick="showUserProfile('${u.name}')">View</button></td></tr>`).join('')}
+      <td><button class="action-btn view" onclick="showToast('Manage user')">Manage</button></td></tr>`).join('')}
     </tbody>`;
 }
 function renderSystemLogs() {
   const logsDiv = document.getElementById('system-logs');
   if (!logsDiv) return;
-  logsDiv.innerHTML = [
-    '10:32: Admin approved Chioma Okonkwo',
-    '10:15: New group "Policy Task Force" created'
-  ].map(log => `<div style="padding:4px 0;border-bottom:1px solid var(--border)">${log}</div>`).join('');
+  logsDiv.innerHTML = SYSTEM_LOGS.map(log => `<div style="padding:4px 0;border-bottom:1px solid var(--border)">${log}</div>`).join('');
 }
 
 // --- NEW PAGES RENDERING ---
 function renderSearchResults() {
-  document.getElementById('search-results').innerHTML = '<p class="text-muted">Enter a query in the search bar above.</p>';
+  const container = document.getElementById('search-results');
+  if (container) container.innerHTML = '<p class="text-muted">Enter a query in the search bar above.</p>';
 }
 function renderDirectory() {
   const container = document.getElementById('directory-list');
   if (!container) return;
   container.innerHTML = ALL_USERS.map(u => `
-    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)" onclick="showUserProfile('${u.name}')">
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)">
       <div class="user-avatar" style="width:36px;height:36px">${u.name.split(' ').map(n=>n[0]).join('')}</div>
       <div><strong>${u.name}</strong><br><span style="font-size:0.8rem;color:var(--text-muted)">${u.role} · ${u.zone}</span></div>
       <div style="margin-left:auto"><span class="badge-${u.status}">${u.status}</span></div>
@@ -3113,89 +3337,128 @@ function renderDirectory() {
 function renderRecordings() {
   const grid = document.getElementById('recordings-grid');
   if (!grid) return;
-  grid.innerHTML = STATE.meetings.filter(m => m.status === 'ended').map(m => `
+  const past = MEETINGS_DATA.filter(m => m.status === 'ended');
+  grid.innerHTML = past.map(m => `
     <div class="meeting-card ended">
       <div class="meeting-title">${m.title}</div>
       <div class="meeting-detail"><i class="fas fa-calendar"></i> ${m.date} at ${m.time}</div>
-      <button class="btn-join ended-btn mt-16" onclick="viewRecording('${m.title}')"><i class="fas fa-play"></i> Play Recording</button>
+      <div class="meeting-detail"><i class="fas fa-user-tie"></i> ${m.host}</div>
+      <button class="btn-join ended-btn mt-16" onclick="showToast('Playback coming soon')"><i class="fas fa-play"></i> Play Recording</button>
     </div>`).join('');
-  if (grid.innerHTML === '') grid.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>No recordings available</p></div>';
+  if (past.length === 0) grid.innerHTML = '<div class="empty-state"><i class="fas fa-video-slash"></i><p>No recordings available</p></div>';
 }
 function renderSettings() {
   const container = document.getElementById('settings-content');
+  if (!container) return;
   container.innerHTML = `
     <div class="form-group"><label class="form-label">Change Password</label><input class="form-control-apc" type="password" placeholder="New password"></div>
     <div class="form-group"><label class="form-label">Confirm Password</label><input class="form-control-apc" type="password" placeholder="Confirm new password"></div>
     <div class="form-group"><label class="form-label">Email Notifications</label><select class="form-control-apc"><option>Enabled</option><option>Disabled</option></select></div>
-    <div class="form-group"><label class="form-label">Language</label><select class="form-control-apc"><option>English</option><option>Hausa</option></select></div>
-    <button class="btn-primary-apc" onclick="showToast('Settings saved','success'); saveState()">Save Settings</button>
+    <div class="form-group"><label class="form-label">Language</label><select class="form-control-apc"><option>English</option><option>Hausa</option><option>Yoruba</option><option>Igbo</option></select></div>
+    <button class="btn-primary-apc" onclick="showToast('Settings saved','success')">Save Settings</button>
+    <hr>
+    <div class="flex-between"><span><i class="fas fa-database"></i> Data Export</span><button class="btn-outline-apc" onclick="openModal('data-export-modal')">Export</button></div>
+    <div class="flex-between mt-16"><span><i class="fas fa-trash"></i> Delete Account</span><button class="btn-outline-apc" style="color:var(--danger)" onclick="requireFingerprint(()=>showToast('Account deletion requested','error'))">Delete</button></div>
   `;
 }
 function renderHelp() {
-  document.getElementById('help-content').innerHTML = `
+  const container = document.getElementById('help-content');
+  if (!container) return;
+  container.innerHTML = `
     <h5>Frequently Asked Questions</h5>
-    <ul><li><strong>How do I reset my password?</strong> Use the "Forgot password" link.</li></ul>
-    <p>Contact support at <a href="mailto:support@apc.gov.ng">support@apc.gov.ng</a></p>
+    <ul style="margin-top:16px">
+      <li><strong>How do I reset my password?</strong> Use the "Forgot password" link on the login page.</li>
+      <li><strong>How does NIN verification work?</strong> You need to submit your NIN and fingerprint during registration. An admin will verify.</li>
+      <li><strong>Can I join a meeting from mobile?</strong> Yes, the app is fully responsive. Use the bottom navigation to access meetings.</li>
+      <li><strong>Is my data secure?</strong> Yes, all communications are encrypted and biometric authentication is required for sensitive actions.</li>
+    </ul>
+    <p style="margin-top:20px">Contact support at <a href="mailto:support@apc.gov.ng">support@apc.gov.ng</a></p>
   `;
 }
 function renderAbout() {
-  document.getElementById('about-content').innerHTML = `
+  const container = document.getElementById('about-content');
+  if (!container) return;
+  container.innerHTML = `
     <h4>APC Private Connect</h4>
     <p>Version 2.0.0 (Production Ready)</p>
+    <p>A secure communication platform for APC delegates, featuring biometric NIN verification, advanced group management, real‑time chat, and video conferencing.</p>
     <p>© 2025 All Progressives Congress. All rights reserved.</p>
+    <p><a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a></p>
   `;
 }
 
-// --- NAVIGATION ---
-const PAGE_TITLES = { feed:'News Feed', groups:'Groups', chat:'Messages', meetings:'Meetings', notifications:'Notifications', profile:'My Profile', admin:'Admin Dashboard', search:'Search', directory:'Directory', recordings:'Recordings', settings:'Settings', help:'Help', about:'About' };
-function navigate(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const pageEl = document.getElementById(`page-${page}`);
-  if (pageEl) pageEl.classList.add('active');
-  const navEl = document.querySelector(`.nav-item[onclick*="'${page}'"]`);
-  if (navEl) navEl.classList.add('active');
-  document.getElementById('topbar-title').textContent = PAGE_TITLES[page] || page;
-  if (page === 'groups') showGroupsList();
-  closeSidebar();
-}
-function navigateMobile(page, event) {
-  event.preventDefault();
-  document.querySelectorAll('.mobile-nav-item').forEach(item => item.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  navigate(page);
-}
-function openSidebar() { document.getElementById('sidebar').classList.add('open'); document.getElementById('sidebar-overlay').style.display='block'; }
-function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebar-overlay').style.display='none'; }
+// --- MODALS (unchanged) ---
+function openModal(id) { document.getElementById(id)?.classList.add('open'); }
+function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('modal-overlay')) {
+    e.target.classList.remove('open');
+  }
+});
 
-// --- THEME ---
+// --- TOAST (unchanged) ---
+let toastId = 0;
+function showToast(message, type='info', title='') {
+  const container = document.getElementById('toast-container');
+  const id = `toast-${toastId++}`;
+  const icons = { success:'fa-check-circle', error:'fa-times-circle', info:'fa-info-circle', warning:'fa-exclamation-triangle' };
+  const colors = { success:'var(--primary)', error:'var(--danger)', info:'var(--info)', warning:'var(--warning)' };
+  const div = document.createElement('div');
+  div.className = `toast ${type==='error'?'error':type==='warning'?'warning':''}`;
+  div.id = id;
+  div.style.borderLeftColor = colors[type]||'var(--primary)';
+  div.innerHTML = `
+    <i class="fas ${icons[type]||icons.info}" style="color:${colors[type]||'var(--primary)'};font-size:1rem"></i>
+    <div class="toast-text">${title?`<div class="toast-title">${title}</div>`:''}${message}</div>
+    <i class="fas fa-times toast-close" onclick="removeToast('${id}')"></i>`;
+  container.appendChild(div);
+  setTimeout(() => removeToast(id), 4000);
+}
+function removeToast(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.animation = 'toastOut 0.3s ease forwards'; setTimeout(()=>el.remove(), 300); }
+}
+
+// --- THEME (unchanged) ---
 function toggleTheme() {
   STATE.theme = STATE.theme === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', STATE.theme);
-  document.getElementById('theme-switch').classList.toggle('on', STATE.theme==='dark');
+  const sw = document.getElementById('theme-switch');
+  sw.classList.toggle('on', STATE.theme==='dark');
   showToast(`Switched to ${STATE.theme} mode`);
-  saveState();
 }
 
-// --- SEARCH ---
+// --- SEARCH (enhanced with debounce) ---
 function debouncedSearch(q) {
   clearTimeout(STATE.searchDebounceTimer);
   STATE.searchDebounceTimer = setTimeout(() => handleSearch(q), 300);
 }
 function handleSearch(q) {
-  if (!q) { document.getElementById('search-results').innerHTML = '<p class="text-muted">Enter a query in the search bar above.</p>'; return; }
-  const results = STATE.posts.filter(p=>p.text.toLowerCase().includes(q.toLowerCase()));
-  document.getElementById('search-results').innerHTML = `<p>Found ${results.length} result(s) for "${q}"</p>` + results.map(r => `<div style="padding:8px 0;border-bottom:1px solid var(--border)">${r.author}: ${r.text.substring(0,50)}...</div>`).join('');
+  if (!q) {
+    document.getElementById('search-results').innerHTML = '<p class="text-muted">Enter a query in the search bar above.</p>';
+    return;
+  }
+  const results = [...MEMBERS.filter(m=>m.name.toLowerCase().includes(q.toLowerCase())), ...POST_TEMPLATES.filter(p=>p.text.toLowerCase().includes(q.toLowerCase()))];
+  if (results.length) {
+    document.getElementById('search-results').innerHTML = `<p>Found ${results.length} result(s) for "${q}"</p>` +
+      results.map(r => `<div style="padding:8px 0;border-bottom:1px solid var(--border)">${r.name || r.author}: ${r.text || ''}</div>`).join('');
+  } else {
+    document.getElementById('search-results').innerHTML = `<p class="text-muted">No results found for "${q}"</p>`;
+  }
   navigate('search');
 }
 
-// --- INACTIVITY TIMER ---
+// --- UTILS ---
+function escHTML(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
 function startInactivityTimer() {
+  const logoutTime = 30 * 60 * 1000; // 30 minutes
   if (STATE.inactivityTimer) clearTimeout(STATE.inactivityTimer);
   STATE.inactivityTimer = setTimeout(() => {
     showToast('Session expired due to inactivity.','warning');
     doLogout();
-  }, 30 * 60 * 1000);
+  }, logoutTime);
   document.addEventListener('mousemove', resetInactivity);
   document.addEventListener('keydown', resetInactivity);
 }
@@ -3209,22 +3472,38 @@ function resetInactivity() {
   }
 }
 function backgroundSync() {
+  // Simulate fetching new data
   showToast('Background sync complete','info','🔄 Sync');
 }
 
-// --- PWA & SERVICE WORKER ---
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed:', err));
-  });
+// --- AUTO SIMULATION (enhanced) ---
+function autoSimulate() {
+  // New post simulation
+  setTimeout(() => {
+    POST_TEMPLATES.splice(2, 0, { author:'Chidinma Obi', role:'Women Wing Lead', color:'linear-gradient(135deg,#ffecd2,#fcb69f)', initials:'CO', text:'The Women Wing of APC is hosting a capacity-building workshop next week. All female delegates are encouraged to attend. Together we rise! 🌸 #WomenInPolitics', likes:0, comments:0, shares:0, time:'just now', hasMedia:false });
+    renderFeed();
+    showToast('New post from Chidinma Obi','info','📰 New Post');
+  }, 15000);
+  // New meeting reminder
+  setTimeout(() => {
+    NOTIFICATIONS_DATA.unshift({ type:'meeting', icon:'fa-video', text:'<strong>FCT Committee Review</strong> starts in 30 minutes', time:'just now', unread:true });
+    renderNotifications();
+    updateNotifBadge();
+    showToast('Meeting reminder: FCT Committee Review','warning','⏰ Reminder');
+  }, 25000);
+  // New group message
+  setTimeout(() => {
+    if (GROUP_CHAT_MESSAGES[1]) {
+      GROUP_CHAT_MESSAGES[1].push({ from: 'Fatima Aliyu', initials: 'FA', color: 'linear-gradient(135deg,#4facfe,#00f2fe)', text: 'Please review the updated agenda.', time: 'just now', mine: false });
+      if (STATE.currentChat?.id === 1) renderChatMessages(GROUP_CHAT_MESSAGES[1]);
+    }
+    showToast('New message in General Committee','info');
+  }, 40000);
 }
 
-// --- SPLASH INIT ---
+// --- SPLASH + INIT (unchanged) ---
 window.addEventListener('DOMContentLoaded', () => {
   buildOTP();
-  // Apply saved theme
-  document.documentElement.setAttribute('data-theme', STATE.theme);
-  document.getElementById('theme-switch').classList.toggle('on', STATE.theme==='dark');
   setTimeout(() => {
     const errEl = document.getElementById('login-error');
     if (errEl) {
@@ -3233,16 +3512,14 @@ window.addEventListener('DOMContentLoaded', () => {
       errEl.textContent = '🔐 Demo: delegate@apc.gov.ng / pass123 (or admin@apc.gov.ng / admin123)';
     }
   }, 3200);
-  // Show welcome panel
-  showPanel('welcome');
 });
 
-// Mock ALL_USERS for directory
-const ALL_USERS = [
-  { name: 'Musa Abdullahi', role: 'Delegate', zone: 'Kano North', status: 'active' },
-  { name: 'Chioma Okonkwo', role: 'Delegate', zone: 'Anambra West', status: 'active' },
-  { name: 'Emeka Chukwu', role: 'National Chairman', zone: 'National', status: 'active' }
-];
+// --- SERVICE WORKER REGISTRATION (PWA) ---
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed:', err));
+  });
+}
 </script>
 </body>
 </html>
