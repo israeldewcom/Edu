@@ -510,6 +510,9 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
+        .overflow-y-auto {
+            overflow-y: auto;
+        }
         .rounded {
             border-radius: var(--radius-sm);
         }
@@ -1742,6 +1745,7 @@
             display: flex;
             gap: .45rem;
             margin-top: .85rem;
+            flex-wrap: wrap;
         }
         .soc-btn {
             width: 32px;
@@ -3702,7 +3706,6 @@
            FACEBOOK-STYLE FEED
            ============================================================ */
 
-        /* ─── POST CARD ──────────────────────────────────────────────── */
         .fb-post-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -3716,7 +3719,6 @@
             box-shadow: var(--shadow2);
         }
 
-        /* ─── POST HEADER ────────────────────────────────────────────── */
         .fb-post-header {
             display: flex;
             align-items: center;
@@ -3796,7 +3798,6 @@
             background: rgba(128, 128, 128, 0.08);
         }
 
-        /* ─── POST CONTENT ────────────────────────────────────────────── */
         .fb-post-content {
             padding: 0 16px 8px 16px;
         }
@@ -3844,7 +3845,6 @@
             border: none;
         }
 
-        /* ─── POST REACTIONS BAR ──────────────────────────────────────── */
         .fb-post-reactions-bar {
             display: flex;
             align-items: center;
@@ -3893,7 +3893,6 @@
             text-decoration: underline;
         }
 
-        /* ─── POST ACTION BUTTONS ────────────────────────────────────── */
         .fb-post-actions {
             display: flex;
             padding: 4px 8px;
@@ -3933,7 +3932,6 @@
             font-size: 1.1rem;
         }
 
-        /* ─── COMMENTS SECTION ────────────────────────────────────────── */
         .fb-comments-section {
             padding: 8px 16px 12px 16px;
             border-top: 1px solid var(--border);
@@ -4077,7 +4075,6 @@
             min-height: 30px;
         }
 
-        /* ─── SHARE MODAL ──────────────────────────────────────────────── */
         .fb-share-modal {
             padding: 1rem;
         }
@@ -4114,7 +4111,6 @@
             outline: none;
         }
 
-        /* ─── REACTION PICKER ──────────────────────────────────────────── */
         .fb-reaction-picker {
             display: none;
             position: absolute;
@@ -4150,42 +4146,33 @@
             background: rgba(128, 128, 128, 0.06);
         }
 
-        /* ─── RESPONSIVE TWEAKS ────────────────────────────────────────── */
         @media (max-width: 600px) {
             .fb-post-header {
                 padding: 10px 12px 6px 12px;
             }
-
             .fb-post-content {
                 padding: 0 12px 6px 12px;
             }
-
             .fb-post-reactions-bar {
                 padding: 4px 12px;
             }
-
             .fb-post-actions {
                 padding: 2px 4px;
             }
-
             .fb-action-btn {
                 font-size: 0.72rem;
             }
-
             .fb-action-btn i {
                 font-size: 0.95rem;
             }
-
             .fb-comments-section {
                 padding: 6px 12px 10px 12px;
             }
-
             .fb-reaction-picker button {
                 font-size: 1.3rem;
             }
         }
 
-        /* ─── DARK THEME ADJUSTMENTS ──────────────────────────────────── */
         [data-theme="dark"] .fb-post-card {
             border-color: var(--border);
         }
@@ -4194,7 +4181,6 @@
             border-color: #E8DCC8;
         }
 
-        /* ─── ANIMATIONS ────────────────────────────────────────────────── */
         @keyframes fbReactionPop {
             0% {
                 transform: scale(0.5);
@@ -6056,8 +6042,6 @@
             border: 1px solid rgba(251, 191, 36, .2);
             font-size: .55rem;
         }
-
-        /* ─── SPONSORSHIP & CAMPAIGN STYLES ──────────────────────────── */
         .sponsor-tab {
             display: none;
         }
@@ -6158,8 +6142,6 @@
             color: var(--violet);
             border: 1px solid rgba(212, 175, 55, .2);
         }
-
-        /* ─── BADGE DISPLAY ───────────────────────────────────────────── */
         .badge-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -6228,7 +6210,7 @@
 
         <section id="pricing-sec" class="lsec"><div class="lsec-wrap"><div class="text-center mb-5 reveal"><div class="stag mb-3"><i class="fas fa-tag"></i> Pricing</div><h2 style="font-size:clamp(1.7rem,4vw,2.6rem)">Simple, <span class="grad-text">Transparent</span> Pricing</h2></div><div class="row justify-center"><div class="col-12 col-md-4 reveal" style="transition-delay:.05s"><div class="price-card"><div class="stag mb-3"><i class="fas fa-user"></i> Free</div><div class="p-amt">₦0<span style="font-size:1rem;color:var(--text3)">/mo</span></div><p style="font-size:.79rem;color:var(--text3);margin:.5rem 0 1rem">Perfect to get started</p><ul style="list-style:none;display:flex;flex-direction:column;gap:.45rem;font-size:.83rem;margin-bottom:1.25rem"><li><i class="fas fa-check chk"></i>5 courses access</li><li><i class="fas fa-check chk"></i>Basic certificates</li><li><i class="fas fa-check chk"></i>Referral program</li><li><i class="fas fa-times nope"></i>Create courses</li><li><i class="fas fa-times nope"></i>Unlimited uploads</li><li><i class="fas fa-times nope"></i>No ads</li></ul><button class="btn btn-outline w-full" onclick="goPage('register')">Get Started Free</button></div></div><div class="col-12 col-md-4 reveal" style="transition-delay:.1s"><div class="price-card featured"><div class="stag mb-3"><i class="fas fa-crown"></i> Premium</div><div class="p-amt" style="color:var(--lime)">₦5,000<span style="font-size:1rem;color:var(--text3)">/mo</span></div><p style="font-size:.79rem;color:var(--text3);margin:.5rem 0 1rem">For serious learners &amp; earners</p><ul style="list-style:none;display:flex;flex-direction:column;gap:.45rem;font-size:.83rem;margin-bottom:1.25rem"><li><i class="fas fa-check chk"></i>All courses unlimited</li><li><i class="fas fa-check chk"></i>Create &amp; sell courses</li><li><i class="fas fa-check chk"></i>Affiliate dashboard</li><li><i class="fas fa-check chk"></i>Unlimited uploads</li><li><i class="fas fa-check chk"></i>No ads 🎉</li><li><i class="fas fa-check chk"></i>80% course revenue</li></ul><button class="btn btn-primary w-full" onclick="goPage('register')"><i class="fas fa-crown"></i>Go Premium</button></div></div><div class="col-12 col-md-4 reveal" style="transition-delay:.15s"><div class="price-card"><div class="stag mb-3"><i class="fas fa-building"></i> Business</div><div class="p-amt">₦25,000<span style="font-size:1rem;color:var(--text3)">/mo</span></div><p style="font-size:.79rem;color:var(--text3);margin:.5rem 0 1rem">For teams &amp; organizations</p><ul style="list-style:none;display:flex;flex-direction:column;gap:.45rem;font-size:.83rem;margin-bottom:1.25rem"><li><i class="fas fa-check chk"></i>Everything in Premium</li><li><i class="fas fa-check chk"></i>Up to 20 seats</li><li><i class="fas fa-check chk"></i>Custom branding</li><li><i class="fas fa-check chk"></i>Analytics</li><li><i class="fas fa-check chk"></i>Dedicated manager</li></ul><button class="btn btn-outline w-full" onclick="goPage('contact')">Contact Sales</button></div></div></div></div></section>
 
-        <footer class="lfooter"><div class="lsec-wrap"><div class="row mb-4"><div class="col-12 col-md-4"><div class="logo mb-3"><div class="logo-mark"><img src="/logo.png" alt="ChangeX" style="width:100%;height:100%;border-radius:8px;object-fit:cover;" /></div>ChangeX<span style="color:var(--primary)">.</span></div><p style="font-size:.82rem;color:var(--text3);max-width:260px;line-height:1.65">Global #1 Learn-to-Earn platform. Turning tech skills into real income.</p><div class="f-social"><div class="soc-btn"><i class="fab fa-twitter"></i></div><div class="soc-btn"><i class="fab fa-instagram"></i></div><div class="soc-btn"><i class="fab fa-linkedin"></i></div><div class="soc-btn"><i class="fab fa-youtube"></i></div><div class="soc-btn"><i class="fab fa-whatsapp"></i></div></div></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Learn</h6><ul class="f-links"><li><a onclick="goPage('register')">All Courses</a></li><li><a>Web Dev</a></li><li><a>AI &amp; Tools</a></li><li><a>Freelancing</a></li></ul></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Earn</h6><ul class="f-links"><li><a>Referrals</a></li><li><a>Affiliates</a></li><li><a>Teach Here</a></li><li><a>Leaderboard</a></li></ul></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Company</h6><ul class="f-links"><li><a>About</a></li><li><a onclick="goPage('contact')">Contact</a></li><li><a>Privacy</a></li><li><a>Terms</a></li></ul></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Newsletter</h6><p style="font-size:.75rem;color:var(--text3);margin-bottom:.6rem">Weekly tips &amp; earnings updates</p><input type="email" class="finput" id="footerEmail" placeholder="your@email.com" style="margin-bottom:.4rem"/><button class="btn btn-primary btn-sm w-full" onclick="subscribeEmail()">Subscribe</button></div></div><div style="border-top:1px solid var(--border);padding-top:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem"><p style="font-size:.73rem;color:var(--text3)">© 2025 ChangeX Academy. Made with ❤️ for the world.</p><p style="font-size:.73rem;color:var(--text3)">Contact: <a href="mailto:changexacademysupport@gmail.com" style="color:var(--primary)">changexacademysupport@gmail.com</a></p></div></div></footer>
+        <footer class="lfooter"><div class="lsec-wrap"><div class="row mb-4"><div class="col-12 col-md-4"><div class="logo mb-3"><div class="logo-mark"><img src="/logo.png" alt="ChangeX" style="width:100%;height:100%;border-radius:8px;object-fit:cover;" /></div>ChangeX<span style="color:var(--primary)">.</span></div><p style="font-size:.82rem;color:var(--text3);max-width:260px;line-height:1.65">Global #1 Learn-to-Earn platform. Turning tech skills into real income.</p><div class="f-social"><div class="soc-btn" onclick="window.open('https://www.facebook.com/profile.php?id=61593179073484','_blank')"><i class="fab fa-facebook"></i></div><div class="soc-btn" onclick="window.open('https://www.instagram.com/changexacademy12?igsh=N29kZWZqbWlzYWRo','_blank')"><i class="fab fa-instagram"></i></div><div class="soc-btn" onclick="window.open('https://x.com/changexacademy','_blank')"><i class="fab fa-twitter"></i></div><div class="soc-btn" onclick="window.open('https://www.linkedin.com/company/changex-academy/','_blank')"><i class="fab fa-linkedin"></i></div><div class="soc-btn" onclick="window.open('https://www.youtube.com/@changexacademy','_blank')"><i class="fab fa-youtube"></i></div><div class="soc-btn" onclick="window.open('https://wa.me/2348000000000?text=Hello%20ChangeX%20Academy!','_blank')"><i class="fab fa-whatsapp"></i></div></div></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Learn</h6><ul class="f-links"><li><a onclick="goPage('register')">All Courses</a></li><li><a>Web Dev</a></li><li><a>AI &amp; Tools</a></li><li><a>Freelancing</a></li></ul></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Earn</h6><ul class="f-links"><li><a>Referrals</a></li><li><a>Affiliates</a></li><li><a>Teach Here</a></li><li><a>Leaderboard</a></li></ul></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Company</h6><ul class="f-links"><li><a>About</a></li><li><a onclick="goPage('contact')">Contact</a></li><li><a>Privacy</a></li><li><a>Terms</a></li></ul></div><div class="col-6 col-md-2"><h6 style="margin-bottom:.65rem">Newsletter</h6><p style="font-size:.75rem;color:var(--text3);margin-bottom:.6rem">Weekly tips &amp; earnings updates</p><input type="email" class="finput" id="footerEmail" placeholder="your@email.com" style="margin-bottom:.4rem"/><button class="btn btn-primary btn-sm w-full" onclick="subscribeEmail()">Subscribe</button></div></div><div style="border-top:1px solid var(--border);padding-top:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem"><p style="font-size:.73rem;color:var(--text3)">© 2025 ChangeX Academy. Made with ❤️ for the world.</p><p style="font-size:.73rem;color:var(--text3)">Contact: <a href="mailto:changexacademysupport@gmail.com" style="color:var(--primary)">changexacademysupport@gmail.com</a></p></div></div></footer>
     </div>
 
     <!-- ============================================================ -->
@@ -6236,7 +6218,7 @@
     <!-- ============================================================ -->
     <div id="page-login" class="page"><div class="auth-wrap"><div class="auth-bg"></div><div class="auth-box"><div style="text-align:center;margin-bottom:1.5rem"><div class="logo-mark" style="margin:0 auto .6rem;width:40px;height:40px;font-size:1rem;border-radius:12px;overflow:hidden"><img src="/logo.png" alt="ChangeX" style="width:100%;height:100%;object-fit:cover;" /></div><h2 style="font-size:1.6rem">Welcome Back</h2><p style="font-size:.82rem;color:var(--text3)">Sign in to continue earning</p></div><div style="display:flex;gap:.55rem;margin-bottom:.85rem"><button class="social-btn" onclick="handleGoogleLogin()"><i class="fab fa-google" style="color:#ea4335"></i> Google</button><button class="social-btn" onclick="handleGithubLogin()"><i class="fab fa-github"></i> GitHub</button></div><div class="divider-or"><span>or with email</span></div><div class="form-group"><label class="flabel">Email</label><div class="finput-ico"><i class="fas fa-envelope fii"></i><input type="email" class="finput" id="loginEmail" placeholder="you@example.com"/></div></div><div class="form-group"><label class="flabel">Password</label><div class="finput-ico" style="position:relative"><i class="fas fa-lock fii"></i><input type="password" class="finput" id="loginPw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/><button class="pw-toggle" onclick="togglePw('loginPw',this)"><i class="fas fa-eye"></i></button></div></div><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.85rem"><input type="checkbox" id="rememberMe" style="accent-color:var(--primary)"/><label for="rememberMe" style="font-size:.78rem;color:var(--text2);cursor:pointer">Remember me</label><a style="font-size:.78rem;color:var(--primary);cursor:pointer;margin-left:auto" onclick="handleForgotPassword()">Forgot password?</a></div><button class="btn btn-primary w-full" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i>Sign In</button><p style="text-align:center;font-size:.8rem;color:var(--text3);margin-top:.85rem">No account? <a style="color:var(--primary);cursor:pointer" onclick="goPage('register')">Create free →</a></p><p style="text-align:center;margin-top:.4rem"><a style="font-size:.75rem;cursor:pointer;color:var(--text3)" onclick="goPage('landing')">← Back to Home</a></p></div></div></div>
 
-    <div id="page-register" class="page"><div class="auth-wrap"><div class="auth-bg"></div><div class="auth-box" style="max-width:460px"><div style="text-align:center;margin-bottom:1.5rem"><div class="logo-mark" style="margin:0 auto .6rem;width:40px;height:40px;font-size:1rem;border-radius:12px;overflow:hidden"><img src="/logo.png" alt="ChangeX" style="width:100%;height:100%;object-fit:cover;" /></div><h2 style="font-size:1.6rem">Create Free Account</h2><p style="font-size:.82rem;color:var(--text3)">Join thousands of learners &amp; earners worldwide</p></div><div class="row" style="gap:.55rem;margin-bottom:.85rem"><button class="social-btn" style="flex:1" onclick="handleGoogleLogin()"><i class="fab fa-google" style="color:#ea4335"></i> Google</button><button class="social-btn" style="flex:1" onclick="handleGithubLogin()"><i class="fab fa-github"></i> GitHub</button></div><div class="divider-or"><span>or with email</span></div><div class="row"><div class="col-6"><div class="form-group"><label class="flabel">First Name</label><input type="text" class="finput" id="regFirst" placeholder="Amaka"/></div></div><div class="col-6"><div class="form-group"><label class="flabel">Last Name</label><input type="text" class="finput" id="regLast" placeholder="Obi"/></div></div></div><div class="form-group"><label class="flabel">Email</label><div class="finput-ico"><i class="fas fa-envelope fii"></i><input type="email" class="finput" id="regEmail" placeholder="you@example.com"/></div></div><div class="form-group"><label class="flabel">Phone</label><div class="finput-ico"><i class="fas fa-phone fii"></i><input type="tel" class="finput" id="regPhone" placeholder="+234 800 000 0000"/></div></div><div class="form-group"><label class="flabel">Password</label><div class="finput-ico" style="position:relative"><i class="fas fa-lock fii"></i><input type="password" class="finput" id="regPw" placeholder="Min 8 characters" oninput="checkPwStr(this.value)"/><button class="pw-toggle" onclick="togglePw('regPw',this)"><i class="fas fa-eye"></i></button></div><div class="pw-bars"><div class="pw-bar" id="pb1"></div><div class="pw-bar" id="pb2"></div><div class="pw-bar" id="pb3"></div><div class="pw-bar" id="pb4"></div></div></div><div class="form-group"><label class="flabel">Referral Code (optional)</label><div class="finput-ico"><i class="fas fa-users fii"></i><input type="text" class="finput" id="regRef" placeholder="Enter referral code"/></div></div><div style="display:flex;align-items:flex-start;gap:.5rem;margin-bottom:1rem;font-size:.79rem"><input type="checkbox" id="termsChk" style="accent-color:var(--primary);margin-top:.15rem"/><label for="termsChk" style="color:var(--text2);cursor:pointer;line-height:1.5">I agree to the <a style="color:var(--primary)">Terms</a> and <a style="color:var(--primary)">Privacy Policy</a></label></div><button class="btn btn-primary w-full" id="registerBtn" onclick="doRegister()"><i class="fas fa-rocket"></i>Create My Free Account</button><div style="background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.14);border-radius:var(--radius-sm);padding:.65rem;margin-top:.85rem;font-size:.76rem;color:var(--text2);text-align:center">🎉 Get <strong style="color:var(--primary)">₦500 welcome bonus</strong> on first profile completion!</div><p style="text-align:center;font-size:.8rem;color:var(--text3);margin-top:.85rem">Already have account? <a style="color:var(--primary);cursor:pointer" onclick="goPage('login')">Sign in →</a></p></div></div></div>
+    <div id="page-register" class="page"><div class="auth-wrap"><div class="auth-bg"></div><div class="auth-box" style="max-width:460px"><div style="text-align:center;margin-bottom:1.5rem"><div class="logo-mark" style="margin:0 auto .6rem;width:40px;height:40px;font-size:1rem;border-radius:12px;overflow:hidden"><img src="/logo.png" alt="ChangeX" style="width:100%;height:100%;object-fit:cover;" /></div><h2 style="font-size:1.6rem">Create Free Account</h2><p style="font-size:.82rem;color:var(--text3)">Join thousands of learners &amp; earners worldwide</p></div><div class="row" style="gap:.55rem;margin-bottom:.85rem"><button class="social-btn" style="flex:1" onclick="handleGoogleLogin()"><i class="fab fa-google" style="color:#ea4335"></i> Google</button><button class="social-btn" style="flex:1" onclick="handleGithubLogin()"><i class="fab fa-github"></i> GitHub</button></div><div class="divider-or"><span>or with email</span></div><div class="row"><div class="col-6"><div class="form-group"><label class="flabel">First Name</label><input type="text" class="finput" id="regFirst" placeholder="Amaka"/></div></div><div class="col-6"><div class="form-group"><label class="flabel">Last Name</label><input type="text" class="finput" id="regLast" placeholder="Obi"/></div></div></div><div class="form-group"><label class="flabel">Email</label><div class="finput-ico"><i class="fas fa-envelope fii"></i><input type="email" class="finput" id="regEmail" placeholder="you@example.com"/></div></div><div class="form-group"><label class="flabel">Phone</label><div class="finput-ico"><i class="fas fa-phone fii"></i><input type="tel" class="finput" id="regPhone" placeholder="+234 800 000 0000"/></div></div><div class="form-group"><label class="flabel">Password</label><div class="finput-ico" style="position:relative"><i class="fas fa-lock fii"></i><input type="password" class="finput" id="regPw" placeholder="Min 8 characters" oninput="checkPwStr(this.value)"/><button class="pw-toggle" onclick="togglePw('regPw',this)"><i class="fas fa-eye"></i></button></div><div class="pw-bars"><div class="pw-bar" id="pb1"></div><div class="pw-bar" id="pb2"></div><div class="pw-bar" id="pb3"></div><div class="pw-bar" id="pb4"></div></div></div><div class="form-group"><label class="flabel">Referral Code (optional)</label><div class="finput-ico"><i class="fas fa-users fii"></i><input type="text" class="finput" id="regRef" placeholder="Enter referral code" value="" /></div></div><div style="display:flex;align-items:flex-start;gap:.5rem;margin-bottom:1rem;font-size:.79rem"><input type="checkbox" id="termsChk" style="accent-color:var(--primary);margin-top:.15rem"/><label for="termsChk" style="color:var(--text2);cursor:pointer;line-height:1.5">I agree to the <a style="color:var(--primary)">Terms</a> and <a style="color:var(--primary)">Privacy Policy</a></label></div><button class="btn btn-primary w-full" id="registerBtn" onclick="doRegister()"><i class="fas fa-rocket"></i>Create My Free Account</button><div style="background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.14);border-radius:var(--radius-sm);padding:.65rem;margin-top:.85rem;font-size:.76rem;color:var(--text2);text-align:center">🎉 Get <strong style="color:var(--primary)">₦500 welcome bonus</strong> on first profile completion!</div><p style="text-align:center;font-size:.8rem;color:var(--text3);margin-top:.85rem">Already have account? <a style="color:var(--primary);cursor:pointer" onclick="goPage('login')">Sign in →</a></p></div></div></div>
 
     <!-- ============================================================ -->
     <!-- SETUP WIZARD -->
@@ -6322,8 +6304,7 @@
                         <li class="nav-sec" style="margin-top:.3rem">Library</li>
                         <li><span class="nav-item" id="nav-books" onclick="setDP('books')"><span class="nav-ico"><i class="fas fa-book"></i></span>Books</span></li>
                         <li><span class="nav-item" id="nav-my-library" onclick="setDP('my-library')"><span class="nav-ico"><i class="fas fa-book-open"></i></span>My Library</span></li>
-                        <!-- ====== CREATE BOOK – PREMIUM ONLY (MOVED TO LIBRARY) ====== -->
-                        <li id="nav-create-book" class="premium-only">
+                        <li id="nav-create-book">
                             <span class="nav-item" onclick="setDP('create-book')">
                                 <span class="nav-ico"><i class="fas fa-plus-circle"></i></span>
                                 Upload Book
@@ -6435,9 +6416,9 @@
                     <div id="dash-book-detail" class="dash-sub"><div class="page-hd"><button class="btn btn-ghost btn-sm" onclick="setDP('books')"><i class="fas fa-arrow-left"></i> Back to Library</button></div><div id="bookPageAdContainerDetail" class="ad-container"></div><div id="bookDetailContent"></div><div id="bookSponsorAdContainerDetail" class="ad-container"></div></div>
 
                     <!-- ============================================================ -->
-                    <!-- UPLOAD BOOK – PREMIUM ONLY (FULLY INTEGRATED WITH FILE UPLOADS) -->
+                    <!-- UPLOAD BOOK – VISIBLE TO ALL, PREMIUM-GATED ON CLICK -->
                     <!-- ============================================================ -->
-                    <div id="dash-create-book" class="dash-sub premium-only" style="display:none;">
+                    <div id="dash-create-book" class="dash-sub" style="display:none;">
                         <div class="page-hd">
                             <h2 class="page-title">📚 Upload Book</h2>
                             <p class="page-sub">Publish your book for admin approval. Premium users only.</p>
@@ -6446,31 +6427,22 @@
                         <div id="bookUploadStatus" style="display:none;" class="card card-p mb-3"></div>
 
                         <div class="card card-p">
-                            <!-- Book Title -->
                             <div class="form-group">
                                 <label class="flabel">Book Title *</label>
                                 <input type="text" class="finput" id="bookUploadTitle" placeholder="Enter book title" />
                             </div>
-
-                            <!-- Author -->
                             <div class="form-group">
                                 <label class="flabel">Author *</label>
                                 <input type="text" class="finput" id="bookUploadAuthor" placeholder="Author name" />
                             </div>
-
-                            <!-- Description -->
                             <div class="form-group">
                                 <label class="flabel">Description</label>
                                 <textarea class="finput" id="bookUploadDesc" rows="3" placeholder="Book description..."></textarea>
                             </div>
-
-                            <!-- Price -->
                             <div class="form-group">
                                 <label class="flabel">Price (₦)</label>
                                 <input type="number" class="finput" id="bookUploadPrice" placeholder="0 for free" min="0" value="0" />
                             </div>
-
-                            <!-- Cover Image Upload -->
                             <div class="form-group">
                                 <label class="flabel">Cover Image *</label>
                                 <div class="upload-zone" style="padding:1.5rem; margin-bottom:.5rem;">
@@ -6485,8 +6457,6 @@
                                 </div>
                                 <input type="hidden" id="bookUploadCover" />
                             </div>
-
-                            <!-- PDF File Upload -->
                             <div class="form-group">
                                 <label class="flabel">Book PDF *</label>
                                 <div class="upload-zone" style="padding:1.5rem; margin-bottom:.5rem;">
@@ -6501,18 +6471,14 @@
                                 </div>
                                 <input type="hidden" id="bookUploadFile" />
                             </div>
-
-                            <!-- Affiliate Commission -->
                             <div class="form-group">
                                 <label class="flabel">Affiliate Commission (%)</label>
                                 <input type="number" class="finput" id="bookUploadAffiliate" placeholder="e.g. 15" min="0" max="50" value="0" />
                             </div>
-
                             <div class="info-box">
                                 <i class="fas fa-info-circle" style="color:var(--primary)"></i>
                                 You earn <strong>80%</strong> of each sale. Platform takes 20%. Affiliates earn the percentage you set.
                             </div>
-
                             <button class="btn btn-primary btn-lg w-full mt-3" onclick="submitBookForApproval()">
                                 <i class="fas fa-paper-plane"></i> Submit for Approval
                             </button>
@@ -6552,7 +6518,7 @@
     <!-- ============================================================ -->
     <script>
         // ═══════════════════════════════════════════════════════════════
-        // CONFIGURATION
+        // CONFIGURATION – UPDATED WITH PRODUCTION BACKEND URL
         // ═══════════════════════════════════════════════════════════════
         const API_BASE = 'https://changex-backend-1.onrender.com/api/v1';
         const FRONTEND_URL = window.location.origin || 'https://changex.academy';
@@ -6713,6 +6679,153 @@
         };
 
         // ================================================================
+        // ROUTER – SPA Routing with History API
+        // ================================================================
+        const ROUTES = {
+            '/': { page: 'landing', action: null },
+            '/login': { page: 'login', action: null },
+            '/register': { page: 'register', action: null },
+            '/app': { page: 'app', action: null },
+            '/post/:slug': { page: 'app', action: 'loadPost' },
+            '/courses/:id': { page: 'app', action: 'openCourse' },
+            '/aff/:code': { page: null, action: 'trackAffiliate' },
+        };
+
+        const router = {
+            currentPath: window.location.pathname,
+
+            init() {
+                window.addEventListener('popstate', () => {
+                    this.navigate(window.location.pathname + window.location.search, false);
+                });
+
+                document.addEventListener('click', (e) => {
+                    const link = e.target.closest('a[data-route]');
+                    if (link) {
+                        e.preventDefault();
+                        const href = link.getAttribute('href');
+                        this.navigate(href, true);
+                    }
+                });
+
+                this.navigate(window.location.pathname + window.location.search, false);
+            },
+
+            navigate(path, pushState = true) {
+                const [pathname, search] = path.split('?');
+                const params = new URLSearchParams(search);
+
+                let matchedRoute = null;
+                let matchParams = {};
+
+                for (const [route, config] of Object.entries(ROUTES)) {
+                    const routeParts = route.split('/');
+                    const pathParts = pathname.split('/');
+                    if (routeParts.length !== pathParts.length) continue;
+                    let isMatch = true;
+                    const tempParams = {};
+                    for (let i = 0; i < routeParts.length; i++) {
+                        if (routeParts[i].startsWith(':')) {
+                            tempParams[routeParts[i].slice(1)] = pathParts[i];
+                        } else if (routeParts[i] !== pathParts[i]) {
+                            isMatch = false;
+                            break;
+                        }
+                    }
+                    if (isMatch) {
+                        matchedRoute = config;
+                        matchParams = tempParams;
+                        break;
+                    }
+                }
+
+                if (!matchedRoute) {
+                    if (pathname === '/' || pathname === '') {
+                        matchedRoute = ROUTES['/'];
+                    } else {
+                        matchedRoute = ROUTES['/'];
+                        window.history.replaceState(null, '', '/');
+                    }
+                }
+
+                if (matchedRoute.page === 'landing') {
+                    const refCode = params.get('ref');
+                    if (refCode) {
+                        localStorage.setItem('cx_pending_ref', refCode);
+                        toast(`Referral code ${refCode} detected! You'll get a bonus when you sign up.`, 'info');
+                    }
+                }
+
+                if (pushState && pathname !== window.location.pathname + window.location.search) {
+                    window.history.pushState(null, '', path);
+                }
+
+                if (matchedRoute.action) {
+                    this.executeAction(matchedRoute.action, matchParams, params);
+                }
+
+                if (matchedRoute.page) {
+                    goPage(matchedRoute.page);
+                }
+            },
+
+            executeAction(action, routeParams, queryParams) {
+                switch (action) {
+                    case 'loadPost':
+                        const slug = routeParams.slug;
+                        if (!slug) break;
+                        if (!S.loggedIn) {
+                            toast('Please log in to view this post.', 'warning');
+                            goPage('login');
+                            return;
+                        }
+                        loadPostBySlug(slug);
+                        break;
+                    case 'openCourse':
+                        const courseId = routeParams.id;
+                        if (!courseId) break;
+                        if (S.page !== 'app') goPage('app');
+                        setTimeout(() => {
+                            openBuyCourse(courseId);
+                        }, 300);
+                        break;
+                    case 'trackAffiliate':
+                        const code = routeParams.code;
+                        if (!code) { goPage('landing'); return; }
+                        fetch(`${API_BASE}/affiliate/track/${code}`, { method: 'GET', credentials: 'include' })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success && data.redirectUrl) {
+                                    const courseId = data.courseId || data.data?.courseId;
+                                    if (courseId) {
+                                        router.navigate(`/courses/${courseId}`, true);
+                                    } else {
+                                        goPage('landing');
+                                    }
+                                } else {
+                                    goPage('landing');
+                                }
+                            })
+                            .catch(() => { goPage('landing'); });
+                        break;
+                    default:
+                        break;
+                }
+            },
+
+            linkTo(route, params = {}) {
+                let path = route;
+                for (const [key, val] of Object.entries(params)) {
+                    path = path.replace(`:${key}`, val);
+                }
+                return path;
+            }
+        };
+
+        // Expose router globally
+        window.router = router;
+
+        // ================================================================
         // UTILITY FUNCTIONS
         // ================================================================
         function fmtMoneyAPI(n, cur) {
@@ -6787,92 +6900,6 @@
         function throttle(fn, limit = 200) { let last = 0; return (...args) => { const now = Date.now(); if (now - last >=
                     limit) { fn(...args);
                     last = now; } }; }
-
-        // ─── STATE SYNC ENGINE ──────────────────────────────────────────
-        const StateSync = {
-            updateUser(data) {
-                S.user = { ...S.user, ...data };
-                localStorage.setItem('cx_user', JSON.stringify(S.user));
-                updateUserUI();
-                if (S.dp === 'settings') initSettings();
-                if (S.dp === 'home') renderHomeDashboard();
-                if (S.dp === 'wallet') renderWallet();
-            },
-            updatePosts(post) {
-                const exists = S.posts.some(p => p._id === post._id);
-                if (!exists) {
-                    S.posts.unshift(post);
-                    cacheFeedPosts([post]);
-                } else {
-                    S.posts = S.posts.map(p => p._id === post._id ? { ...p, ...post } : p);
-                }
-                if (S.dp === 'feed') loadFeed(feedPage);
-                if (S.dp === 'home') renderHomeDashboard();
-            },
-            updateEnrollments(enrollment) {
-                const exists = S.enrollments.some(e => e._id === enrollment._id);
-                if (!exists) S.enrollments.push(enrollment);
-                else S.enrollments = S.enrollments.map(e => e._id === enrollment._id ? enrollment : e);
-                if (S.dp === 'courses') renderCourseGrid(S.courseFilter);
-                if (S.dp === 'home') renderHomeDashboard();
-                const cntEl = document.getElementById('navCoursesCnt');
-                if (cntEl) cntEl.textContent = S.enrollments.length;
-            },
-            updateWallet(balance) {
-                S.walletBal = balance;
-                if (S.user) S.user.walletBalance = balance;
-                localStorage.setItem('cx_user', JSON.stringify(S.user));
-                document.getElementById('tbWallet').textContent = fmtMoneyAPI(balance);
-                if (S.dp === 'wallet') renderWallet();
-                if (S.dp === 'home') renderHomeDashboard();
-            },
-            refreshCurrentView() {
-                if (S.dp) {
-                    const map = {
-                        feed: () => loadFeed(feedPage),
-                        home: renderHomeDashboard,
-                        explore: renderExplore,
-                        courses: () => renderCourseGrid(S.courseFilter),
-                        wallet: renderWallet,
-                        affiliates: () => renderAffiliates(false),
-                        referrals: renderRefs,
-                        leaderboard: () => { loadLeaderboard();
-                            renderLB(); },
-                        instructor: renderInstHub,
-                        'course-editor': initEditor,
-                        ai: initAI,
-                        books: loadBooks,
-                        'my-library': loadMyLibrary,
-                        'create-book': () => { if (S.isPremium) { const el = document.getElementById(
-                                    'dash-create-book'); if (el) { el.style.display = 'block';
-                                    el.classList.add('active');
-                                    resetBookUploadForm(); } } },
-                        'social-earnings': renderSocialEarnings,
-                        'manual-payments': loadUserManualPayments,
-                        tools: loadTools,
-                        settings: initSettings,
-                        sponsorship: () => switchSponsorTab(S.sponsorTab || 'overview'),
-                        admin: () => renderAdm(S.admSec || 'dashboard'),
-                        badges: loadUserBadges,
-                        certs: renderCerts,
-                        quiz: initQuiz,
-                        lesson: () => { renderCurric();
-                            switchLTab('overview', null); },
-                        following: loadFollowing,
-                        challenges: loadChallenges,
-                        people: loadPeople,
-                        'book-detail': () => { if (S.currentBook) renderBookDetail(S.currentBook); },
-                    };
-                    if (map[S.dp]) map[S.dp]();
-                }
-            }
-        };
-
-        // ─── CACHE BUSTING ──────────────────────────────────────────────
-        function bustCache(url) {
-            const separator = url.includes('?') ? '&' : '?';
-            return url + separator + '_t=' + Date.now();
-        }
 
         // ================================================================
         // AD SYSTEM – HYBRID ADS + 50% REVENUE SHARE
@@ -7366,12 +7393,6 @@
             if (pg === 'setup') { setTimeout(() => { if (typeof showWizStep === 'function') showWizStep(S.wizStep || 0); },
                     50); }
             if (pg === 'landing') { updateLandingHeroStats(); }
-            // Update URL hash
-            if (pg !== 'landing') {
-                history.pushState(null, '', `#${pg}`);
-            } else {
-                history.pushState(null, '', '/');
-            }
         }
 
         function forceRedirect(targetPage) {
@@ -7385,26 +7406,49 @@
         }
 
         function setDP(pg) {
-            // Reset all dash-sub: hide them and remove active class
-            document.querySelectorAll('.dash-sub').forEach(d => {
-                d.classList.remove('active');
-                d.style.display = 'none';
-            });
+            // Hide all sub-sections first
+            document.querySelectorAll('.dash-sub').forEach(d => d.classList.remove('active'));
+
+            // Special handling for create-book – reset display style
+            const createBookEl = document.getElementById('dash-create-book');
+            if (createBookEl) {
+                createBookEl.style.display = 'none';
+            }
 
             const el = document.getElementById('dash-' + pg);
             if (el) {
                 el.classList.add('active');
-                el.style.display = 'block';
+                // Ensure the element is visible (override any inline styles)
+                if (pg === 'create-book') {
+                    if (!S.isPremium) {
+                        toast('Premium subscription required to upload books', 'warning');
+                        openModal('premiumModal');
+                        setDP('home');
+                        return;
+                    }
+                    el.style.display = 'block';
+                    const statusEl = document.getElementById('bookUploadStatus');
+                    if (statusEl) statusEl.style.display = 'none';
+                    resetBookUploadForm();
+                }
                 S.dp = pg;
             }
 
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const ni = document.getElementById('nav-' + pg);
             if (ni) ni.classList.add('active');
-
             ['feed', 'challenges', 'explore', 'wallet', 'home', 'books', 'following', 'social-earnings'].forEach(k => { const m =
                     document.getElementById('mbn-' + k); if (m) m.classList.toggle('active', k === pg); });
             closeSidebar();
+
+            // Update URL using History API for SPA routing
+            if (typeof router !== 'undefined' && pg !== 'landing') {
+                const path = pg === 'home' ? '/app' : `/app/${pg}`;
+                if (window.location.pathname !== path && window.location.pathname !== '/app') {
+                    window.history.pushState(null, '', path);
+                }
+            }
+
             const map = {
                 feed: () => { loadFeed(1);
                     loadSidebarAd();
@@ -7434,7 +7478,7 @@
                 'book-detail': () => { if (!S.isPremium) loadBookPageAds(); },
                 'create-book': () => {
                     if (!S.isPremium) {
-                        toast('Premium required to upload books', 'warning');
+                        toast('Premium subscription required to upload books', 'warning');
                         openModal('premiumModal');
                         setDP('home');
                         return;
@@ -7471,298 +7515,8 @@
                 const subStatus = document.getElementById('subStatusCard');
                 if (subStatus) renderSubStatus();
             }
-            // Update URL without reload
-            if (pg !== 'feed' && pg !== 'home') {
-                history.pushState(null, '', `/${pg}`);
-            } else {
-                history.pushState(null, '', `/app`);
-            }
         }
 
-        // ─── ROUTER ──────────────────────────────────────────────────────
-        const ROUTES = {
-            '/': { page: 'landing', action: null },
-            '/login': { page: 'login', action: null },
-            '/register': { page: 'register', action: null },
-            '/app': { page: 'app', action: null },
-            '/feed': { page: 'app', action: 'showFeed' },
-            '/home': { page: 'app', action: 'showHome' },
-            '/explore': { page: 'app', action: 'showExplore' },
-            '/courses': { page: 'app', action: 'showCourses' },
-            '/wallet': { page: 'app', action: 'showWallet' },
-            '/affiliates': { page: 'app', action: 'showAffiliates' },
-            '/referrals': { page: 'app', action: 'showReferrals' },
-            '/leaderboard': { page: 'app', action: 'showLeaderboard' },
-            '/instructor': { page: 'app', action: 'showInstructor' },
-            '/course-editor': { page: 'app', action: 'showCourseEditor' },
-            '/ai': { page: 'app', action: 'showAI' },
-            '/books': { page: 'app', action: 'showBooks' },
-            '/my-library': { page: 'app', action: 'showMyLibrary' },
-            '/create-book': { page: 'app', action: 'showCreateBook' },
-            '/social-earnings': { page: 'app', action: 'showSocialEarnings' },
-            '/manual-payments': { page: 'app', action: 'showManualPayments' },
-            '/tools': { page: 'app', action: 'showTools' },
-            '/settings': { page: 'app', action: 'showSettings' },
-            '/sponsorship': { page: 'app', action: 'showSponsorship' },
-            '/admin': { page: 'app', action: 'showAdmin' },
-            '/post/:slug': { page: 'app', action: 'loadPost' },
-            '/courses/:id': { page: 'app', action: 'openCourse' },
-            '/aff/:code': { page: null, action: 'trackAffiliate' },
-            '/profile/:userId': { page: 'app', action: 'viewProfile' },
-        };
-
-        function navigate(path, push = true) {
-            if (push && path !== window.location.pathname) {
-                history.pushState(null, '', path);
-            }
-            handleRoute(path);
-        }
-
-        function handleRoute(path) {
-            // Remove hash and query params
-            const cleanPath = path.split('?')[0].split('#')[0];
-            let matchedRoute = null;
-            let routeParams = {};
-
-            // Check exact match first
-            if (ROUTES[cleanPath]) {
-                matchedRoute = ROUTES[cleanPath];
-            } else {
-                // Check dynamic routes
-                for (const [pattern, route] of Object.entries(ROUTES)) {
-                    if (pattern.includes(':')) {
-                        const patternParts = pattern.split('/');
-                        const pathParts = cleanPath.split('/');
-                        if (patternParts.length === pathParts.length) {
-                            let match = true;
-                            const params = {};
-                            for (let i = 0; i < patternParts.length; i++) {
-                                if (patternParts[i].startsWith(':')) {
-                                    params[patternParts[i].slice(1)] = pathParts[i];
-                                } else if (patternParts[i] !== pathParts[i]) {
-                                    match = false;
-                                    break;
-                                }
-                            }
-                            if (match) {
-                                matchedRoute = route;
-                                routeParams = params;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!matchedRoute) {
-                // Default to landing or app
-                if (S.loggedIn) {
-                    goPage('app');
-                    setTimeout(() => setDP('feed'), 50);
-                } else {
-                    goPage('landing');
-                }
-                return;
-            }
-
-            const { page, action } = matchedRoute;
-
-            if (page) {
-                goPage(page);
-            }
-
-            // Execute action with params
-            if (action) {
-                executeAction(action, routeParams);
-            } else if (page === 'app') {
-                setTimeout(() => setDP(S.dp || 'feed'), 50);
-            }
-        }
-
-        function executeAction(action, params) {
-            switch (action) {
-                case 'showFeed':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('feed'), 50);
-                    break;
-                case 'showHome':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('home'), 50);
-                    break;
-                case 'showExplore':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('explore'), 50);
-                    break;
-                case 'showCourses':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('courses'), 50);
-                    break;
-                case 'showWallet':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('wallet'), 50);
-                    break;
-                case 'showAffiliates':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('affiliates'), 50);
-                    break;
-                case 'showReferrals':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('referrals'), 50);
-                    break;
-                case 'showLeaderboard':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => { loadLeaderboard();
-                        setDP('leaderboard'); }, 50);
-                    break;
-                case 'showInstructor':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('instructor'), 50);
-                    break;
-                case 'showCourseEditor':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('course-editor'), 50);
-                    break;
-                case 'showAI':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('ai'), 50);
-                    break;
-                case 'showBooks':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('books'), 50);
-                    break;
-                case 'showMyLibrary':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('my-library'), 50);
-                    break;
-                case 'showCreateBook':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('create-book'), 50);
-                    break;
-                case 'showSocialEarnings':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('social-earnings'), 50);
-                    break;
-                case 'showManualPayments':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('manual-payments'), 50);
-                    break;
-                case 'showTools':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('tools'), 50);
-                    break;
-                case 'showSettings':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('settings'), 50);
-                    break;
-                case 'showSponsorship':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('sponsorship'), 50);
-                    break;
-                case 'showAdmin':
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => setDP('admin'), 50);
-                    break;
-                case 'viewProfile':
-                    const userId = params.userId;
-                    if (userId) {
-                        if (S.page !== 'app') goPage('app');
-                        setTimeout(() => openUserProfile(userId), 100);
-                    }
-                    break;
-                case 'loadPost':
-                    const slug = params.slug;
-                    if (!slug) break;
-                    if (!S.loggedIn) {
-                        toast('Please log in to view this post.', 'warning');
-                        goPage('login');
-                        return;
-                    }
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => loadPostBySlug(slug), 100);
-                    break;
-                case 'openCourse':
-                    const courseId = params.id;
-                    if (!courseId) break;
-                    if (S.page !== 'app') goPage('app');
-                    setTimeout(() => openBuyCourse(courseId), 300);
-                    break;
-                case 'trackAffiliate':
-                    const code = params.code;
-                    if (!code) { goPage('landing'); return; }
-                    fetch(`${API_BASE}/affiliate/track/${code}`, { method: 'GET', credentials: 'include' })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success && data.redirectUrl) {
-                                const cid = data.courseId || data.data?.courseId;
-                                if (cid) {
-                                    navigate(`/courses/${cid}`, true);
-                                } else {
-                                    goPage('landing');
-                                }
-                            } else {
-                                goPage('landing');
-                            }
-                        })
-                        .catch(() => { goPage('landing'); });
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        // ─── INTERCEPT NAVIGATION ──────────────────────────────────────
-        document.addEventListener('click', function(e) {
-            const link = e.target.closest('a[data-route]');
-            if (link) {
-                e.preventDefault();
-                const href = link.getAttribute('href');
-                if (href) navigate(href, true);
-            }
-        });
-
-        window.addEventListener('popstate', function() {
-            const path = window.location.pathname + window.location.search;
-            if (path !== '/') {
-                handleRoute(path);
-            } else {
-                if (S.loggedIn) {
-                    goPage('app');
-                    setTimeout(() => setDP('feed'), 50);
-                } else {
-                    goPage('landing');
-                }
-            }
-        });
-
-        // ─── INIT ROUTER ──────────────────────────────────────────────
-        function initRouter() {
-            // Handle initial load
-            const path = window.location.pathname + window.location.search;
-            const hash = window.location.hash;
-
-            if (hash && hash.startsWith('#/')) {
-                const hashPath = hash.slice(2);
-                navigate(hashPath, false);
-                return;
-            }
-
-            if (path !== '/') {
-                handleRoute(path);
-            } else {
-                // Check if user is logged in
-                const token = localStorage.getItem('cx_accessToken');
-                if (token) {
-                    goPage('app');
-                    setTimeout(() => setDP('feed'), 50);
-                } else {
-                    goPage('landing');
-                }
-            }
-        }
-
-        // ================================================================
-        // SIDEBAR
-        // ================================================================
         function openSidebar() { document.getElementById('sidebar')?.classList.add('open');
             document.getElementById('sbOverlay')?.classList.add('vis');
             document.body.style.overflow = 'hidden'; }
@@ -8077,7 +7831,7 @@
 
             // ─── 30-DAY SESSION (like GitHub) ────────────────────────────
             const now = Date.now();
-            const sessionExpiry = now + (30 * 24 * 60 * 60 * 1000); // 30 days from now
+            const sessionExpiry = now + (30 * 24 * 60 * 60 * 1000);
             localStorage.setItem('cx_accessToken', token);
             localStorage.setItem('cx_user', JSON.stringify(user));
             localStorage.setItem('cx_session_expiry', sessionExpiry.toString());
@@ -8185,7 +7939,7 @@
             const expiry = localStorage.getItem('cx_session_expiry');
 
             const isAppPage = document.getElementById('page-app')?.classList.contains('active');
-            if (isAppPage) return true;
+            if (isAppPage) return;
 
             if (token && userData && expiry) {
                 const now = Date.now();
@@ -8381,8 +8135,6 @@
             document.querySelectorAll('.premium-only').forEach(el => {
                 el.style.display = isPremium ? '' : 'none';
             });
-            const navCreateBook = document.getElementById('nav-create-book');
-            if (navCreateBook) navCreateBook.style.display = isPremium ? '' : 'none';
             if (isPremium && S.dp === 'create-book') {
                 const container = document.getElementById('dash-create-book');
                 if (container) {
@@ -8615,7 +8367,6 @@
         // BOOK UPLOAD – FULLY INTEGRATED WITH FILE UPLOADS (PREMIUM)
         // ================================================================
 
-        // ─── UPLOAD COVER IMAGE ──────────────────────────────────────────
         function uploadBookCover(input) {
             const file = input.files[0];
             if (!file) return;
@@ -8632,7 +8383,6 @@
             progressEl.style.display = 'block';
             progressEl.textContent = 'Uploading... 0%';
 
-            // Show local preview immediately
             const reader = new FileReader();
             reader.onload = (e) => {
                 previewImg.src = e.target.result;
@@ -8676,13 +8426,12 @@
                 preview.style.display = 'none';
             };
 
-            xhr.open('POST', `${API_BASE}/admin/upload`);
+            xhr.open('POST', `${API_BASE}/upload`);
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             xhr.send(formData);
             showLoading('Uploading cover image...');
         }
 
-        // ─── UPLOAD PDF ──────────────────────────────────────────────────
         function uploadBookPdf(input) {
             const file = input.files[0];
             if (!file) return;
@@ -8743,13 +8492,12 @@
                 preview.style.display = 'none';
             };
 
-            xhr.open('POST', `${API_BASE}/admin/upload-file`);
+            xhr.open('POST', `${API_BASE}/upload-file`);
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             xhr.send(formData);
             showLoading('Uploading PDF...');
         }
 
-        // ─── SUBMIT BOOK FOR APPROVAL ───────────────────────────────────
         async function submitBookForApproval() {
             if (!S.isPremium) {
                 toast('Premium subscription required to upload books', 'warning');
@@ -8814,7 +8562,6 @@
             }
         }
 
-        // ─── RESET BOOK UPLOAD FORM ──────────────────────────────────────
         function resetBookUploadForm() {
             document.getElementById('bookUploadTitle').value = '';
             document.getElementById('bookUploadAuthor').value = '';
@@ -8835,7 +8582,6 @@
             if (statusEl) statusEl.style.display = 'none';
         }
 
-        // ─── HELPER: previewBookCover (for URL input fallback) ───────────
         function previewBookCover(url) {
             const preview = document.getElementById('bookUploadCoverPreview');
             const img = document.getElementById('bookUploadCoverPreviewImg');
@@ -8990,7 +8736,7 @@
             const isAuthor = S.user?._id === author._id || S.user?._id === post.authorId?._id;
             const isAdmin = S.user?.roles?.includes('admin');
             const slug = post.slug || post._id;
-            const postUrl = `${FRONTEND_URL}/post/${slug}`;
+            const postUrl = router.linkTo('/post/:slug', { slug });
             const earnings = post.earnings || 0;
 
             const reactionEmojis = { like: '👍', love: '❤️', haha: '😄', wow: '😮', sad: '😢', angry: '😡' };
@@ -9366,7 +9112,7 @@
         }
 
         function openShareModal(postId, slug) {
-            const link = `${FRONTEND_URL}/post/${slug}`;
+            const link = router.linkTo('/post/:slug', { slug: slug || postId });
             const modal = document.getElementById('shareModal');
             if (!modal) return;
 
@@ -9439,7 +9185,7 @@
             const menuHtml = `
                 <div style="position:absolute;right:16px;top:50px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:4px 0;box-shadow:var(--shadow);z-index:10;min-width:150px;">
                     ${isAuthor ? `<button class="fb-action-btn" onclick="editPost('${postId}')" style="width:100%;justify-content:flex-start;padding:6px 16px;"><i class="fas fa-edit"></i> Edit</button>` : ''}
-                    <button class="fb-action-btn" onclick="deletePost('${postId}')" style="width:100%;justify-content:flex-start;padding:6px 16px;color:var(--danger);"><i class="fas fa-trash"></i> Delete</button>
+                    ${isAdmin || isAuthor ? `<button class="fb-action-btn" onclick="deletePost('${postId}')" style="width:100%;justify-content:flex-start;padding:6px 16px;color:var(--danger);"><i class="fas fa-trash"></i> Delete</button>` : ''}
                 </div>
             `;
 
@@ -9522,6 +9268,17 @@
                 observeAdImpressions();
             } catch (err) {
                 toast('Failed to load feed: ' + err.message, 'error');
+                const container = document.getElementById('feedContainer');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <h4>Unable to load feed</h4>
+                            <p>${err.message || 'Please refresh the page'}</p>
+                            <button class="btn btn-primary btn-sm" onclick="loadFeed(1)">Retry</button>
+                        </div>
+                    `;
+                }
             } finally {
                 hideLoading();
                 if (loadingEl) loadingEl.style.display = 'none';
@@ -9634,20 +9391,17 @@
         }
 
         async function deletePost(postId) {
-            if (!confirm('Delete this post permanently? This action cannot be undone.')) return;
+            if (!confirm('Delete this post permanently?')) return;
             try {
-                const isAdmin = S.user?.roles?.includes('admin') || S.user?.role === 'admin';
+                const isAdmin = S.user?.roles?.includes('admin');
                 const endpoint = isAdmin ? `/admin/posts/${postId}` : `${POSTS_API}/${postId}`;
                 await apiCall(endpoint, { method: 'DELETE' });
-                toast('✅ Post deleted successfully', 'success');
-                S.posts = S.posts.filter(p => p._id !== postId);
+                toast('Post deleted', 'success');
                 try {
                     const cached = JSON.parse(localStorage.getItem('cx_feed_posts') || '[]');
                     const updated = cached.filter(p => p._id !== postId);
                     localStorage.setItem('cx_feed_posts', JSON.stringify(updated));
                 } catch (e) {}
-                const card = document.querySelector(`.fb-post-card[data-post-id="${postId}"]`);
-                if (card) card.remove();
                 if (S.dp === 'feed') loadFeed(feedPage);
                 if (S.dp === 'profile' && S.profileUser) {
                     const res = await apiCall(`/users/${S.profileUser._id}/profile`);
@@ -9657,7 +9411,7 @@
                     switchAdm('users', document.querySelector('#dash-admin .fpill.active'));
                 }
                 if (S.dp === 'social-earnings') renderSocialEarnings();
-            } catch (err) { toast('Failed to delete post: ' + err.message, 'error'); }
+            } catch (err) { toast('Failed to delete: ' + err.message, 'error'); }
         }
 
         function editPost(postId) { toast('Edit functionality coming soon!', 'info'); }
@@ -10160,12 +9914,12 @@
             const challengeProgress = data.challengeProgress || [];
             const isFollowing = data.isFollowing || false;
             const isOwnProfile = S.user?._id === user._id;
-            const isAdmin = S.user?.roles?.includes('admin');
-            const canSeeWallet = isOwnProfile || isAdmin;
             const totalEarnings = isOwnProfile ? posts.reduce((sum, p) => sum + (p.earnings || 0), 0) : 0;
             const avatarHtml = getAvatarUrl(user) ?
                 `<img src="${getAvatarUrl(user)}" alt="avatar" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` :
                 (user.firstName?.[0] || 'U');
+            const isAdmin = S.user?.roles?.includes('admin');
+            const canSeeEarnings = isOwnProfile || isAdmin;
 
             container.innerHTML = `
                 <div class="profile-header" style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;background:var(--bg2);padding:1.5rem;border-radius:var(--radius);margin-bottom:1.5rem;">
@@ -10179,7 +9933,7 @@
                             <span><strong>${data.followersCount || 0}</strong> followers</span>
                             <span><strong>${data.followingCount || 0}</strong> following</span>
                             <span><strong>${posts.length}</strong> posts</span>
-                            ${canSeeWallet ? `<span><strong>${fmtMoneyAPI(totalEarnings)}</strong> earned from posts</span>` : ''}
+                            ${canSeeEarnings ? `<span><strong>${fmtMoneyAPI(totalEarnings)}</strong> earned from posts</span>` : ''}
                             ${user.isPremium ? '<span class="badge badge-gold">Premium</span>' : ''}
                             ${user.isApprovedInstructor ? '<span class="badge badge-violet">Instructor</span>' : ''}
                         </div>
@@ -10187,12 +9941,11 @@
                     </div>
                 </div>
                 <div class="profile-content">
-                    ${canSeeWallet ? `
+                    ${canSeeEarnings ? `
                     <h4>💰 Wallet</h4>
                     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem;margin-bottom:1.5rem;">
                         <span style="font-size:.8rem;color:var(--text3);">Balance</span>
                         <div style="font-family:var(--font-heading);font-size:1.5rem;color:var(--lime);">${fmtMoneyAPI(user.walletBalance || 0)}</div>
-                        ${isAdmin && !isOwnProfile ? `<span style="font-size:.65rem;color:var(--text3);">(Admin view)</span>` : ''}
                     </div>
                     ` : ''}
                     <h4>🏆 Challenges</h4>
@@ -10203,9 +9956,9 @@
                     <div class="profile-collection">
                         ${posts.length ? posts.map(p => {
                             const slug = p.slug || p._id;
-                            const postUrl = `${FRONTEND_URL}/post/${slug}`;
+                            const postUrl = router.linkTo('/post/:slug', { slug });
                             const isAdmin = S.user?.roles?.includes('admin');
-                            const showEarnings = canSeeWallet && p.earnings > 0;
+                            const showEarnings = canSeeEarnings && p.earnings > 0;
                             return `<div class="collection-item" onclick="window.location.href='${postUrl}'" style="cursor:pointer"><span class="ci-type">${p.type || 'post'}</span><div class="ci-title">${escapeHtml(p.title)}</div><div class="ci-meta">${new Date(p.publishedAt || p.createdAt).toLocaleDateString()} · ❤️ ${p.likes || 0} · 💬 ${p.commentsCount || 0} · 👁️ ${p.views || 0}${showEarnings ? ` · <span style="color:var(--primary);font-weight:700;">${fmtMoneyAPI(p.earnings || 0)}</span>` : ''}</div>${(S.user?._id === user._id || isAdmin) ? `<div class="ci-actions"><button class="post-delete-btn" onclick="event.stopPropagation();deletePost('${p._id}')"><i class="fas fa-trash"></i> Delete</button></div>` : ''}</div>`;
                         }).join('') : '<p style="color:var(--text3);">No posts yet</p>'}
                     </div>
@@ -10279,7 +10032,7 @@
                 container.innerHTML = S.socialPosts.map(p => {
                     const slug = p.id || p._id || 'post';
                     return `
-                        <div class="social-post-item card card-p" onclick="window.location.href='/post/${slug}'">
+                        <div class="social-post-item card card-p" onclick="window.location.href='${router.linkTo('/post/:slug', { slug: slug })}'">
                             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;flex-wrap:wrap;">
                                 <div style="flex:1;min-width:0;">
                                     <h4 style="font-size:.95rem;margin-bottom:.25rem;">${escapeHtml(p.title)}</h4>
@@ -11492,13 +11245,6 @@
                 const breakdown = wallet.earningsBreakdown || {};
                 localStorage.setItem('cx_user', JSON.stringify(S.user));
 
-                // Fetch social earnings and add to breakdown
-                let socialEarnings = 0;
-                try {
-                    const socialRes = await apiCall('/posts/my/social-earnings');
-                    socialEarnings = socialRes.data?.totalEarnings || 0;
-                } catch (e) { /* ignore */ }
-
                 document.getElementById('walletBal').textContent = fmtMoneyAPI(S.walletBal);
                 document.getElementById('withdrawBal').textContent = fmtMoneyAPI(S.walletBal);
                 document.getElementById('tbWallet').textContent = fmtMoneyAPI(S.walletBal);
@@ -11516,9 +11262,17 @@
                     <div class="web-row"><span>Book Earnings</span><span style="color:var(--cyan);font-weight:700">${fmtMoneyAPI(breakdown.bookEarnings || 0)}</span></div>
                     <div class="web-row"><span>Ad Revenue</span><span style="color:var(--gold);font-weight:700">${fmtMoneyAPI(breakdown.adRevenue || 0)}</span></div>
                     <div class="web-row"><span>Campaign Revenue</span><span style="color:var(--orange);font-weight:700">${fmtMoneyAPI(breakdown.campaignRevenue || 0)}</span></div>
-                    <div class="web-row"><span>🌱 Social Earnings</span><span style="color:var(--cyan);font-weight:700">${fmtMoneyAPI(socialEarnings)}</span></div>
-                    <div class="web-row" style="border-top:2px solid var(--border);font-weight:800;font-size:.9rem"><span>Total Earnings</span><span style="color:var(--lime)">${fmtMoneyAPI((breakdown.totalEarnings || 0) + socialEarnings)}</span></div>
+                    <div class="web-row" style="border-top:2px solid var(--border);font-weight:800;font-size:.9rem"><span>Total Earnings</span><span style="color:var(--lime)">${fmtMoneyAPI(breakdown.totalEarnings || 0)}</span></div>
                 `;
+
+                try {
+                    const socialEarnings = await apiCall('/posts/my/social-earnings');
+                    const socialEarned = socialEarnings.data?.totalEarnings || 0;
+                    breakdownHtml += `
+                        <div class="web-row"><span>🌱 Social Earnings</span><span style="color:var(--cyan);font-weight:700">${fmtMoneyAPI(socialEarned)}</span></div>
+                    `;
+                    S.socialTotalEarnings = socialEarned;
+                } catch (e) {}
 
                 document.getElementById('walletBreakdown').innerHTML = breakdownHtml;
 
@@ -11866,7 +11620,7 @@
                                     <td>
                                         <button class="btn btn-ghost btn-sm" onclick="editExistingCourse('${c._id}')"><i class="fas fa-edit"></i></button>
                                         ${!c.isApproved && !c.pendingApproval ? `<button class="btn btn-primary btn-sm" onclick="submitExistingCourse('${c._id}')"><i class="fas fa-paper-plane"></i></button>` : ''}
-                                        ${S.user?.roles?.includes('admin') || S.user?.role === 'admin' ? `<button class="btn btn-danger btn-sm" onclick="adminDeleteCourse('${c._id}')"><i class="fas fa-trash"></i></button>` : ''}
+                                        <button class="btn btn-danger btn-sm" onclick="deleteCourse('${c._id}')"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                             `;
@@ -11934,21 +11688,6 @@
             try { await apiCall(`/instructor/courses/${courseId}`, { method: 'DELETE' });
                 toast('Course deleted', 'success');
                 loadInstructorData(); } catch (e) { toast(e.message, 'error'); }
-        }
-
-        // ─── ADMIN DELETE COURSE ──────────────────────────────────────
-        async function adminDeleteCourse(courseId) {
-            if (!confirm('Delete this course permanently? All lessons, enrollments, and data will be lost.')) return;
-            try {
-                const isAdmin = S.user?.roles?.includes('admin') || S.user?.role === 'admin';
-                if (!isAdmin) { toast('Admin access required', 'error'); return; }
-                await apiCall(`/admin/courses/${courseId}`, { method: 'DELETE' });
-                toast('✅ Course deleted successfully', 'success');
-                if (S.admSec === 'courses') {
-                    switchAdm('courses', document.querySelector('#dash-admin .fpill.active'));
-                }
-                if (S.dp === 'instructor') loadInstructorData();
-            } catch (err) { toast('Failed to delete course: ' + err.message, 'error'); }
         }
 
         async function editExistingCourse(courseId) {
@@ -13684,7 +13423,6 @@
                         loadPostBySlug(slug), 1000); }
             }, 800);
             handleDeepLink();
-            initRouter();
         }
 
         function handleDeepLink() {
@@ -13976,54 +13714,16 @@
                     break;
                 case 'users':
                     content.innerHTML = `
-                        <div style="margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-                            <h6 style="margin:0;">👥 User Management</h6>
-                            <div style="display:flex; gap:0.5rem;">
-                                <input type="text" class="finput" id="adminUserSearch" placeholder="Search users..." style="width:200px; height:36px; font-size:0.8rem;" oninput="filterAdminUsers(this.value)">
-                                <span class="badge badge-dark">${S.adminUsers.length} users</span>
-                            </div>
-                        </div>
-                        <div style="max-height: 500px; overflow-y: auto; overflow-x: auto; border-radius: var(--radius-sm);">
-                            <table class="dtable" id="admUsersTable" style="min-width: 800px;">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Bank Details</th>
-                                        <th>Status</th>
-                                        <th style="min-width: 200px;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="admUsersBody">
-                                    <tr><td colspan="6" style="text-align:center">Loading...</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text3);">
-                            Showing ${S.adminUsers.length} users. Scroll within the table to see more.
+                        <div style="max-height:70vh;overflow-y:auto;">
+                            <div class="overflow-x-auto"><table class="dtable" id="admUsersTable"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Bank Details</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td colspan="6" style="text-align:center">Loading...</td></tr></tbody></table></div>
                         </div>
                     `;
                     try {
                         const res = await apiCall('/admin/users?limit=50');
                         S.adminUsers = Array.isArray(res.data?.users) ? res.data.users : (Array.isArray(res.data) ? res
                             .data : []);
-                        document.getElementById('admUsersBody').innerHTML = S.adminUsers.map(u => {
-                            const bankInfo = u.bankAccount?.bankName ? `${u.bankAccount.bankName} - ${u.bankAccount.accountNumber || 'N/A'} (${u.bankAccount.accountName || 'N/A'})` : '<span style="color:var(--text3)">No bank details</span>';
-                            return `<tr>
-                                <td>${u.firstName || ''} ${u.lastName || ''}</td>
-                                <td>${u.email}</td>
-                                <td>${(u.roles || []).join(',') || 'user'}</td>
-                                <td style="font-size:.75rem">${bankInfo}</td>
-                                <td>${u.isBanned ? '<span style="color:var(--danger)">Banned</span>' : '<span style="color:var(--success)">Active</span>'}</td>
-                                <td>
-                                    <button class="btn btn-ghost btn-sm" onclick="toggleUserBan('${u._id}',${!u.isBanned})">${u.isBanned ? 'Unban' : 'Ban'}</button>
-                                    ${!u.isApprovedInstructor ? `<button class="btn btn-primary btn-sm" onclick="approveInstructor('${u._id}')">Approve Instructor</button>` : ''}
-                                    <button class="btn btn-ghost btn-sm" onclick="showUserPosts('${u._id}')">📝 Posts</button>
-                                    <button class="btn btn-ghost btn-sm" onclick="showUserDetails('${u._id}')"><i class="fas fa-eye"></i> Details</button>
-                                </td>
-                            </tr>`;
-                        }).join('') || '<tr><td colspan="6" style="text-align:center">No users</td></tr>';
+                        document.getElementById('admUsersTable').innerHTML =
+                            `<thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Bank Details</th><th>Status</th><th>Actions</th></tr></thead><tbody>${S.adminUsers.map(u => { const bankInfo = u.bankAccount?.bankName ? `${u.bankAccount.bankName} - ${u.bankAccount.accountNumber || 'N/A'} (${u.bankAccount.accountName || 'N/A'})` : '<span style="color:var(--text3)">No bank details</span>'; return `<tr><td>${u.firstName || ''} ${u.lastName || ''}</td><td>${u.email}</td><td>${(u.roles || []).join(',') || 'user'}</td><td style="font-size:.75rem">${bankInfo}</td><td>${u.isBanned ? '<span style="color:var(--danger)">Banned</span>' : '<span style="color:var(--success)">Active</span>'}</td><td><button class="btn btn-ghost btn-sm" onclick="toggleUserBan('${u._id}',${!u.isBanned})">${u.isBanned ? 'Unban' : 'Ban'}</button>${!u.isApprovedInstructor ? `<button class="btn btn-primary btn-sm" onclick="approveInstructor('${u._id}')">Approve Instructor</button>` : ''}<button class="btn btn-ghost btn-sm" onclick="showUserPosts('${u._id}')">📝 Posts</button><button class="btn btn-ghost btn-sm" onclick="showUserDetails('${u._id}')"><i class="fas fa-eye"></i> Details</button></td></tr>`; }).join('') || '<tr><td colspan="6" style="text-align:center">No users</td></tr>'}</tbody>`;
                     } catch (e) { content.innerHTML = '<p style="color:var(--danger)">Failed to load: ' + e.message +
                             '</p>'; }
                     break;
@@ -14034,7 +13734,7 @@
                         S.adminCourses = Array.isArray(res.data?.courses) ? res.data.courses : (Array.isArray(res
                             .data) ? res.data : []);
                         content.innerHTML =
-                            `<div class="overflow-x-auto"><table class="dtable"><thead><tr><th>Title</th><th>Instructor</th><th>Status</th><th>Actions</th></tr></thead><tbody>${S.adminCourses.map(c => `<tr><td>${c.title}</td><td>${c.instructor?.firstName || '—'}</td><td>${c.approvalStatus || c.isApproved ? 'Approved' : 'Pending'}</td><td>${c.approvalStatus === 'pending' ? `<button class="btn btn-primary btn-sm" onclick="approveCourse('${c._id}')">Approve</button>` : ''}<button class="btn btn-ghost btn-sm" onclick="editExistingCourse('${c._id}')"><i class="fas fa-edit"></i> Edit</button><button class="btn btn-danger btn-sm" onclick="adminDeleteCourse('${c._id}')"><i class="fas fa-trash"></i></button></td></tr>`).join('') || '<tr><td colspan="4" style="text-align:center">No courses</td></tr>'}</tbody></table></div>`;
+                            `<div class="overflow-x-auto"><table class="dtable"><thead><tr><th>Title</th><th>Instructor</th><th>Status</th><th>Actions</th></tr></thead><tbody>${S.adminCourses.map(c => `<tr><td>${c.title}</td><td>${c.instructor?.firstName || '—'}</td><td>${c.approvalStatus || c.isApproved ? 'Approved' : 'Pending'}</td><td>${c.approvalStatus === 'pending' ? `<button class="btn btn-primary btn-sm" onclick="approveCourse('${c._id}')">Approve</button>` : ''}<button class="btn btn-ghost btn-sm" onclick="editExistingCourse('${c._id}')"><i class="fas fa-edit"></i> Edit</button></td></tr>`).join('') || '<tr><td colspan="4" style="text-align:center">No courses</td></tr>'}</tbody></table></div>`;
                     } catch (e) { content.innerHTML = '<p style="color:var(--danger)">Failed to load courses</p>'; }
                     break;
                 case 'approvals':
@@ -14304,16 +14004,6 @@
                 default:
                     content.innerHTML = '<p>Select a section</p>';
             }
-        }
-
-        // ─── FILTER ADMIN USERS ──────────────────────────────────────
-        function filterAdminUsers(searchTerm) {
-            const term = searchTerm.toLowerCase().trim();
-            const rows = document.querySelectorAll('#admUsersBody tr');
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(term) ? '' : 'none';
-            });
         }
 
         // ─── ADMIN SOCIAL EARNINGS ──────────────────────────────────────
@@ -14657,7 +14347,7 @@
                                 </small>
                             </div>
                             <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
-                                <button class="btn btn-ghost btn-sm" onclick="window.location.href='/post/${p.slug || p._id}'"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-ghost btn-sm" onclick="window.location.href='${router.linkTo('/post/:slug', { slug: p.slug || p._id })}'"><i class="fas fa-eye"></i></button>
                                 ${!p.isPublished ? `<button class="btn btn-success btn-sm" onclick="adminPublishPost('${p._id}')"><i class="fas fa-check"></i> Publish</button>` : ''}
                                 <button class="btn btn-danger btn-sm" onclick="adminDeletePost('${p._id}')"><i class="fas fa-trash"></i></button>
                             </div>
@@ -16391,7 +16081,7 @@
                 if (postMatches.length) {
                     html += postMatches.map(p => {
                         const slug = p.slug || p._id;
-                        return `<div class="search-ri" onclick="window.location.href='/post/${slug}';document.getElementById('globalSearch').value='';dd.classList.remove('open')"><span>📝</span><div><div style="font-size:.81rem;font-weight:600">${escapeHtml(p.title)}</div><div style="font-size:.65rem;color:var(--text3)">Post</div></div></div>`;
+                        return `<div class="search-ri" onclick="window.location.href='${router.linkTo('/post/:slug', { slug: slug })}';document.getElementById('globalSearch').value='';dd.classList.remove('open')"><span>📝</span><div><div style="font-size:.81rem;font-weight:600">${escapeHtml(p.title)}</div><div style="font-size:.65rem;color:var(--text3)">Post</div></div></div>`;
                     }).join('');
                 }
                 if (userMatches.length) {
@@ -16486,7 +16176,7 @@
             if (!restored && !isLandingPage) {
                 const hash = window.location.hash;
                 if (hash === '#app' || hash === '#login' || hash === '#register') {
-                    // Let the page load as normal
+                    // let the page load as normal
                 } else {
                     const pages = document.querySelectorAll('.page');
                     const target = document.getElementById('page-landing');
@@ -16532,12 +16222,9 @@
                 }
             }
 
-            if (document.getElementById('page-app')?.classList.contains('active') && S.loggedIn) {
-                initApp();
-                setDP(S.dp || 'feed');
+            if (typeof router !== 'undefined') {
+                router.init();
             }
-
-            initRouter();
 
             console.log('🚀 ChangeX Academy — Production Ready with All Features');
             console.log('📚 Learn, Earn, and Grow with ChangeX!');
@@ -16572,7 +16259,7 @@
             console.log('📢 Hybrid Ads: Custom Admin Ads + Adsterra fallback with 50% creator revenue share.');
             console.log('📢 Ads appear between posts (every 3 for free, 6 for premium) AND after every 4 courses in Explore.');
             console.log('📢 Ads also appear in: Video (pre/mid-roll), Sidebar, Books, Lesson inline, Challenges.');
-            console.log('🗑️ Admin can delete any post and any course.');
+            console.log('🗑️ Admin can delete any post.');
             console.log('📤 Book upload: Premium users can submit books for admin approval.');
             console.log('📤 Admin can directly add books with immediate publishing.');
             console.log('🔗 Affiliate links now use hash-based routing for SPA compatibility.');
@@ -16615,10 +16302,6 @@
         window.resetBookUploadForm = resetBookUploadForm;
         window.updateBookStatusBadge = updateBookStatusBadge;
         window.checkSessionAndRedirect = checkSessionAndRedirect;
-        window.adminDeleteCourse = adminDeleteCourse;
-        window.filterAdminUsers = filterAdminUsers;
-        window.navigate = navigate;
-        window.handleRoute = handleRoute;
     </script>
 </body>
 </html>
