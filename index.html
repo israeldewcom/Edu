@@ -34,16 +34,18 @@
     <link rel="dns-prefetch" href="https://res.cloudinary.com">
 
     <title id="pageTitle">ChangeX Academy — Turn Tech Into Income</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <!-- Cache‑busting version for CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css?v=2.0.1" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
-    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js">
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css?v=2.0.1" rel="stylesheet" />
+    <!-- Scripts with versioning for cache busting -->
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js?v=2.0.1">
     </script>
-    <script src="https://cdn.socket.io/4.6.1/socket.io.esm.min.js">
+    <script src="https://cdn.socket.io/4.6.1/socket.io.esm.min.js?v=2.0.1">
     </script>
-    <script src="https://js.paystack.co/v1/inline.js">
+    <script src="https://js.paystack.co/v1/inline.js?v=2.0.1">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js?v=2.0.1">
     </script>
     <meta name="google-site-verification" content="PB3lWW6G3FccAT72e65ehI6ILq12ZxNzS_RUsXDVufE" />
 
@@ -7402,9 +7404,6 @@
             if (window.location.hash !== `#${targetPage}`) window.location.hash = targetPage;
         }
 
-        // ================================================================
-        // UPDATED setDP – Fixes Upload Page Appearing on Other Tabs
-        // ================================================================
         function setDP(pg) {
             // Reset all dash-sub elements: hide and remove active class
             document.querySelectorAll('.dash-sub').forEach(d => {
@@ -7419,13 +7418,20 @@
                 S.dp = pg;
             }
 
+            // Update nav items
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const ni = document.getElementById('nav-' + pg);
             if (ni) ni.classList.add('active');
-            ['feed', 'challenges', 'explore', 'wallet', 'home', 'books', 'following', 'social-earnings'].forEach(k => { const m =
-                    document.getElementById('mbn-' + k); if (m) m.classList.toggle('active', k === pg); });
+
+            // Bottom nav
+            ['feed', 'challenges', 'explore', 'wallet', 'home', 'books', 'following', 'social-earnings'].forEach(k => {
+                const m = document.getElementById('mbn-' + k);
+                if (m) m.classList.toggle('active', k === pg);
+            });
+
             closeSidebar();
 
+            // Page-specific actions
             const map = {
                 feed: () => { loadFeed(1);
                     loadSidebarAd();
@@ -8346,7 +8352,7 @@
         }
 
         // ================================================================
-        // BOOK UPLOAD – FIXED FUNCTIONS
+        // BOOK UPLOAD – FULLY INTEGRATED WITH FILE UPLOADS (PREMIUM) – FIXED ENDPOINTS
         // ================================================================
 
         function uploadBookCover(input) {
@@ -8482,6 +8488,8 @@
             showLoading('Uploading PDF...');
         }
 
+        // ─── REST OF uploadBookPdf / uploadBookCover are already above ──
+
         async function submitBookForApproval() {
             if (!S.isPremium) {
                 toast('Premium subscription required to upload books', 'warning');
@@ -8546,13 +8554,51 @@
             }
         }
 
-        // ================================================================
-        // END OF BOOK UPLOAD FIXES
-        // ================================================================
+        function resetBookUploadForm() {
+            document.getElementById('bookUploadTitle').value = '';
+            document.getElementById('bookUploadAuthor').value = '';
+            document.getElementById('bookUploadDesc').value = '';
+            document.getElementById('bookUploadPrice').value = '0';
+            document.getElementById('bookUploadCover').value = '';
+            document.getElementById('bookUploadFile').value = '';
+            document.getElementById('bookUploadAffiliate').value = '0';
+            document.getElementById('bookCoverPreview').style.display = 'none';
+            document.getElementById('bookPdfPreview').style.display = 'none';
+            document.getElementById('bookCoverFile').value = '';
+            document.getElementById('bookPdfFile').value = '';
+            document.getElementById('bookCoverProgress').style.display = 'none';
+            document.getElementById('bookPdfProgress').style.display = 'none';
+            document.getElementById('bookUploadCoverPreview').style.display = 'none';
+            document.getElementById('bookUploadFilePreview').style.display = 'none';
+            const statusEl = document.getElementById('bookUploadStatus');
+            if (statusEl) statusEl.style.display = 'none';
+        }
 
-        // ================================================================
-        // FEEDBACK
-        // ================================================================
+        function previewBookCover(url) {
+            const preview = document.getElementById('bookUploadCoverPreview');
+            const img = document.getElementById('bookUploadCoverPreviewImg');
+            if (url && url.trim()) {
+                preview.style.display = 'block';
+                img.src = url.trim();
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
+        function previewBookFile(url) {
+            const preview = document.getElementById('bookUploadFilePreview');
+            if (url && url.trim()) {
+                preview.style.display = 'block';
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+
+        function updateBookStatusBadge() {
+            if (S.dp === 'books') loadBooks();
+        }
+
+        // ─── FEEDBACK ──────────────────────────────────────────────────
         async function sendFeedback() {
             const message = document.getElementById('feedbackMsg')?.value.trim();
             const email = document.getElementById('feedbackEmail')?.value.trim();
