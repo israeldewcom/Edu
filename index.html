@@ -7402,8 +7402,11 @@
             if (window.location.hash !== `#${targetPage}`) window.location.hash = targetPage;
         }
 
+        // ================================================================
+        // UPDATED setDP – Fixes Upload Page Appearing on Other Tabs
+        // ================================================================
         function setDP(pg) {
-            // Reset all dash-sub display styles
+            // Reset all dash-sub elements: hide and remove active class
             document.querySelectorAll('.dash-sub').forEach(d => {
                 d.classList.remove('active');
                 d.style.display = 'none';
@@ -7422,12 +7425,6 @@
             ['feed', 'challenges', 'explore', 'wallet', 'home', 'books', 'following', 'social-earnings'].forEach(k => { const m =
                     document.getElementById('mbn-' + k); if (m) m.classList.toggle('active', k === pg); });
             closeSidebar();
-
-            // Use history.pushState for deep linking
-            try {
-                const state = { page: 'app', dp: pg };
-                window.history.pushState(state, '', `/app#${pg}`);
-            } catch (e) {}
 
             const map = {
                 feed: () => { loadFeed(1);
@@ -7482,25 +7479,23 @@
                 'social-earnings': renderSocialEarnings,
                 sponsorship: () => { switchSponsorTab('overview', document.querySelector('#dash-sponsorship .tab-btn')); },
             };
+
             if (map[pg]) map[pg]();
+
             const fab = document.getElementById('fab');
-            if (fab) { const hasCreatorAccess = S.isPremium || S.user?.roles?.includes('admin') || (S.user?.roles?.includes(
-                        'creator') && S.user?.isApprovedInstructor);
-                fab.style.display = hasCreatorAccess ? 'block' : 'none'; }
+            if (fab) {
+                const hasCreatorAccess = S.isPremium || S.user?.roles?.includes('admin') || (S.user?.roles?.includes('creator') && S.user?.isApprovedInstructor);
+                fab.style.display = hasCreatorAccess ? 'block' : 'none';
+            }
+
             checkPlanExpiry();
             updatePremiumUI();
             updateSocialBadge();
             updateNavBadges();
+
             if (pg === 'settings') {
                 const subStatus = document.getElementById('subStatusCard');
                 if (subStatus) renderSubStatus();
-            }
-            // Ensure feed container is visible if feed is active
-            if (pg === 'feed' || pg === 'home') {
-                const feedContainer = document.getElementById('feedContainer');
-                if (feedContainer && !document.querySelector('#feedContainer .fb-post-card')) {
-                    loadFeed(1);
-                }
             }
         }
 
@@ -8351,7 +8346,7 @@
         }
 
         // ================================================================
-        // BOOK UPLOAD – FULLY INTEGRATED WITH FILE UPLOADS (PREMIUM)
+        // BOOK UPLOAD – FIXED FUNCTIONS
         // ================================================================
 
         function uploadBookCover(input) {
@@ -8359,7 +8354,7 @@
             if (!file) return;
 
             const formData = new FormData();
-            formData.append('image', file);
+            formData.append('image', file); // ✅ Field name MUST be "image"
 
             const preview = document.getElementById('bookCoverPreview');
             const previewImg = document.getElementById('bookCoverPreviewImg');
@@ -8413,6 +8408,7 @@
                 preview.style.display = 'none';
             };
 
+            // ✅ CORRECT ENDPOINT – NOT /admin/upload
             xhr.open('POST', `${API_BASE}/upload`);
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             xhr.send(formData);
@@ -8430,7 +8426,7 @@
             }
 
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', file); // ✅ Field name MUST be "file"
 
             const preview = document.getElementById('bookPdfPreview');
             const nameEl = document.getElementById('bookPdfName');
@@ -8479,6 +8475,7 @@
                 preview.style.display = 'none';
             };
 
+            // ✅ CORRECT ENDPOINT – NOT /admin/upload-file
             xhr.open('POST', `${API_BASE}/upload-file`);
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             xhr.send(formData);
@@ -8549,51 +8546,13 @@
             }
         }
 
-        function resetBookUploadForm() {
-            document.getElementById('bookUploadTitle').value = '';
-            document.getElementById('bookUploadAuthor').value = '';
-            document.getElementById('bookUploadDesc').value = '';
-            document.getElementById('bookUploadPrice').value = '0';
-            document.getElementById('bookUploadCover').value = '';
-            document.getElementById('bookUploadFile').value = '';
-            document.getElementById('bookUploadAffiliate').value = '0';
-            document.getElementById('bookCoverPreview').style.display = 'none';
-            document.getElementById('bookPdfPreview').style.display = 'none';
-            document.getElementById('bookCoverFile').value = '';
-            document.getElementById('bookPdfFile').value = '';
-            document.getElementById('bookCoverProgress').style.display = 'none';
-            document.getElementById('bookPdfProgress').style.display = 'none';
-            document.getElementById('bookUploadCoverPreview').style.display = 'none';
-            document.getElementById('bookUploadFilePreview').style.display = 'none';
-            const statusEl = document.getElementById('bookUploadStatus');
-            if (statusEl) statusEl.style.display = 'none';
-        }
+        // ================================================================
+        // END OF BOOK UPLOAD FIXES
+        // ================================================================
 
-        function previewBookCover(url) {
-            const preview = document.getElementById('bookUploadCoverPreview');
-            const img = document.getElementById('bookUploadCoverPreviewImg');
-            if (url && url.trim()) {
-                preview.style.display = 'block';
-                img.src = url.trim();
-            } else {
-                preview.style.display = 'none';
-            }
-        }
-
-        function previewBookFile(url) {
-            const preview = document.getElementById('bookUploadFilePreview');
-            if (url && url.trim()) {
-                preview.style.display = 'block';
-            } else {
-                preview.style.display = 'none';
-            }
-        }
-
-        function updateBookStatusBadge() {
-            if (S.dp === 'books') loadBooks();
-        }
-
-        // ─── FEEDBACK ──────────────────────────────────────────────────
+        // ================================================================
+        // FEEDBACK
+        // ================================================================
         async function sendFeedback() {
             const message = document.getElementById('feedbackMsg')?.value.trim();
             const email = document.getElementById('feedbackEmail')?.value.trim();
