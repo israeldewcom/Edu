@@ -35,17 +35,17 @@
 
     <title id="pageTitle">ChangeX Academy — Turn Tech Into Income</title>
     <!-- Cache‑busting version for CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css?v=2.0.1" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css?v=2.0.2" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css?v=2.0.1" rel="stylesheet" />
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css?v=2.0.2" rel="stylesheet" />
     <!-- Scripts with versioning for cache busting -->
-    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js?v=2.0.1">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js?v=2.0.2">
     </script>
-    <script src="https://cdn.socket.io/4.6.1/socket.io.esm.min.js?v=2.0.1">
+    <script src="https://cdn.socket.io/4.6.1/socket.io.esm.min.js?v=2.0.2">
     </script>
-    <script src="https://js.paystack.co/v1/inline.js?v=2.0.1">
+    <script src="https://js.paystack.co/v1/inline.js?v=2.0.2">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js?v=2.0.1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js?v=2.0.2">
     </script>
     <meta name="google-site-verification" content="PB3lWW6G3FccAT72e65ehI6ILq12ZxNzS_RUsXDVufE" />
 
@@ -8205,7 +8205,7 @@
 
         async function markRead(i) {
             if (S.notifications[i]) { S.notifications[i].unread = false; try { await apiCall(
-                    `/users/notifications/${S.notifications[i]._id}/read`, { method: 'PUT' }); } catch (e) {} }
+                        `/users/notifications/${S.notifications[i]._id}/read`, { method: 'PUT' }); } catch (e) {} }
             renderNotifs();
         }
 
@@ -8352,7 +8352,7 @@
         }
 
         // ================================================================
-        // BOOK UPLOAD – FULLY INTEGRATED WITH FILE UPLOADS (PREMIUM) – FIXED ENDPOINTS
+        // BOOK UPLOAD – FULLY INTEGRATED WITH FILE UPLOADS (PREMIUM) – ✅ FIXED ENDPOINTS
         // ================================================================
 
         function uploadBookCover(input) {
@@ -14924,7 +14924,7 @@
             } catch (err) {
                 console.error('Failed to load manual payments:', err);
                 const tbody = document.querySelector('#manualPaymentsTable tbody');
-                if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--danger)">Failed to load</td></tr>';
+                if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--danger)">Failed to load</tr></td></tr>';
             }
         }
 
@@ -16146,45 +16146,78 @@
         // BOOTSTRAP – CHECK SESSION & REDIRECT ON PAGE LOAD (like GitHub)
         // ================================================================
         document.addEventListener('DOMContentLoaded', function() {
-            const isAppPage = document.getElementById('page-app')?.classList.contains('active');
-            const isLandingPage = document.getElementById('page-landing')?.classList.contains('active');
+            // ─── FIRST: Check if user is already logged in (session check) ───
+            const token = localStorage.getItem('cx_accessToken');
+            const userData = localStorage.getItem('cx_user');
+            const expiry = localStorage.getItem('cx_session_expiry');
 
-            if (isAppPage) {
-                if (S.loggedIn) {
-                    initApp();
-                    setDP(S.dp || 'feed');
-                } else {
-                    const restored = checkSessionAndRedirect();
-                    if (!restored) {
-                        goPage('landing');
+            // ─── If user is on the landing page but has a valid session → redirect to app ───
+            const isLandingPage = document.getElementById('page-landing')?.classList.contains('active');
+            const isLoginPage = document.getElementById('page-login')?.classList.contains('active');
+            const isRegisterPage = document.getElementById('page-register')?.classList.contains('active');
+
+            if (token && userData && expiry) {
+                const now = Date.now();
+                const expiryMs = parseInt(expiry, 10);
+                if (expiryMs > now) {
+                    try {
+                        const user = JSON.parse(userData);
+                        S.user = user;
+                        S.loggedIn = true;
+                        S.isPremium = user.isPremium || false;
+                        S.walletBal = user.walletBalance || 0;
+
+                        // ─── If on landing, login, or register → redirect to app ───
+                        if (isLandingPage || isLoginPage || isRegisterPage) {
+                            console.log('🔐 Valid session detected, redirecting to dashboard...');
+                            forceRedirect('app');
+                            setTimeout(() => {
+                                if (typeof setDP === 'function') setDP(S.dp || 'feed');
+                                if (typeof initApp === 'function') initApp();
+                            }, 100);
+                            return;
+                        }
+
+                        // ─── If already on app page, just init ───
+                        if (document.getElementById('page-app')?.classList.contains('active')) {
+                            initApp();
+                            setDP(S.dp || 'feed');
+                            return;
+                        }
+                    } catch (e) {
+                        console.warn('Session restore failed:', e);
+                        localStorage.removeItem('cx_accessToken');
+                        localStorage.removeItem('cx_user');
+                        localStorage.removeItem('cx_session_expiry');
                     }
+                } else {
+                    // Session expired
+                    localStorage.removeItem('cx_accessToken');
+                    localStorage.removeItem('cx_user');
+                    localStorage.removeItem('cx_session_expiry');
+                    S.loggedIn = false;
                 }
+            }
+
+            // ─── If we get here, no valid session exists ───
+            // ─── If on app page without session → redirect to landing ───
+            if (document.getElementById('page-app')?.classList.contains('active') && !S.loggedIn) {
+                console.log('🔒 No valid session, redirecting to landing page...');
+                goPage('landing');
                 return;
             }
 
-            const restored = checkSessionAndRedirect();
+            // ─── Otherwise, initialize the page normally ───
+            const isAppPage = document.getElementById('page-app')?.classList.contains('active');
 
-            if (!restored && !isLandingPage) {
-                const hash = window.location.hash;
-                if (hash === '#app' || hash === '#login' || hash === '#register') {
-                    // let the page load as normal
-                } else {
-                    const pages = document.querySelectorAll('.page');
-                    const target = document.getElementById('page-landing');
-                    if (target) {
-                        pages.forEach(p => p.classList.remove('active'));
-                        target.classList.add('active');
-                        S.page = 'landing';
-                    }
-                }
+            if (isAppPage && S.loggedIn) {
+                initApp();
+                setDP(S.dp || 'feed');
+                return;
             }
 
-            if (!S.loggedIn && document.getElementById('page-landing')?.classList.contains('active')) {
+            if (document.getElementById('page-landing')?.classList.contains('active')) {
                 initLanding();
-            }
-
-            if (isAppPage && !S.loggedIn) {
-                goPage('landing');
             }
 
             const savedTheme = localStorage.getItem('cx_theme');
@@ -16197,20 +16230,6 @@
             const banner = document.getElementById('installBanner');
             if (banner && shouldShowInstallBanner()) {
                 banner.classList.remove('hidden');
-            }
-
-            const expiry = localStorage.getItem('cx_session_expiry');
-            if (expiry) {
-                const expiryMs = parseInt(expiry, 10);
-                if (Date.now() > expiryMs) {
-                    localStorage.removeItem('cx_accessToken');
-                    localStorage.removeItem('cx_user');
-                    localStorage.removeItem('cx_session_expiry');
-                    S.loggedIn = false;
-                    if (document.getElementById('page-app')?.classList.contains('active')) {
-                        goPage('landing');
-                    }
-                }
             }
 
             if (typeof router !== 'undefined') {
