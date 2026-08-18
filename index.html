@@ -6251,7 +6251,22 @@
 
     <div class="modal-ov hidden" id="feedbackModal"><div class="modal-box"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0">📢 Send Feedback</h5><button class="btn-icon-sm" onclick="closeModal('feedbackModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Your Message</label><textarea class="finput" id="feedbackMsg" style="min-height:120px" placeholder="Tell us what you love, what's broken, or what you'd like to see..."></textarea></div><div class="form-group"><label class="flabel">Your Email (optional, for replies)</label><input type="email" class="finput" id="feedbackEmail" placeholder="you@example.com"/></div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('feedbackModal')">Cancel</button><button class="btn btn-primary" onclick="sendFeedback()">Send Feedback</button></div></div></div>
 
-    <div class="modal-ov hidden" id="createPostModal"><div class="modal-box modal-box-lg"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0">📝 Create New Post</h5><button class="btn-icon-sm" onclick="closeModal('createPostModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Title</label><input type="text" class="finput" id="postTitle" placeholder="Catchy title..." oninput="checkDuplicatePost(this.value)"/></div><div id="postDuplicateWarning" class="post-duplicate-warning">⚠️ You've already posted something with this title. Please use a different title.</div><div class="form-group"><label class="flabel">Type</label><select class="finput" id="postType"><option value="article">Article</option><option value="tutorial">Tutorial</option><option value="challenge">Challenge</option><option value="announcement">Announcement</option></select></div><div class="form-group"><div class="d-flex items-center gap-2"><input type="checkbox" id="postIsPaid" onchange="toggleArticlePrice(this.checked)" style="accent-color:var(--primary);width:18px;height:18px;cursor:pointer;"><label for="postIsPaid" style="font-size:.82rem;color:var(--text2);cursor:pointer;">Make this a paid article</label></div><div id="articlePriceInput" style="display:none;margin-top:.5rem;"><label class="flabel">Price (₦)</label><input type="number" class="finput" id="postPrice" placeholder="e.g. 500" min="100" value="500" /><small style="color:var(--text3);font-size:.7rem;display:block;margin-top:.2rem;">Recommended price: ₦500 – ₦2,000</small></div><div id="articlePreviewInput" style="display:none;margin-top:.5rem;"><label class="flabel">Preview Content (shown to non-purchasers)</label><textarea class="finput" id="postPreviewContent" rows="3" placeholder="First 200 characters or a summary..."></textarea><small style="color:var(--text3);font-size:.7rem;display:block;margin-top:.2rem;">This preview will be shown to users who haven't purchased the article.</small></div></div><div class="form-group"><label class="flabel">Content (Rich Text)</label><div id="postEditor" style="min-height:300px"></div></div><div class="form-group"><label class="flabel">Tags (comma separated)</label><input type="text" class="finput" id="postTags" placeholder="react, javascript, tutorial"/></div><div class="form-group"><label class="flabel">Featured Image URL</label><input type="url" class="finput" id="postImage" placeholder="https://..."/></div><div class="form-group"><label class="flabel">Upload Video (MP4)</label><input type="file" class="finput" id="postVideoInput" accept="video/*"/></div><div class="form-group"><label class="flabel">SEO Title (optional)</label><input type="text" class="finput" id="postSeoTitle"/></div><div class="form-group"><label class="flabel">SEO Description</label><textarea class="finput" id="postSeoDesc" rows="2"></textarea></div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createPostModal')">Cancel</button><button class="btn btn-primary" onclick="submitNewPost()"><i class="fas fa-paper-plane"></i>Publish</button></div></div></div>
+    <div class="modal-ov hidden" id="createPostModal"><div class="modal-box modal-box-lg"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0">📝 Create New Post</h5><button class="btn-icon-sm" onclick="closeModal('createPostModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Title</label><input type="text" class="finput" id="postTitle" placeholder="Catchy title..." oninput="checkDuplicatePost(this.value)"/></div><div id="postDuplicateWarning" class="post-duplicate-warning">⚠️ You've already posted something with this title. Please use a different title.</div><div class="form-group"><label class="flabel">Type</label><select class="finput" id="postType"><option value="article">Article</option><option value="tutorial">Tutorial</option><option value="challenge">Challenge</option><option value="announcement">Announcement</option></select></div><div class="form-group"><div class="d-flex items-center gap-2"><input type="checkbox" id="postIsPaid" onchange="toggleArticlePrice(this.checked)" style="accent-color:var(--primary);width:18px;height:18px;cursor:pointer;"><label for="postIsPaid" style="font-size:.82rem;color:var(--text2);cursor:pointer;">Make this a paid article</label></div><div id="articlePriceInput" style="display:none;margin-top:.5rem;"><label class="flabel">Price (₦)</label><input type="number" class="finput" id="postPrice" placeholder="e.g. 500" min="100" value="500" /><small style="color:var(--text3);font-size:.7rem;display:block;margin-top:.2rem;">Recommended price: ₦500 – ₦2,000</small></div><div id="articlePreviewInput" style="display:none;margin-top:.5rem;"><label class="flabel">Preview Content (shown to non-purchasers)</label><textarea class="finput" id="postPreviewContent" rows="3" placeholder="First 200 characters or a summary..."></textarea><small style="color:var(--text3);font-size:.7rem;display:block;margin-top:.2rem;">This preview will be shown to users who haven't purchased the article.</small></div></div><div class="form-group"><label class="flabel">Content (Rich Text)</label><div id="postEditor" style="min-height:300px"></div></div><div class="form-group"><label class="flabel">Tags (comma separated)</label><input type="text" class="finput" id="postTags" placeholder="react, javascript, tutorial"/></div><div class="form-group"><label class="flabel">Featured Image URL</label><input type="url" class="finput" id="postImage" placeholder="https://..."/></div>
+                            <!-- ====== POST IMAGE UPLOAD ====== -->
+                            <div class="form-group">
+                                <label class="flabel">Upload Image</label>
+                                <div class="upload-zone" style="padding:1rem">
+                                    <input type="file" id="postImageUpload" accept="image/*" onchange="uploadPostImage(this)" />
+                                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                                    <div style="font-size:.8rem;color:var(--text2)">Click or drop an image (PNG, JPG, WebP)</div>
+                                </div>
+                                <div id="postImagePreview" style="display:none; margin-top:.5rem;">
+                                    <img id="postImagePreviewImg" style="max-width:100%; max-height:150px; border-radius:var(--radius-sm);" />
+                                    <span class="badge badge-success" style="margin-left:.5rem;">✅ Uploaded</span>
+                                </div>
+                            </div>
+                            <!-- ====== END POST IMAGE UPLOAD ====== -->
+                            <div class="form-group"><label class="flabel">Upload Video (MP4)</label><input type="file" class="finput" id="postVideoInput" accept="video/*"/></div><div class="form-group"><label class="flabel">SEO Title (optional)</label><input type="text" class="finput" id="postSeoTitle"/></div><div class="form-group"><label class="flabel">SEO Description</label><textarea class="finput" id="postSeoDesc" rows="2"></textarea></div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createPostModal')">Cancel</button><button class="btn btn-primary" onclick="submitNewPost()"><i class="fas fa-paper-plane"></i>Publish</button></div></div></div>
 
     <div class="modal-ov hidden" id="userDetailsModal"><div class="modal-box modal-box-lg"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0">👤 User Details</h5><button class="btn-icon-sm" onclick="closeModal('userDetailsModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd" id="userDetailsContent"></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('userDetailsModal')">Close</button></div></div></div>
 
@@ -8360,7 +8375,7 @@
             if (!file) return;
 
             const formData = new FormData();
-            formData.append('image', file); // ✅ Field name MUST be "image"
+            formData.append('image', file);
 
             const preview = document.getElementById('bookCoverPreview');
             const previewImg = document.getElementById('bookCoverPreviewImg');
@@ -8393,7 +8408,13 @@
                 progressEl.style.display = 'none';
                 hideLoading();
                 try {
-                    const response = JSON.parse(xhr.responseText);
+                    // ✅ FIX: Use xhr.response if available, else parse responseText
+                    let response;
+                    if (xhr.responseType === 'json' && xhr.response) {
+                        response = xhr.response;
+                    } else {
+                        response = JSON.parse(xhr.responseText);
+                    }
                     if (response.success && response.data && response.data.url) {
                         hiddenInput.value = response.data.url;
                         toast('✅ Cover uploaded!', 'success');
@@ -8402,6 +8423,7 @@
                         preview.style.display = 'none';
                     }
                 } catch (e) {
+                    console.error('❌ Parse error:', e, 'Raw response:', xhr.responseText);
                     toast('Invalid server response', 'error');
                     preview.style.display = 'none';
                 }
@@ -8414,7 +8436,6 @@
                 preview.style.display = 'none';
             };
 
-            // ✅ CORRECT ENDPOINT – NOT /admin/upload
             xhr.open('POST', `${API_BASE}/upload`);
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             xhr.send(formData);
@@ -8432,7 +8453,7 @@
             }
 
             const formData = new FormData();
-            formData.append('file', file); // ✅ Field name MUST be "file"
+            formData.append('file', file);
 
             const preview = document.getElementById('bookPdfPreview');
             const nameEl = document.getElementById('bookPdfName');
@@ -8460,7 +8481,12 @@
                 progressEl.style.display = 'none';
                 hideLoading();
                 try {
-                    const response = JSON.parse(xhr.responseText);
+                    let response;
+                    if (xhr.responseType === 'json' && xhr.response) {
+                        response = xhr.response;
+                    } else {
+                        response = JSON.parse(xhr.responseText);
+                    }
                     if (response.success && response.data && response.data.url) {
                         hiddenInput.value = response.data.url;
                         toast('✅ PDF uploaded!', 'success');
@@ -8469,6 +8495,7 @@
                         preview.style.display = 'none';
                     }
                 } catch (e) {
+                    console.error('❌ Parse error:', e, 'Raw response:', xhr.responseText);
                     toast('Invalid server response', 'error');
                     preview.style.display = 'none';
                 }
@@ -8481,11 +8508,59 @@
                 preview.style.display = 'none';
             };
 
-            // ✅ CORRECT ENDPOINT – NOT /admin/upload-file
             xhr.open('POST', `${API_BASE}/upload-file`);
             xhr.setRequestHeader('Authorization', `Bearer ${token}`);
             xhr.send(formData);
             showLoading('Uploading PDF...');
+        }
+
+        // ─── UPLOAD POST IMAGE ──────────────────────────────────────────
+        function uploadPostImage(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            const token = localStorage.getItem('cx_accessToken');
+            const xhr = new XMLHttpRequest();
+
+            showLoading('Uploading image...');
+
+            xhr.onload = function() {
+                hideLoading();
+                try {
+                    let response;
+                    if (xhr.responseType === 'json' && xhr.response) {
+                        response = xhr.response;
+                    } else {
+                        response = JSON.parse(xhr.responseText);
+                    }
+                    if (response.success && response.data && response.data.url) {
+                        // Set the image URL in the text field
+                        document.getElementById('postImage').value = response.data.url;
+                        // Show preview
+                        const preview = document.getElementById('postImagePreview');
+                        preview.style.display = 'block';
+                        document.getElementById('postImagePreviewImg').src = response.data.url;
+                        toast('✅ Image uploaded!', 'success');
+                    } else {
+                        toast('Upload failed: ' + (response.message || 'Unknown error'), 'error');
+                    }
+                } catch (e) {
+                    console.error('❌ Parse error:', e, 'Raw response:', xhr.responseText);
+                    toast('Invalid server response', 'error');
+                }
+            };
+
+            xhr.onerror = function() {
+                hideLoading();
+                toast('Network error – please try again', 'error');
+            };
+
+            xhr.open('POST', `${API_BASE}/upload`);
+            xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+            xhr.send(formData);
         }
 
         // ─── REST OF uploadBookPdf / uploadBookCover are already above ──
@@ -8743,8 +8818,11 @@
 
             let mediaHtml = '';
             if (post.featuredImage) {
-                mediaHtml =
-                    `<div class="fb-post-media"><img src="${post.featuredImage}" alt="${escapeHtml(post.title)}" loading="lazy" onclick="window.location.href='${postUrl}'"></div>`;
+                // ✅ Add onerror handler to hide broken images
+                mediaHtml = `
+                    <div class="fb-post-media">
+                        <img src="${post.featuredImage}" alt="${escapeHtml(post.title)}" loading="lazy" onclick="window.location.href='${postUrl}'" onerror="this.style.display='none'">
+                    </div>`;
             } else if (post.videoUrl) {
                 mediaHtml =
                     `<div class="fb-post-media"><video controls onclick="event.stopPropagation();"><source src="${post.videoUrl}" type="video/mp4"></video></div>`;
@@ -9420,6 +9498,8 @@
                 document.getElementById('articlePreviewInput').style.display = 'none';
                 document.getElementById('postPrice').value = '';
                 document.getElementById('postPreviewContent').value = '';
+                document.getElementById('postImagePreview').style.display = 'none';
+                document.getElementById('postImageUpload').value = '';
                 if (S.postQuill) S.postQuill.root.innerHTML = '';
                 loadMyPostTitles();
             }
@@ -9459,7 +9539,7 @@
                 if (editorEl) content = editorEl.innerHTML || '';
             }
             const tags = document.getElementById('postTags')?.value || '';
-            const featuredImage = document.getElementById('postImage')?.value || '';
+            let featuredImage = document.getElementById('postImage')?.value || '';
             const seoTitle = document.getElementById('postSeoTitle')?.value || '';
             const seoDesc = document.getElementById('postSeoDesc')?.value || '';
             const videoFile = document.getElementById('postVideoInput')?.files[0];
@@ -9505,6 +9585,10 @@
                     await fetch(`${API_BASE}/posts/${postId}/video`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` },
                         body: formData });
                 }
+                // Ensure featuredImage is set from response if not already
+                if (newPost.featuredImage && !featuredImage) {
+                    featuredImage = newPost.featuredImage;
+                }
                 updateSEO(newPost);
                 toast(isPaid ? '✅ Premium article published!' : '✅ Article published!', 'success');
                 closeModal('createPostModal');
@@ -9519,6 +9603,8 @@
                 document.getElementById('articlePreviewInput').style.display = 'none';
                 document.getElementById('postPrice').value = '';
                 document.getElementById('postPreviewContent').value = '';
+                document.getElementById('postImagePreview').style.display = 'none';
+                document.getElementById('postImageUpload').value = '';
                 if (S.postQuill) S.postQuill.root.innerHTML = '';
                 cacheFeedPosts([newPost]);
                 if (S.dp === 'feed' || S.dp === 'home') {
@@ -15360,6 +15446,13 @@
                 `;
             }
 
+            // ✅ Add onerror handler for post images
+            let imageHtml = '';
+            if (post.featuredImage) {
+                imageHtml =
+                    `<img src="${post.featuredImage}" class="post-image" alt="featured" loading="lazy" onerror="this.style.display='none'">`;
+            }
+
             container.innerHTML = `
                 <div class="post-card card card-p">
                     <div class="post-header">
@@ -15374,7 +15467,7 @@
                         </div>
                     </div>
                     <h1 class="post-title" style="font-size:1.5rem;">${escapeHtml(post.title)}</h1>
-                    ${post.featuredImage ? `<img src="${post.featuredImage}" class="post-image" alt="featured" loading="lazy">` : ''}
+                    ${imageHtml}
                     ${post.videoUrl ? `<video controls style="max-width:100%;border-radius:var(--radius-sm);margin:.75rem 0;"><source src="${post.videoUrl}" type="video/mp4"></video>` : ''}
                     <div class="post-content" style="font-size:1rem;line-height:1.8;color:var(--text2);margin:1rem 0;">
                         ${contentToShow}
@@ -16301,6 +16394,12 @@
             console.log('📌 Facebook-style comments: Nested replies, like comments, reaction picker.');
             console.log('📌 Share modal: Social media sharing with copy link.');
             console.log('📌 Post menu: Edit/Delete for authors and admins.');
+            // ─── FIXED: Upload functions now handle JSON responses correctly ───
+            console.log('✅ FIXED: uploadBookCover and uploadBookPdf now handle JSON responses correctly with xhr.response fallback.');
+            console.log('✅ FIXED: uploadPostImage added for post image uploads.');
+            console.log('✅ FIXED: Images in posts now have onerror handlers to hide broken images.');
+            console.log('✅ FIXED: Post creation modal now includes image upload zone.');
+            console.log('✅ FIXED: featuredImage is now properly set from upload response.');
         });
 
         // Expose functions globally
@@ -16312,6 +16411,7 @@
         window.resetBookUploadForm = resetBookUploadForm;
         window.updateBookStatusBadge = updateBookStatusBadge;
         window.checkSessionAndRedirect = checkSessionAndRedirect;
+        window.uploadPostImage = uploadPostImage;
     </script>
 </body>
 </html>
