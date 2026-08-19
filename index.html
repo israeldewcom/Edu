@@ -15205,58 +15205,14 @@ async function uploadBookPdf(input) {
         xhr.onerror = function() { if (progressEl) progressEl.style.display = 'none';
             hideLoading();
             toast('Network error', 'error'); };
-        xhr.open('POST', `${API_BASE}/admin/upload-file`); // fixed: was /admin/upload
+        xhr.open('POST', `${API_BASE}/admin/upload-file`);
         xhr.setRequestHeader('Authorization', `Bearer ${token}`);
         xhr.send(formData);
     } catch (err) { toast('Upload error: ' + err.message, 'error');
         hideLoading(); }
 }
 
-
-        async function uploadBookPdf(input) {
-    const file = input.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('file', file); // field name must match upload.any() -> multer field 'file'
-    const progressEl = document.getElementById('bookPdfProgress');
-    if (progressEl) { progressEl.style.display = 'block';
-        progressEl.textContent = 'Uploading... 0%'; }
-    showLoading('Uploading PDF...');
-    try {
-        const token = localStorage.getItem('cx_accessToken');
-        const xhr = new XMLHttpRequest();
-        xhr.upload.onprogress = (event) => {
-            if (event.lengthComputable && progressEl) {
-                const pct = Math.round((event.loaded / event.total) * 100);
-                progressEl.textContent = `Uploading... ${pct}%`;
-            }
-        };
-        xhr.onload = function() {
-            if (progressEl) { progressEl.style.display = 'none'; }
-            hideLoading();
-            try {
-                const data = JSON.parse(xhr.responseText);
-                if (data.success) {
-                    document.getElementById('bookFileUrl').value = data.data.url;
-                    document.getElementById('bookPdfPreview').classList.add('visible');
-                    toast('✅ PDF uploaded!', 'success');
-                } else { toast('Upload failed: ' + data.message, 'error'); }
-            } catch (e) {
-                console.error('PDF upload raw response:', xhr.status, xhr.responseText);
-                toast(`Invalid response (status ${xhr.status})`, 'error');
-            }
-        };
-        xhr.onerror = function() { if (progressEl) progressEl.style.display = 'none';
-            hideLoading();
-            toast('Network error', 'error'); };
-        xhr.open('POST', `${API_BASE}/admin/upload-file`); // was /admin/upload — wrong endpoint
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-        xhr.send(formData);
-    } catch (err) { toast('Upload error: ' + err.message, 'error');
-        hideLoading(); }
-                  }
         
-
         async function saveBook() {
             const title = document.getElementById('bookTitle').value.trim();
             const author = document.getElementById('bookAuthor').value.trim();
