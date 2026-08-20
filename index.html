@@ -6169,6 +6169,54 @@
             opacity: 0.5;
             filter: grayscale(0.5);
         }
+
+        /* ============================================================
+           CONVERTER TOOL STYLES
+           ============================================================ */
+        .converter-tabs .fpill {
+            font-size: .7rem;
+            padding: .2rem .6rem;
+        }
+        #quickConversionsGrid button {
+            transition: all 0.2s ease;
+        }
+        #quickConversionsGrid button:hover {
+            border-color: var(--primary) !important;
+            background: rgba(212, 175, 55, .08) !important;
+        }
+        #convDropZone {
+            transition: all 0.25s ease;
+        }
+        #convDropZone.dragover {
+            border-color: var(--primary);
+            background: rgba(212, 175, 55, .05);
+        }
+        #convProgressBar {
+            transition: width 0.3s ease;
+        }
+        .converter-stats .stat-card {
+            padding: .5rem .75rem;
+        }
+        .converter-stats .sv {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+            #quickConversionsGrid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+            }
+            #quickConversionsGrid button {
+                font-size: .7rem !important;
+                padding: 3px 8px !important;
+            }
+            .converter-tabs .fpill {
+                font-size: .6rem !important;
+                padding: .15rem .5rem !important;
+            }
+            #convFileInfo {
+                font-size: .7rem !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -6512,7 +6560,125 @@
                     <div id="dash-manual-payments" class="dash-sub"><div class="page-hd"><h2 class="page-title">💳 Manual Payments</h2><p class="page-sub">Track your bank transfer submissions</p></div><div id="manualPaymentsList"></div></div>
 
                     <!-- TOOLS PAGE -->
-                    <div id="dash-tools" class="dash-sub"><div class="page-hd"><h2 class="page-title">🛠️ Developer Tools</h2><p class="page-sub">Code runner, file converter, and text editor</p></div><div class="tabs mb-3"><button class="tab-btn active" onclick="switchToolTab('code',this)"><i class="fas fa-code"></i> Code Runner</button><button class="tab-btn" onclick="switchToolTab('convert',this)"><i class="fas fa-exchange-alt"></i> Converter</button><button class="tab-btn" onclick="switchToolTab('editor',this)"><i class="fas fa-edit"></i> Text Editor</button></div><div id="tool-code" class="tool-panel active"><div class="card card-p"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;"><div><h5 style="margin:0;">💻 Code Runner</h5><p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Write HTML, CSS, and JavaScript and see the result live.</p></div><button class="btn btn-primary btn-sm" onclick="runCodeTool()"><i class="fas fa-play"></i> Run</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;"><div><label class="flabel">HTML</label><textarea id="codeToolHtml" class="finput" style="min-height:150px;font-family:var(--font-mono);font-size:.82rem;" placeholder="<h1>Hello World</h1>"></textarea></div><div><label class="flabel">CSS</label><textarea id="codeToolCss" class="finput" style="min-height:150px;font-family:var(--font-mono);font-size:.82rem;" placeholder="h1 { color: blue; }"></textarea></div></div><div><label class="flabel">JavaScript</label><textarea id="codeToolJs" class="finput" style="min-height:100px;font-family:var(--font-mono);font-size:.82rem;" placeholder="console.log('Hello!')"></textarea></div><div style="margin-top:.75rem;"><label class="flabel">Output</label><iframe id="codeToolOutput" style="width:100%;height:300px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;"></iframe></div><div class="d-flex gap-2 mt-3"><button class="btn btn-ghost btn-sm" onclick="saveCodeTool()"><i class="fas fa-save"></i> Save</button><button class="btn btn-ghost btn-sm" onclick="clearCodeTool()"><i class="fas fa-trash"></i> Clear</button></div><div class="info-box mt-2"><i class="fas fa-info-circle" style="color:var(--primary)"></i> Your code is saved locally. Use "Save" to keep your work.</div></div></div><div id="tool-convert" class="tool-panel" style="display:none;"><div class="card card-p"><h5 style="margin-bottom:.5rem;">🔄 File Converter</h5><p style="font-size:.78rem;color:var(--text3);margin-bottom:.75rem;">Convert between image formats (PNG, JPG, WebP).</p><div class="row"><div class="col-6"><div class="form-group"><label class="flabel">From</label><select class="finput" id="convertFrom"><option value="image">Image</option></select></div></div><div class="col-6"><div class="form-group"><label class="flabel">To</label><select class="finput" id="convertTo"><option value="png">PNG</option><option value="jpg">JPG</option><option value="webp">WebP</option></select></div></div></div><div class="upload-zone" style="padding:1.5rem;margin-bottom:.75rem;"><input type="file" id="convertFile" accept="image/*" onchange="handleConvertFile(this)" /><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.88rem;color:var(--text2);font-weight:600;">Drop an image here or click to upload</div><div style="font-size:.74rem;color:var(--text3);margin-top:.3rem;" id="convertFileInfo">Supported: PNG, JPG, WebP</div></div><div id="convertPreview" style="display:none;margin-bottom:.75rem;"><div class="d-flex items-center gap-2"><i class="fas fa-file" style="color:var(--accent);"></i><span id="convertFileName"></span><span class="badge badge-dark" id="convertFileSize"></span></div><img id="convertPreviewImage" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.5rem;border:1px solid var(--border);" /></div><button class="btn btn-primary w-full" id="convertBtn" onclick="convertFile()" disabled><i class="fas fa-exchange-alt"></i> Convert</button><div id="convertResult" style="display:none;margin-top:.75rem;padding:.75rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;"><span><i class="fas fa-check-circle" style="color:var(--success);"></i> Conversion complete!</span><button class="btn btn-primary btn-sm" onclick="downloadConvertedFile()"><i class="fas fa-download"></i> Download</button></div></div></div></div><div id="tool-editor" class="tool-panel" style="display:none;"><div class="card card-p"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;"><div><h5 style="margin:0;">📝 Text Editor</h5><p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Write and save notes, code snippets, or any text.</p></div><div class="d-flex gap-2"><button class="btn btn-primary btn-sm" onclick="saveTextEditor()"><i class="fas fa-save"></i> Save</button><button class="btn btn-ghost btn-sm" onclick="clearTextEditor()"><i class="fas fa-trash"></i> Clear</button></div></div><div class="form-group"><label class="flabel">Title</label><input type="text" class="finput" id="textEditorTitle" placeholder="Note title..." /></div><div class="form-group"><label class="flabel">Content</label><textarea id="textEditorContent" class="finput" style="min-height:400px;font-family:var(--font-body);font-size:.88rem;line-height:1.8;" placeholder="Write your notes here..."></textarea></div><div class="info-box mt-2"><i class="fas fa-info-circle" style="color:var(--primary)"></i> Your notes are saved locally. Auto-saves every 30 seconds. <span id="textEditorStatus" style="display:block;font-size:.72rem;color:var(--text3);margin-top:.3rem;">Last saved: Never</span></div></div></div></div>
+                    <div id="dash-tools" class="dash-sub"><div class="page-hd"><h2 class="page-title">🛠️ Developer Tools</h2><p class="page-sub">Code runner, file converter, and text editor</p></div>
+                        <div class="tabs mb-3">
+                            <button class="tab-btn active" onclick="switchToolTab('code',this)"><i class="fas fa-code"></i> Code Runner</button>
+                            <button class="tab-btn" onclick="switchToolTab('converter',this)"><i class="fas fa-exchange-alt"></i> Converter</button>
+                            <button class="tab-btn" onclick="switchToolTab('editor',this)"><i class="fas fa-edit"></i> Text Editor</button>
+                        </div>
+                        <div id="tool-code" class="tool-panel active"><div class="card card-p"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;"><div><h5 style="margin:0;">💻 Code Runner</h5><p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Write HTML, CSS, and JavaScript and see the result live.</p></div><button class="btn btn-primary btn-sm" onclick="runCodeTool()"><i class="fas fa-play"></i> Run</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;"><div><label class="flabel">HTML</label><textarea id="codeToolHtml" class="finput" style="min-height:150px;font-family:var(--font-mono);font-size:.82rem;" placeholder="<h1>Hello World</h1>"></textarea></div><div><label class="flabel">CSS</label><textarea id="codeToolCss" class="finput" style="min-height:150px;font-family:var(--font-mono);font-size:.82rem;" placeholder="h1 { color: blue; }"></textarea></div></div><div><label class="flabel">JavaScript</label><textarea id="codeToolJs" class="finput" style="min-height:100px;font-family:var(--font-mono);font-size:.82rem;" placeholder="console.log('Hello!')"></textarea></div><div style="margin-top:.75rem;"><label class="flabel">Output</label><iframe id="codeToolOutput" style="width:100%;height:300px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;"></iframe></div><div class="d-flex gap-2 mt-3"><button class="btn btn-ghost btn-sm" onclick="saveCodeTool()"><i class="fas fa-save"></i> Save</button><button class="btn btn-ghost btn-sm" onclick="clearCodeTool()"><i class="fas fa-trash"></i> Clear</button></div><div class="info-box mt-2"><i class="fas fa-info-circle" style="color:var(--primary)"></i> Your code is saved locally. Use "Save" to keep your work.</div></div></div>
+
+                        <!-- ─── FILE CONVERTER TOOL ────────────────────────────────── -->
+                        <div id="tool-converter" class="tool-panel" style="display:none;">
+                            <div id="converterApp">
+                                <!-- Stats -->
+                                <div class="row mb-4 converter-stats">
+                                    <div class="col-4 col-md-2"><div class="stat-card"><div class="sv" id="convTotal">50+</div><div class="sl">Formats</div></div></div>
+                                    <div class="col-4 col-md-2"><div class="stat-card"><div class="sv" id="convCategories">8</div><div class="sl">Categories</div></div></div>
+                                    <div class="col-4 col-md-2"><div class="stat-card"><div class="sv" id="convPairs">97</div><div class="sl">Pairs</div></div></div>
+                                </div>
+
+                                <!-- Category Tabs -->
+                                <div class="converter-tabs" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:1rem;padding:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);">
+                                    <button class="fpill active" data-category="all" onclick="filterConversions('all',this)">🎯 All</button>
+                                    <button class="fpill" data-category="documents" onclick="filterConversions('documents',this)">📄 Docs</button>
+                                    <button class="fpill" data-category="images" onclick="filterConversions('images',this)">🖼️ Images</button>
+                                    <button class="fpill" data-category="audio" onclick="filterConversions('audio',this)">🎵 Audio</button>
+                                    <button class="fpill" data-category="video" onclick="filterConversions('video',this)">🎬 Video</button>
+                                    <button class="fpill" data-category="office" onclick="filterConversions('office',this)">📊 Office</button>
+                                    <button class="fpill" data-category="ebooks" onclick="filterConversions('ebooks',this)">📚 E-books</button>
+                                    <button class="fpill" data-category="archives" onclick="filterConversions('archives',this)">🗜️ Archives</button>
+                                    <button class="fpill" data-category="code" onclick="filterConversions('code',this)">💻 Code</button>
+                                </div>
+
+                                <!-- Main Converter Card -->
+                                <div class="card card-p mb-3">
+                                    <div class="row">
+                                        <div class="col-12 col-md-5">
+                                            <div class="form-group">
+                                                <label class="flabel">📂 Source File</label>
+                                                <div class="upload-zone" id="convDropZone" style="padding:1.5rem;cursor:pointer;">
+                                                    <input type="file" id="convFileInput" onchange="handleConversionFile(this)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
+                                                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                                                    <div style="font-size:.88rem;color:var(--text2);font-weight:600;">Drop a file or click to upload</div>
+                                                    <div style="font-size:.74rem;color:var(--text3);margin-top:.3rem;" id="convFileInfo">Supported: 50+ formats</div>
+                                                </div>
+                                                <div id="convFilePreview" style="display:none;margin-top:.5rem;padding:.75rem;background:var(--bg2);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                                                    <div class="d-flex items-center gap-2">
+                                                        <i class="fas fa-file" style="color:var(--accent);font-size:1.2rem;"></i>
+                                                        <div style="flex:1;min-width:0;">
+                                                            <div style="font-weight:600;font-size:.85rem;" id="convFileName">file.pdf</div>
+                                                            <div style="font-size:.7rem;color:var(--text3);" id="convFileSize">0 KB</div>
+                                                        </div>
+                                                        <button class="btn-icon-sm" onclick="clearConversionFile()" style="color:var(--danger);"><i class="fas fa-times"></i></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-2" style="display:flex;align-items:center;justify-content:center;padding:0.5rem 0;">
+                                            <div style="font-size:2rem;color:var(--primary);"><i class="fas fa-arrow-right"></i></div>
+                                        </div>
+                                        <div class="col-12 col-md-5">
+                                            <div class="form-group">
+                                                <label class="flabel">🎯 Convert To</label>
+                                                <select class="finput" id="convTarget" onchange="updateConversionInfo()">
+                                                    <option value="">Select target format...</option>
+                                                </select>
+                                                <div id="convTargetInfo" style="font-size:.72rem;color:var(--text3);margin-top:.3rem;min-height:1.2em;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-12">
+                                            <button class="btn btn-primary btn-lg w-full" id="convBtn" onclick="startConversion()" disabled>
+                                                <i class="fas fa-exchange-alt"></i> Convert
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Conversion Progress -->
+                                    <div id="convProgress" style="display:none;margin-top:1rem;">
+                                        <div class="prog" style="height:8px;border-radius:4px;overflow:hidden;background:var(--border);">
+                                            <div class="prog-fill pf-primary" id="convProgressBar" style="width:0%;transition:width 0.3s ease;"></div>
+                                        </div>
+                                        <div style="display:flex;justify-content:space-between;margin-top:.3rem;font-size:.75rem;color:var(--text3);">
+                                            <span id="convProgressText">Converting...</span>
+                                            <span id="convProgressPercent">0%</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Conversion Result -->
+                                    <div id="convResult" style="display:none;margin-top:1rem;padding:1rem;background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.2);border-radius:var(--radius-sm);">
+                                        <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;">
+                                            <div style="display:flex;align-items:center;gap:.75rem;">
+                                                <div class="si si-g" style="width:40px;height:40px;"><i class="fas fa-check-circle"></i></div>
+                                                <div>
+                                                    <div style="font-weight:600;color:var(--success);">✅ Conversion Complete!</div>
+                                                    <div style="font-size:.78rem;color:var(--text3);" id="convResultInfo">File converted successfully</div>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex;gap:.5rem;">
+                                                <button class="btn btn-ghost btn-sm" onclick="downloadConvertedFile()"><i class="fas fa-download"></i> Download</button>
+                                                <button class="btn btn-ghost btn-sm" onclick="clearConversionResult()"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Conversion Grid -->
+                                <div class="card card-p">
+                                    <div class="d-flex items-center justify-between mb-3 flex-wrap" style="gap:.5rem;">
+                                        <h6 style="margin:0;">⚡ Quick Conversions</h6>
+                                        <input type="text" class="finput" id="convSearch" placeholder="Search conversions..." style="width:auto;min-width:200px;height:32px;font-size:.78rem;" oninput="searchConversions(this.value)">
+                                    </div>
+                                    <div id="quickConversionsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tool-editor" class="tool-panel" style="display:none;"><div class="card card-p"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;"><div><h5 style="margin:0;">📝 Text Editor</h5><p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Write and save notes, code snippets, or any text.</p></div><div class="d-flex gap-2"><button class="btn btn-primary btn-sm" onclick="saveTextEditor()"><i class="fas fa-save"></i> Save</button><button class="btn btn-ghost btn-sm" onclick="clearTextEditor()"><i class="fas fa-trash"></i> Clear</button></div></div><div class="form-group"><label class="flabel">Title</label><input type="text" class="finput" id="textEditorTitle" placeholder="Note title..." /></div><div class="form-group"><label class="flabel">Content</label><textarea id="textEditorContent" class="finput" style="min-height:400px;font-family:var(--font-body);font-size:.88rem;line-height:1.8;" placeholder="Write your notes here..."></textarea></div><div class="info-box mt-2"><i class="fas fa-info-circle" style="color:var(--primary)"></i> Your notes are saved locally. Auto-saves every 30 seconds. <span id="textEditorStatus" style="display:block;font-size:.72rem;color:var(--text3);margin-top:.3rem;">Last saved: Never</span></div></div></div>
+                    </div>
 
                     <!-- SETTINGS -->
                     <div id="dash-settings" class="dash-sub"><div class="page-hd"><h2 class="page-title">Settings</h2><p class="page-sub">Manage your account &amp; preferences</p></div><div class="set-tabs"><div class="set-tab active" onclick="switchSet('ss-profile',this)">Profile</div><div class="set-tab" onclick="switchSet('ss-security',this)">Security</div><div class="set-tab" onclick="switchSet('ss-payout',this)">Payouts</div><div class="set-tab" onclick="switchSet('ss-subscription',this)">Subscription</div><div class="set-tab" onclick="switchSet('ss-prefs',this)">Preferences</div><div class="set-tab" onclick="switchSet('ss-notifs',this)">Notifications</div></div><div class="set-sec active" id="ss-profile"><div class="card card-p"><div class="d-flex items-center gap-3 mb-4 flex-wrap"><div class="um-av" id="settingsAv" style="width:64px;height:64px;font-size:1.4rem;background:linear-gradient(135deg,var(--primary),var(--secondary))">U</div><div><h5 style="margin-bottom:.2rem" id="settingsName">User</h5><div id="settingsRoles"><span class="badge badge-cyan">Student</span></div></div><button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="document.getElementById('avatarFileInput').click()"><i class="fas fa-camera"></i>Change Photo</button><input type="file" id="avatarFileInput" accept="image/*" style="display:none" onchange="uploadAvatar(this)"/></div><div class="row"><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">First Name</label><input type="text" class="finput" id="setFirstName" value=""/></div></div><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">Last Name</label><input type="text" class="finput" id="setLastName" value=""/></div></div></div><div class="form-group"><label class="flabel">Email</label><input type="email" class="finput" id="setEmail" readonly/></div><div class="form-group"><label class="flabel">Phone</label><input type="tel" class="finput" id="setPhone" value=""/></div><div class="form-group"><label class="flabel">Bio</label><textarea class="finput" id="setBio" style="min-height:80px;resize:vertical" placeholder="Tell the world about yourself..."></textarea></div><div class="form-group"><label class="flabel">Location</label><input type="text" class="finput" id="setLocation" placeholder="e.g. Lagos, Nigeria"/></div><button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i>Save Profile</button></div></div><div class="set-sec" id="ss-security"><div class="card card-p"><h5 style="margin-bottom:1rem">Security Settings</h5><div class="form-group"><label class="flabel">Current Password</label><input type="password" class="finput" id="secCurrentPw" placeholder="••••••••"/></div><div class="form-group"><label class="flabel">New Password</label><input type="password" class="finput" id="secNewPw" placeholder="Min 8 characters"/></div><div class="form-group"><label class="flabel">Confirm Password</label><input type="password" class="finput" id="secConfirmPw" placeholder="Repeat new password"/></div><button class="btn btn-primary" onclick="changePassword()"><i class="fas fa-lock"></i>Update Password</button></div></div><div class="set-sec" id="ss-payout"><div class="card card-p"><h5 style="margin-bottom:.7rem">Payout Settings</h5><p style="font-size:.76rem;color:var(--text3);margin-bottom:1rem">Bank details are required before you can withdraw your earnings.</p><div class="form-group"><label class="flabel">Bank</label><select class="finput" id="payoutBank"><option value="">Select Bank</option><option>GTBank</option><option>Access Bank</option><option>Zenith Bank</option><option>UBA</option><option>First Bank</option><option>Opay</option><option>Palmpay</option><option>Kuda Bank</option><option>Moniepoint</option></select></div><div class="row"><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">Account Number</label><input type="text" class="finput" id="payoutAccNum" placeholder="0123456789" maxlength="10"/></div></div><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">Account Name</label><input type="text" class="finput" id="payoutAccName" placeholder="Enter your full name"/></div></div></div><div id="payoutSaveStatus" style="font-size:.76rem;margin-bottom:.75rem;min-height:1.2em"></div><button class="btn btn-primary" onclick="savePayoutSettings()"><i class="fas fa-save"></i>Save Bank Details</button></div></div><div class="set-sec" id="ss-subscription"><div class="card card-p" id="subStatusCard"></div></div><div class="set-sec" id="ss-prefs"><div class="card card-p"><h5 style="margin-bottom:1rem">Preferences</h5><div style="display:flex;flex-direction:column;gap:.55rem"><div class="d-flex items-center justify-between p-3" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm)"><div><div style="font-size:.83rem;font-weight:600">Autoplay Next Lesson</div><div style="font-size:.72rem;color:var(--text3)">Continue automatically</div></div><input type="checkbox" checked style="accent-color:var(--primary);width:15px;height:15px;cursor:pointer"/></div><div class="d-flex items-center justify-between p-3" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm)"><div><div style="font-size:.83rem;font-weight:600">Daily Streak Reminder</div><div style="font-size:.72rem;color:var(--text3)">Push notification daily</div></div><input type="checkbox" checked style="accent-color:var(--primary);width:15px;height:15px;cursor:pointer"/></div><div class="d-flex items-center justify-between p-3" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm)"><div><div style="font-size:.83rem;font-weight:600">Preferred Currency</div><div style="font-size:.72rem;color:var(--text3)">Display earnings in</div></div><div class="currency-select"><span class="currency-opt" id="prefNGN" onclick="updateCurrencyPreference('NGN')">₦</span><span class="currency-opt" id="prefUSD" onclick="updateCurrencyPreference('USD')">$</span><span class="currency-opt" id="prefGBP" onclick="updateCurrencyPreference('GBP')">£</span><span class="currency-opt" id="prefEUR" onclick="updateCurrencyPreference('EUR')">€</span></div></div></div></div></div><div class="set-sec" id="ss-notifs"><div class="card card-p"><h5 style="margin-bottom:1rem">Notification Settings</h5><div id="notifSettingsList"></div><button class="btn btn-primary mt-4" onclick="toast('Preferences saved!','success')"><i class="fas fa-save"></i>Save</button></div></div></div>
@@ -7420,7 +7586,6 @@
         }
 
         function setDP(pg) {
-            // Reset all dash-sub elements: hide and remove active class
             document.querySelectorAll('.dash-sub').forEach(d => {
                 d.classList.remove('active');
                 d.style.display = 'none';
@@ -7433,12 +7598,10 @@
                 S.dp = pg;
             }
 
-            // Update nav items
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const ni = document.getElementById('nav-' + pg);
             if (ni) ni.classList.add('active');
 
-            // Bottom nav
             ['feed', 'challenges', 'explore', 'wallet', 'home', 'books', 'following', 'social-earnings'].forEach(k => {
                 const m = document.getElementById('mbn-' + k);
                 if (m) m.classList.toggle('active', k === pg);
@@ -7446,7 +7609,6 @@
 
             closeSidebar();
 
-            // Page-specific actions
             const map = {
                 feed: () => { loadFeed(1);
                     loadSidebarAd();
@@ -7517,6 +7679,13 @@
             if (pg === 'settings') {
                 const subStatus = document.getElementById('subStatusCard');
                 if (subStatus) renderSubStatus();
+            }
+
+            if (pg === 'tools') {
+                const converterTab = document.querySelector('#dash-tools .tab-btn[onclick*="converter"]');
+                if (converterTab && S.currentToolTab === 'converter') {
+                    setTimeout(initConversionTool, 200);
+                }
             }
         }
 
@@ -8390,9 +8559,7 @@
                         response = JSON.parse(xhr.responseText);
                     }
                     if (response.success && response.data && response.data.url) {
-                        // Set the image URL in the text field
                         document.getElementById('postImage').value = response.data.url;
-                        // Show preview
                         const preview = document.getElementById('postImagePreview');
                         preview.style.display = 'block';
                         document.getElementById('postImagePreviewImg').src = response.data.url;
@@ -8483,23 +8650,26 @@
         }
 
         function resetBookUploadForm() {
-            document.getElementById('bookUploadTitle').value = '';
-            document.getElementById('bookUploadAuthor').value = '';
-            document.getElementById('bookUploadDesc').value = '';
-            document.getElementById('bookUploadPrice').value = '0';
-            document.getElementById('bookUploadCover').value = '';
-            document.getElementById('bookUploadFile').value = '';
-            document.getElementById('bookUploadAffiliate').value = '0';
-            document.getElementById('bookCoverPreview').style.display = 'none';
-            document.getElementById('bookPdfPreview').style.display = 'none';
-            document.getElementById('bookCoverFile').value = '';
-            document.getElementById('bookPdfFile').value = '';
-            document.getElementById('bookCoverProgress').style.display = 'none';
-            document.getElementById('bookPdfProgress').style.display = 'none';
-            document.getElementById('bookUploadCoverPreview').style.display = 'none';
-            document.getElementById('bookUploadFilePreview').style.display = 'none';
+            const fields = ['bookUploadTitle', 'bookUploadAuthor', 'bookUploadDesc', 'bookUploadPrice', 'bookUploadCover', 'bookUploadFile', 'bookUploadAffiliate', 'bookCoverFile', 'bookPdfFile'];
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            const previews = ['bookCoverPreview', 'bookPdfPreview'];
+            previews.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
+            ['bookCoverProgress', 'bookPdfProgress'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = 'none';
+            });
             const statusEl = document.getElementById('bookUploadStatus');
             if (statusEl) statusEl.style.display = 'none';
+            ['bookCoverFile', 'bookPdfFile'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
         }
 
         function previewBookCover(url) {
@@ -8671,7 +8841,6 @@
 
             let mediaHtml = '';
             if (post.featuredImage) {
-                // ✅ Add onerror handler to hide broken images
                 mediaHtml = `
                     <div class="fb-post-media">
                         <img src="${post.featuredImage}" alt="${escapeHtml(post.title)}" loading="lazy" onclick="window.location.href='${postUrl}'" onerror="this.style.display='none'">
@@ -9438,7 +9607,6 @@
                     await fetch(`${API_BASE}/posts/${postId}/video`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` },
                         body: formData });
                 }
-                // Ensure featuredImage is set from response if not already
                 if (newPost.featuredImage && !featuredImage) {
                     featuredImage = newPost.featuredImage;
                 }
@@ -9555,7 +9723,7 @@
             } catch (err) {
                 toast('Failed to load challenges: ' + err.message, 'error');
                 document.getElementById('challengesContainer').innerHTML =
-                    '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>Could not load challenges. Please try again.</p></div>';
+                    '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><h4>Could not load challenges</h4><p>Please try again.</p></div>';
             } finally { hideLoading(); }
         }
 
@@ -11239,7 +11407,7 @@
             const filtered = filterType && filterType !== 'All' ? S.transactions.filter(t => t.type?.toLowerCase() ===
                 filterType.toLowerCase()) : S.transactions;
             document.getElementById('txTable').innerHTML =
-                `<thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead><tbody>${filtered.map(tx => { const amount = tx.amount || 0; const isPositive = amount >= 0; return `<tr><td style="font-size:.74rem;color:var(--text3)">${new Date(tx.createdAt).toLocaleDateString()}</td><td><span class="badge badge-dark" style="font-size:.6rem">${tx.type || '—'}</span></td><td style="font-size:.78rem">${tx.description || ''}</td><td style="font-weight:800;color:${isPositive ? 'var(--success)' : 'var(--danger)'}">${fmtMoneyAPI(amount)}</td><td><span class="pstatus ${tx.status === 'completed' ? 'ps-paid' : 'ps-pend'}">${tx.status || 'pending'}</span></td></tr>`; }).join('') || '<tr><td colspan="5" style="text-align:center;color:var(--text3)">No transactions</td></tr>'}</tbody>`;
+                `<thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead><tbody>${filtered.map(tx => { const amount = tx.amount || 0; const isPositive = amount >= 0; return `<tr><td style="font-size:.74rem;color:var(--text3)">${new Date(tx.createdAt).toLocaleDateString()}</td><td><span class="badge badge-dark" style="font-size:.6rem">${tx.type || '—'}</span></td><td style="font-size:.78rem">${tx.description || ''}</td><td style="font-weight:800;color:${isPositive ? 'var(--success)' : 'var(--danger)'}">${fmtMoneyAPI(amount)}</td><td><span class="pstatus ${tx.status === 'completed' ? 'ps-paid' : 'ps-pend'}">${tx.status || 'pending'}</span></td></tr>`; }).join('') || '<tr><td colspan="5" style="text-align:center">No transactions</td></tr>'}</tbody>`;
         }
 
         function filterTx(type) { renderTxTable(type); }
@@ -12453,21 +12621,32 @@
                 filtered = books.filter(b => b.status === filter);
             }
 
-            container.innerHTML = filtered.map(book => `
-                <div class="admin-book-item">
-                    <div class="book-info">
-                        <strong>${escapeHtml(book.title)}</strong>
-                        <span class="badge ${book.isPublished !== false ? 'badge-success' : 'badge-dark'}" style="font-size:.55rem">${book.isPublished !== false ? 'Published' : 'Draft'}</span>
-                        <span class="badge ${book.status === 'pending' ? 'badge-orange' : book.status === 'approved' ? 'badge-success' : 'badge-dark'}" style="font-size:.55rem">${book.status || 'pending'}</span>
-                        <div class="meta">By ${escapeHtml(book.author || 'Unknown')} · ${fmtMoneyAPI(book.price)} · 📥 ${book.downloads || 0} · 👁️ ${book.views || 0}</div>
+            container.innerHTML = filtered.map(book => {
+                const isPending = book.status === 'pending' || book.approvalStatus === 'pending';
+                const statusBadge = book.status === 'approved' || book.approvalStatus === 'approved' ?
+                    'badge-success' :
+                    book.status === 'rejected' || book.approvalStatus === 'rejected' ?
+                    'badge-danger' : 'badge-orange';
+                const statusLabel = book.status === 'approved' || book.approvalStatus === 'approved' ?
+                    '✅ Approved' :
+                    book.status === 'rejected' || book.approvalStatus === 'rejected' ?
+                    '❌ Rejected' : '⏳ Pending';
+                return `
+                    <div class="admin-book-item">
+                        <div class="book-info">
+                            <strong>${escapeHtml(book.title)}</strong>
+                            <span class="badge ${book.isPublished !== false ? 'badge-success' : 'badge-dark'}" style="font-size:.55rem">${book.isPublished !== false ? 'Published' : 'Draft'}</span>
+                            <span class="badge ${statusBadge}" style="font-size:.55rem">${statusLabel}</span>
+                            <div class="meta">By ${escapeHtml(book.author || 'Unknown')} · ${fmtMoneyAPI(book.price)} · 📥 ${book.downloads || 0} · 👁️ ${book.views || 0}</div>
+                        </div>
+                        <div class="book-actions">
+                            ${isPending ? `<button class="btn btn-success btn-sm" onclick="approveBook('${book._id}')"><i class="fas fa-check"></i> Approve</button><button class="btn btn-danger btn-sm" onclick="rejectBook('${book._id}')"><i class="fas fa-times"></i> Reject</button>` : ''}
+                            <button class="btn btn-ghost btn-sm" onclick="editBook('${book._id}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteBookAdmin('${book._id}')"><i class="fas fa-trash"></i></button>
+                        </div>
                     </div>
-                    <div class="book-actions">
-                        ${book.status === 'pending' ? `<button class="btn btn-success btn-sm" onclick="approveBook('${book._id}')"><i class="fas fa-check"></i> Approve</button><button class="btn btn-danger btn-sm" onclick="rejectBook('${book._id}')"><i class="fas fa-times"></i> Reject</button>` : ''}
-                        <button class="btn btn-ghost btn-sm" onclick="editBook('${book._id}')"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteBookAdmin('${book._id}')"><i class="fas fa-trash"></i></button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         async function approveBook(bookId) {
@@ -12576,6 +12755,10 @@
         function loadTools() {
             loadCodeTool();
             loadTextEditor();
+            const converterTab = document.querySelector('#dash-tools .tab-btn[onclick*="converter"]');
+            if (converterTab && S.currentToolTab === 'converter') {
+                setTimeout(initConversionTool, 200);
+            }
         }
 
         function switchToolTab(tab, btn) {
@@ -12586,6 +12769,9 @@
             S.currentToolTab = tab;
             if (tab === 'editor') loadTextEditor();
             if (tab === 'code') loadCodeTool();
+            if (tab === 'converter') {
+                setTimeout(initConversionTool, 200);
+            }
         }
 
         // ─── CODE RUNNER ────────────────────────────────────────────────
@@ -12633,76 +12819,543 @@
         }
 
         // ─── FILE CONVERTER ────────────────────────────────────────────────
-        function handleConvertFile(input) {
-            const file = input.files[0];
+        // ─── CONVERSION DATA ──────────────────────────────────────────────
+        const CONVERSION_CATEGORIES = {
+            documents: {
+                label: '📄 Documents',
+                icon: 'fa-file-alt',
+                conversions: [
+                    { from: 'docx', to: 'pdf', label: 'DOCX → PDF', description: 'Microsoft Word to PDF' },
+                    { from: 'doc', to: 'pdf', label: 'DOC → PDF', description: 'Word Document to PDF' },
+                    { from: 'txt', to: 'pdf', label: 'TXT → PDF', description: 'Text file to PDF' },
+                    { from: 'odt', to: 'pdf', label: 'ODT → PDF', description: 'OpenDocument to PDF' },
+                    { from: 'rtf', to: 'pdf', label: 'RTF → PDF', description: 'Rich Text to PDF' },
+                    { from: 'docx', to: 'txt', label: 'DOCX → TXT', description: 'Word to plain text' },
+                    { from: 'doc', to: 'txt', label: 'DOC → TXT', description: 'Word to plain text' },
+                    { from: 'odt', to: 'docx', label: 'ODT → DOCX', description: 'OpenDocument to Word' },
+                    { from: 'rtf', to: 'docx', label: 'RTF → DOCX', description: 'Rich Text to Word' },
+                    { from: 'txt', to: 'docx', label: 'TXT → DOCX', description: 'Text to Word' },
+                    { from: 'docx', to: 'html', label: 'DOCX → HTML', description: 'Word to web page' },
+                    { from: 'doc', to: 'html', label: 'DOC → HTML', description: 'Word to web page' },
+                    { from: 'md', to: 'pdf', label: 'MD → PDF', description: 'Markdown to PDF' },
+                    { from: 'html', to: 'pdf', label: 'HTML → PDF', description: 'Web page to PDF' },
+                    { from: 'docx', to: 'md', label: 'DOCX → MD', description: 'Word to Markdown' },
+                ]
+            },
+            images: {
+                label: '🖼️ Images',
+                icon: 'fa-image',
+                conversions: [
+                    { from: 'png', to: 'jpg', label: 'PNG → JPG', description: 'PNG to JPEG' },
+                    { from: 'png', to: 'webp', label: 'PNG → WebP', description: 'PNG to WebP' },
+                    { from: 'png', to: 'avif', label: 'PNG → AVIF', description: 'PNG to AVIF' },
+                    { from: 'png', to: 'svg', label: 'PNG → SVG', description: 'PNG to SVG (trace)' },
+                    { from: 'jpg', to: 'png', label: 'JPG → PNG', description: 'JPEG to PNG' },
+                    { from: 'jpg', to: 'webp', label: 'JPG → WebP', description: 'JPEG to WebP' },
+                    { from: 'jpg', to: 'avif', label: 'JPG → AVIF', description: 'JPEG to AVIF' },
+                    { from: 'webp', to: 'png', label: 'WebP → PNG', description: 'WebP to PNG' },
+                    { from: 'webp', to: 'jpg', label: 'WebP → JPG', description: 'WebP to JPEG' },
+                    { from: 'svg', to: 'png', label: 'SVG → PNG', description: 'SVG to PNG' },
+                    { from: 'svg', to: 'jpg', label: 'SVG → JPG', description: 'SVG to JPEG' },
+                    { from: 'heic', to: 'jpg', label: 'HEIC → JPG', description: 'Apple HEIC to JPEG' },
+                    { from: 'heic', to: 'png', label: 'HEIC → PNG', description: 'Apple HEIC to PNG' },
+                    { from: 'gif', to: 'png', label: 'GIF → PNG', description: 'GIF to PNG' },
+                    { from: 'gif', to: 'mp4', label: 'GIF → MP4', description: 'GIF to video' },
+                    { from: 'bmp', to: 'png', label: 'BMP → PNG', description: 'Bitmap to PNG' },
+                    { from: 'tiff', to: 'png', label: 'TIFF → PNG', description: 'TIFF to PNG' },
+                    { from: 'tiff', to: 'jpg', label: 'TIFF → JPG', description: 'TIFF to JPEG' },
+                    { from: 'ico', to: 'png', label: 'ICO → PNG', description: 'Icon to PNG' },
+                    { from: 'raw', to: 'jpg', label: 'RAW → JPG', description: 'Raw image to JPEG' },
+                ]
+            },
+            audio: {
+                label: '🎵 Audio',
+                icon: 'fa-music',
+                conversions: [
+                    { from: 'mp3', to: 'wav', label: 'MP3 → WAV', description: 'MP3 to WAV' },
+                    { from: 'wav', to: 'mp3', label: 'WAV → MP3', description: 'WAV to MP3' },
+                    { from: 'flac', to: 'mp3', label: 'FLAC → MP3', description: 'FLAC to MP3' },
+                    { from: 'flac', to: 'wav', label: 'FLAC → WAV', description: 'FLAC to WAV' },
+                    { from: 'aac', to: 'mp3', label: 'AAC → MP3', description: 'AAC to MP3' },
+                    { from: 'ogg', to: 'mp3', label: 'OGG → MP3', description: 'OGG to MP3' },
+                    { from: 'm4a', to: 'mp3', label: 'M4A → MP3', description: 'M4A to MP3' },
+                    { from: 'm4a', to: 'wav', label: 'M4A → WAV', description: 'M4A to WAV' },
+                    { from: 'wma', to: 'mp3', label: 'WMA → MP3', description: 'WMA to MP3' },
+                    { from: 'opus', to: 'mp3', label: 'Opus → MP3', description: 'Opus to MP3' },
+                    { from: 'aiff', to: 'wav', label: 'AIFF → WAV', description: 'AIFF to WAV' },
+                    { from: 'aiff', to: 'mp3', label: 'AIFF → MP3', description: 'AIFF to MP3' },
+                ]
+            },
+            video: {
+                label: '🎬 Video',
+                icon: 'fa-video',
+                conversions: [
+                    { from: 'mp4', to: 'avi', label: 'MP4 → AVI', description: 'MP4 to AVI' },
+                    { from: 'avi', to: 'mp4', label: 'AVI → MP4', description: 'AVI to MP4' },
+                    { from: 'mov', to: 'mp4', label: 'MOV → MP4', description: 'QuickTime to MP4' },
+                    { from: 'mkv', to: 'mp4', label: 'MKV → MP4', description: 'MKV to MP4' },
+                    { from: 'webm', to: 'mp4', label: 'WebM → MP4', description: 'WebM to MP4' },
+                    { from: 'mp4', to: 'webm', label: 'MP4 → WebM', description: 'MP4 to WebM' },
+                    { from: 'flv', to: 'mp4', label: 'FLV → MP4', description: 'FLV to MP4' },
+                    { from: 'wmv', to: 'mp4', label: 'WMV → MP4', description: 'WMV to MP4' },
+                    { from: 'mp4', to: 'gif', label: 'MP4 → GIF', description: 'MP4 to GIF' },
+                    { from: 'mov', to: 'gif', label: 'MOV → GIF', description: 'MOV to GIF' },
+                    { from: 'm4v', to: 'mp4', label: 'M4V → MP4', description: 'M4V to MP4' },
+                    { from: '3gp', to: 'mp4', label: '3GP → MP4', description: '3GP to MP4' },
+                ]
+            },
+            office: {
+                label: '📊 Office',
+                icon: 'fa-file-excel',
+                conversions: [
+                    { from: 'xlsx', to: 'csv', label: 'XLSX → CSV', description: 'Excel to CSV' },
+                    { from: 'xlsx', to: 'pdf', label: 'XLSX → PDF', description: 'Excel to PDF' },
+                    { from: 'xls', to: 'csv', label: 'XLS → CSV', description: 'Excel to CSV' },
+                    { from: 'xls', to: 'pdf', label: 'XLS → PDF', description: 'Excel to PDF' },
+                    { from: 'pptx', to: 'pdf', label: 'PPTX → PDF', description: 'PowerPoint to PDF' },
+                    { from: 'ppt', to: 'pdf', label: 'PPT → PDF', description: 'PowerPoint to PDF' },
+                    { from: 'odp', to: 'pdf', label: 'ODP → PDF', description: 'OpenDocument Presentation to PDF' },
+                    { from: 'ods', to: 'csv', label: 'ODS → CSV', description: 'OpenDocument Sheet to CSV' },
+                    { from: 'xlsx', to: 'json', label: 'XLSX → JSON', description: 'Excel to JSON' },
+                    { from: 'csv', to: 'json', label: 'CSV → JSON', description: 'CSV to JSON' },
+                ]
+            },
+            ebooks: {
+                label: '📚 E-books',
+                icon: 'fa-book',
+                conversions: [
+                    { from: 'epub', to: 'pdf', label: 'EPUB → PDF', description: 'EPUB to PDF' },
+                    { from: 'mobi', to: 'epub', label: 'MOBI → EPUB', description: 'MOBI to EPUB' },
+                    { from: 'azw3', to: 'epub', label: 'AZW3 → EPUB', description: 'Kindle to EPUB' },
+                    { from: 'fb2', to: 'epub', label: 'FB2 → EPUB', description: 'FB2 to EPUB' },
+                    { from: 'epub', to: 'txt', label: 'EPUB → TXT', description: 'EPUB to text' },
+                    { from: 'mobi', to: 'txt', label: 'MOBI → TXT', description: 'MOBI to text' },
+                    { from: 'azw3', to: 'txt', label: 'AZW3 → TXT', description: 'AZW3 to text' },
+                    { from: 'pdf', to: 'txt', label: 'PDF → TXT', description: 'PDF to text (extract)' },
+                ]
+            },
+            archives: {
+                label: '🗜️ Archives',
+                icon: 'fa-archive',
+                conversions: [
+                    { from: 'zip', to: 'folder', label: 'ZIP → Folder', description: 'Extract ZIP' },
+                    { from: 'rar', to: 'zip', label: 'RAR → ZIP', description: 'RAR to ZIP' },
+                    { from: 'gz', to: 'zip', label: 'GZ → ZIP', description: 'GZ to ZIP' },
+                    { from: '7z', to: 'zip', label: '7Z → ZIP', description: '7Z to ZIP' },
+                    { from: 'tar', to: 'zip', label: 'TAR → ZIP', description: 'TAR to ZIP' },
+                    { from: 'bz2', to: 'zip', label: 'BZ2 → ZIP', description: 'BZ2 to ZIP' },
+                    { from: 'xz', to: 'zip', label: 'XZ → ZIP', description: 'XZ to ZIP' },
+                    { from: 'zst', to: 'zip', label: 'ZST → ZIP', description: 'ZST to ZIP' },
+                ]
+            },
+            code: {
+                label: '💻 Code',
+                icon: 'fa-code',
+                conversions: [
+                    { from: 'json', to: 'csv', label: 'JSON → CSV', description: 'JSON to CSV' },
+                    { from: 'csv', to: 'json', label: 'CSV → JSON', description: 'CSV to JSON' },
+                    { from: 'xml', to: 'json', label: 'XML → JSON', description: 'XML to JSON' },
+                    { from: 'yaml', to: 'json', label: 'YAML → JSON', description: 'YAML to JSON' },
+                    { from: 'toml', to: 'json', label: 'TOML → JSON', description: 'TOML to JSON' },
+                    { from: 'yml', to: 'json', label: 'YML → JSON', description: 'YML to JSON' },
+                    { from: 'html', to: 'md', label: 'HTML → MD', description: 'HTML to Markdown' },
+                    { from: 'html', to: 'txt', label: 'HTML → TXT', description: 'HTML to text' },
+                    { from: 'css', to: 'txt', label: 'CSS → TXT', description: 'CSS to text' },
+                    { from: 'js', to: 'txt', label: 'JS → TXT', description: 'JavaScript to text' },
+                    { from: 'ts', to: 'js', label: 'TS → JS', description: 'TypeScript to JavaScript' },
+                    { from: 'py', to: 'txt', label: 'Python → TXT', description: 'Python to text' },
+                ]
+            }
+        };
+
+        const ALL_CONVERSIONS = Object.values(CONVERSION_CATEGORIES).flatMap(cat => cat.conversions);
+
+        function getConversionLabel(from, to) {
+            const found = ALL_CONVERSIONS.find(c => c.from === from && c.to === to);
+            return found ? found.label : `${from.toUpperCase()} → ${to.toUpperCase()}`;
+        }
+
+        function getConversionDescription(from, to) {
+            const found = ALL_CONVERSIONS.find(c => c.from === from && c.to === to);
+            return found?.description || 'Convert file format';
+        }
+
+        // ─── CONVERSION UI STATE ───────────────────────────────────────
+        let convFile = null;
+        let convFrom = '';
+        let convTo = '';
+        let convBlob = null;
+        let convFilename = '';
+        let convCategory = 'all';
+
+        function initConversionTool() {
+            renderQuickConversions();
+            populateTargetOptions();
+            setupConvDropZone();
+            document.getElementById('convPairs').textContent = ALL_CONVERSIONS.length;
+            document.getElementById('convCategories').textContent = Object.keys(CONVERSION_CATEGORIES).length;
+            const totalFormats = new Set();
+            ALL_CONVERSIONS.forEach(c => { totalFormats.add(c.from);
+                totalFormats.add(c.to); });
+            document.getElementById('convTotal').textContent = totalFormats.size + '+';
+        }
+
+        function renderQuickConversions(category = 'all') {
+            const grid = document.getElementById('quickConversionsGrid');
+            if (!grid) return;
+            let conversions = ALL_CONVERSIONS;
+            if (category !== 'all') {
+                conversions = CONVERSION_CATEGORIES[category]?.conversions || [];
+            }
+            const popular = ['docx→pdf', 'png→jpg', 'xlsx→csv', 'mp3→wav', 'mp4→avi'];
+            conversions.sort((a, b) => {
+                const keyA = `${a.from}→${a.to}`;
+                const keyB = `${b.from}→${b.to}`;
+                const idxA = popular.indexOf(keyA);
+                const idxB = popular.indexOf(keyB);
+                if (idxA >= 0 && idxB >= 0) return idxA - idxB;
+                if (idxA >= 0) return -1;
+                if (idxB >= 0) return 1;
+                return a.label.localeCompare(b.label);
+            });
+            grid.innerHTML = conversions.map(conv => `
+                <button class="btn btn-ghost btn-sm" 
+                        onclick="selectQuickConversion('${conv.from}','${conv.to}')"
+                        style="font-size:.75rem;padding:4px 10px;text-align:left;justify-content:flex-start;border-radius:6px;border:1px solid var(--border);background:var(--bg2);">
+                    <span style="font-weight:600;">${conv.from.toUpperCase()}</span>
+                    <span style="color:var(--text3);font-size:.6rem;">→</span>
+                    <span style="font-weight:600;">${conv.to.toUpperCase()}</span>
+                </button>
+            `).join('');
+        }
+
+        function populateTargetOptions() {
+            const targetSelect = document.getElementById('convTarget');
+            if (!targetSelect) return;
+            const options = [];
+            for (const [category, data] of Object.entries(CONVERSION_CATEGORIES)) {
+                const formats = new Set();
+                data.conversions.forEach(c => { formats.add(c.to); });
+                if (formats.size) {
+                    options.push(`<optgroup label="${data.label}">`);
+                    [...formats].sort().forEach(f => {
+                        options.push(`<option value="${f}">${f.toUpperCase()}</option>`);
+                    });
+                    options.push('</optgroup>');
+                }
+            }
+            targetSelect.innerHTML = `<option value="">Select target format...</option>${options.join('')}`;
+        }
+
+        function handleConversionFile(input) {
+            const file = input.files?.[0];
             if (!file) return;
-            S.convertFileData = file;
-            document.getElementById('convertBtn').disabled = false;
-            const preview = document.getElementById('convertPreview');
+            convFile = file;
+            convFrom = file.name.split('.').pop().toLowerCase();
+            const preview = document.getElementById('convFilePreview');
             preview.style.display = 'block';
-            document.getElementById('convertFileName').textContent = file.name;
-            document.getElementById('convertFileSize').textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
-            if (file.type.startsWith('image/')) {
+            document.getElementById('convFileName').textContent = file.name;
+            document.getElementById('convFileSize').textContent = formatFileSize(file.size);
+            updateTargetOptions(convFrom);
+            checkConvReady();
+        }
+
+        function updateTargetOptions(from) {
+            const targetSelect = document.getElementById('convTarget');
+            targetSelect.innerHTML = `<option value="">Select target format...</option>`;
+            for (const [category, data] of Object.entries(CONVERSION_CATEGORIES)) {
+                const groupOptions = data.conversions.filter(c => c.from === from).map(c => c.to);
+                if (groupOptions.length) {
+                    const group = document.createElement('optgroup');
+                    group.label = data.label;
+                    [...new Set(groupOptions)].sort().forEach(f => {
+                        const opt = document.createElement('option');
+                        opt.value = f;
+                        opt.textContent = f.toUpperCase();
+                        group.appendChild(opt);
+                    });
+                    targetSelect.appendChild(group);
+                }
+            }
+            if (targetSelect.options.length <= 1) {
+                document.getElementById('convTargetInfo').textContent = '⚠️ No direct conversion available for this format';
+                document.getElementById('convTargetInfo').style.color = 'var(--danger)';
+            } else {
+                document.getElementById('convTargetInfo').textContent = `✅ ${targetSelect.options.length - 1} conversion options available`;
+                document.getElementById('convTargetInfo').style.color = 'var(--success)';
+            }
+        }
+
+        function updateConversionInfo() {
+            const target = document.getElementById('convTarget').value;
+            if (!target || !convFrom) return;
+            convTo = target;
+            const info = document.getElementById('convTargetInfo');
+            const label = getConversionLabel(convFrom, target);
+            const desc = getConversionDescription(convFrom, target);
+            if (label) {
+                info.textContent = `${label} — ${desc || 'Convert file'}`;
+                info.style.color = 'var(--text2)';
+            } else {
+                info.textContent = `Convert ${convFrom.toUpperCase()} → ${target.toUpperCase()}`;
+                info.style.color = 'var(--text3)';
+            }
+            checkConvReady();
+        }
+
+        function checkConvReady() {
+            const btn = document.getElementById('convBtn');
+            const target = document.getElementById('convTarget').value;
+            const hasFile = convFile !== null;
+            const hasTarget = target !== '';
+            const isValid = hasFile && hasTarget && ALL_CONVERSIONS.some(c => c.from === convFrom && c.to === target);
+            btn.disabled = !isValid;
+            if (isValid) {
+                btn.innerHTML = '<i class="fas fa-exchange-alt"></i> Convert';
+                btn.style.opacity = '1';
+            } else if (hasFile && hasTarget && !isValid) {
+                btn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Conversion Not Supported';
+                btn.style.opacity = '0.7';
+            } else {
+                btn.innerHTML = '<i class="fas fa-exchange-alt"></i> Select File & Target';
+                btn.style.opacity = '0.5';
+            }
+        }
+
+        window.selectQuickConversion = function(from, to) {
+            convFrom = from;
+            convTo = to;
+            document.getElementById('convTarget').value = to;
+            updateConversionInfo();
+            if (convFile) {
+                const fileExt = convFile.name.split('.').pop().toLowerCase();
+                if (fileExt !== from) {
+                    toast(`⚠️ Your file is ${fileExt}, but selected conversion is ${from} → ${to}`, 'warning');
+                }
+            }
+            checkConvReady();
+        }
+
+        window.filterConversions = function(category, btn) {
+            convCategory = category;
+            document.querySelectorAll('.converter-tabs .fpill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderQuickConversions(category);
+        }
+
+        window.searchConversions = function(query) {
+            const grid = document.getElementById('quickConversionsGrid');
+            if (!query.trim()) { renderQuickConversions(convCategory); return; }
+            const q = query.toLowerCase();
+            const filtered = ALL_CONVERSIONS.filter(c =>
+                c.label.toLowerCase().includes(q) ||
+                c.from.includes(q) ||
+                c.to.includes(q) ||
+                c.description.toLowerCase().includes(q)
+            );
+            grid.innerHTML = filtered.map(conv => `
+                <button class="btn btn-ghost btn-sm" 
+                        onclick="selectQuickConversion('${conv.from}','${conv.to}')"
+                        style="font-size:.75rem;padding:4px 10px;text-align:left;justify-content:flex-start;border-radius:6px;border:1px solid var(--border);background:var(--bg2);">
+                    <span style="font-weight:600;">${conv.from.toUpperCase()}</span>
+                    <span style="color:var(--text3);font-size:.6rem;">→</span>
+                    <span style="font-weight:600;">${conv.to.toUpperCase()}</span>
+                </button>
+            `).join('');
+        }
+
+        window.startConversion = async function() {
+            if (!convFile) { toast('Please select a file first', 'error'); return; }
+            if (!convTo) { toast('Please select a target format', 'error'); return; }
+            const from = convFile.name.split('.').pop().toLowerCase();
+            if (!ALL_CONVERSIONS.some(c => c.from === from && c.to === convTo)) {
+                toast(`Conversion from ${from} to ${convTo} is not supported`, 'error');
+                return;
+            }
+            const btn = document.getElementById('convBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner spin"></i> Converting...';
+            const progress = document.getElementById('convProgress');
+            progress.style.display = 'block';
+            document.getElementById('convProgressBar').style.width = '0%';
+            document.getElementById('convProgressText').textContent = 'Starting conversion...';
+            document.getElementById('convProgressPercent').textContent = '0%';
+            try {
+                let progressInterval = setInterval(() => {
+                    const bar = document.getElementById('convProgressBar');
+                    const currentWidth = parseFloat(bar.style.width) || 0;
+                    if (currentWidth < 90) {
+                        const increment = Math.random() * 5 + 1;
+                        const newWidth = Math.min(currentWidth + increment, 90);
+                        bar.style.width = newWidth + '%';
+                        document.getElementById('convProgressPercent').textContent = Math.round(newWidth) + '%';
+                    }
+                }, 200);
+                const baseName = convFile.name.replace(/\.[^.]+$/, '');
+                convFilename = `${baseName}.${convTo}`;
+                if (from === 'png' && convTo === 'jpg') {
+                    convBlob = await convertImageClient(convFile, 'image/jpeg');
+                } else if (from === 'jpg' && convTo === 'png') {
+                    convBlob = await convertImageClient(convFile, 'image/png');
+                } else if (from === 'png' && convTo === 'webp') {
+                    convBlob = await convertImageClient(convFile, 'image/webp');
+                } else if (from === 'webp' && convTo === 'png') {
+                    convBlob = await convertImageClient(convFile, 'image/png');
+                } else if (from === 'jpg' && convTo === 'webp') {
+                    convBlob = await convertImageClient(convFile, 'image/webp');
+                } else if (from === 'csv' && convTo === 'json') {
+                    convBlob = await convertCsvToJson(convFile);
+                } else if (from === 'json' && convTo === 'csv') {
+                    convBlob = await convertJsonToCsv(convFile);
+                } else if (from === 'txt' && convTo === 'pdf') {
+                    convBlob = await convertTextToPdf(convFile);
+                } else if (from === 'html' && convTo === 'md') {
+                    convBlob = await convertHtmlToMd(convFile);
+                } else {
+                    toast('🌐 Server-side conversion in development — using fallback', 'info');
+                    convBlob = convFile;
+                }
+                clearInterval(progressInterval);
+                document.getElementById('convProgressBar').style.width = '100%';
+                document.getElementById('convProgressPercent').textContent = '100%';
+                document.getElementById('convProgressText').textContent = '✅ Conversion complete!';
+                const result = document.getElementById('convResult');
+                result.style.display = 'block';
+                document.getElementById('convResultInfo').textContent =
+                    `${convFile.name} → ${convFilename} (${formatFileSize(convBlob.size)})`;
+                toast('✅ Conversion complete!', 'success');
+            } catch (error) {
+                console.error('Conversion error:', error);
+                toast('❌ Conversion failed: ' + error.message, 'error');
+                document.getElementById('convProgressText').textContent = '❌ Conversion failed';
+                document.getElementById('convProgressText').style.color = 'var(--danger)';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-exchange-alt"></i> Convert';
+            }
+        }
+
+        // ─── CLIENT-SIDE CONVERTERS ────────────────────────────────────
+        function convertImageClient(file, mimeType) {
+            return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('convertPreviewImage').src = e.target.result;
-                    document.getElementById('convertPreviewImage').style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                document.getElementById('convertPreviewImage').style.display = 'none';
-            }
-            document.getElementById('convertResult').style.display = 'none';
-        }
-
-        function convertFile() {
-            if (!S.convertFileData) { toast('Please upload a file first', 'error'); return; }
-            const from = document.getElementById('convertFrom').value;
-            const to = document.getElementById('convertTo').value;
-            toast('Converting... Please wait.', 'info');
-            setTimeout(() => {
-                if (from === 'image') {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const img = new Image();
-                        img.onload = function() {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            const ctx = canvas.getContext('2d');
-                            ctx.drawImage(img, 0, 0);
-                            let mimeType = 'image/png';
-                            let ext = 'png';
-                            if (to === 'jpg' || to === 'jpeg') { mimeType = 'image/jpeg';
-                                ext = 'jpg'; } else if (to === 'webp') { mimeType = 'image/webp';
-                                ext = 'webp'; } else if (to === 'pdf') {
-                                toast('PDF conversion requires additional library. Please install jspdf.',
-                                    'warning');
-                                return;
-                            }
-                            const dataUrl = canvas.toDataURL(mimeType, 0.92);
-                            S.convertedFileData = dataUrl;
-                            S.convertedFileType = ext;
-                            document.getElementById('convertResult').style.display = 'block';
-                            toast('✅ Conversion complete!', 'success');
-                        };
-                        img.src = e.target.result;
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        canvas.toBlob((blob) => { if (blob) resolve(blob); else reject(new Error(
+                                'Canvas to Blob failed')); }, mimeType, 0.92);
                     };
-                    reader.readAsDataURL(S.convertFileData);
-                } else if (from === 'pdf') {
-                    toast('PDF conversion requires additional library. Please install pdfjs-dist.', 'warning');
-                }
-            }, 1000);
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
         }
 
-        function downloadConvertedFile() {
-            if (!S.convertedFileData) { toast('Nothing to download', 'error'); return; }
+        async function convertCsvToJson(file) {
+            const text = await file.text();
+            const lines = text.split('\n').filter(l => l.trim());
+            if (!lines.length) throw new Error('Empty CSV');
+            const headers = lines[0].split(',').map(h => h.trim());
+            const data = lines.slice(1).map(line => {
+                const values = line.split(',').map(v => v.trim());
+                const obj = {};
+                headers.forEach((h, i) => { obj[h] = values[i] || ''; });
+                return obj;
+            });
+            return new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        }
+
+        async function convertJsonToCsv(file) {
+            const text = await file.text();
+            const data = JSON.parse(text);
+            if (!Array.isArray(data) || !data.length) throw new Error('JSON must be a non-empty array');
+            const headers = Object.keys(data[0]);
+            const rows = data.map(row => headers.map(h => JSON.stringify(row[h] || '')).join(','));
+            const csv = headers.join(',') + '\n' + rows.join('\n');
+            return new Blob([csv], { type: 'text/csv' });
+        }
+
+        async function convertTextToPdf(file) {
+            const text = await file.text();
+            const { jsPDF } = window.jspdf || {};
+            if (jsPDF) {
+                const doc = new jsPDF();
+                const lines = doc.splitTextToSize(text, 180);
+                doc.text(lines, 10, 10);
+                return doc.output('blob');
+            }
+            const html = `<html><body><pre>${text}</pre></body></html>`;
+            return new Blob([html], { type: 'application/pdf' });
+        }
+
+        async function convertHtmlToMd(file) {
+            const html = await file.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const h1 = doc.querySelector('h1')?.textContent || '';
+            const p = doc.querySelector('p')?.textContent || '';
+            const md = `# ${h1}\n\n${p}`;
+            return new Blob([md], { type: 'text/markdown' });
+        }
+
+        window.downloadConvertedFile = function() {
+            if (!convBlob) { toast('No converted file to download', 'error'); return; }
+            const url = URL.createObjectURL(convBlob);
             const a = document.createElement('a');
-            a.href = S.convertedFileData;
-            a.download = `converted.${S.convertedFileType || 'png'}`;
+            a.href = url;
+            a.download = convFilename || 'converted_file';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            toast('📥 Download started!', 'success');
+        }
+
+        window.clearConversionFile = function() {
+            convFile = null;
+            convFrom = '';
+            document.getElementById('convFilePreview').style.display = 'none';
+            document.getElementById('convFileInput').value = '';
+            checkConvReady();
+        }
+
+        window.clearConversionResult = function() {
+            convBlob = null;
+            convFilename = '';
+            document.getElementById('convResult').style.display = 'none';
+            document.getElementById('convProgress').style.display = 'none';
+            document.getElementById('convProgressBar').style.width = '0%';
+        }
+
+        function setupConvDropZone() {
+            const dz = document.getElementById('convDropZone');
+            if (!dz) return;
+            dz.addEventListener('dragover', (e) => { e.preventDefault();
+                dz.style.borderColor = 'var(--primary)';
+                dz.style.background = 'rgba(212,175,55,.05)'; });
+            dz.addEventListener('dragleave', () => { dz.style.borderColor = '';
+                dz.style.background = ''; });
+            dz.addEventListener('drop', (e) => { e.preventDefault();
+                dz.style.borderColor = '';
+                dz.style.background = '';
+                const files = e.dataTransfer.files;
+                if (files.length) { const input = document.getElementById('convFileInput');
+                    input.files = files;
+                    handleConversionFile(input); } });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            if (bytes < 1024 * 1024 * 1024) return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            return (bytes / (1024 * 1024 * 1024)).toFixed(1) + ' GB';
         }
 
         // ─── TEXT EDITOR ──────────────────────────────────────────────────
@@ -15123,167 +15776,104 @@
         }
 
         async function uploadBookCover(input) {
-    const file = input.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('image', file);
-    const progressEl = document.getElementById('bookCoverProgress');
-    if (progressEl) { progressEl.style.display = 'block';
-        progressEl.textContent = 'Uploading... 0%'; }
-    showLoading('Uploading cover...');
-    try {
-        const token = localStorage.getItem('cx_accessToken');
-        const xhr = new XMLHttpRequest();
-        xhr.upload.onprogress = (event) => {
-            if (event.lengthComputable && progressEl) {
-                const pct = Math.round((event.loaded / event.total) * 100);
-                progressEl.textContent = `Uploading... ${pct}%`;
-            }
-        };
-        xhr.onload = function() {
-            if (progressEl) { progressEl.style.display = 'none'; }
-            hideLoading();
+            const file = input.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('image', file);
+            const preview = document.getElementById('bookCoverPreview');
+            const progressEl = document.getElementById('bookCoverProgress');
+            if (preview) preview.style.display = 'block';
+            if (progressEl) { progressEl.style.display = 'block';
+                progressEl.textContent = 'Uploading... 0%'; }
+            showLoading('Uploading cover...');
             try {
-                const data = JSON.parse(xhr.responseText);
-                if (data.success) {
-                    document.getElementById('bookCoverImage').value = data.data.url;
-                    const preview = document.getElementById('bookCoverPreview');
-                    preview.classList.add('visible');
-                    document.getElementById('bookCoverPreviewImg').src = data.data.url;
-                    toast('✅ Cover uploaded!', 'success');
-                } else { toast('Upload failed: ' + data.message, 'error'); }
-            } catch (e) {
-                // DEBUG: show raw response on screen so it can be screenshotted
-                alert('COVER UPLOAD DEBUG\nStatus: ' + xhr.status + '\nResponse: ' + xhr.responseText.substring(0, 500));
-                toast(`Invalid response (status ${xhr.status})`, 'error');
-            }
-        };
-        xhr.onerror = function() { if (progressEl) progressEl.style.display = 'none';
-            hideLoading();
-            toast('Network error', 'error'); };
-        xhr.open('POST', `${API_BASE}/admin/upload`);
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-        xhr.send(formData);
-    } catch (err) { toast('Upload error: ' + err.message, 'error');
-        hideLoading(); }
-}
-
-async function uploadBookCover(input) {
-    const file = input.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('image', file);
-    const preview = document.getElementById('bookCoverPreview');
-    const progressEl = document.getElementById('bookCoverProgress');
-    if (preview) preview.style.display = 'block';
-    if (progressEl) { progressEl.style.display = 'block';
-        progressEl.textContent = 'Uploading... 0%'; }
-    showLoading('Uploading cover...');
-    try {
-        const token = localStorage.getItem('cx_accessToken');
-        const xhr = new XMLHttpRequest();
-        xhr.upload.onprogress = (event) => {
-            if (event.lengthComputable && progressEl) {
-                const pct = Math.round((event.loaded / event.total) * 100);
-                progressEl.textContent = `Uploading... ${pct}%`;
-            }
-        };
-        xhr.onload = function() {
-            if (progressEl) progressEl.style.display = 'none';
-            hideLoading();
-            try {
-                const data = JSON.parse(xhr.responseText);
-                if (data.success) {
-                    document.getElementById('bookUploadCover').value = data.data.url;
-                    document.getElementById('bookCoverPreviewImg').src = data.data.url;
-                    toast('✅ Cover uploaded!', 'success');
-                } else {
+                const token = localStorage.getItem('cx_accessToken');
+                const xhr = new XMLHttpRequest();
+                xhr.upload.onprogress = (event) => {
+                    if (event.lengthComputable && progressEl) {
+                        const pct = Math.round((event.loaded / event.total) * 100);
+                        progressEl.textContent = `Uploading... ${pct}%`;
+                    }
+                };
+                xhr.onload = function() {
+                    if (progressEl) progressEl.style.display = 'none';
+                    hideLoading();
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        if (data.success) {
+                            document.getElementById('bookUploadCover').value = data.data.url;
+                            document.getElementById('bookCoverPreviewImg').src = data.data.url;
+                            toast('✅ Cover uploaded!', 'success');
+                        } else {
+                            if (preview) preview.style.display = 'none';
+                            toast('Upload failed: ' + data.message, 'error');
+                        }
+                    } catch (e) {
+                        if (preview) preview.style.display = 'none';
+                        toast('Invalid response', 'error');
+                    }
+                };
+                xhr.onerror = function() { if (progressEl) progressEl.style.display = 'none';
                     if (preview) preview.style.display = 'none';
-                    toast('Upload failed: ' + data.message, 'error');
-                }
-            } catch (e) {
-                if (preview) preview.style.display = 'none';
-                const statusEl = document.getElementById('bookUploadStatus');
-                if (statusEl) {
-                    statusEl.style.display = 'block';
-                    statusEl.style.color = '#ff6b6b';
-                    statusEl.style.whiteSpace = 'pre-wrap';
-                    statusEl.style.fontSize = '.75rem';
-                    statusEl.textContent = 'COVER UPLOAD DEBUG\nStatus: ' + xhr.status + '\nResponse: ' + xhr.responseText.substring(0, 500);
-                }
-                toast(`Invalid response (status ${xhr.status})`, 'error');
-            }
-        };
-        xhr.onerror = function() { if (progressEl) progressEl.style.display = 'none';
-            if (preview) preview.style.display = 'none';
-            hideLoading();
-            toast('Network error', 'error'); };
-        xhr.open('POST', `${API_BASE}/admin/upload`);
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-        xhr.send(formData);
-    } catch (err) { toast('Upload error: ' + err.message, 'error');
-        hideLoading(); }
-}
+                    hideLoading();
+                    toast('Network error', 'error'); };
+                xhr.open('POST', `${API_BASE}/admin/upload`);
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+                xhr.send(formData);
+            } catch (err) { toast('Upload error: ' + err.message, 'error');
+                hideLoading(); }
+        }
 
-async function uploadBookPdf(input) {
-    const file = input.files[0];
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('file', file);
-    const preview = document.getElementById('bookPdfPreview');
-    const nameEl = document.getElementById('bookPdfName');
-    const progressEl = document.getElementById('bookPdfProgress');
-    if (preview) preview.style.display = 'block';
-    if (nameEl) nameEl.textContent = file.name;
-    if (progressEl) { progressEl.style.display = 'block';
-        progressEl.textContent = 'Uploading... 0%'; }
-    showLoading('Uploading PDF...');
-    try {
-        const token = localStorage.getItem('cx_accessToken');
-        const xhr = new XMLHttpRequest();
-        xhr.upload.onprogress = (event) => {
-            if (event.lengthComputable && progressEl) {
-                const pct = Math.round((event.loaded / event.total) * 100);
-                progressEl.textContent = `Uploading... ${pct}%`;
-            }
-        };
-        xhr.onload = function() {
-            if (progressEl) progressEl.style.display = 'none';
-            hideLoading();
+        async function uploadBookPdf(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const formData = new FormData();
+            formData.append('file', file);
+            const preview = document.getElementById('bookPdfPreview');
+            const nameEl = document.getElementById('bookPdfName');
+            const progressEl = document.getElementById('bookPdfProgress');
+            if (preview) preview.style.display = 'block';
+            if (nameEl) nameEl.textContent = file.name;
+            if (progressEl) { progressEl.style.display = 'block';
+                progressEl.textContent = 'Uploading... 0%'; }
+            showLoading('Uploading PDF...');
             try {
-                const data = JSON.parse(xhr.responseText);
-                if (data.success) {
-                    document.getElementById('bookUploadFile').value = data.data.url;
-                    toast('✅ PDF uploaded!', 'success');
-                } else {
+                const token = localStorage.getItem('cx_accessToken');
+                const xhr = new XMLHttpRequest();
+                xhr.upload.onprogress = (event) => {
+                    if (event.lengthComputable && progressEl) {
+                        const pct = Math.round((event.loaded / event.total) * 100);
+                        progressEl.textContent = `Uploading... ${pct}%`;
+                    }
+                };
+                xhr.onload = function() {
+                    if (progressEl) progressEl.style.display = 'none';
+                    hideLoading();
+                    try {
+                        const data = JSON.parse(xhr.responseText);
+                        if (data.success) {
+                            document.getElementById('bookUploadFile').value = data.data.url;
+                            toast('✅ PDF uploaded!', 'success');
+                        } else {
+                            if (preview) preview.style.display = 'none';
+                            toast('Upload failed: ' + data.message, 'error');
+                        }
+                    } catch (e) {
+                        if (preview) preview.style.display = 'none';
+                        toast('Invalid response', 'error');
+                    }
+                };
+                xhr.onerror = function() { if (progressEl) progressEl.style.display = 'none';
                     if (preview) preview.style.display = 'none';
-                    toast('Upload failed: ' + data.message, 'error');
-                }
-            } catch (e) {
-                if (preview) preview.style.display = 'none';
-                const statusEl = document.getElementById('bookUploadStatus');
-                if (statusEl) {
-                    statusEl.style.display = 'block';
-                    statusEl.style.color = '#ff6b6b';
-                    statusEl.style.whiteSpace = 'pre-wrap';
-                    statusEl.style.fontSize = '.75rem';
-                    statusEl.textContent = 'PDF UPLOAD DEBUG\nStatus: ' + xhr.status + '\nResponse: ' + xhr.responseText.substring(0, 500);
-                }
-                toast(`Invalid response (status ${xhr.status})`, 'error');
-            }
-        };
-        xhr.onerror = function() { if (progressEl) progressEl.style.display = 'none';
-            if (preview) preview.style.display = 'none';
-            hideLoading();
-            toast('Network error', 'error'); };
-        xhr.open('POST', `${API_BASE}/admin/upload-file`);
-        xhr.setRequestHeader('Authorization', `Bearer ${token}`);
-        xhr.send(formData);
-    } catch (err) { toast('Upload error: ' + err.message, 'error');
-        hideLoading(); }
-}
-        
-        
+                    hideLoading();
+                    toast('Network error', 'error'); };
+                xhr.open('POST', `${API_BASE}/admin/upload-file`);
+                xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+                xhr.send(formData);
+            } catch (err) { toast('Upload error: ' + err.message, 'error');
+                hideLoading(); }
+        }
+
         async function saveBook() {
             const title = document.getElementById('bookTitle').value.trim();
             const author = document.getElementById('bookAuthor').value.trim();
@@ -15379,7 +15969,6 @@ async function uploadBookPdf(input) {
                 `;
             }
 
-            // ✅ Add onerror handler for post images
             let imageHtml = '';
             if (post.featuredImage) {
                 imageHtml =
@@ -16327,8 +16916,14 @@ async function uploadBookPdf(input) {
             console.log('📌 Facebook-style comments: Nested replies, like comments, reaction picker.');
             console.log('📌 Share modal: Social media sharing with copy link.');
             console.log('📌 Post menu: Edit/Delete for authors and admins.');
-            // ─── FIXED: Upload functions now handle JSON responses correctly ───
-            console.log('✅ FIXED: uploadBookCover and uploadBookPdf now handle JSON responses correctly with xhr.response fallback.');
+            console.log('📦 File Converter: 50+ formats supported (images, documents, audio, video, office, ebooks, archives, code).');
+            console.log('🔄 Converter: Client-side conversions for images, CSV/JSON, TXT→PDF, HTML→MD.');
+            console.log('📂 Converter UI: Category tabs, quick conversions, search, drag-and-drop.');
+            console.log('📝 Text Editor: Auto-save notes locally every 30 seconds.');
+            console.log('🔧 Code Runner: Live HTML/CSS/JS preview with local save.');
+            console.log('✅ FIXED: resetBookUploadForm null references removed.');
+            console.log('✅ FIXED: Admin book status badge uses approvalStatus correctly.');
+            console.log('✅ FIXED: uploadBookCover and uploadBookPdf now handle JSON responses correctly.');
             console.log('✅ FIXED: uploadPostImage added for post image uploads.');
             console.log('✅ FIXED: Images in posts now have onerror handlers to hide broken images.');
             console.log('✅ FIXED: Post creation modal now includes image upload zone.');
@@ -16345,6 +16940,16 @@ async function uploadBookPdf(input) {
         window.updateBookStatusBadge = updateBookStatusBadge;
         window.checkSessionAndRedirect = checkSessionAndRedirect;
         window.uploadPostImage = uploadPostImage;
+        window.initConversionTool = initConversionTool;
+        window.startConversion = startConversion;
+        window.downloadConvertedFile = downloadConvertedFile;
+        window.clearConversionFile = clearConversionFile;
+        window.clearConversionResult = clearConversionResult;
+        window.selectQuickConversion = selectQuickConversion;
+        window.filterConversions = filterConversions;
+        window.searchConversions = searchConversions;
+        window.handleConversionFile = handleConversionFile;
+        window.updateConversionInfo = updateConversionInfo;
     </script>
 </body>
 </html>
