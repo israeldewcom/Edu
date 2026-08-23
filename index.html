@@ -6504,7 +6504,7 @@
             background: var(--primary);
         }
 
-        /* ─── GROUPS CARD ────────────────────────────────────────────── */
+        /* ─── GROUP CARD ──────────────────────────────────────────────── */
         .group-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -6815,7 +6815,7 @@
     <div id="loadingOverlay" class="loading-overlay" style="display:none"><div class="loading-spinner"></div><div class="loading-text" id="loadingText">Loading...</div></div>
 
     <!-- PWA INSTALL BANNER -->
-    <div id="installBanner" class="install-banner hidden"><div style="font-size:1.5rem">📲</div><div style="flex:1"><div style="font-weight:700;font-size:.84rem">Install ChangeX Academy</div><div style="font-size:.72rem;color:var(--text3)">Get faster access, offline learning & instant notifications</div></div><button class="btn btn-primary btn-sm" id="installBtn" onclick="installPWA()">Install</button><button class="btn-icon-sm" onclick="dismissInstallBanner()"><i class="fas fa-times"></i></button></div>
+    <div id="installBanner" class="install-banner hidden"><div style="font-size:1.5rem">📲</div><div style="flex:1"><div style="font-weight:700;font-size:.84rem">Install ChangeX Academy</div><div style="font-size:.72rem;color:var(--text3)">Get faster access, offline learning &amp; instant notifications</div></div><button class="btn btn-primary btn-sm" id="installBtn" onclick="installPWA()">Install</button><button class="btn-icon-sm" onclick="dismissInstallBanner()"><i class="fas fa-times"></i></button></div>
 
     <!-- BOTTOM AD BANNER (Mobile) -->
     <div id="bottomAdBanner"><button class="ad-close" onclick="document.getElementById('bottomAdBanner').style.display='none'"><i class="fas fa-times"></i></button><div id="bottomAdContent"></div></div>
@@ -6918,27 +6918,6 @@
     <!-- ─── CAMPAIGN FORM MODAL ─────────────────────────────────────────── -->
     <div class="modal-ov hidden" id="campaignModal"><div class="modal-box modal-box-lg"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0">📢 Create Ad Campaign</h5><button class="btn-icon-sm" onclick="closeModal('campaignModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Campaign Title *</label><input type="text" class="finput" id="campaignTitle" placeholder="e.g. Summer Sale 2025"></div><div class="form-group"><label class="flabel">Description *</label><textarea class="finput" id="campaignDesc" rows="3" placeholder="Describe your ad"></textarea></div><div class="form-group"><label class="flabel">Link URL *</label><input type="url" class="finput" id="campaignLink" placeholder="https://yourwebsite.com"></div><div class="form-group"><label class="flabel">Placement</label><select class="finput" id="campaignPlacement"><option value="in-feed">In-Feed</option><option value="sidebar">Sidebar</option><option value="banner">Banner</option><option value="popup">Popup</option><option value="book-page">Book Page</option><option value="video-pre">Video Pre-roll</option><option value="video-mid">Video Mid-roll</option><option value="lesson-inline">Lesson Inline</option><option value="challenge-sponsor">Challenge Sponsor</option><option value="book-sponsor">Book Sponsor</option><option value="explore-sponsor">Explore Sponsor</option></select></div><div class="row"><div class="col-6"><div class="form-group"><label class="flabel">Budget (₦) *</label><input type="number" class="finput" id="campaignBudget" placeholder="e.g. 50000" min="1000"></div></div><div class="col-6"><div class="form-group"><label class="flabel">Pricing Model</label><select class="finput" id="campaignPricing" onchange="toggleCampaignPricing()"><option value="cpm">CPM (per 1000 impressions)</option><option value="cpc">CPC (per click)</option></select></div></div></div><div class="row" id="campaignCpmFields"><div class="col-6"><div class="form-group"><label class="flabel">CPM Rate (₦)</label><input type="number" class="finput" id="campaignCpm" placeholder="e.g. 1.00" step="0.01" min="0.01" value="1.00"></div></div><div class="col-6"><div class="form-group"><label class="flabel">Target Impressions</label><input type="number" class="finput" id="campaignTargetImp" placeholder="e.g. 10000"></div></div></div><div class="row" id="campaignCpcFields" style="display:none;"><div class="col-6"><div class="form-group"><label class="flabel">CPC Rate (₦)</label><input type="number" class="finput" id="campaignCpc" placeholder="e.g. 0.02" step="0.01" min="0.01" value="0.02"></div></div><div class="col-6"><div class="form-group"><label class="flabel">Target Clicks</label><input type="number" class="finput" id="campaignTargetClick" placeholder="e.g. 500"></div></div></div><div class="row"><div class="col-6"><div class="form-group"><label class="flabel">Start Date *</label><input type="date" class="finput" id="campaignStart"></div></div><div class="col-6"><div class="form-group"><label class="flabel">End Date *</label><input type="date" class="finput" id="campaignEnd"></div></div></div><div class="form-group"><label class="flabel">Upload Ad Image *</label><div class="upload-zone" style="padding:1.5rem"><input type="file" id="campaignImage" accept="image/*" onchange="previewCampaignImage(this)"><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.8rem;color:var(--text2)">Click or drop your ad image (PNG, JPG, WebP)</div></div><div id="campaignImagePreview" style="display:none;margin-top:.5rem;"><img id="campaignImagePreviewImg" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);"></div></div><div class="info-box"><i class="fas fa-info-circle" style="color:var(--primary)"></i><strong>How it works:</strong> Submit your campaign for admin approval. Once approved, you'll be required to pay before it goes live. You'll be charged based on impressions or clicks.</div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('campaignModal')">Cancel</button><button class="btn btn-primary" onclick="submitCampaign()"><i class="fas fa-paper-plane"></i>Submit for Approval</button></div></div></div>
 
-    <!-- ─── CREATE GROUP MODAL ──────────────────────────────────────────── -->
-    <div class="modal-ov hidden" id="createGroupModal"><div class="modal-box" style="max-width:520px;"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0;">👥 Create Group</h5><button class="btn-icon-sm" onclick="closeModal('createGroupModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Group Name *</label><input type="text" class="finput" id="groupName" placeholder="e.g. Web Dev Study Group" maxlength="50" oninput="document.getElementById('groupNameCount').textContent=this.value.length"><div style="font-size:.65rem;color:var(--text3);text-align:right;"><span id="groupNameCount">0</span>/50</div></div><div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="groupDescription" rows="3" placeholder="What's this group about?"></textarea></div><div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;"><div class="price-type-opt selected" data-type="public" onclick="selectGroupType('public',this)" style="padding:.75rem;text-align:center;"><div style="font-size:1.5rem;">🌐</div><div style="font-weight:600;font-size:.82rem;">Public</div><div style="font-size:.65rem;color:var(--text3);">Anyone can join</div></div><div class="price-type-opt" data-type="private" onclick="selectGroupType('private',this)" style="padding:.75rem;text-align:center;"><div style="font-size:1.5rem;">🔒</div><div style="font-weight:600;font-size:.82rem;">Private</div><div style="font-size:.65rem;color:var(--text3);">Admin approval required</div></div></div><input type="hidden" id="groupType" value="public"></div><div class="form-group"><label class="flabel">Group Avatar</label><div class="upload-zone" style="padding:1rem;"><input type="file" id="groupAvatarInput" accept="image/*" onchange="previewGroupAvatar(this)"><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.8rem;color:var(--text2);">Upload a group avatar (optional)</div></div><div id="groupAvatarPreview" style="display:none;margin-top:.5rem;"><div style="display:flex;align-items:center;gap:.5rem;"><img id="groupAvatarPreviewImg" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--border);object-fit:cover;"><span class="badge badge-success">✅ Uploaded</span><button class="btn-icon-sm" onclick="removeGroupAvatar()" style="color:var(--danger);"><i class="fas fa-times"></i></button></div></div><input type="hidden" id="groupAvatarUrl"></div><div class="info-box"><i class="fas fa-info-circle" style="color:var(--primary);"></i>Groups are a great way to collaborate with fellow learners. Share resources, schedule study sessions, and learn together.</div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createGroupModal')">Cancel</button><button class="btn btn-primary" onclick="createGroup()"><i class="fas fa-plus"></i> Create Group</button></div></div></div>
-
-    <!-- ─── ADD RESOURCE MODAL ──────────────────────────────────────────── -->
-    <div class="modal-ov hidden" id="addResourceModal"><div class="modal-box" style="max-width:480px;"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0;">📎 Add Resource</h5><button class="btn-icon-sm" onclick="closeModal('addResourceModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Title *</label><input type="text" class="finput" id="resourceTitle" placeholder="e.g. JavaScript Cheat Sheet"></div><div class="form-group"><label class="flabel">URL *</label><input type="url" class="finput" id="resourceUrl" placeholder="https://..."></div><div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;"><div class="price-type-opt selected" data-type="link" onclick="selectResourceType('link',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🔗 Link</div><div class="price-type-opt" data-type="pdf" onclick="selectResourceType('pdf',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📄 PDF</div><div class="price-type-opt" data-type="code" onclick="selectResourceType('code',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">💻 Code</div><div class="price-type-opt" data-type="image" onclick="selectResourceType('image',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🖼️ Image</div><div class="price-type-opt" data-type="video" onclick="selectResourceType('video',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎬 Video</div><div class="price-type-opt" data-type="other" onclick="selectResourceType('other',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📦 Other</div></div><input type="hidden" id="resourceType" value="link"></div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('addResourceModal')">Cancel</button><button class="btn btn-primary" onclick="addResource()"><i class="fas fa-plus"></i> Add Resource</button></div></div></div>
-
-    <!-- ─── CREATE EVENT MODAL ──────────────────────────────────────────── -->
-    <div class="modal-ov hidden" id="createEventModal"><div class="modal-box" style="max-width:480px;"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0;">📅 Create Event</h5><button class="btn-icon-sm" onclick="closeModal('createEventModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Event Title *</label><input type="text" class="finput" id="eventTitle" placeholder="e.g. Weekly Study Session"></div><div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="eventDescription" rows="2" placeholder="What's this event about?"></textarea></div><div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;"><div class="price-type-opt selected" data-type="voice_chat" onclick="selectEventType('voice_chat',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎤 Voice Chat</div><div class="price-type-opt" data-type="coding_session" onclick="selectEventType('coding_session',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">💻 Coding Session</div><div class="price-type-opt" data-type="study_meet" onclick="selectEventType('study_meet',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📚 Study Meet</div><div class="price-type-opt" data-type="webinar" onclick="selectEventType('webinar',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎓 Webinar</div></div><input type="hidden" id="eventType" value="voice_chat"></div><div class="row"><div class="col-6"><div class="form-group"><label class="flabel">Start Time *</label><input type="datetime-local" class="finput" id="eventStart"></div></div><div class="col-6"><div class="form-group"><label class="flabel">End Time *</label><input type="datetime-local" class="finput" id="eventEnd"></div></div></div><div class="form-group"><label class="flabel">Meeting URL (optional)</label><input type="url" class="finput" id="eventMeetingUrl" placeholder="https://meet.google.com/..."></div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createEventModal')">Cancel</button><button class="btn btn-primary" onclick="createEvent()"><i class="fas fa-plus"></i> Create Event</button></div></div></div>
-
-    <!-- ─── CREATE STORY MODAL ──────────────────────────────────────────── -->
-    <div class="modal-ov hidden" id="createStoryModal"><div class="modal-box" style="max-width:460px;"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0;">📸 Create Story</h5><button class="btn-icon-sm" onclick="closeModal('createStoryModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Upload Media *</label><div class="upload-zone" style="padding:1.5rem;"><input type="file" id="storyMediaInput" accept="image/*,video/*" onchange="previewStoryMedia(this)"><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.8rem;color:var(--text2);">Click or drop an image or video</div></div><div id="storyMediaPreview" style="display:none;margin-top:.5rem;"><video id="storyMediaPreviewVideo" controls style="max-width:100%;max-height:300px;border-radius:var(--radius-sm);display:none;"></video><img id="storyMediaPreviewImg" style="max-width:100%;max-height:300px;border-radius:var(--radius-sm);display:none;"><span class="badge badge-success" style="margin-left:.5rem;">✅ Media selected</span></div></div><div class="form-group"><label class="flabel">Caption (optional)</label><input type="text" class="finput" id="storyCaptionInput" placeholder="Say something..." maxlength="100"><div style="font-size:.65rem;color:var(--text3);text-align:right;"><span id="storyCaptionCount">0</span>/100</div></div><div class="form-group"><label class="flabel">Link (optional)</label><input type="url" class="finput" id="storyLinkInput" placeholder="https://..."></div><div style="background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.15);border-radius:var(--radius-sm);padding:.65rem;font-size:.78rem;color:var(--text2);margin-bottom:.5rem;"><i class="fas fa-info-circle" style="color:var(--primary);"></i> Stories disappear after 24 hours. You can save them to Highlights.</div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createStoryModal')">Cancel</button><button class="btn btn-primary" onclick="submitStory()"><i class="fas fa-paper-plane"></i> Share Story</button></div></div></div>
-
-    <!-- ─── NEW CONVERSATION MODAL ──────────────────────────────────────── -->
-    <div class="modal-ov hidden" id="newConversationModal"><div class="modal-box" style="max-width:460px;"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0;">💬 New Conversation</h5><button class="btn-icon-sm" onclick="closeModal('newConversationModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Search User</label><input type="text" class="finput" id="newChatSearch" placeholder="Type name or email..." oninput="searchUsersForChat(this.value)"><div id="newChatResults" style="margin-top:.5rem;max-height:250px;overflow-y:auto;"></div></div><div class="info-box"><i class="fas fa-info-circle" style="color:var(--primary);"></i>You can only start conversations with users who have opted into messaging.</div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('newConversationModal')">Cancel</button></div></div></div>
-
-    <!-- ─── STORY VIEWER MODAL ──────────────────────────────────────────── -->
-    <div class="modal-ov hidden" id="storyViewerModal"><div class="modal-box" style="max-width:420px;max-height:90svh;background:var(--bg);"><div class="modal-hd" style="border-bottom-color:rgba(255,255,255,0.1);"><div style="display:flex;align-items:center;gap:.75rem;"><div class="story-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;">U</div><div><div style="font-weight:600;font-size:.9rem;" id="storyViewerName">User</div><div style="font-size:.65rem;color:var(--text3);" id="storyViewerTime">Just now</div></div></div><button class="btn-icon-sm" onclick="closeStoryViewer()" style="color:var(--text3);"><i class="fas fa-times"></i></button></div><div class="modal-bd" style="padding:0;display:flex;flex-direction:column;position:relative;"><div id="storyProgressContainer" style="display:flex;gap:4px;padding:8px 12px;position:absolute;top:0;left:0;right:0;z-index:5;"></div><div id="storyMediaContainer" class="story-viewer-media"><div id="storyMediaContent" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><div style="color:var(--text3);font-size:.9rem;">Loading...</div></div><div class="story-nav-zone left" onclick="navigateStory(-1)"></div><div class="story-nav-zone right" onclick="navigateStory(1)"></div></div><div id="storyCaption" style="padding:12px 16px 8px;font-size:.85rem;color:var(--text2);min-height:40px;"></div><div style="display:flex;gap:.5rem;padding:4px 16px 12px;flex-wrap:wrap;"><button class="btn btn-ghost btn-sm" onclick="reactToStory('❤️')" style="font-size:1.2rem;">❤️</button><button class="btn btn-ghost btn-sm" onclick="reactToStory('😄')" style="font-size:1.2rem;">😄</button><button class="btn btn-ghost btn-sm" onclick="reactToStory('😮')" style="font-size:1.2rem;">😮</button><button class="btn btn-ghost btn-sm" onclick="reactToStory('😢')" style="font-size:1.2rem;">😢</button><button class="btn btn-ghost btn-sm" onclick="reactToStory('😡')" style="font-size:1.2rem;">😡</button><button class="btn btn-ghost btn-sm" onclick="reactToStory('👍')" style="font-size:1.2rem;">👍</button><span style="flex:1;"></span><button class="btn btn-ghost btn-sm" onclick="saveStoryToHighlight()"><i class="fas fa-bookmark"></i></button><button class="btn btn-danger btn-sm" onclick="deleteCurrentStory()"><i class="fas fa-trash"></i></button></div></div></div></div>
-
-    <!-- ─── CREATE ARTICLE MODAL ────────────────────────────────────────── -->
-    <div class="modal-ov hidden" id="createArticleModal"><div class="modal-box modal-box-lg" style="max-width:720px;"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0;">📝 Write Article</h5><button class="btn-icon-sm" onclick="closeModal('createArticleModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Title *</label><input type="text" class="finput" id="articleTitle" placeholder="Catchy title..."></div><div class="form-group"><label class="flabel">Content *</label><div id="articleEditor" style="min-height:300px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);"></div></div><div class="form-group"><label class="flabel">Excerpt (short summary)</label><textarea class="finput" id="articleExcerpt" rows="2" placeholder="Brief summary..."></textarea></div><div class="form-group"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;"><input type="checkbox" id="articleIsPaid" onchange="toggleArticlePaid(this.checked)" style="accent-color:var(--primary);"><label for="articleIsPaid" style="font-size:.82rem;cursor:pointer;">Make this a paid article</label></div><div id="articlePaidFields" style="display:none;"><div class="row"><div class="col-6"><label class="flabel">Price (₦)</label><input type="number" class="finput" id="articlePrice" placeholder="500" min="100" value="500"></div><div class="col-6"><label class="flabel">Preview Content</label><textarea class="finput" id="articlePreview" rows="2" placeholder="First 200 characters or summary..."></textarea></div></div></div></div><div class="form-group"><label class="flabel">Tags (comma separated)</label><input type="text" class="finput" id="articleTags" placeholder="react, javascript, tutorial"></div><div class="form-group"><label class="flabel">Featured Image</label><input type="url" class="finput" id="articleImage" placeholder="https://..."></div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createArticleModal')">Cancel</button><button class="btn btn-ghost" onclick="saveArticleDraft()"><i class="fas fa-save"></i> Save Draft</button><button class="btn btn-primary" onclick="submitArticle()"><i class="fas fa-paper-plane"></i> Submit for Approval</button></div></div></div>
-
     <!-- NOTIFICATION PANEL -->
     <div class="notif-panel" id="notifPanel"><div style="padding:.85rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0"><h6 style="margin:0">Notifications</h6><div style="display:flex;gap:.4rem"><button class="btn btn-ghost btn-sm" style="font-size:.69rem" onclick="markAllRead()">Mark all read</button><button class="btn-icon-sm" onclick="closeNotifPanel()"><i class="fas fa-times"></i></button></div></div><div style="flex:1;overflow-y:auto;padding:.25rem 0" id="notifList"></div></div>
 
@@ -6959,7 +6938,6 @@
                         <li><span class="nav-item" id="nav-challenges" onclick="setDP('challenges')"><span class="nav-ico"><i class="fas fa-trophy"></i></span>Challenges<span class="nav-badge nav-badge-pink" id="navChallengeBadge">0</span></span></li>
                         <li><span class="nav-item" id="nav-people" onclick="setDP('people')"><span class="nav-ico"><i class="fas fa-users"></i></span>People</span></li>
                         <li><span class="nav-item" id="nav-following" onclick="setDP('following')"><span class="nav-ico"><i class="fas fa-rss"></i></span>Following<span class="nav-badge" id="navFollowingBadge">0</span></span></li>
-                        <li class="nav-sec" style="margin-top:.3rem">Community</li>
                         <li><span class="nav-item" id="nav-groups" onclick="setDP('groups')"><span class="nav-ico"><i class="fas fa-users"></i></span>Groups<span class="nav-badge nav-badge-c" id="navGroupsBadge">0</span></span></li>
                         <li class="nav-sec" style="margin-top:.3rem">Learning</li>
                         <li><span class="nav-item" id="nav-home" onclick="setDP('home')"><span class="nav-ico"><i class="fas fa-home"></i></span>Dashboard</span></li>
@@ -7068,6 +7046,59 @@
                     <!-- PROFILE -->
                     <div id="dash-profile" class="dash-sub"><div class="page-hd"><button class="btn btn-ghost btn-sm" onclick="setDP('people')"><i class="fas fa-arrow-left"></i> Back</button></div><div id="profileContent"></div></div>
 
+                    <!-- GROUPS -->
+                    <div id="dash-groups" class="dash-sub" style="display:none;">
+                        <div class="page-hd">
+                            <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;">
+                                <div>
+                                    <h2 class="page-title" style="margin:0;">👥 Study Groups</h2>
+                                    <p class="page-sub" style="margin:0;">Join, create, and collaborate with fellow learners</p>
+                                </div>
+                                <button class="btn btn-primary btn-sm" onclick="openCreateGroupModal()">
+                                    <i class="fas fa-plus"></i> Create Group
+                                </button>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center;">
+                            <div class="search-wrap" style="flex:1;max-width:300px;min-width:150px;">
+                                <i class="fas fa-search search-ico"></i>
+                                <input type="text" class="top-search" id="groupSearch" placeholder="Search groups..." style="padding:.3rem .9rem .3rem 2.1rem;font-size:.78rem;" oninput="filterGroupsList(this.value)">
+                            </div>
+                            <div class="tabs" style="background:var(--bg2);border:1px solid var(--border);padding:.2rem;border-radius:var(--radius-sm);flex-wrap:wrap;">
+                                <button class="tab-btn active" data-filter="all" onclick="filterGroups('all',this)">All</button>
+                                <button class="tab-btn" data-filter="joined" onclick="filterGroups('joined',this)">Joined</button>
+                                <button class="tab-btn" data-filter="public" onclick="filterGroups('public',this)">Public</button>
+                                <button class="tab-btn" data-filter="private" onclick="filterGroups('private',this)">Private</button>
+                            </div>
+                            <button class="btn btn-ghost btn-sm" onclick="loadGroups()" style="min-height:32px;padding:0 .8rem;">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <div id="groupsList" class="row">
+                            <div class="col-12">
+                                <div class="empty-state">
+                                    <i class="fas fa-users" style="font-size:2.5rem;"></i>
+                                    <h4>Loading groups...</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="groupsSentinel" style="height:2px;width:100%;"></div>
+                        <div id="groupsLoadingMore" style="display:none;text-align:center;padding:1rem 0;color:var(--text3);font-size:.82rem;">
+                            <span class="spinner" style="display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:.5rem;"></span>
+                            Loading more groups...
+                        </div>
+                    </div>
+
+                    <!-- GROUP DETAIL -->
+                    <div id="dash-group-detail" class="dash-sub" style="display:none;">
+                        <div class="page-hd">
+                            <button class="btn btn-ghost btn-sm" onclick="setDP('groups')">
+                                <i class="fas fa-arrow-left"></i> Back to Groups
+                            </button>
+                        </div>
+                        <div id="groupDetailContent"></div>
+                    </div>
+
                     <!-- HOME -->
                     <div id="dash-home" class="dash-sub"><div id="homeSkeleton" style="display:none"><div class="skeleton" style="height:120px;margin-bottom:1rem;border-radius:var(--radius)"></div><div class="row"><div class="col-6 col-md-3"><div class="skeleton" style="height:100px;border-radius:var(--radius)"></div></div><div class="col-6 col-md-3"><div class="skeleton" style="height:100px;border-radius:var(--radius)"></div></div></div></div><div id="homeContent"></div></div>
 
@@ -7140,18 +7171,6 @@
                         <div id="articlesList" class="row"></div>
                     </div>
 
-                    <!-- GROUPS -->
-                    <div id="dash-groups" class="dash-sub" style="display:none;">
-                        <div class="page-hd"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;"><div><h2 class="page-title" style="margin:0;">👥 Study Groups</h2><p class="page-sub" style="margin:0;">Join, create, and collaborate with fellow learners</p></div><button class="btn btn-primary btn-sm" onclick="openCreateGroupModal()"><i class="fas fa-plus"></i> Create Group</button></div></div>
-                        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center;"><div class="search-wrap" style="flex:1;max-width:300px;min-width:150px;"><i class="fas fa-search search-ico"></i><input type="text" class="top-search" id="groupSearch" placeholder="Search groups..." style="padding:.3rem .9rem .3rem 2.1rem;font-size:.78rem;" oninput="filterGroupsList(this.value)"></div><div class="tabs" style="background:var(--bg2);border:1px solid var(--border);padding:.2rem;border-radius:var(--radius-sm);flex-wrap:wrap;"><button class="tab-btn active" data-filter="all" onclick="filterGroups('all',this)">All</button><button class="tab-btn" data-filter="joined" onclick="filterGroups('joined',this)">Joined</button><button class="tab-btn" data-filter="public" onclick="filterGroups('public',this)">Public</button><button class="tab-btn" data-filter="private" onclick="filterGroups('private',this)">Private</button></div><button class="btn btn-ghost btn-sm" onclick="loadGroups()" style="min-height:32px;padding:0 .8rem;"><i class="fas fa-sync-alt"></i></button></div>
-                        <div id="groupsList" class="row"><div class="col-12"><div class="empty-state"><i class="fas fa-users" style="font-size:2.5rem;"></i><h4>Loading groups...</h4></div></div></div>
-                        <div id="groupsSentinel" style="height:2px;width:100%;"></div>
-                        <div id="groupsLoadingMore" style="display:none;text-align:center;padding:1rem 0;color:var(--text3);font-size:.82rem;"><span class="spinner" style="display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:.5rem;"></span>Loading more groups...</div>
-                    </div>
-
-                    <!-- GROUP DETAIL -->
-                    <div id="dash-group-detail" class="dash-sub" style="display:none;"><div class="page-hd"><button class="btn btn-ghost btn-sm" onclick="setDP('groups')"><i class="fas fa-arrow-left"></i> Back to Groups</button></div><div id="groupDetailContent"></div></div>
-
                     <!-- SOCIAL EARNINGS -->
                     <div id="dash-social-earnings" class="dash-sub"><div class="page-hd"><h2 class="page-title">🌱 Social Earnings</h2><p class="page-sub">Earn from engagement on your posts</p></div><div class="card card-p mb-3"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;"><div><div style="font-size:.7rem;color:var(--text3);text-transform:uppercase;">Total Earned</div><div style="font-family:var(--font-heading);font-size:2rem;font-weight:800;color:var(--lime);" id="socialTotalEarnings">₦0</div></div><div style="display:flex;gap:1rem;"><div><span style="color:var(--text3);font-size:.7rem;">Posts</span><br><strong id="socialPostCount">0</strong></div><div><span style="color:var(--text3);font-size:.7rem;">Avg per Post</span><br><strong id="socialAvgPerPost">₦0</strong></div></div></div></div><div id="socialPostsList" class="social-posts-grid"></div></div>
 
@@ -7176,6 +7195,184 @@
 
     <!-- FAB -->
     <div class="fab" id="fab" style="display:none"><button onclick="initNewCourse()"><i class="fas fa-plus"></i></button></div>
+
+    <!-- ============================================================ -->
+    <!-- NEW MODALS: STORIES, NEW CONVERSATION, CREATE GROUP, ADD RESOURCE, CREATE EVENT, CREATE SESSION, CREATE MEETING, CREATE ARTICLE, ADD INTERACTIVE, COHORT FORM -->
+    <!-- ============================================================ -->
+
+    <!-- ─── STORY VIEWER MODAL ──────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="storyViewerModal">
+        <div class="modal-box" style="max-width:420px;max-height:90svh;background:var(--bg);">
+            <div class="modal-hd" style="border-bottom-color:rgba(255,255,255,0.1);">
+                <div style="display:flex;align-items:center;gap:.75rem;">
+                    <div class="story-avatar" style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;">U</div>
+                    <div><div style="font-weight:600;font-size:.9rem;" id="storyViewerName">User</div><div style="font-size:.65rem;color:var(--text3);" id="storyViewerTime">Just now</div></div>
+                </div>
+                <button class="btn-icon-sm" onclick="closeStoryViewer()" style="color:var(--text3);"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-bd" style="padding:0;display:flex;flex-direction:column;position:relative;">
+                <div id="storyProgressContainer" style="display:flex;gap:4px;padding:8px 12px;position:absolute;top:0;left:0;right:0;z-index:5;"></div>
+                <div id="storyMediaContainer" class="story-viewer-media">
+                    <div id="storyMediaContent" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;">
+                        <div style="color:var(--text3);font-size:.9rem;">Loading...</div>
+                    </div>
+                    <div class="story-nav-zone left" onclick="navigateStory(-1)"></div>
+                    <div class="story-nav-zone right" onclick="navigateStory(1)"></div>
+                </div>
+                <div id="storyCaption" style="padding:12px 16px 8px;font-size:.85rem;color:var(--text2);min-height:40px;"></div>
+                <div style="display:flex;gap:.5rem;padding:4px 16px 12px;flex-wrap:wrap;">
+                    <button class="btn btn-ghost btn-sm" onclick="reactToStory('❤️')" style="font-size:1.2rem;">❤️</button>
+                    <button class="btn btn-ghost btn-sm" onclick="reactToStory('😄')" style="font-size:1.2rem;">😄</button>
+                    <button class="btn btn-ghost btn-sm" onclick="reactToStory('😮')" style="font-size:1.2rem;">😮</button>
+                    <button class="btn btn-ghost btn-sm" onclick="reactToStory('😢')" style="font-size:1.2rem;">😢</button>
+                    <button class="btn btn-ghost btn-sm" onclick="reactToStory('😡')" style="font-size:1.2rem;">😡</button>
+                    <button class="btn btn-ghost btn-sm" onclick="reactToStory('👍')" style="font-size:1.2rem;">👍</button>
+                    <span style="flex:1;"></span>
+                    <button class="btn btn-ghost btn-sm" onclick="saveStoryToHighlight()"><i class="fas fa-bookmark"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteCurrentStory()"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── CREATE STORY MODAL ──────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="createStoryModal">
+        <div class="modal-box" style="max-width:460px;">
+            <div class="modal-hd"><h5 style="margin:0;">📸 Create Story</h5><button class="btn-icon-sm" onclick="closeModal('createStoryModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Upload Media *</label><div class="upload-zone" style="padding:1.5rem;"><input type="file" id="storyMediaInput" accept="image/*,video/*" onchange="previewStoryMedia(this)" /><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.8rem;color:var(--text2);">Click or drop an image or video</div></div><div id="storyMediaPreview" style="display:none;margin-top:.5rem;"><video id="storyMediaPreviewVideo" controls style="max-width:100%;max-height:300px;border-radius:var(--radius-sm);display:none;"></video><img id="storyMediaPreviewImg" style="max-width:100%;max-height:300px;border-radius:var(--radius-sm);display:none;" /><span class="badge badge-success" style="margin-left:.5rem;">✅ Media selected</span></div></div>
+                <div class="form-group"><label class="flabel">Caption (optional)</label><input type="text" class="finput" id="storyCaptionInput" placeholder="Say something..." maxlength="100" /><div style="font-size:.65rem;color:var(--text3);text-align:right;"><span id="storyCaptionCount">0</span>/100</div></div>
+                <div class="form-group"><label class="flabel">Link (optional)</label><input type="url" class="finput" id="storyLinkInput" placeholder="https://..." /></div>
+                <div style="background:rgba(212,175,55,.05);border:1px solid rgba(212,175,55,.15);border-radius:var(--radius-sm);padding:.65rem;font-size:.78rem;color:var(--text2);margin-bottom:.5rem;"><i class="fas fa-info-circle" style="color:var(--primary);"></i> Stories disappear after 24 hours. You can save them to Highlights.</div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createStoryModal')">Cancel</button><button class="btn btn-primary" onclick="submitStory()"><i class="fas fa-paper-plane"></i> Share Story</button></div>
+        </div>
+    </div>
+
+    <!-- ─── NEW CONVERSATION MODAL ──────────────────────────────────── -->
+    <div class="modal-ov hidden" id="newConversationModal">
+        <div class="modal-box" style="max-width:460px;">
+            <div class="modal-hd"><h5 style="margin:0;">💬 New Conversation</h5><button class="btn-icon-sm" onclick="closeModal('newConversationModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Search User</label><input type="text" class="finput" id="newChatSearch" placeholder="Type name or email..." oninput="searchUsersForChat(this.value)"><div id="newChatResults" style="margin-top:.5rem;max-height:250px;overflow-y:auto;"></div></div>
+                <div class="info-box"><i class="fas fa-info-circle" style="color:var(--primary);"></i>You can only start conversations with users who have opted into messaging.</div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('newConversationModal')">Cancel</button></div>
+        </div>
+    </div>
+
+    <!-- ─── CREATE GROUP MODAL ──────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="createGroupModal">
+        <div class="modal-box" style="max-width:520px;">
+            <div class="modal-hd"><h5 style="margin:0;">👥 Create Group</h5><button class="btn-icon-sm" onclick="closeModal('createGroupModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Group Name *</label><input type="text" class="finput" id="groupName" placeholder="e.g. Web Dev Study Group" maxlength="50" oninput="document.getElementById('groupNameCount').textContent=this.value.length"><div style="font-size:.65rem;color:var(--text3);text-align:right;"><span id="groupNameCount">0</span>/50</div></div>
+                <div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="groupDescription" rows="3" placeholder="What's this group about?"></textarea></div>
+                <div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;"><div class="price-type-opt selected" data-type="public" onclick="selectGroupType('public',this)" style="padding:.75rem;text-align:center;"><div style="font-size:1.5rem;">🌐</div><div style="font-weight:600;font-size:.82rem;">Public</div><div style="font-size:.65rem;color:var(--text3);">Anyone can join</div></div><div class="price-type-opt" data-type="private" onclick="selectGroupType('private',this)" style="padding:.75rem;text-align:center;"><div style="font-size:1.5rem;">🔒</div><div style="font-weight:600;font-size:.82rem;">Private</div><div style="font-size:.65rem;color:var(--text3);">Admin approval required</div></div></div><input type="hidden" id="groupType" value="public"></div>
+                <div class="form-group"><label class="flabel">Group Avatar</label><div class="upload-zone" style="padding:1rem;"><input type="file" id="groupAvatarInput" accept="image/*" onchange="previewGroupAvatar(this)"><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.8rem;color:var(--text2);">Upload a group avatar (optional)</div></div><div id="groupAvatarPreview" style="display:none;margin-top:.5rem;"><div style="display:flex;align-items:center;gap:.5rem;"><img id="groupAvatarPreviewImg" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--border);object-fit:cover;"><span class="badge badge-success">✅ Uploaded</span><button class="btn-icon-sm" onclick="removeGroupAvatar()" style="color:var(--danger);"><i class="fas fa-times"></i></button></div></div><input type="hidden" id="groupAvatarUrl"></div>
+                <div class="info-box"><i class="fas fa-info-circle" style="color:var(--primary);"></i>Groups are a great way to collaborate with fellow learners. Share resources, schedule study sessions, and learn together.</div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createGroupModal')">Cancel</button><button class="btn btn-primary" onclick="createGroup()"><i class="fas fa-plus"></i> Create Group</button></div>
+        </div>
+    </div>
+
+    <!-- ─── ADD RESOURCE MODAL ──────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="addResourceModal">
+        <div class="modal-box" style="max-width:480px;">
+            <div class="modal-hd"><h5 style="margin:0;">📎 Add Resource</h5><button class="btn-icon-sm" onclick="closeModal('addResourceModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Title *</label><input type="text" class="finput" id="resourceTitle" placeholder="e.g. JavaScript Cheat Sheet"></div>
+                <div class="form-group"><label class="flabel">URL *</label><input type="url" class="finput" id="resourceUrl" placeholder="https://..."></div>
+                <div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;"><div class="price-type-opt selected" data-type="link" onclick="selectResourceType('link',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🔗 Link</div><div class="price-type-opt" data-type="pdf" onclick="selectResourceType('pdf',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📄 PDF</div><div class="price-type-opt" data-type="code" onclick="selectResourceType('code',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">💻 Code</div><div class="price-type-opt" data-type="image" onclick="selectResourceType('image',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🖼️ Image</div><div class="price-type-opt" data-type="video" onclick="selectResourceType('video',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎬 Video</div><div class="price-type-opt" data-type="other" onclick="selectResourceType('other',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📦 Other</div></div><input type="hidden" id="resourceType" value="link"></div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('addResourceModal')">Cancel</button><button class="btn btn-primary" onclick="addResource()"><i class="fas fa-plus"></i> Add Resource</button></div>
+        </div>
+    </div>
+
+    <!-- ─── CREATE EVENT MODAL ──────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="createEventModal">
+        <div class="modal-box" style="max-width:480px;">
+            <div class="modal-hd"><h5 style="margin:0;">📅 Create Event</h5><button class="btn-icon-sm" onclick="closeModal('createEventModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Event Title *</label><input type="text" class="finput" id="eventTitle" placeholder="e.g. Weekly Study Session"></div>
+                <div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="eventDescription" rows="2" placeholder="What's this event about?"></textarea></div>
+                <div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;"><div class="price-type-opt selected" data-type="voice_chat" onclick="selectEventType('voice_chat',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎤 Voice Chat</div><div class="price-type-opt" data-type="coding_session" onclick="selectEventType('coding_session',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">💻 Coding Session</div><div class="price-type-opt" data-type="study_meet" onclick="selectEventType('study_meet',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📚 Study Meet</div><div class="price-type-opt" data-type="webinar" onclick="selectEventType('webinar',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎓 Webinar</div></div><input type="hidden" id="eventType" value="voice_chat"></div>
+                <div class="row"><div class="col-6"><div class="form-group"><label class="flabel">Start Time *</label><input type="datetime-local" class="finput" id="eventStart"></div></div><div class="col-6"><div class="form-group"><label class="flabel">End Time *</label><input type="datetime-local" class="finput" id="eventEnd"></div></div></div>
+                <div class="form-group"><label class="flabel">Meeting URL (optional)</label><input type="url" class="finput" id="eventMeetingUrl" placeholder="https://meet.google.com/..."></div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createEventModal')">Cancel</button><button class="btn btn-primary" onclick="createEvent()"><i class="fas fa-plus"></i> Create Event</button></div>
+        </div>
+    </div>
+
+    <!-- ─── CREATE SESSION MODAL ────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="createSessionModal">
+        <div class="modal-box" style="max-width:500px;">
+            <div class="modal-hd"><h5 style="margin:0;">🎬 Create Live Session</h5><button class="btn-icon-sm" onclick="closeModal('createSessionModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Title *</label><input type="text" class="finput" id="sessionTitle" placeholder="e.g. AI Masterclass"></div>
+                <div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="sessionDescription" rows="3" placeholder="What will you cover?"></textarea></div>
+                <div class="form-group"><label class="flabel">Type</label><select class="finput" id="sessionType"><option value="webinar">🎓 Webinar</option><option value="office_hours">👨‍🏫 Office Hours</option><option value="one_on_one">🤝 One-on-One</option></select></div>
+                <div class="row"><div class="col-6"><div class="form-group"><label class="flabel">Start Time *</label><input type="datetime-local" class="finput" id="sessionStart"></div></div><div class="col-6"><div class="form-group"><label class="flabel">End Time *</label><input type="datetime-local" class="finput" id="sessionEnd"></div></div></div>
+                <div class="row"><div class="col-6"><div class="form-group"><label class="flabel">Price (₦)</label><input type="number" class="finput" id="sessionPrice" placeholder="0" min="0" value="0"></div></div><div class="col-6"><div class="form-group"><label class="flabel">Max Attendees</label><input type="number" class="finput" id="sessionMaxAttendees" placeholder="100" min="1" value="100"></div></div></div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createSessionModal')">Cancel</button><button class="btn btn-primary" onclick="createLiveSession()"><i class="fas fa-plus"></i> Create</button></div>
+        </div>
+    </div>
+
+    <!-- ─── CREATE MEETING MODAL ────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="createMeetingModal">
+        <div class="modal-box" style="max-width:480px;">
+            <div class="modal-hd"><h5 style="margin:0;">📅 Schedule Meeting</h5><button class="btn-icon-sm" onclick="closeModal('createMeetingModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Meeting Title *</label><input type="text" class="finput" id="meetingTitle" placeholder="e.g. Mentoring Session"></div>
+                <div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="meetingDescription" rows="2"></textarea></div>
+                <div class="form-group"><label class="flabel">Start Time *</label><input type="datetime-local" class="finput" id="meetingStart"></div>
+                <div class="form-group"><label class="flabel">Duration (mins)</label><input type="number" class="finput" id="meetingDuration" placeholder="30" min="5" value="30"></div>
+                <div class="form-group"><label class="flabel">Price (₦)</label><input type="number" class="finput" id="meetingPrice" placeholder="0" min="0" value="0"></div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createMeetingModal')">Cancel</button><button class="btn btn-primary" onclick="createMeeting()"><i class="fas fa-plus"></i> Schedule</button></div>
+        </div>
+    </div>
+
+    <!-- ─── CREATE ARTICLE MODAL ────────────────────────────────────── -->
+    <div class="modal-ov hidden" id="createArticleModal">
+        <div class="modal-box modal-box-lg" style="max-width:720px;">
+            <div class="modal-hd"><h5 style="margin:0;">📝 Write Article</h5><button class="btn-icon-sm" onclick="closeModal('createArticleModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Title *</label><input type="text" class="finput" id="articleTitle" placeholder="Catchy title..."></div>
+                <div class="form-group"><label class="flabel">Content *</label><div id="articleEditor" style="min-height:300px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);"></div></div>
+                <div class="form-group"><label class="flabel">Excerpt (short summary)</label><textarea class="finput" id="articleExcerpt" rows="2" placeholder="Brief summary..."></textarea></div>
+                <div class="form-group"><div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem;"><input type="checkbox" id="articleIsPaid" onchange="toggleArticlePaid(this.checked)" style="accent-color:var(--primary);"><label for="articleIsPaid" style="font-size:.82rem;cursor:pointer;">Make this a paid article</label></div><div id="articlePaidFields" style="display:none;"><div class="row"><div class="col-6"><label class="flabel">Price (₦)</label><input type="number" class="finput" id="articlePrice" placeholder="500" min="100" value="500"></div><div class="col-6"><label class="flabel">Preview Content</label><textarea class="finput" id="articlePreview" rows="2" placeholder="First 200 characters or summary..."></textarea></div></div></div></div>
+                <div class="form-group"><label class="flabel">Tags (comma separated)</label><input type="text" class="finput" id="articleTags" placeholder="react, javascript, tutorial"></div>
+                <div class="form-group"><label class="flabel">Featured Image</label><input type="url" class="finput" id="articleImage" placeholder="https://..."></div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createArticleModal')">Cancel</button><button class="btn btn-ghost" onclick="saveArticleDraft()"><i class="fas fa-save"></i> Save Draft</button><button class="btn btn-primary" onclick="submitArticle()"><i class="fas fa-paper-plane"></i> Submit for Approval</button></div>
+        </div>
+    </div>
+
+    <!-- ─── ADD INTERACTIVE MATERIAL MODAL ──────────────────────────── -->
+    <div class="modal-ov hidden" id="addInteractiveModal">
+        <div class="modal-box" style="max-width:500px;">
+            <div class="modal-hd"><h5 style="margin:0;">⚡ Add Interactive Material</h5><button class="btn-icon-sm" onclick="closeModal('addInteractiveModal')"><i class="fas fa-times"></i></button></div>
+            <div class="modal-bd">
+                <div class="form-group"><label class="flabel">Type</label><select class="finput" id="interactiveType"><option value="code_editor">💻 Code Editor</option><option value="calculator">🧮 Calculator</option><option value="quiz">📝 Quiz</option><option value="diagram">📊 Diagram</option><option value="simulation">🎮 Simulation</option></select></div>
+                <div id="interactiveConfigFields">
+                    <div id="intConfig_code_editor"><div class="form-group"><label class="flabel">HTML</label><textarea class="finput" id="intHtml" rows="3" placeholder="<h1>Hello</h1>"></textarea></div><div class="form-group"><label class="flabel">CSS</label><textarea class="finput" id="intCss" rows="3" placeholder="h1 { color: blue; }"></textarea></div><div class="form-group"><label class="flabel">JavaScript</label><textarea class="finput" id="intJs" rows="3" placeholder="console.log('Hello');"></textarea></div></div>
+                    <div id="intConfig_calculator" style="display:none;"><div class="form-group"><label class="flabel">Theme</label><select class="finput" id="intCalcTheme"><option value="dark">Dark</option><option value="light">Light</option></select></div></div>
+                    <div id="intConfig_quiz" style="display:none;"><div class="form-group"><label class="flabel">Question</label><input type="text" class="finput" id="intQuizQ" placeholder="What is 2+2?"></div><div class="form-group"><label class="flabel">Options (comma separated)</label><input type="text" class="finput" id="intQuizOpts" placeholder="4, 3, 5, 6"></div><div class="form-group"><label class="flabel">Correct Answer (index)</label><input type="number" class="finput" id="intQuizAns" placeholder="0" min="0"></div></div>
+                    <div id="intConfig_diagram" style="display:none;"><div class="form-group"><label class="flabel">Diagram Type</label><select class="finput" id="intDiagramType"><option value="flowchart">Flowchart</option><option value="mindmap">Mind Map</option></select></div><div class="form-group"><label class="flabel">Code</label><textarea class="finput" id="intDiagramCode" rows="4" placeholder="A -> B -> C"></textarea></div></div>
+                    <div id="intConfig_simulation" style="display:none;"><div class="form-group"><label class="flabel">Simulation Type</label><select class="finput" id="intSimType"><option value="physics">Physics</option><option value="math">Math</option></select></div></div>
+                </div>
+            </div>
+            <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('addInteractiveModal')">Cancel</button><button class="btn btn-primary" onclick="confirmAddInteractive()"><i class="fas fa-plus"></i> Add</button></div>
+        </div>
+    </div>
+
+    <!-- ─── COHORT FORM CONTAINER (embedded in Instructor Hub) ──────── -->
+    <!-- Already inside dash-instructor above -->
+
+    <!-- ─── GROUP DETAIL SUB-SECTION ────────────────────────────────── -->
+    <!-- Already inside dash-group-detail above -->
 
     <!-- ============================================================ -->
     <!-- JAVASCRIPT – PRODUCTION READY WITH ALL ENHANCEMENTS          -->
@@ -7585,12 +7782,6 @@
             interactiveEditMode: false,
             // ─── New state for cohorts ──────────────────────────────
             editingCohortId: null,
-            // ─── New state for groups list ──────────────────────────
-            groups: [],
-            groupsPage: 1,
-            groupsHasMore: true,
-            groupsIsLoading: false,
-            groupsSearchTerm: '',
         };
 
         // ================================================================
@@ -8661,33 +8852,6 @@
                         }, 2000);
                     }
                 });
-                // ─── Group Socket Events ────────────────────────────────────
-                socket.on('group_member_joined', (data) => {
-                    toast(`👥 ${data.userName} joined ${data.groupName}`, 'info');
-                    if (S.currentGroupId === data.groupId) {
-                        loadGroupMembers(data.groupId);
-                    }
-                    if (S.dp === 'groups') loadGroups();
-                });
-                socket.on('group_member_left', (data) => {
-                    toast(`👥 ${data.userName} left ${data.groupName}`, 'info');
-                    if (S.currentGroupId === data.groupId) {
-                        loadGroupMembers(data.groupId);
-                    }
-                    if (S.dp === 'groups') loadGroups();
-                });
-                socket.on('group_resource_added', (data) => {
-                    toast(`📎 New resource added to ${data.groupName}`, 'info');
-                    if (S.currentGroupId === data.groupId) {
-                        loadGroupResources(data.groupId);
-                    }
-                });
-                socket.on('group_event_created', (data) => {
-                    toast(`📅 New event in ${data.groupName}: ${data.title}`, 'info');
-                    if (S.currentGroupId === data.groupId) {
-                        loadGroupEvents(data.groupId);
-                    }
-                });
             } catch (e) { console.warn('Socket init failed:', e.message); }
         }
 
@@ -9159,7 +9323,6 @@
             }
             const storiesBadge = document.getElementById('storiesBadge');
             if (storiesBadge) {
-                // Count unviewed stories
                 let count = 0;
                 try {
                     const storiesData = JSON.parse(sessionStorage.getItem('storiesData') || '{}');
@@ -9178,11 +9341,6 @@
                     count = articles.filter(a => a.status === 'pending').length;
                 } catch (e) {}
                 articlesBadge.textContent = count || 0;
-            }
-            const groupsBadge = document.getElementById('navGroupsBadge');
-            if (groupsBadge) {
-                const count = S.groups.filter(g => g.isMember).length || 0;
-                groupsBadge.textContent = count;
             }
         }
 
@@ -11803,7 +11961,7 @@
             if (navInd) navInd.textContent = `${S.currentLessonIdx + 1} of ${total}`;
             S.lessonStartTime = Date.now();
             updateLessonInfo();
-            const currentLesson = lessons[S.currentLessonIdx];
+            const currentLesson = S.currentLessons[S.currentLessonIdx];
             if (currentLesson && currentLesson._id) loadInteractiveMaterials(currentLesson._id);
             if (S.currentCourseData?.ratings) {
                 document.getElementById('courseRatingsContainer').innerHTML = renderCourseRatings(S.currentCourseData.ratings);
@@ -15432,6 +15590,13 @@
             }
         }
 
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'storyCaptionInput') {
+                const count = e.target.value.length;
+                document.getElementById('storyCaptionCount').textContent = count;
+            }
+        });
+
         // ================================================================
         // MESSAGES MODULE
         // ================================================================
@@ -15772,6 +15937,21 @@
             loadGroups();
         }
 
+        function filterGroupsList(value) {
+            const container = document.getElementById('groupsList');
+            if (!container) return;
+            const cards = container.querySelectorAll('.group-card');
+            const term = value.toLowerCase().trim();
+            cards.forEach(card => {
+                const parent = card.closest('.col-12');
+                if (!parent) return;
+                const name = card.querySelector('[style*="font-weight:700"]')?.textContent || '';
+                const desc = card.querySelector('p')?.textContent || '';
+                const match = name.toLowerCase().includes(term) || desc.toLowerCase().includes(term);
+                parent.style.display = match ? '' : 'none';
+            });
+        }
+
         function renderGroups(groups) {
             const container = document.getElementById('groupsList');
             if (!container) return;
@@ -15779,11 +15959,11 @@
             if (!groups.length) {
                 container.innerHTML = `
                     <div class="col-12">
-                        <div class="empty-state" style="padding:2rem 0;">
-                            <i class="fas fa-users" style="font-size:2.5rem;"></i>
+                        <div class="groups-empty">
+                            <i class="fas fa-users"></i>
                             <h4>No groups found</h4>
                             <p>${groupFilter === 'all' ? 'Create a group or join an existing one!' : 'No groups match your filter.'}</p>
-                            ${groupFilter === 'all' ? '<button class="btn btn-primary btn-sm" onclick="openCreateGroupModal()"><i class="fas fa-plus"></i> Create Group</button>' : ''}
+                            ${groupFilter === 'all' ? `<button class="btn btn-primary btn-sm" onclick="openCreateGroupModal()"><i class="fas fa-plus"></i> Create Group</button>` : ''}
                         </div>
                     </div>
                 `;
@@ -15792,16 +15972,16 @@
 
             container.innerHTML = groups.map(g => `
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="group-card" onclick="openGroup('${g._id}')" style="cursor:pointer;height:100%;display:flex;flex-direction:column;">
+                    <div class="group-card" onclick="openGroup('${g._id}')">
                         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;">
                             <div class="group-avatar">
                                 ${g.avatar ? `<img src="${g.avatar}" alt="${escapeHtml(g.name)}">` : '👥'}
                             </div>
                             <div style="flex:1;min-width:0;">
                                 <div style="font-weight:700;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(g.name)}</div>
-                                <div style="font-size:.7rem;color:var(--text3);">
-                                    <span><i class="fas fa-user"></i> ${g.memberCount || 0} members</span>
-                                    <span style="margin-left:.5rem;"><span class="badge ${g.type === 'public' ? 'badge-cyan' : 'badge-gold'}" style="font-size:.55rem;">${g.type}</span></span>
+                                <div style="font-size:.7rem;color:var(--text3);display:flex;gap:.5rem;flex-wrap:wrap;">
+                                    <span><i class="fas fa-user"></i> ${g.memberCount || 0}</span>
+                                    <span class="badge ${g.type === 'public' ? 'badge-cyan' : 'badge-gold'}" style="font-size:.55rem;padding:.05rem .5rem;">${g.type}</span>
                                 </div>
                             </div>
                         </div>
@@ -15821,6 +16001,13 @@
                     </div>
                 </div>
             `).join('');
+
+            // Update badge count
+            const badge = document.getElementById('navGroupsBadge');
+            if (badge) {
+                const joined = groups.filter(g => g.isMember).length;
+                badge.textContent = joined || 0;
+            }
         }
 
         async function openGroup(groupId) {
@@ -15884,15 +16071,15 @@
                     <div id="groupTab-posts" class="group-tab-content active">
                         <div class="empty-state"><i class="fas fa-file-alt"></i><h4>No posts yet</h4><p>Be the first to post in this group!</p></div>
                     </div>
-                    <div id="groupTab-resources" class="group-tab-content">
+                    <div id="groupTab-resources" class="group-tab-content" style="display:none;">
                         ${isMember ? `<button class="btn btn-primary btn-sm mb-3" onclick="openAddResourceModal()"><i class="fas fa-plus"></i> Add Resource</button>` : ''}
                         <div id="groupResourcesList"></div>
                     </div>
-                    <div id="groupTab-events" class="group-tab-content">
+                    <div id="groupTab-events" class="group-tab-content" style="display:none;">
                         ${isMember ? `<button class="btn btn-primary btn-sm mb-3" onclick="openCreateEventModal()"><i class="fas fa-plus"></i> Create Event</button>` : ''}
                         <div id="groupEventsList"></div>
                     </div>
-                    <div id="groupTab-members" class="group-tab-content">
+                    <div id="groupTab-members" class="group-tab-content" style="display:none;">
                         <div id="groupMembersList"></div>
                     </div>
                 </div>
@@ -15941,7 +16128,16 @@
             document.getElementById('groupType').value = 'public';
             document.getElementById('groupAvatarPreview').style.display = 'none';
             document.getElementById('groupAvatarInput').value = '';
+            document.getElementById('groupNameCount').textContent = '0';
+            document.querySelectorAll('#createGroupModal .price-type-opt').forEach(el => el.classList.remove('selected'));
+            document.querySelector('#createGroupModal .price-type-opt[data-type="public"]').classList.add('selected');
             openModal('createGroupModal');
+        }
+
+        function selectGroupType(type, el) {
+            document.querySelectorAll('#createGroupModal .price-type-opt').forEach(opt => opt.classList.remove('selected'));
+            if (el) el.classList.add('selected');
+            document.getElementById('groupType').value = type;
         }
 
         function previewGroupAvatar(input) {
@@ -15958,25 +16154,6 @@
             groupAvatarFile = null;
             document.getElementById('groupAvatarPreview').style.display = 'none';
             document.getElementById('groupAvatarInput').value = '';
-            document.getElementById('groupAvatarUrl').value = '';
-        }
-
-        function selectGroupType(type, el) {
-            document.querySelectorAll('#createGroupModal .price-type-opt').forEach(o => o.classList.remove('selected'));
-            if (el) el.classList.add('selected');
-            document.getElementById('groupType').value = type;
-        }
-
-        function selectResourceType(type, el) {
-            document.querySelectorAll('#addResourceModal .price-type-opt').forEach(o => o.classList.remove('selected'));
-            if (el) el.classList.add('selected');
-            document.getElementById('resourceType').value = type;
-        }
-
-        function selectEventType(type, el) {
-            document.querySelectorAll('#createEventModal .price-type-opt').forEach(o => o.classList.remove('selected'));
-            if (el) el.classList.add('selected');
-            document.getElementById('eventType').value = type;
         }
 
         async function createGroup() {
@@ -16047,12 +16224,13 @@
                     <div class="resource-item">
                         <span class="res-icon">${r.type === 'pdf' ? '📄' : r.type === 'code' ? '💻' : r.type === 'image' ? '🖼️' : r.type === 'video' ? '🎬' : '🔗'}</span>
                         <span class="res-title"><a href="${r.url}" target="_blank">${escapeHtml(r.title)}</a></span>
-                        <span class="res-meta">by ${r.addedBy?.firstName || 'User'} ${new Date(r.createdAt).toLocaleDateString()}</span>
-                        ${r.addedBy?._id === S.user._id ? `<button class="btn-icon-sm" onclick="deleteResource('${r._id}')" style="color:var(--danger);"><i class="fas fa-times"></i></button>` : ''}
+                        <span class="res-meta">by ${r.addedBy?.firstName || 'User'} ${r.addedBy?.lastName || ''}</span>
+                        ${r.addedBy?._id === S.user._id || r.addedBy === S.user._id ? `<button class="btn-icon-sm" onclick="deleteResource('${r._id}')" style="color:var(--danger);"><i class="fas fa-times"></i></button>` : ''}
                     </div>
                 `).join('');
             } catch (err) {
                 console.warn('Failed to load resources:', err);
+                if (container) container.innerHTML = '<div class="empty-state"><p>Failed to load resources</p></div>';
             }
         }
 
@@ -16060,7 +16238,15 @@
             document.getElementById('resourceTitle').value = '';
             document.getElementById('resourceUrl').value = '';
             document.getElementById('resourceType').value = 'link';
+            document.querySelectorAll('#addResourceModal .price-type-opt').forEach(el => el.classList.remove('selected'));
+            document.querySelector('#addResourceModal .price-type-opt[data-type="link"]').classList.add('selected');
             openModal('addResourceModal');
+        }
+
+        function selectResourceType(type, el) {
+            document.querySelectorAll('#addResourceModal .price-type-opt').forEach(opt => opt.classList.remove('selected'));
+            if (el) el.classList.add('selected');
+            document.getElementById('resourceType').value = type;
         }
 
         async function addResource() {
@@ -16129,6 +16315,7 @@
                 }).join('');
             } catch (err) {
                 console.warn('Failed to load events:', err);
+                if (container) container.innerHTML = '<div class="empty-state"><p>Failed to load events</p></div>';
             }
         }
 
@@ -16139,7 +16326,15 @@
             document.getElementById('eventStart').value = '';
             document.getElementById('eventEnd').value = '';
             document.getElementById('eventMeetingUrl').value = '';
+            document.querySelectorAll('#createEventModal .price-type-opt').forEach(el => el.classList.remove('selected'));
+            document.querySelector('#createEventModal .price-type-opt[data-type="voice_chat"]').classList.add('selected');
             openModal('createEventModal');
+        }
+
+        function selectEventType(type, el) {
+            document.querySelectorAll('#createEventModal .price-type-opt').forEach(opt => opt.classList.remove('selected'));
+            if (el) el.classList.add('selected');
+            document.getElementById('eventType').value = type;
         }
 
         async function createEvent() {
@@ -16187,17 +16382,23 @@
                     container.innerHTML = '<div class="empty-state"><p>No members yet</p></div>';
                     return;
                 }
-                container.innerHTML = members.map(m => `
-                    <div class="member-item">
-                        <div class="member-avatar">
-                            ${getAvatarUrl(m.userId) ? `<img src="${getAvatarUrl(m.userId)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : (m.userId?.firstName?.[0] || 'U')}
+                container.innerHTML = members.map(m => {
+                    const user = m.userId || {};
+                    const avatarUrl = getAvatarUrl(user);
+                    const initial = (user.firstName?.[0] || 'U') + (user.lastName?.[0] || '');
+                    return `
+                        <div class="member-item" onclick="openUserProfile('${user._id}')">
+                            <div class="member-avatar">
+                                ${avatarUrl ? `<img src="${avatarUrl}" alt="${initial}">` : initial}
+                            </div>
+                            <div class="member-name">${escapeHtml(user.firstName || 'User')} ${escapeHtml(user.lastName || '')}</div>
+                            <span class="member-role ${m.role || 'member'}">${m.role || 'member'}</span>
                         </div>
-                        <span class="member-name">${escapeHtml(m.userId?.firstName || 'User')} ${escapeHtml(m.userId?.lastName || '')}</span>
-                        <span class="member-role ${m.role || 'member'}">${m.role || 'member'}</span>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
             } catch (err) {
                 console.warn('Failed to load members:', err);
+                if (container) container.innerHTML = '<div class="empty-state"><p>Failed to load members</p></div>';
             }
         }
 
@@ -16391,46 +16592,66 @@
         function openCohortForm(cohortId = null) {
             const container = document.getElementById('cohortFormContainer');
             if (!container) {
-                const instructorHub = document.getElementById('inst-tab-cohorts');
-                if (instructorHub) {
+                // Create container if not exists
+                const instructorTab = document.getElementById('inst-tab-cohorts');
+                if (instructorTab) {
                     const formContainer = document.createElement('div');
                     formContainer.id = 'cohortFormContainer';
                     formContainer.style.display = 'block';
-                    formContainer.style.marginBottom = '1rem';
                     formContainer.innerHTML = `
-                        <div class="card card-p">
-                            <div class="d-flex items-center justify-between mb-3">
-                                <h6 id="cohortFormTitle">📚 Create New Cohort</h6>
-                                <button class="btn btn-ghost btn-sm" onclick="closeCohortForm()"><i class="fas fa-times"></i></button>
-                            </div>
+                        <div class="card card-p mb-3">
+                            <h5 id="cohortFormTitle">📚 Create New Cohort</h5>
                             <div class="row">
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group"><label class="flabel">Cohort Name *</label><input type="text" class="finput" id="cohortName" placeholder="e.g. JS Mastery Cohort 2025"></div>
+                                    <div class="form-group">
+                                        <label class="flabel">Cohort Name *</label>
+                                        <input type="text" class="finput" id="cohortName" placeholder="e.g. Cohort 2025-01">
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <div class="form-group"><label class="flabel">Course *</label><select class="finput" id="cohortCourse"><option value="">Select Course</option></select></div>
+                                    <div class="form-group">
+                                        <label class="flabel">Course *</label>
+                                        <select class="finput" id="cohortCourse">
+                                            <option value="">Select Course</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <div class="form-group"><label class="flabel">Start Date *</label><input type="date" class="finput" id="cohortStart"></div>
+                                    <div class="form-group">
+                                        <label class="flabel">Start Date *</label>
+                                        <input type="date" class="finput" id="cohortStart">
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div class="form-group"><label class="flabel">End Date *</label><input type="date" class="finput" id="cohortEnd"></div>
+                                    <div class="form-group">
+                                        <label class="flabel">End Date *</label>
+                                        <input type="date" class="finput" id="cohortEnd">
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <div class="form-group"><label class="flabel">Capacity</label><input type="number" class="finput" id="cohortCapacity" placeholder="Max students (0 = unlimited)" min="0" value="0"></div>
+                                    <div class="form-group">
+                                        <label class="flabel">Capacity</label>
+                                        <input type="number" class="finput" id="cohortCapacity" placeholder="Unlimited" min="1">
+                                    </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" onclick="saveCohort()"><i class="fas fa-save"></i> <span id="cohortSaveBtnText">Create Cohort</span></button>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-ghost" onclick="closeCohortForm()">Cancel</button>
+                                <button class="btn btn-primary" onclick="saveCohort()"><i class="fas fa-save"></i> <span id="cohortSaveBtnText">Create Cohort</span></button>
+                            </div>
                         </div>
                     `;
-                    instructorHub.prepend(formContainer);
+                    instructorTab.insertBefore(formContainer, instructorTab.querySelector('#cohortList'));
                 }
             }
 
             const container = document.getElementById('cohortFormContainer');
-            if (!container) return;
+            if (!container) {
+                toast('Error loading cohort form', 'error');
+                return;
+            }
             container.style.display = 'block';
 
             populateCohortCourses();
@@ -16467,10 +16688,12 @@
                 const res = await apiCall('/instructor/dashboard');
                 const courses = res.data?.courses || [];
                 const select = document.getElementById('cohortCourse');
-                select.innerHTML = `
-                    <option value="">Select Course</option>
-                    ${courses.map(c => `<option value="${c._id}">${escapeHtml(c.title)}</option>`).join('')}
-                `;
+                if (select) {
+                    select.innerHTML = `
+                        <option value="">Select Course</option>
+                        ${courses.map(c => `<option value="${c._id}">${escapeHtml(c.title)}</option>`).join('')}
+                    `;
+                }
             } catch (err) {
                 console.warn('Could not load courses:', err);
             }
@@ -17300,11 +17523,6 @@
         window.submitArticle = submitArticle;
         window.approveArticle = approveArticle;
         window.rejectArticle = rejectArticle;
-        window.selectGroupType = selectGroupType;
-        window.selectResourceType = selectResourceType;
-        window.selectEventType = selectEventType;
-        window.removeGroupAvatar = removeGroupAvatar;
-        window.closeCohortForm = closeCohortForm;
     </script>
 </body>
 </html>
