@@ -162,6 +162,8 @@
             width: 100%;
             max-width: 100%;
             position: relative;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
         }
         body::before {
             content: '';
@@ -828,6 +830,27 @@
             background: rgba(212, 175, 55, .12);
             color: var(--primary);
             border: 1px solid rgba(212, 175, 55, .2);
+        }
+        .badge-achievement {
+            background: linear-gradient(135deg, rgba(212, 175, 55, .2), rgba(251, 146, 60, .1));
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, .3);
+            font-size: .6rem;
+        }
+        .badge-achievement i {
+            font-size: .7rem;
+            margin-right: .2rem;
+        }
+        .badge-earned {
+            background: rgba(52, 211, 153, .1);
+            color: var(--success);
+            border: 1px solid rgba(52, 211, 153, .2);
+        }
+        .badge-locked {
+            background: rgba(128, 128, 128, .05);
+            color: var(--text3);
+            border: 1px solid var(--border);
+            opacity: .5;
         }
         .card {
             background: var(--card);
@@ -6812,6 +6835,354 @@
                 font-size: .6rem;
             }
         }
+
+        /* ─── CHAT BUBBLE REFINEMENTS ───────────────────────────────── */
+        .message-bubble {
+            border-radius: var(--chat-bubble-radius);
+            padding: .65rem .85rem;
+            word-wrap: break-word;
+            max-width: 85%;
+            position: relative;
+            transition: all .2s ease;
+        }
+        .message-bubble.sent {
+            background: var(--primary);
+            color: #000;
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+        .message-bubble.received {
+            background: var(--bg2);
+            color: var(--text);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        .message-bubble .bubble-time {
+            font-size: .55rem;
+            color: rgba(255, 255, 255, .6);
+            margin-top: .2rem;
+            display: flex;
+            align-items: center;
+            gap: .2rem;
+            justify-content: flex-end;
+        }
+        .message-bubble.sent .bubble-time {
+            color: rgba(0, 0, 0, .5);
+        }
+        .message-bubble .read-receipt {
+            font-size: .5rem;
+            margin-left: .2rem;
+        }
+        .message-bubble .read-receipt.delivered {
+            color: rgba(255, 255, 255, .6);
+        }
+        .message-bubble .read-receipt.read {
+            color: var(--success);
+        }
+        .message-bubble.sent .read-receipt.delivered {
+            color: rgba(0, 0, 0, .4);
+        }
+        .message-bubble.sent .read-receipt.read {
+            color: var(--success);
+        }
+        .typing-indicator {
+            display: flex;
+            gap: .2rem;
+            padding: .6rem .85rem;
+            background: var(--bg2);
+            border-radius: var(--chat-bubble-radius);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+            min-width: 50px;
+        }
+        .typing-indicator .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text3);
+            animation: typingBounce 1.2s infinite ease-in-out;
+        }
+        .typing-indicator .dot:nth-child(2) {
+            animation-delay: .2s;
+        }
+        .typing-indicator .dot:nth-child(3) {
+            animation-delay: .4s;
+        }
+        @keyframes typingBounce {
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: .4;
+            }
+            30% {
+                transform: translateY(-6px);
+                opacity: 1;
+            }
+        }
+
+        /* ─── VOICE MESSAGE WAVEFORM ────────────────────────────────── */
+        .voice-waveform {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 24px;
+            min-width: 120px;
+        }
+        .voice-waveform .wave-bar {
+            width: 4px;
+            background: var(--text3);
+            border-radius: 2px;
+            transition: background .2s, height .2s;
+            height: 6px;
+        }
+        .voice-waveform .wave-bar.active {
+            background: var(--primary);
+        }
+        .voice-waveform .wave-bar.playing {
+            background: var(--primary);
+            animation: wavePulse .5s ease alternate infinite;
+        }
+        @keyframes wavePulse {
+            0% {
+                height: 4px;
+            }
+            100% {
+                height: 20px;
+            }
+        }
+
+        /* ─── UNIFIED ACTIVITY THREAD ────────────────────────────────── */
+        .activity-item {
+            display: flex;
+            gap: .75rem;
+            padding: .75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background .15s;
+        }
+        .activity-item:hover {
+            background: rgba(128, 128, 128, .04);
+        }
+        .activity-item .act-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .9rem;
+            color: #000;
+        }
+        .activity-item .act-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .activity-item .act-body {
+            flex: 1;
+            min-width: 0;
+        }
+        .activity-item .act-body .act-text {
+            font-size: .84rem;
+            color: var(--text2);
+        }
+        .activity-item .act-body .act-text strong {
+            color: var(--text);
+        }
+        .activity-item .act-body .act-meta {
+            font-size: .68rem;
+            color: var(--text3);
+            margin-top: .2rem;
+        }
+        .activity-item .act-body .act-preview {
+            font-size: .78rem;
+            color: var(--text3);
+            margin-top: .2rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .activity-item .act-badge {
+            font-size: .55rem;
+            padding: .05rem .5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            background: rgba(212, 175, 55, .12);
+            color: var(--primary);
+            border: 1px solid rgba(212, 175, 55, .2);
+        }
+        .activity-item .act-badge.story {
+            background: rgba(212, 175, 55, .1);
+            color: var(--gold);
+            border-color: rgba(212, 175, 55, .2);
+        }
+        .activity-item .act-badge.message {
+            background: rgba(212, 175, 55, .08);
+            color: var(--primary);
+            border-color: rgba(212, 175, 55, .15);
+        }
+        .activity-item .act-badge.group {
+            background: rgba(34, 211, 238, .1);
+            color: var(--cyan);
+            border-color: rgba(34, 211, 238, .2);
+        }
+        .activity-item .act-badge.milestone {
+            background: rgba(52, 211, 153, .1);
+            color: var(--success);
+            border-color: rgba(52, 211, 153, .2);
+        }
+
+        /* ─── COHORT-DEFAULT GROUP BADGE ────────────────────────────── */
+        .badge-cohort {
+            background: rgba(212, 175, 55, .12);
+            color: var(--gold);
+            border: 1px solid rgba(212, 175, 55, .2);
+            font-size: .5rem;
+            padding: .05rem .4rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+        }
+
+        /* ─── COMMERCE CARD IN CHAT ──────────────────────────────────── */
+        .commerce-card {
+            background: var(--bg2);
+            border: 1.5px solid var(--primary);
+            border-radius: var(--radius-sm);
+            padding: .65rem;
+            max-width: 280px;
+            margin-top: .3rem;
+            transition: all .2s;
+            cursor: pointer;
+        }
+        .commerce-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow2);
+        }
+        .commerce-card .card-thumb {
+            width: 100%;
+            height: 100px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--card2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: .4rem;
+        }
+        .commerce-card .card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .commerce-card .card-title {
+            font-weight: 700;
+            font-size: .82rem;
+            color: var(--text);
+            margin-bottom: .1rem;
+        }
+        .commerce-card .card-price {
+            font-weight: 800;
+            font-size: .9rem;
+            color: var(--lime);
+        }
+        .commerce-card .card-btn {
+            width: 100%;
+            margin-top: .4rem;
+            padding: .3rem;
+            font-size: .7rem;
+            border-radius: 50px;
+            background: var(--primary);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all .2s;
+            font-family: var(--font-heading);
+        }
+        .commerce-card .card-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+        }
+        .commerce-card .card-shared-label {
+            font-size: .5rem;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            color: var(--text3);
+            margin-bottom: .2rem;
+        }
+
+        /* ─── FLOATING ACTION BUTTON COLLISION FIX ──────────────────── */
+        .fab.hidden {
+            display: none !important;
+        }
+        .fab.hide-when-modal {
+            display: none !important;
+        }
+        .modal-ov:not(.hidden) ~ .fab {
+            display: none !important;
+        }
+
+        /* ─── SAFE AREA FIX ──────────────────────────────────────────── */
+        @supports (padding: max(0px)) {
+            .main-content {
+                padding-left: max(env(safe-area-inset-left), 0px);
+                padding-right: max(env(safe-area-inset-right), 0px);
+            }
+            .topbar {
+                padding-left: max(1rem, env(safe-area-inset-left));
+                padding-right: max(1rem, env(safe-area-inset-right));
+            }
+            .dash-wrap {
+                padding-bottom: max(80px, calc(env(safe-area-inset-bottom) + 12px));
+            }
+            .mob-bottom-nav {
+                padding-bottom: max(6px, env(safe-area-inset-bottom));
+            }
+        }
+
+        /* ─── MILESTONE STORY BADGE ──────────────────────────────────── */
+        .milestone-badge {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #000;
+            font-size: .6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+        }
+        .milestone-badge i {
+            font-size: .55rem;
+        }
+
+        /* ─── ACTIVITY THREAD ────────────────────────────────────────── */
+        .activity-thread {
+            display: flex;
+            flex-direction: column;
+            gap: .1rem;
+        }
+        .activity-thread .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-thread .act-time {
+            font-size: .6rem;
+            color: var(--text3);
+            margin-left: .5rem;
+        }
     </style>
 </head>
 <body>
@@ -6943,6 +7314,7 @@
                         <li><span class="nav-item" id="nav-following" onclick="setDP('following')"><span class="nav-ico"><i class="fas fa-rss"></i></span>Following<span class="nav-badge" id="navFollowingBadge">0</span></span></li>
                         <li class="nav-sec" style="margin-top:.3rem">Community</li>
                         <li><span class="nav-item" id="nav-groups" onclick="setDP('groups')"><span class="nav-ico"><i class="fas fa-users"></i></span>Groups<span class="nav-badge nav-badge-c" id="navGroupsBadge">0</span></span></li>
+                        <li><span class="nav-item" id="nav-activity" onclick="setDP('activity')"><span class="nav-ico"><i class="fas fa-stream"></i></span>Activity<span class="nav-badge nav-badge-gold" id="navActivityBadge">0</span></span></li>
                         <li class="nav-sec" style="margin-top:.3rem">Learning</li>
                         <li><span class="nav-item" id="nav-home" onclick="setDP('home')"><span class="nav-ico"><i class="fas fa-home"></i></span>Dashboard</span></li>
                         <li><span class="nav-item" id="nav-explore" onclick="setDP('explore')"><span class="nav-ico"><i class="fas fa-compass"></i></span>Explore Courses</span></li>
@@ -7036,6 +7408,12 @@
                                 <div class="chat-input-area"><button class="btn-icon-sm" onclick="openChatFilePicker()" style="color:var(--text3);"><i class="fas fa-paperclip"></i></button><input type="file" id="chatFileInput" accept="image/*,video/*,application/pdf" style="display:none;" onchange="sendChatFile(this)"><textarea id="chatInput" class="finput" placeholder="Type a message..." style="flex:1;min-height:40px;max-height:120px;resize:none;padding:.5rem .75rem;font-size:.85rem;background:var(--bg);" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea><button class="btn btn-primary btn-sm btn-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- ACTIVITY THREAD -->
+                    <div id="dash-activity" class="dash-sub" style="display:none;">
+                        <div class="page-hd"><h2 class="page-title">📬 Activity</h2><p class="page-sub">Everything that matters, all in one place</p></div>
+                        <div id="activityContainer" class="activity-thread"></div>
                     </div>
 
                     <!-- FOLLOWING -->
@@ -7735,6 +8113,13 @@
             interactiveEditMode: false,
             // ─── New state for cohorts ──────────────────────────────
             editingCohortId: null,
+            // ─── New state for activity thread ──────────────────────
+            activityItems: [],
+            activityPage: 1,
+            activityHasMore: true,
+            activityLoading: false,
+            // ─── Milestone stories ──────────────────────────────────
+            autoShareMilestones: true,
         };
 
         // ================================================================
@@ -7748,6 +8133,12 @@
             '/post/:slug': { page: 'app', action: 'loadPost' },
             '/courses/:id': { page: 'app', action: 'openCourse' },
             '/aff/:code': { page: null, action: 'trackAffiliate' },
+            '/messages': { page: 'app', action: 'openMessages' },
+            '/messages/:id': { page: 'app', action: 'openConversation' },
+            '/groups': { page: 'app', action: 'openGroups' },
+            '/groups/:id': { page: 'app', action: 'openGroup' },
+            '/stories/:userId': { page: 'app', action: 'openStoryViewer' },
+            '/activity': { page: 'app', action: 'openActivity' },
         };
 
         const router = {
@@ -7872,6 +8263,48 @@
                                 }
                             })
                             .catch(() => { goPage('landing'); });
+                        break;
+                    case 'openMessages':
+                        if (S.page !== 'app') goPage('app');
+                        setTimeout(() => setDP('messages'), 100);
+                        break;
+                    case 'openConversation':
+                        const convId = routeParams.id;
+                        if (!convId) { goPage('app');
+                            setTimeout(() => setDP('messages'), 100); return; }
+                        if (S.page !== 'app') goPage('app');
+                        setTimeout(() => {
+                            setDP('messages');
+                            setTimeout(() => openConversation(convId), 300);
+                        }, 100);
+                        break;
+                    case 'openGroups':
+                        if (S.page !== 'app') goPage('app');
+                        setTimeout(() => setDP('groups'), 100);
+                        break;
+                    case 'openGroup':
+                        const groupId = routeParams.id;
+                        if (!groupId) { goPage('app');
+                            setTimeout(() => setDP('groups'), 100); return; }
+                        if (S.page !== 'app') goPage('app');
+                        setTimeout(() => {
+                            setDP('groups');
+                            setTimeout(() => openGroup(groupId), 300);
+                        }, 100);
+                        break;
+                    case 'openStoryViewer':
+                        const userId = routeParams.userId;
+                        if (!userId) { goPage('app');
+                            setTimeout(() => setDP('feed'), 100); return; }
+                        if (S.page !== 'app') goPage('app');
+                        setTimeout(() => {
+                            setDP('feed');
+                            setTimeout(() => openStoryViewer(userId), 300);
+                        }, 100);
+                        break;
+                    case 'openActivity':
+                        if (S.page !== 'app') goPage('app');
+                        setTimeout(() => setDP('activity'), 100);
                         break;
                     default:
                         break;
@@ -8507,7 +8940,7 @@
             if (ni) ni.classList.add('active');
 
             ['feed', 'challenges', 'explore', 'wallet', 'home', 'books', 'following', 'social-earnings', 'stories',
-                'messages', 'groups', 'live', 'articles'
+                'messages', 'groups', 'live', 'articles', 'activity'
             ].forEach(k => {
                 const m = document.getElementById('mbn-' + k);
                 if (m) m.classList.toggle('active', k === pg);
@@ -8522,6 +8955,7 @@
                     loadBottomAd(); },
                 stories: () => { loadAllStories(); },
                 messages: () => { loadConversations(); },
+                activity: () => { loadActivityFeed(); },
                 challenges: loadChallenges,
                 people: loadPeople,
                 home: initHome,
@@ -8582,6 +9016,7 @@
             if (fab) {
                 const hasCreatorAccess = S.isPremium || S.user?.roles?.includes('admin') || (S.user?.roles?.includes('creator') && S.user?.isApprovedInstructor);
                 fab.style.display = hasCreatorAccess ? 'block' : 'none';
+                fab.classList.remove('hide-when-modal');
             }
 
             checkPlanExpiry();
@@ -8616,11 +9051,20 @@
             if (id === 'shareModal') {
                 document.getElementById('shareLink').textContent = `${FRONTEND_URL}/post/${S.sharePostSlug || ''}`;
             }
+            // Hide FAB when modal is open
+            const fab = document.getElementById('fab');
+            if (fab) fab.classList.add('hide-when-modal');
         }
 
-        function closeModal(id) { document.getElementById(id)?.classList.add('hidden'); }
-        document.addEventListener('click', e => { if (e.target.classList.contains('modal-ov')) e.target.classList.add(
-            'hidden'); });
+        function closeModal(id) {
+            document.getElementById(id)?.classList.add('hidden');
+            const fab = document.getElementById('fab');
+            if (fab) fab.classList.remove('hide-when-modal');
+        }
+        document.addEventListener('click', e => { if (e.target.classList.contains('modal-ov')) { e.target.classList.add(
+                'hidden');
+                const fab = document.getElementById('fab');
+                if (fab) fab.classList.remove('hide-when-modal'); } });
 
         // ================================================================
         // SOCKET.IO
@@ -8634,7 +9078,8 @@
                         'websocket', 'polling'
                     ] });
                 socket.on('connect', () => { console.log('Socket connected');
-                    setupAdminSocketAlerts(); });
+                    setupAdminSocketAlerts();
+                    setupRealtimeRooms(); });
                 socket.on('notification', (notif) => { S.notifications.unshift({ ...notif, unread: true, time: new Date(
                             notif.createdAt).toLocaleTimeString(), bg: 'si-primary', ic: notif.icon || 'fa-bell' });
                     renderNotifs();
@@ -8794,6 +9239,17 @@
                     loadConversations();
                     const sender = message.senderId || {};
                     toast(`💬 ${sender.firstName || 'User'}: ${message.content.substring(0, 50)}`, 'info');
+                    // Add to activity feed
+                    addActivityItem({
+                        type: 'message',
+                        actorId: sender._id || message.senderId,
+                        actorName: `${sender.firstName || 'User'} ${sender.lastName || ''}`,
+                        actorAvatar: getAvatarUrl(sender),
+                        preview: message.content.substring(0, 60),
+                        timestamp: message.createdAt || new Date().toISOString(),
+                        deepLink: `/messages/${message.conversationId}`,
+                        badge: 'message',
+                    });
                 });
                 socket.on('typing', (data) => {
                     const status = document.getElementById('chatHeaderStatus');
@@ -8805,7 +9261,76 @@
                         }, 2000);
                     }
                 });
+                // ─── New story socket events ──────────────────────────────
+                socket.on('new_story', (data) => {
+                    loadStories();
+                    if (data.userId) {
+                        addActivityItem({
+                            type: 'story',
+                            actorId: data.userId,
+                            actorName: data.userName || 'Someone',
+                            actorAvatar: data.userAvatar || null,
+                            preview: 'Shared a new story 📸',
+                            timestamp: data.createdAt || new Date().toISOString(),
+                            deepLink: `/stories/${data.userId}`,
+                            badge: 'story',
+                        });
+                    }
+                    toast(`📸 ${data.userName || 'Someone'} shared a new story!`, 'info');
+                });
+                // ─── Group socket events ──────────────────────────────────
+                socket.on('group_created', (data) => {
+                    toast(`👥 New group created: ${data.name}`, 'info');
+                    if (S.dp === 'groups') loadGroups();
+                    if (data.groupId) {
+                        addActivityItem({
+                            type: 'group',
+                            actorId: data.createdBy || S.user?._id,
+                            actorName: data.creatorName || 'Someone',
+                            actorAvatar: data.creatorAvatar || null,
+                            preview: `Created group "${data.name}"`,
+                            timestamp: data.createdAt || new Date().toISOString(),
+                            deepLink: `/groups/${data.groupId}`,
+                            badge: 'group',
+                        });
+                    }
+                });
+                socket.on('group_joined', (data) => {
+                    toast(`👋 ${data.userName || 'Someone'} joined ${data.groupName || 'a group'}`, 'info');
+                    if (S.dp === 'groups') loadGroups();
+                });
+                socket.on('group_message', (data) => {
+                    if (data.groupId && S.currentGroupId === data.groupId) {
+                        // Handle group message display
+                    }
+                    toast(`💬 ${data.userName || 'Someone'} in ${data.groupName || 'group'}: ${data.content?.substring(0, 40)}`, 'info');
+                });
+                // ─── Milestone story socket events ─────────────────────────
+                socket.on('milestone_story', (data) => {
+                    if (data.userId === S.user?._id) {
+                        toast(`🏆 ${data.title || 'Achievement unlocked!'}`, 'success');
+                        loadStories();
+                    }
+                });
             } catch (e) { console.warn('Socket init failed:', e.message); }
+        }
+
+        function setupRealtimeRooms() {
+            if (!socket) return;
+            // Join user-specific room
+            socket.emit('join_user', S.user?._id);
+            // Join followers room for stories
+            if (S.following && S.following.length) {
+                S.following.forEach(id => {
+                    socket.emit('join_following', id);
+                });
+            }
+            // Join groups the user is a member of
+            if (S.groups && S.groups.length) {
+                S.groups.forEach(g => {
+                    if (g.isMember) socket.emit('join_group', g._id);
+                });
+            }
         }
 
         function setupAdminSocketAlerts() {
@@ -8938,6 +9463,7 @@
             S.isPremium = user.isPremium || user.subscriptionTier === 'premium' || false;
             S.walletBal = user.walletBalance || 0;
             S.user.setupDone = user.setupDone === true;
+            S.autoShareMilestones = user.autoShareMilestones !== false;
             hideLoading();
             connectSocket();
             try { const profileData = await apiCall('/users/profile');
@@ -8947,6 +9473,7 @@
                 S.walletBal = profile.walletBalance || 0;
                 S.user.setupDone = profile.setupDone === true;
                 S.user.referralCode = profile.referralCode || user.referralCode || 'REF';
+                S.autoShareMilestones = profile.autoShareMilestones !== false;
                 currentCurrency = S.user.preferredCurrency || localStorage.getItem('cx_currency') || 'NGN';
                 localStorage.setItem('cx_user', JSON.stringify(S.user)); } catch (e) { console.warn('Profile fetch failed:',
                     e.message); }
@@ -9276,7 +9803,6 @@
             }
             const storiesBadge = document.getElementById('storiesBadge');
             if (storiesBadge) {
-                // Count unviewed stories
                 let count = 0;
                 try {
                     const storiesData = JSON.parse(sessionStorage.getItem('storiesData') || '{}');
@@ -9295,6 +9821,20 @@
                     count = articles.filter(a => a.status === 'pending').length;
                 } catch (e) {}
                 articlesBadge.textContent = count || 0;
+            }
+            const groupsBadge = document.getElementById('navGroupsBadge');
+            if (groupsBadge) {
+                let count = 0;
+                try {
+                    const groupsData = JSON.parse(sessionStorage.getItem('groupsData') || '[]');
+                    count = groupsData.filter(g => g.isMember).length;
+                } catch (e) {}
+                groupsBadge.textContent = count || 0;
+            }
+            const activityBadge = document.getElementById('navActivityBadge');
+            if (activityBadge) {
+                const unread = S.activityItems ? S.activityItems.filter(a => !a.read).length : 0;
+                activityBadge.textContent = unread || 0;
             }
         }
 
@@ -10730,7 +11270,14 @@
                         try { await apiCall(`/challenges/${p.challengeId}/complete`, { method: 'POST' });
                             toast('🎉 Challenge completed! Rewards unlocked!', 'success');
                             loadChallenges();
-                            renderWallet(); } catch (e) { console.warn('Auto-complete failed:', e); }
+                            renderWallet();
+                            // Trigger milestone story
+                            if (S.autoShareMilestones) {
+                                const c = p.challengeId || {};
+                                createMilestoneStory('challenge_complete', { title: c.title || 'Challenge', xp: c
+                                        .rewardXP || 0 });
+                            }
+                        } catch (e) { console.warn('Auto-complete failed:', e); }
                     }
                 });
             } catch (err) { console.warn('Could not load challenge progress:', err); }
@@ -10909,6 +11456,12 @@
                     renderUserProfile(res2.data);
                 }
                 if (S.dp === 'following') loadFollowing();
+                // Update socket rooms for stories
+                if (socket && isNowFollowing) {
+                    socket.emit('join_following', userId);
+                } else if (socket && !isNowFollowing) {
+                    socket.emit('leave_following', userId);
+                }
             } catch (err) { toast('Error: ' + err.message, 'error'); }
         }
 
@@ -12039,6 +12592,17 @@
                     toast('✅ Lesson completed! +XP', 'success');
                     await loadEnrollments();
                     renderWallet();
+                    // Trigger milestone story for module completion if progress crosses threshold
+                    if (S.autoShareMilestones) {
+                        const progress = S.enrollments.find(e => e.courseId === S.currentCourseId)?.progress || 0;
+                        if (progress % 25 === 0 && progress <= 100) {
+                            createMilestoneStory('module_complete', {
+                                title: S.currentCourseData?.title || 'Course',
+                                progress: progress,
+                                module: `Module ${Math.ceil(progress / 25)}`
+                            });
+                        }
+                    }
                 } catch (e) { toast('Progress saved locally', 'info'); }
             }
             const nextIdx = S.currentLessonIdx + 1;
@@ -12046,6 +12610,13 @@
                 toast('🎉 Course complete! Certificate ready! +₦100', 'success');
                 setDP('certs');
                 renderWallet();
+                // Trigger milestone story for course completion
+                if (S.autoShareMilestones) {
+                    createMilestoneStory('certificate_earned', {
+                        title: S.currentCourseData?.title || 'Course',
+                        type: 'course'
+                    });
+                }
             }
             renderCurric();
         }
@@ -13408,6 +13979,8 @@
                 `;
             }
 
+            // Commerce card rendering for chat sharing will be handled separately
+
             container.innerHTML = `
                 <div class="card card-p">
                     <div style="display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-start;">
@@ -14571,6 +15144,221 @@
         }
 
         // ================================================================
+        // ACTIVITY THREAD
+        // ================================================================
+        function addActivityItem(item) {
+            S.activityItems.unshift({ ...item, read: false, id: item.id || Date.now() });
+            if (S.activityItems.length > 100) S.activityItems = S.activityItems.slice(0, 100);
+            if (S.dp === 'activity') renderActivityItems();
+            updateNavBadges();
+        }
+
+        async function loadActivityFeed(page = 1) {
+            if (page === 1) {
+                S.activityPage = 1;
+                S.activityHasMore = true;
+                S.activityLoading = false;
+            }
+
+            const container = document.getElementById('activityContainer');
+            if (!container) return;
+
+            if (page === 1) {
+                S.activityItems = [];
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-spinner fa-spin" style="font-size:2rem;"></i>
+                        <h4>Loading activity...</h4>
+                    </div>
+                `;
+            }
+
+            try {
+                // Fetch from API
+                const res = await apiCall(`/activity?page=${page}&limit=20`);
+                const items = res.data || [];
+                const pagination = res.pagination || { total: 0, pages: 1 };
+
+                if (page === 1) {
+                    S.activityItems = items;
+                } else {
+                    S.activityItems = [...S.activityItems, ...items];
+                }
+
+                renderActivityItems();
+
+                if (page >= pagination.pages || items.length < 20) {
+                    S.activityHasMore = false;
+                } else {
+                    S.activityHasMore = true;
+                }
+
+                // Also fetch real-time items from socket if connected
+                if (socket && socket.connected) {
+                    socket.emit('get_activity', { limit: 20 });
+                }
+
+                setupActivitySentinel();
+            } catch (err) {
+                console.warn('Could not load activity feed:', err);
+                // Fallback: show some generated items from notifications
+                if (page === 1) {
+                    const fallbackItems = generateFallbackActivity();
+                    S.activityItems = fallbackItems;
+                    renderActivityItems();
+                }
+            }
+        }
+
+        function generateFallbackActivity() {
+            const items = [];
+            // Add from notifications
+            S.notifications.slice(0, 10).forEach(n => {
+                items.push({
+                    id: n._id || Date.now() + Math.random(),
+                    type: 'notification',
+                    actorId: n.userId || S.user?._id,
+                    actorName: 'System',
+                    actorAvatar: null,
+                    preview: n.title || n.message || 'Notification',
+                    timestamp: n.createdAt || new Date().toISOString(),
+                    deepLink: '#',
+                    badge: 'notification',
+                    read: !n.unread,
+                });
+            });
+            // Add from conversations
+            S.conversations.slice(0, 5).forEach(c => {
+                const other = c.participants?.find(p => p._id !== S.user?._id);
+                items.push({
+                    id: 'conv-' + c._id,
+                    type: 'message',
+                    actorId: other?._id || 'unknown',
+                    actorName: other ? `${other.firstName || 'User'} ${other.lastName || ''}` : 'Someone',
+                    actorAvatar: other ? getAvatarUrl(other) : null,
+                    preview: c.lastMessage?.content || 'New message',
+                    timestamp: c.lastMessageAt || new Date().toISOString(),
+                    deepLink: `/messages/${c._id}`,
+                    badge: 'message',
+                    read: !(c.unreadCount > 0),
+                });
+            });
+            // Sort by timestamp descending
+            items.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            return items.slice(0, 30);
+        }
+
+        function renderActivityItems() {
+            const container = document.getElementById('activityContainer');
+            if (!container) return;
+
+            if (!S.activityItems || !S.activityItems.length) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-stream" style="font-size:2.5rem;"></i>
+                        <h4>No activity yet</h4>
+                        <p>Activity from messages, stories, and groups will appear here.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const itemsToRender = S.activityItems.slice(0, 30);
+            container.innerHTML = itemsToRender.map(item => {
+                const avatarHtml = item.actorAvatar ?
+                    `<img src="${item.actorAvatar}" alt="${escapeHtml(item.actorName)}" style="width:100%;height:100%;object-fit:cover;">` :
+                    (item.actorName?.[0] || 'U');
+                const timeAgo = getTimeAgo(item.timestamp);
+                const badgeMap = {
+                    message: 'message',
+                    story: 'story',
+                    group: 'group',
+                    milestone: 'milestone',
+                    notification: 'message'
+                };
+                const badgeClass = badgeMap[item.type] || 'message';
+                const iconMap = {
+                    message: '💬',
+                    story: '📸',
+                    group: '👥',
+                    milestone: '🏆',
+                    notification: '🔔'
+                };
+                const icon = iconMap[item.type] || '📌';
+
+                return `
+                    <div class="activity-item ${!item.read ? 'unread' : ''}" onclick="window.location.href='${item.deepLink || '#'}'">
+                        <div class="act-avatar">${avatarHtml}</div>
+                        <div class="act-body">
+                            <div class="act-text">
+                                <strong>${escapeHtml(item.actorName)}</strong>
+                                <span class="act-badge ${badgeClass}">${icon} ${item.type}</span>
+                                ${item.preview ? `<div class="act-preview">${escapeHtml(item.preview)}</div>` : ''}
+                            </div>
+                            <div class="act-meta">
+                                ${timeAgo}
+                                ${!item.read ? '<span style="color:var(--primary);font-weight:700;margin-left:.5rem;">● New</span>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Mark all as read when viewed
+            if (S.activityItems.some(a => !a.read)) {
+                S.activityItems.forEach(a => a.read = true);
+                updateNavBadges();
+            }
+        }
+
+        function setupActivitySentinel() {
+            const sentinel = document.getElementById('activitySentinel');
+            if (!sentinel) return;
+            if (window.activityObserver) window.activityObserver.disconnect();
+
+            window.activityObserver = new IntersectionObserver(async (entries) => {
+                if (entries[0].isIntersecting && S.activityHasMore && !S.activityLoading) {
+                    S.activityLoading = true;
+                    S.activityPage++;
+                    await loadActivityFeed(S.activityPage);
+                    S.activityLoading = false;
+                }
+            }, { rootMargin: '0px 0px 200px 0px' });
+            window.activityObserver.observe(sentinel);
+        }
+
+        // ================================================================
+        // MILESTONE STORIES
+        // ================================================================
+        async function createMilestoneStory(templateType, data) {
+            if (!S.autoShareMilestones) return;
+            try {
+                const res = await apiCall('/stories/milestone', {
+                    method: 'POST',
+                    body: { templateType, data }
+                });
+                if (res.success) {
+                    toast(`🏆 ${res.data?.title || 'Achievement unlocked!'}`, 'success');
+                    loadStories();
+                    if (res.data) {
+                        addActivityItem({
+                            type: 'milestone',
+                            actorId: S.user?._id,
+                            actorName: `${S.user?.firstName || 'User'} ${S.user?.lastName || ''}`,
+                            actorAvatar: getAvatarUrl(S.user),
+                            preview: res.data.title || 'Achievement unlocked!',
+                            timestamp: res.data.createdAt || new Date().toISOString(),
+                            deepLink: `/stories/${S.user?._id}`,
+                            badge: 'milestone',
+                        });
+                    }
+                }
+            } catch (err) {
+                console.warn('Could not create milestone story:', err);
+            }
+        }
+
+        // ================================================================
         // SPONSORSHIP / CAMPAIGN FUNCTIONS
         // ================================================================
         function switchSponsorTab(tab, btn) {
@@ -15226,6 +16014,15 @@
                 if (S.dp === 'stories') {
                     await loadAllStories();
                 }
+
+                // Update badge
+                let unviewedCount = 0;
+                for (const [userId, stories] of Object.entries(storiesByUser)) {
+                    if (userId === S.user._id) continue;
+                    if (stories.some(s => !s.viewed)) unviewedCount++;
+                }
+                const badge = document.getElementById('storiesBadge');
+                if (badge) badge.textContent = unviewedCount || 0;
             } catch (err) {
                 console.warn('Could not load stories:', err);
                 const bar = document.getElementById('storiesBar');
@@ -15252,6 +16049,7 @@
                                     <div style="font-size:.7rem;color:var(--text3);margin-top:.3rem;display:flex;justify-content:space-between;">
                                         <span>👁️ ${s.views || 0}</span>
                                         <span>${s.reactions?.length || 0} reactions</span>
+                                        ${s.source === 'milestone' ? '<span class="badge badge-achievement"><i class="fas fa-trophy"></i></span>' : ''}
                                     </div>
                                 </div>
                             </div>
@@ -15290,6 +16088,7 @@
                                                     ${getAvatarUrl(user) ? `<img src="${getAvatarUrl(user)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : (user.firstName?.[0] || 'U')}
                                                 </div>
                                             </div>
+                                            ${stories[0].source === 'milestone' ? '<span class="badge badge-achievement" style="position:absolute;bottom:6px;right:6px;"><i class="fas fa-trophy"></i></span>' : ''}
                                         </div>
                                         <div style="font-size:.75rem;font-weight:600;margin-top:.3rem;">${user.firstName || 'User'} ${user.lastName || ''}</div>
                                         <div style="font-size:.65rem;color:var(--text3);">${stories.length} story${stories.length > 1 ? 's' : ''}</div>
@@ -15534,6 +16333,17 @@
                     toast('✅ Story shared!', 'success');
                     closeModal('createStoryModal');
                     loadStories();
+                    // Add to activity
+                    addActivityItem({
+                        type: 'story',
+                        actorId: S.user?._id,
+                        actorName: `${S.user?.firstName || 'User'} ${S.user?.lastName || ''}`,
+                        actorAvatar: getAvatarUrl(S.user),
+                        preview: 'Shared a new story 📸',
+                        timestamp: new Date().toISOString(),
+                        deepLink: `/stories/${S.user?._id}`,
+                        badge: 'story',
+                    });
                 } else {
                     toast(data.message || 'Failed to share story', 'error');
                 }
@@ -15557,7 +16367,8 @@
         function getConversationName(conversation) {
             if (conversation.isGroup) return conversation.groupName || 'Group Chat';
             const other = conversation.participants?.find(p => p._id !== S.user._id);
-            return other ? `${other.firstName || 'User'} ${other.lastName || ''}` : 'Unknown User';
+            if (!other) return 'Unknown User';
+            return `${other.firstName || 'User'} ${other.lastName || ''}`;
         }
 
         function getConversationAvatar(conversation) {
@@ -15612,20 +16423,30 @@
                 const unread = c.unreadCount || 0;
                 const isActive = c._id === S.currentConversationId;
                 const avatarUrl = getConversationAvatar(c);
+                const isOnline = c.participants?.some(p => p._id !== S.user._id && p.isOnline) || false;
+
+                let leftAccent = '';
+                if (unread > 0) {
+                    leftAccent = 'border-left: 3px solid var(--primary); padding-left: 12px;';
+                }
 
                 return `
-                    <div class="conv-item ${isActive ? 'active' : ''}" onclick="openConversation('${c._id}')">
-                        <div class="conv-avatar">
+                    <div class="conv-item ${isActive ? 'active' : ''}" onclick="openConversation('${c._id}')" style="${leftAccent}">
+                        <div class="conv-avatar" style="position:relative;">
                             ${avatarUrl ? `<img src="${avatarUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : initial}
+                            ${isOnline ? `<span style="position:absolute;bottom:0;right:0;width:10px;height:10px;border-radius:50%;background:var(--success);border:2px solid var(--bg2);"></span>` : ''}
+                            ${unread > 0 ? `<span style="position:absolute;top:-2px;right:-2px;background:var(--primary);color:#000;border-radius:50%;font-size:.5rem;font-weight:800;width:18px;height:18px;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg2);">${unread}</span>` : ''}
                         </div>
                         <div style="flex:1;min-width:0;">
                             <div style="display:flex;justify-content:space-between;align-items:center;">
-                                <div style="font-weight:600;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(name)}</div>
+                                <div style="font-weight:${unread > 0 ? '700' : '500'};font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(name)}</div>
                                 <div style="font-size:.6rem;color:var(--text3);flex-shrink:0;">${time}</div>
                             </div>
                             <div style="display:flex;justify-content:space-between;align-items:center;">
-                                <div style="font-size:.72rem;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">${escapeHtml(lastMsg)}</div>
-                                ${unread > 0 ? `<span class="badge badge-primary" style="font-size:.55rem;padding:.05rem .5rem;">${unread}</span>` : ''}
+                                <div style="font-size:.72rem;color:var(--text3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;">
+                                    ${c.lastMessage?.senderId === S.user._id ? '<span style="color:var(--primary);">✓✓ </span>' : ''}
+                                    ${escapeHtml(lastMsg)}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -15670,6 +16491,11 @@
                 if (socket) {
                     socket.emit('join_conversation', conversationId);
                 }
+
+                // Update URL
+                if (window.history && window.location.pathname !== `/messages/${conversationId}`) {
+                    window.history.pushState(null, '', `/messages/${conversationId}`);
+                }
             } catch (err) {
                 toast('Failed to load messages: ' + err.message, 'error');
             }
@@ -15698,30 +16524,80 @@
                 const initial = (sender.firstName?.[0] || 'U') + (sender.lastName?.[0] || '');
 
                 let mediaHtml = '';
+                let isCommerceCard = false;
+                let commerceData = null;
+
                 if (m.type === 'image' && m.fileUrl) {
                     mediaHtml = `<img src="${m.fileUrl}" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;cursor:pointer;" onclick="window.open('${m.fileUrl}','_blank')">`;
                 } else if (m.type === 'file' && m.fileUrl) {
                     mediaHtml = `<a href="${m.fileUrl}" target="_blank" class="btn btn-ghost btn-sm" style="font-size:.7rem;margin-top:.3rem;"><i class="fas fa-file"></i> ${escapeHtml(m.fileUrl.split('/').pop() || 'File')}</a>`;
                 } else if (m.type === 'video' && m.fileUrl) {
                     mediaHtml = `<video src="${m.fileUrl}" controls style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);margin-top:.3rem;"></video>`;
+                } else if (m.type === 'audio' && m.fileUrl) {
+                    // Voice message placeholder - will be enhanced with actual waveform
+                    mediaHtml = `
+                        <div style="display:flex;align-items:center;gap:.5rem;margin-top:.3rem;background:var(--bg);padding:.3rem .6rem;border-radius:50px;">
+                            <button onclick="playVoiceMessage('${m.fileUrl}')" style="background:var(--primary);color:#000;border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+                                <i class="fas fa-play" style="font-size:.6rem;"></i>
+                            </button>
+                            <div class="voice-waveform">
+                                ${Array.from({length: 20}, (_, i) => `<div class="wave-bar" style="height:${4 + Math.random() * 16}px;"></div>`).join('')}
+                            </div>
+                            <span style="font-size:.7rem;color:var(--text3);">0:15</span>
+                        </div>
+                    `;
+                } else if (m.type === 'course_card' || m.type === 'book_card') {
+                    isCommerceCard = true;
+                    commerceData = m.refData || {};
+                    const itemType = m.type === 'course_card' ? 'course' : 'book';
+                    const itemTitle = commerceData.title || 'Item';
+                    const itemPrice = commerceData.price || 0;
+                    const itemThumb = commerceData.thumbnail || (itemType === 'course' ? '📚' : '📖');
+                    const itemId = commerceData.itemId;
+                    const affiliateCode = commerceData.affiliateCode || '';
+                    const shareLabel = m.type === 'course_card' ? '📚 Shared Course' : '📖 Shared Book';
+
+                    mediaHtml = `
+                        <div class="commerce-card" onclick="${itemType === 'course' ? `openBuyCourse('${itemId}')` : `openBuyBook('${itemId}')`}">
+                            <div class="card-shared-label">${shareLabel}</div>
+                            <div class="card-thumb">${itemThumb.includes('http') ? `<img src="${itemThumb}" alt="${escapeHtml(itemTitle)}">` : itemThumb}</div>
+                            <div class="card-title">${escapeHtml(itemTitle)}</div>
+                            <div class="card-price">${fmtMoneyAPI(itemPrice)}</div>
+                            <button class="card-btn" onclick="event.stopPropagation();${itemType === 'course' ? `openBuyCourse('${itemId}')` : `openBuyBook('${itemId}')`}">View</button>
+                        </div>
+                    `;
                 }
+
+                const isGroup = m.conversationId?.isGroup || false;
+                const senderName = isGroup && !isMine ? `${sender.firstName || 'User'} ${sender.lastName || ''}` : '';
 
                 return `
                     <div style="display:flex;flex-direction:${isMine ? 'row-reverse' : 'row'};align-items:flex-start;gap:.5rem;margin-bottom:.5rem;">
                         ${!isMine ? `<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:.65rem;flex-shrink:0;overflow:hidden;">${avatarUrl ? `<img src="${avatarUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : initial}</div>` : ''}
                         <div style="max-width:75%;display:flex;flex-direction:column;align-items:${isMine ? 'flex-end' : 'flex-start'};">
-                            ${!isMine ? `<div style="font-size:.65rem;font-weight:600;color:var(--text2);margin-bottom:.1rem;">${sender.firstName || 'User'} ${sender.lastName || ''}</div>` : ''}
-                            <div style="background:${isMine ? 'var(--primary)' : 'var(--bg2)'};color:${isMine ? '#000' : 'var(--text)'};border-radius:${isMine ? 'var(--radius-sm) var(--radius-sm) 0 var(--radius-sm)' : 'var(--radius-sm) var(--radius-sm) var(--radius-sm) 0'};padding:.5rem .75rem;word-wrap:break-word;max-width:100%;">
-                                <div style="font-size:.85rem;">${escapeHtml(m.content)}</div>
+                            ${!isMine && isGroup ? `<div style="font-size:.65rem;font-weight:600;color:var(--text2);margin-bottom:.1rem;">${senderName}</div>` : ''}
+                            <div class="message-bubble ${isMine ? 'sent' : 'received'}">
+                                ${!isCommerceCard ? `<div style="font-size:.85rem;">${escapeHtml(m.content)}</div>` : ''}
                                 ${mediaHtml}
+                                <div class="bubble-time">
+                                    ${time}
+                                    ${isMine ? `<span class="read-receipt ${m.readBy?.length > 1 ? 'read' : 'delivered'}">${m.readBy?.length > 1 ? '✓✓' : '✓'}</span>` : ''}
+                                </div>
                             </div>
-                            <div style="font-size:.55rem;color:var(--text3);margin-top:.1rem;">${time} ${isMine && m.readBy?.length > 1 ? '✓✓' : m.readBy?.length ? '✓' : ''}</div>
                         </div>
                     </div>
                 `;
             }).join('');
 
             container.scrollTop = container.scrollHeight;
+        }
+
+        // ─── VOICE MESSAGE PLAYER ──────────────────────────────────────
+        function playVoiceMessage(url) {
+            const audio = new Audio(url);
+            audio.play();
+            toast('🎵 Playing voice message...', 'info');
+            // Toggle play/pause and waveform animation will be added in next iteration
         }
 
         async function sendMessage() {
@@ -15753,6 +16629,19 @@
                 if (idx !== -1) S.messages[idx] = realMsg;
                 renderMessages();
                 loadConversations();
+                // Add to activity
+                const conversation = S.conversations.find(c => c._id === S.currentConversationId);
+                const other = conversation?.participants?.find(p => p._id !== S.user._id);
+                addActivityItem({
+                    type: 'message',
+                    actorId: S.user?._id,
+                    actorName: `${S.user?.firstName || 'User'} ${S.user?.lastName || ''}`,
+                    actorAvatar: getAvatarUrl(S.user),
+                    preview: content.substring(0, 60),
+                    timestamp: new Date().toISOString(),
+                    deepLink: `/messages/${S.currentConversationId}`,
+                    badge: 'message',
+                });
             } catch (err) {
                 toast('Failed to send: ' + err.message, 'error');
                 S.messages = S.messages.filter(m => m._id !== tempId);
@@ -15773,18 +16662,26 @@
                     container.innerHTML = '<div style="color:var(--text3);font-size:.8rem;padding:.5rem;">No users found</div>';
                     return;
                 }
-                container.innerHTML = users.map(u => `
-                    <div onclick="startConversation('${u._id}')" style="display:flex;align-items:center;gap:.75rem;padding:.5rem .75rem;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s;" onmouseenter="this.style.background='var(--bg3)'" onmouseleave="this.style.background='transparent'">
-                        <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:.7rem;flex-shrink:0;overflow:hidden;">
-                            ${getAvatarUrl(u) ? `<img src="${getAvatarUrl(u)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : (u.firstName?.[0] || 'U')}
+                // Show following first
+                const followingUsers = users.filter(u => S.followStatus[u._id]);
+                const otherUsers = users.filter(u => !S.followStatus[u._id] && u._id !== S.user?._id);
+                const sorted = [...followingUsers, ...otherUsers];
+
+                container.innerHTML = sorted.map(u => {
+                    const isFollowing = S.followStatus[u._id] || false;
+                    return `
+                        <div onclick="startConversation('${u._id}')" style="display:flex;align-items:center;gap:.75rem;padding:.5rem .75rem;border-radius:var(--radius-sm);cursor:pointer;transition:background .15s;" onmouseenter="this.style.background='var(--bg3)'" onmouseleave="this.style.background='transparent'">
+                            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:.7rem;flex-shrink:0;overflow:hidden;">
+                                ${getAvatarUrl(u) ? `<img src="${getAvatarUrl(u)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : (u.firstName?.[0] || 'U')}
+                            </div>
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-weight:600;font-size:.85rem;">${escapeHtml(u.firstName)} ${escapeHtml(u.lastName)}</div>
+                                <div style="font-size:.7rem;color:var(--text3);">${u.email || ''} ${isFollowing ? '· <span style="color:var(--success);">Following</span>' : ''}</div>
+                            </div>
+                            <button class="btn btn-primary btn-sm" style="font-size:.7rem;">Chat</button>
                         </div>
-                        <div style="flex:1;min-width:0;">
-                            <div style="font-weight:600;font-size:.85rem;">${escapeHtml(u.firstName)} ${escapeHtml(u.lastName)}</div>
-                            <div style="font-size:.7rem;color:var(--text3);">${u.email || ''}</div>
-                        </div>
-                        <button class="btn btn-primary btn-sm" style="font-size:.7rem;">Chat</button>
-                    </div>
-                `).join('');
+                    `;
+                }).join('');
             } catch (err) {
                 container.innerHTML = '<div style="color:var(--danger);font-size:.8rem;">Failed to search users</div>';
             }
@@ -15830,11 +16727,12 @@
                 try {
                     const data = JSON.parse(xhr.responseText);
                     if (data.success) {
+                        const msgType = file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : file.type.startsWith('audio/') ? 'audio' : 'file';
                         const msg = {
                             _id: 'temp-' + Date.now(),
                             senderId: { _id: S.user._id, firstName: S.user.firstName, lastName: S.user.lastName, avatarUrl: S.user.avatarUrl },
                             content: file.name,
-                            type: file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'file',
+                            type: msgType,
                             fileUrl: data.data.url,
                             createdAt: new Date().toISOString(),
                             readBy: [S.user._id],
@@ -15858,6 +16756,68 @@
             xhr.send(formData);
         }
 
+        // ─── SHARE COMMERCE CARD ──────────────────────────────────────
+        async function shareCommerceCard(itemId, itemType, conversationId) {
+            try {
+                const item = itemType === 'course' ?
+                    S.appCourses.find(c => c._id === itemId) :
+                    S.books.find(b => b._id === itemId);
+                if (!item) { toast('Item not found', 'error'); return; }
+
+                // Check if user has affiliate code for this item
+                let affiliateCode = null;
+                if (S.isPremium) {
+                    const affLink = S.myAffiliateLinks.find(l => l.courseId === itemId || l.bookId === itemId);
+                    if (affLink) affiliateCode = affLink.code;
+                }
+
+                const refData = {
+                    itemId: item._id,
+                    itemType: itemType,
+                    title: item.title,
+                    price: item.price || 0,
+                    thumbnail: item.thumbnail || item.coverImage || (itemType === 'course' ? '📚' : '📖'),
+                    affiliateCode: affiliateCode,
+                };
+
+                const msgType = itemType === 'course' ? 'course_card' : 'book_card';
+                await apiCall(`/messages/conversations/${conversationId}/messages`, {
+                    method: 'POST',
+                    body: {
+                        content: `Check out this ${itemType}: ${item.title}`,
+                        type: msgType,
+                        refData: refData,
+                    }
+                });
+                toast('✅ Shared!', 'success');
+                loadConversations();
+                if (S.currentConversationId === conversationId) {
+                    await openConversation(conversationId);
+                }
+            } catch (err) {
+                toast('Failed to share: ' + err.message, 'error');
+            }
+        }
+
+        // ─── SEND TYPING INDICATOR ──────────────────────────────────
+        let typingTimeout = null;
+
+        function sendTypingIndicator() {
+            if (!socket || !S.currentConversationId) return;
+            socket.emit('typing', { conversationId: S.currentConversationId });
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                // Stop typing after 3s of inactivity
+            }, 3000);
+        }
+
+        // Attach to chat input
+        document.addEventListener('input', function(e) {
+            if (e.target.id === 'chatInput') {
+                sendTypingIndicator();
+            }
+        });
+
         // ================================================================
         // GROUPS MODULE
         // ================================================================
@@ -15879,6 +16839,16 @@
                 }
 
                 renderGroups(groups);
+
+                // Update socket rooms for groups
+                if (socket) {
+                    groups.forEach(g => {
+                        if (g.isMember) socket.emit('join_group', g._id);
+                    });
+                }
+
+                const badge = document.getElementById('navGroupsBadge');
+                if (badge) badge.textContent = groups.filter(g => g.isMember).length;
             } catch (err) {
                 toast('Failed to load groups: ' + err.message, 'error');
             }
@@ -15913,24 +16883,30 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="group-card" onclick="openGroup('${g._id}')" style="cursor:pointer;height:100%;display:flex;flex-direction:column;">
                         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;">
-                            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#000;flex-shrink:0;overflow:hidden;">
-                                ${g.avatar ? `<img src="${g.avatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : '👥'}
+                            <div class="group-avatar">
+                                ${g.avatar ? `<img src="${g.avatar}" alt="${escapeHtml(g.name)}">` : '👥'}
                             </div>
                             <div style="flex:1;min-width:0;">
                                 <div style="font-weight:700;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(g.name)}</div>
-                                <div style="font-size:.7rem;color:var(--text3);">
-                                    <span><i class="fas fa-user"></i> ${g.memberCount || 0} members</span>
-                                    <span style="margin-left:.5rem;"><span class="badge ${g.type === 'public' ? 'badge-cyan' : 'badge-gold'}" style="font-size:.55rem;">${g.type}</span></span>
+                                <div style="font-size:.7rem;color:var(--text3);display:flex;gap:.5rem;flex-wrap:wrap;">
+                                    <span><i class="fas fa-user"></i> ${g.memberCount || 0}</span>
+                                    <span class="badge ${g.type === 'public' ? 'badge-cyan' : 'badge-gold'}" style="font-size:.55rem;padding:.05rem .5rem;">${g.type}</span>
+                                    ${g.isCohort ? '<span class="badge badge-cohort">📚 Cohort</span>' : ''}
                                 </div>
                             </div>
                         </div>
-                        <p style="font-size:.82rem;color:var(--text2);margin:.25rem 0 .5rem;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(g.description || '')}</p>
-                        <div style="display:flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap;">
-                            ${g.isMember ? '<span class="badge badge-success">✅ Member</span>' : ''}
-                            ${g.adminId === S.user._id ? '<span class="badge badge-primary">👑 Admin</span>' : ''}
-                            <span style="flex:1;"></span>
-                            ${g.isMember ? `<button class="btn btn-danger btn-sm" onclick="event.stopPropagation();leaveGroup('${g._id}')" style="font-size:.65rem;padding:.15rem .6rem;">Leave</button>` : 
-                                `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();joinGroup('${g._id}')" style="font-size:.65rem;padding:.15rem .6rem;">Join</button>`}
+                        <p style="font-size:.82rem;color:var(--text2);flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:.25rem 0 .5rem;">
+                            ${escapeHtml(g.description || 'No description')}
+                        </p>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.5rem;flex-wrap:wrap;gap:.3rem;">
+                            <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
+                                ${g.isMember ? '<span class="badge badge-success" style="font-size:.55rem;">✅ Member</span>' : ''}
+                                ${g.adminId === S.user._id ? '<span class="badge badge-primary" style="font-size:.55rem;">👑 Admin</span>' : ''}
+                            </div>
+                            ${g.isMember ? 
+                                `<button class="group-leave-btn" onclick="event.stopPropagation();leaveGroup('${g._id}')">Leave</button>` :
+                                `<button class="group-join-btn" onclick="event.stopPropagation();joinGroup('${g._id}')">Join</button>`
+                            }
                         </div>
                     </div>
                 </div>
@@ -15944,6 +16920,10 @@
                 const group = res.data;
                 renderGroupDetail(group);
                 setDP('group-detail');
+                // Update URL
+                if (window.history && window.location.pathname !== `/groups/${groupId}`) {
+                    window.history.pushState(null, '', `/groups/${groupId}`);
+                }
             } catch (err) {
                 toast('Failed to load group: ' + err.message, 'error');
             }
@@ -15955,6 +16935,7 @@
 
             const isAdmin = group.adminId === S.user._id;
             const isMember = group.isMember || false;
+            const isCohort = group.isCohort || false;
 
             container.innerHTML = `
                 <div class="card card-p">
@@ -15968,6 +16949,7 @@
                             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;">
                                 <h2 style="margin:0;font-size:1.3rem;">${escapeHtml(group.name)}</h2>
                                 <span class="badge ${group.type === 'public' ? 'badge-cyan' : 'badge-gold'}" style="font-size:.55rem;">${group.type}</span>
+                                ${isCohort ? '<span class="badge badge-cohort" style="font-size:.55rem;">📚 Cohort</span>' : ''}
                                 ${isAdmin ? '<span class="badge badge-primary" style="font-size:.55rem;">👑 Admin</span>' : ''}
                             </div>
                             <p style="color:var(--text2);margin:.3rem 0 .5rem;">${escapeHtml(group.description || '')}</p>
@@ -15982,6 +16964,7 @@
                                 }
                                 ${isAdmin ? `<button class="btn btn-ghost btn-sm" onclick="editGroup('${group._id}')"><i class="fas fa-edit"></i> Edit</button>` : ''}
                                 ${isAdmin ? `<button class="btn btn-danger btn-sm" onclick="deleteGroup('${group._id}')"><i class="fas fa-trash"></i> Delete</button>` : ''}
+                                ${isMember ? `<button class="btn btn-primary btn-sm" onclick="openGroupChat('${group._id}')"><i class="fas fa-comment"></i> Chat</button>` : ''}
                             </div>
                         </div>
                     </div>
@@ -16031,6 +17014,7 @@
                 toast('✅ Joined group!', 'success');
                 loadGroups();
                 if (currentGroupId === groupId) openGroup(groupId);
+                if (socket) socket.emit('join_group', groupId);
             } catch (err) {
                 toast(err.message, 'error');
             }
@@ -16043,8 +17027,20 @@
                 toast('Left group', 'info');
                 if (currentGroupId === groupId) setDP('groups');
                 loadGroups();
+                if (socket) socket.emit('leave_group', groupId);
             } catch (err) {
                 toast(err.message, 'error');
+            }
+        }
+
+        function openGroupChat(groupId) {
+            // Open the group conversation in Messages
+            // First find the conversation associated with this group
+            const conv = S.conversations.find(c => c.groupId === groupId || c.groupId?._id === groupId);
+            if (conv) {
+                router.navigate(`/messages/${conv._id}`, true);
+            } else {
+                toast('Chat not available for this group yet.', 'warning');
             }
         }
 
@@ -16133,10 +17129,10 @@
                     return;
                 }
                 container.innerHTML = resources.map(r => `
-                    <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.3rem;">
-                        <span style="font-size:1.1rem;">${r.type === 'pdf' ? '📄' : r.type === 'code' ? '💻' : r.type === 'image' ? '🖼️' : r.type === 'video' ? '🎬' : '🔗'}</span>
-                        <a href="${r.url}" target="_blank" style="flex:1;color:var(--primary);font-size:.82rem;text-decoration:underline;">${escapeHtml(r.title)}</a>
-                        <span style="font-size:.65rem;color:var(--text3);">by ${r.addedBy?.firstName || 'User'}</span>
+                    <div class="resource-item">
+                        <span class="res-icon">${r.type === 'pdf' ? '📄' : r.type === 'code' ? '💻' : r.type === 'image' ? '🖼️' : r.type === 'video' ? '🎬' : '🔗'}</span>
+                        <span class="res-title"><a href="${r.url}" target="_blank">${escapeHtml(r.title)}</a></span>
+                        <span class="res-meta">by ${r.addedBy?.firstName || 'User'}</span>
                         ${r.addedBy?._id === S.user._id ? `<button class="btn-icon-sm" onclick="deleteResource('${r._id}')" style="color:var(--danger);"><i class="fas fa-times"></i></button>` : ''}
                     </div>
                 `).join('');
@@ -16197,20 +17193,22 @@
                     const typeEmoji = { voice_chat: '🎤', coding_session: '💻', study_meet: '📚', webinar: '🎓' }[e.type] || '📅';
                     const isPast = new Date(e.endTime) < new Date();
                     return `
-                        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem;margin-bottom:.5rem;${isPast ? 'opacity:0.6;' : ''}">
-                            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+                        <div class="event-card ${isPast ? 'past' : ''}">
+                            <div class="event-header">
                                 <div>
                                     <span style="font-size:1.2rem;margin-right:.5rem;">${typeEmoji}</span>
                                     <strong>${escapeHtml(e.title)}</strong>
                                     <span class="badge ${isPast ? 'badge-dark' : 'badge-cyan'}" style="font-size:.55rem;">${isPast ? 'Past' : 'Upcoming'}</span>
                                 </div>
-                                <div style="font-size:.7rem;color:var(--text3);">
+                                <div class="event-meta">
                                     ${new Date(e.startTime).toLocaleString()} → ${new Date(e.endTime).toLocaleTimeString()}
                                 </div>
                             </div>
                             <p style="font-size:.82rem;color:var(--text2);margin:.3rem 0;">${escapeHtml(e.description || '')}</p>
-                            ${e.meetingUrl ? `<a href="${e.meetingUrl}" target="_blank" class="btn btn-primary btn-sm" style="font-size:.7rem;"><i class="fas fa-video"></i> Join Meeting</a>` : ''}
-                            ${e.createdBy === S.user._id ? `<button class="btn btn-danger btn-sm" onclick="deleteEvent('${e._id}')" style="font-size:.65rem;"><i class="fas fa-trash"></i></button>` : ''}
+                            <div class="event-actions">
+                                ${e.meetingUrl ? `<a href="${e.meetingUrl}" target="_blank" class="btn btn-primary btn-sm" style="font-size:.7rem;"><i class="fas fa-video"></i> Join Meeting</a>` : ''}
+                                ${e.createdBy === S.user._id ? `<button class="btn btn-danger btn-sm" onclick="deleteEvent('${e._id}')" style="font-size:.65rem;"><i class="fas fa-trash"></i></button>` : ''}
+                            </div>
                         </div>
                     `;
                 }).join('');
@@ -16275,14 +17273,12 @@
                     return;
                 }
                 container.innerHTML = members.map(m => `
-                    <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;border-bottom:1px solid var(--border);">
-                        <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:.65rem;flex-shrink:0;overflow:hidden;">
+                    <div class="member-item">
+                        <div class="member-avatar">
                             ${getAvatarUrl(m.userId) ? `<img src="${getAvatarUrl(m.userId)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : (m.userId?.firstName?.[0] || 'U')}
                         </div>
-                        <div style="flex:1;min-width:0;">
-                            <div style="font-size:.82rem;font-weight:600;">${escapeHtml(m.userId?.firstName || 'User')} ${escapeHtml(m.userId?.lastName || '')}</div>
-                        </div>
-                        <span class="badge ${m.role === 'admin' ? 'badge-primary' : 'badge-dark'}" style="font-size:.55rem;">${m.role || 'member'}</span>
+                        <div class="member-name">${escapeHtml(m.userId?.firstName || 'User')} ${escapeHtml(m.userId?.lastName || '')}</div>
+                        <span class="member-role ${m.role || 'member'}">${m.role || 'member'}</span>
                     </div>
                 `).join('');
             } catch (err) {
@@ -16563,6 +17559,16 @@
                 } else {
                     await apiCall('/cohorts', { method: 'POST', body: payload });
                     toast('✅ Cohort created!', 'success');
+                    // Also create a group for this cohort
+                    try {
+                        const groupRes = await apiCall('/groups/cohort', {
+                            method: 'POST',
+                            body: { cohortId: res.data?._id || 'new', name: name + ' Cohort', description: `Cohort for ${name}` }
+                        });
+                        if (groupRes.success) {
+                            toast('👥 Group created for this cohort!', 'success');
+                        }
+                    } catch (gErr) { console.warn('Could not create cohort group:', gErr); }
                 }
                 closeCohortForm();
                 loadCohorts();
@@ -16598,6 +17604,7 @@
                                 <span>📅 ${new Date(c.startDate).toLocaleDateString()} → ${new Date(c.endDate).toLocaleDateString()}</span>
                                 <span>👥 ${c.capacity || '∞'} capacity</span>
                                 <span>👤 ${c.students?.length || 0} enrolled</span>
+                                ${c.groupId ? '<span class="badge badge-cohort">👥 Group Active</span>' : ''}
                             </div>
                         </div>
                         <div>
@@ -16623,6 +17630,7 @@
                         <p><strong>Dates:</strong> ${new Date(cohort.startDate).toLocaleDateString()} → ${new Date(cohort.endDate).toLocaleDateString()}</p>
                         <p><strong>Students (${students.length}):</strong></p>
                         ${students.length ? students.map(s => `<div style="padding:.3rem 0;border-bottom:1px solid var(--border);">${escapeHtml(s.userId?.firstName || 'User')} ${escapeHtml(s.userId?.lastName || '')}</div>`).join('') : '<p style="color:var(--text3);">No students enrolled.</p>'}
+                        ${cohort.groupId ? `<p><strong>Group:</strong> <a style="color:var(--primary);cursor:pointer;" onclick="window.location.href='/groups/${cohort.groupId}'">View Group →</a></p>` : ''}
                     `;
                     document.querySelector('#userDetailsModal .modal-hd h5').textContent = '👥 Cohort Details';
                     openModal('userDetailsModal');
@@ -16751,10 +17759,12 @@
                     lastName: document.getElementById('setLastName')?.value,
                     phone: document.getElementById('setPhone')?.value,
                     bio: document.getElementById('setBio')?.value,
-                    location: document.getElementById('setLocation')?.value
+                    location: document.getElementById('setLocation')?.value,
+                    autoShareMilestones: S.autoShareMilestones
                 };
                 const data = await apiCall('/users/profile', { method: 'PUT', body });
                 S.user = { ...S.user, ...(data.data || data) };
+                S.autoShareMilestones = S.user.autoShareMilestones !== false;
                 localStorage.setItem('cx_user', JSON.stringify(S.user));
                 updateUserUI();
                 toast('✅ Profile saved!', 'success');
@@ -16846,7 +17856,7 @@
 
         function renderNotifSettings() {
             const items = ['Course Approvals', 'New Affiliate Offers', 'Referral Conversions', 'Q&A Replies',
-                'Admin Announcements'
+                'Admin Announcements', 'Milestone Stories'
             ];
             document.getElementById('notifSettingsList').innerHTML = items.map(item =>
                 `<div class="d-flex items-center justify-between p-3" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.3rem"><div style="font-size:.83rem;font-weight:600">${item}</div><input type="checkbox" checked style="accent-color:var(--primary);width:15px;height:15px;cursor:pointer"/></div>`
@@ -17072,6 +18082,8 @@
             if (e.key === 'Escape') {
                 document.querySelectorAll('.modal-ov:not(.hidden)').forEach(m => m.classList.add('hidden'));
                 document.getElementById('notifPanel')?.classList.remove('open');
+                const fab = document.getElementById('fab');
+                if (fab) fab.classList.remove('hide-when-modal');
             }
         });
 
@@ -17215,6 +18227,9 @@
             console.log('✅ Interactive Materials — Code editors, calculators, quizzes, diagrams, simulations.');
             console.log('✅ Cohorts — Student cohorts with start/end dates, capacity, course association.');
             console.log('✅ Revenue Splits — Co-instructor revenue sharing with percentage splits.');
+            console.log('✅ Unified Activity Thread — Combined activity feed.');
+            console.log('✅ Milestone Stories — Auto-generated achievement stories.');
+            console.log('✅ Commerce-Context Message Cards — Rich course/book cards in chat.');
             console.log('📱 PWA: Install banner hides for 7 days after dismissal.');
             console.log('⭐ Rating system fully integrated with course reviews.');
             console.log('👥 Following system fixed with proper localStorage persistence.');
@@ -17278,8 +18293,11 @@
             console.log('✅ LIVE SESSIONS: Webinars, office hours, one-on-one, recording.');
             console.log('✅ PAID ARTICLES: Paywall, admin approval, author earnings.');
             console.log('✅ INTERACTIVE MATERIALS: CRUD operations with reorder.');
-            console.log('✅ COHORTS: Create, edit, delete cohorts.');
+            console.log('✅ COHORTS: Create, edit, delete cohorts with group integration.');
             console.log('✅ REVENUE SPLITS: Co-instructor revenue sharing.');
+            console.log('✅ UNIFIED ACTIVITY THREAD: Combined feed of messages, stories, groups, milestones.');
+            console.log('✅ MILESTONE STORIES: Auto-generated for course progress, challenges, certificates.');
+            console.log('✅ COMMERCE CARDS: Rich course/book cards in chat with affiliate support.');
             console.log('🎉 All features fully integrated and production-ready!');
         });
 
@@ -17323,6 +18341,7 @@
         window.filterConversations = filterConversations;
         window.searchUsersForChat = searchUsersForChat;
         window.startConversation = startConversation;
+        window.shareCommerceCard = shareCommerceCard;
         window.loadGroups = loadGroups;
         window.openGroup = openGroup;
         window.joinGroup = joinGroup;
@@ -17348,6 +18367,9 @@
         window.submitArticle = submitArticle;
         window.approveArticle = approveArticle;
         window.rejectArticle = rejectArticle;
+        window.loadActivityFeed = loadActivityFeed;
+        window.addActivityItem = addActivityItem;
+        window.createMilestoneStory = createMilestoneStory;
     </script>
 </body>
 </html>
