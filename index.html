@@ -102,6 +102,8 @@
             --skeleton-base: #1F1F1F;
             --skeleton-shine: #2A2A2A;
             --loading-spinner-color: var(--primary);
+            --story-ring-size: 62px;
+            --chat-bubble-radius: 18px;
         }
         [data-theme="light"] {
             --bg: #FDF8F0;
@@ -6504,7 +6506,7 @@
             background: var(--primary);
         }
 
-        /* ─── GROUP CARD ──────────────────────────────────────────────── */
+        /* ─── GROUPS CUSTOM STYLES ───────────────────────────────────── */
         .group-card {
             background: var(--card);
             border: 1px solid var(--border);
@@ -6760,6 +6762,8 @@
             max-width: 360px;
             margin: 0 auto;
         }
+
+        /* ─── MOBILE RESPONSIVE GROUPS ───────────────────────────────── */
         @media (max-width: 768px) {
             .group-card {
                 padding: 1rem;
@@ -6815,7 +6819,7 @@
     <div id="loadingOverlay" class="loading-overlay" style="display:none"><div class="loading-spinner"></div><div class="loading-text" id="loadingText">Loading...</div></div>
 
     <!-- PWA INSTALL BANNER -->
-    <div id="installBanner" class="install-banner hidden"><div style="font-size:1.5rem">📲</div><div style="flex:1"><div style="font-weight:700;font-size:.84rem">Install ChangeX Academy</div><div style="font-size:.72rem;color:var(--text3)">Get faster access, offline learning &amp; instant notifications</div></div><button class="btn btn-primary btn-sm" id="installBtn" onclick="installPWA()">Install</button><button class="btn-icon-sm" onclick="dismissInstallBanner()"><i class="fas fa-times"></i></button></div>
+    <div id="installBanner" class="install-banner hidden"><div style="font-size:1.5rem">📲</div><div style="flex:1"><div style="font-weight:700;font-size:.84rem">Install ChangeX Academy</div><div style="font-size:.72rem;color:var(--text3)">Get faster access, offline learning & instant notifications</div></div><button class="btn btn-primary btn-sm" id="installBtn" onclick="installPWA()">Install</button><button class="btn-icon-sm" onclick="dismissInstallBanner()"><i class="fas fa-times"></i></button></div>
 
     <!-- BOTTOM AD BANNER (Mobile) -->
     <div id="bottomAdBanner"><button class="ad-close" onclick="document.getElementById('bottomAdBanner').style.display='none'"><i class="fas fa-times"></i></button><div id="bottomAdContent"></div></div>
@@ -6891,7 +6895,6 @@
     <div class="modal-ov hidden" id="feedbackModal"><div class="modal-box"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0">📢 Send Feedback</h5><button class="btn-icon-sm" onclick="closeModal('feedbackModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Your Message</label><textarea class="finput" id="feedbackMsg" style="min-height:120px" placeholder="Tell us what you love, what's broken, or what you'd like to see..."></textarea></div><div class="form-group"><label class="flabel">Your Email (optional, for replies)</label><input type="email" class="finput" id="feedbackEmail" placeholder="you@example.com"/></div></div><div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('feedbackModal')">Cancel</button><button class="btn btn-primary" onclick="sendFeedback()">Send Feedback</button></div></div></div>
 
     <div class="modal-ov hidden" id="createPostModal"><div class="modal-box modal-box-lg"><div class="sheet-handle d-md-none"></div><div class="modal-hd"><h5 style="margin:0">📝 Create New Post</h5><button class="btn-icon-sm" onclick="closeModal('createPostModal')"><i class="fas fa-times"></i></button></div><div class="modal-bd"><div class="form-group"><label class="flabel">Title</label><input type="text" class="finput" id="postTitle" placeholder="Catchy title..." oninput="checkDuplicatePost(this.value)"/></div><div id="postDuplicateWarning" class="post-duplicate-warning">⚠️ You've already posted something with this title. Please use a different title.</div><div class="form-group"><label class="flabel">Type</label><select class="finput" id="postType"><option value="article">Article</option><option value="tutorial">Tutorial</option><option value="challenge">Challenge</option><option value="announcement">Announcement</option></select></div><div class="form-group"><div class="d-flex items-center gap-2"><input type="checkbox" id="postIsPaid" onchange="toggleArticlePrice(this.checked)" style="accent-color:var(--primary);width:18px;height:18px;cursor:pointer;"><label for="postIsPaid" style="font-size:.82rem;color:var(--text2);cursor:pointer;">Make this a paid article</label></div><div id="articlePriceInput" style="display:none;margin-top:.5rem;"><label class="flabel">Price (₦)</label><input type="number" class="finput" id="postPrice" placeholder="e.g. 500" min="100" value="500" /><small style="color:var(--text3);font-size:.7rem;display:block;margin-top:.2rem;">Recommended price: ₦500 – ₦2,000</small></div><div id="articlePreviewInput" style="display:none;margin-top:.5rem;"><label class="flabel">Preview Content (shown to non-purchasers)</label><textarea class="finput" id="postPreviewContent" rows="3" placeholder="First 200 characters or a summary..."></textarea><small style="color:var(--text3);font-size:.7rem;display:block;margin-top:.2rem;">This preview will be shown to users who haven't purchased the article.</small></div></div><div class="form-group"><label class="flabel">Content (Rich Text)</label><div id="postEditor" style="min-height:300px"></div></div><div class="form-group"><label class="flabel">Tags (comma separated)</label><input type="text" class="finput" id="postTags" placeholder="react, javascript, tutorial"/></div><div class="form-group"><label class="flabel">Featured Image URL</label><input type="url" class="finput" id="postImage" placeholder="https://..."/></div>
-                            <!-- ====== POST IMAGE UPLOAD ====== -->
                             <div class="form-group">
                                 <label class="flabel">Upload Image</label>
                                 <div class="upload-zone" style="padding:1rem">
@@ -6938,6 +6941,7 @@
                         <li><span class="nav-item" id="nav-challenges" onclick="setDP('challenges')"><span class="nav-ico"><i class="fas fa-trophy"></i></span>Challenges<span class="nav-badge nav-badge-pink" id="navChallengeBadge">0</span></span></li>
                         <li><span class="nav-item" id="nav-people" onclick="setDP('people')"><span class="nav-ico"><i class="fas fa-users"></i></span>People</span></li>
                         <li><span class="nav-item" id="nav-following" onclick="setDP('following')"><span class="nav-ico"><i class="fas fa-rss"></i></span>Following<span class="nav-badge" id="navFollowingBadge">0</span></span></li>
+                        <li class="nav-sec" style="margin-top:.3rem">Community</li>
                         <li><span class="nav-item" id="nav-groups" onclick="setDP('groups')"><span class="nav-ico"><i class="fas fa-users"></i></span>Groups<span class="nav-badge nav-badge-c" id="navGroupsBadge">0</span></span></li>
                         <li class="nav-sec" style="margin-top:.3rem">Learning</li>
                         <li><span class="nav-item" id="nav-home" onclick="setDP('home')"><span class="nav-ico"><i class="fas fa-home"></i></span>Dashboard</span></li>
@@ -7045,59 +7049,6 @@
 
                     <!-- PROFILE -->
                     <div id="dash-profile" class="dash-sub"><div class="page-hd"><button class="btn btn-ghost btn-sm" onclick="setDP('people')"><i class="fas fa-arrow-left"></i> Back</button></div><div id="profileContent"></div></div>
-
-                    <!-- GROUPS -->
-                    <div id="dash-groups" class="dash-sub" style="display:none;">
-                        <div class="page-hd">
-                            <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;">
-                                <div>
-                                    <h2 class="page-title" style="margin:0;">👥 Study Groups</h2>
-                                    <p class="page-sub" style="margin:0;">Join, create, and collaborate with fellow learners</p>
-                                </div>
-                                <button class="btn btn-primary btn-sm" onclick="openCreateGroupModal()">
-                                    <i class="fas fa-plus"></i> Create Group
-                                </button>
-                            </div>
-                        </div>
-                        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center;">
-                            <div class="search-wrap" style="flex:1;max-width:300px;min-width:150px;">
-                                <i class="fas fa-search search-ico"></i>
-                                <input type="text" class="top-search" id="groupSearch" placeholder="Search groups..." style="padding:.3rem .9rem .3rem 2.1rem;font-size:.78rem;" oninput="filterGroupsList(this.value)">
-                            </div>
-                            <div class="tabs" style="background:var(--bg2);border:1px solid var(--border);padding:.2rem;border-radius:var(--radius-sm);flex-wrap:wrap;">
-                                <button class="tab-btn active" data-filter="all" onclick="filterGroups('all',this)">All</button>
-                                <button class="tab-btn" data-filter="joined" onclick="filterGroups('joined',this)">Joined</button>
-                                <button class="tab-btn" data-filter="public" onclick="filterGroups('public',this)">Public</button>
-                                <button class="tab-btn" data-filter="private" onclick="filterGroups('private',this)">Private</button>
-                            </div>
-                            <button class="btn btn-ghost btn-sm" onclick="loadGroups()" style="min-height:32px;padding:0 .8rem;">
-                                <i class="fas fa-sync-alt"></i>
-                            </button>
-                        </div>
-                        <div id="groupsList" class="row">
-                            <div class="col-12">
-                                <div class="empty-state">
-                                    <i class="fas fa-users" style="font-size:2.5rem;"></i>
-                                    <h4>Loading groups...</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="groupsSentinel" style="height:2px;width:100%;"></div>
-                        <div id="groupsLoadingMore" style="display:none;text-align:center;padding:1rem 0;color:var(--text3);font-size:.82rem;">
-                            <span class="spinner" style="display:inline-block;width:20px;height:20px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:.5rem;"></span>
-                            Loading more groups...
-                        </div>
-                    </div>
-
-                    <!-- GROUP DETAIL -->
-                    <div id="dash-group-detail" class="dash-sub" style="display:none;">
-                        <div class="page-hd">
-                            <button class="btn btn-ghost btn-sm" onclick="setDP('groups')">
-                                <i class="fas fa-arrow-left"></i> Back to Groups
-                            </button>
-                        </div>
-                        <div id="groupDetailContent"></div>
-                    </div>
 
                     <!-- HOME -->
                     <div id="dash-home" class="dash-sub"><div id="homeSkeleton" style="display:none"><div class="skeleton" style="height:120px;margin-bottom:1rem;border-radius:var(--radius)"></div><div class="row"><div class="col-6 col-md-3"><div class="skeleton" style="height:100px;border-radius:var(--radius)"></div></div><div class="col-6 col-md-3"><div class="skeleton" style="height:100px;border-radius:var(--radius)"></div></div></div></div><div id="homeContent"></div></div>
@@ -7266,11 +7217,10 @@
         <div class="modal-box" style="max-width:520px;">
             <div class="modal-hd"><h5 style="margin:0;">👥 Create Group</h5><button class="btn-icon-sm" onclick="closeModal('createGroupModal')"><i class="fas fa-times"></i></button></div>
             <div class="modal-bd">
-                <div class="form-group"><label class="flabel">Group Name *</label><input type="text" class="finput" id="groupName" placeholder="e.g. Web Dev Study Group" maxlength="50" oninput="document.getElementById('groupNameCount').textContent=this.value.length"><div style="font-size:.65rem;color:var(--text3);text-align:right;"><span id="groupNameCount">0</span>/50</div></div>
+                <div class="form-group"><label class="flabel">Group Name *</label><input type="text" class="finput" id="groupName" placeholder="e.g. Web Dev Study Group" maxlength="50"></div>
                 <div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="groupDescription" rows="3" placeholder="What's this group about?"></textarea></div>
-                <div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;"><div class="price-type-opt selected" data-type="public" onclick="selectGroupType('public',this)" style="padding:.75rem;text-align:center;"><div style="font-size:1.5rem;">🌐</div><div style="font-weight:600;font-size:.82rem;">Public</div><div style="font-size:.65rem;color:var(--text3);">Anyone can join</div></div><div class="price-type-opt" data-type="private" onclick="selectGroupType('private',this)" style="padding:.75rem;text-align:center;"><div style="font-size:1.5rem;">🔒</div><div style="font-weight:600;font-size:.82rem;">Private</div><div style="font-size:.65rem;color:var(--text3);">Admin approval required</div></div></div><input type="hidden" id="groupType" value="public"></div>
-                <div class="form-group"><label class="flabel">Group Avatar</label><div class="upload-zone" style="padding:1rem;"><input type="file" id="groupAvatarInput" accept="image/*" onchange="previewGroupAvatar(this)"><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.8rem;color:var(--text2);">Upload a group avatar (optional)</div></div><div id="groupAvatarPreview" style="display:none;margin-top:.5rem;"><div style="display:flex;align-items:center;gap:.5rem;"><img id="groupAvatarPreviewImg" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--border);object-fit:cover;"><span class="badge badge-success">✅ Uploaded</span><button class="btn-icon-sm" onclick="removeGroupAvatar()" style="color:var(--danger);"><i class="fas fa-times"></i></button></div></div><input type="hidden" id="groupAvatarUrl"></div>
-                <div class="info-box"><i class="fas fa-info-circle" style="color:var(--primary);"></i>Groups are a great way to collaborate with fellow learners. Share resources, schedule study sessions, and learn together.</div>
+                <div class="form-group"><label class="flabel">Type</label><select class="finput" id="groupType"><option value="public">🌐 Public – Anyone can join</option><option value="private">🔒 Private – Admin approval required</option></select></div>
+                <div class="form-group"><label class="flabel">Group Avatar</label><div class="upload-zone" style="padding:1rem;"><input type="file" id="groupAvatarInput" accept="image/*" onchange="previewGroupAvatar(this)"><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.8rem;color:var(--text2);">Upload a group avatar (optional)</div></div><div id="groupAvatarPreview" style="display:none;margin-top:.5rem;"><img id="groupAvatarPreviewImg" style="width:60px;height:60px;border-radius:50%;border:2px solid var(--border);"></div></div>
             </div>
             <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('createGroupModal')">Cancel</button><button class="btn btn-primary" onclick="createGroup()"><i class="fas fa-plus"></i> Create Group</button></div>
         </div>
@@ -7283,7 +7233,7 @@
             <div class="modal-bd">
                 <div class="form-group"><label class="flabel">Title *</label><input type="text" class="finput" id="resourceTitle" placeholder="e.g. JavaScript Cheat Sheet"></div>
                 <div class="form-group"><label class="flabel">URL *</label><input type="url" class="finput" id="resourceUrl" placeholder="https://..."></div>
-                <div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;"><div class="price-type-opt selected" data-type="link" onclick="selectResourceType('link',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🔗 Link</div><div class="price-type-opt" data-type="pdf" onclick="selectResourceType('pdf',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📄 PDF</div><div class="price-type-opt" data-type="code" onclick="selectResourceType('code',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">💻 Code</div><div class="price-type-opt" data-type="image" onclick="selectResourceType('image',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🖼️ Image</div><div class="price-type-opt" data-type="video" onclick="selectResourceType('video',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎬 Video</div><div class="price-type-opt" data-type="other" onclick="selectResourceType('other',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📦 Other</div></div><input type="hidden" id="resourceType" value="link"></div>
+                <div class="form-group"><label class="flabel">Type</label><select class="finput" id="resourceType"><option value="link">🔗 Link</option><option value="pdf">📄 PDF</option><option value="code">💻 Code</option><option value="image">🖼️ Image</option><option value="video">🎬 Video</option></select></div>
             </div>
             <div class="modal-ft"><button class="btn btn-ghost" onclick="closeModal('addResourceModal')">Cancel</button><button class="btn btn-primary" onclick="addResource()"><i class="fas fa-plus"></i> Add Resource</button></div>
         </div>
@@ -7296,7 +7246,7 @@
             <div class="modal-bd">
                 <div class="form-group"><label class="flabel">Event Title *</label><input type="text" class="finput" id="eventTitle" placeholder="e.g. Weekly Study Session"></div>
                 <div class="form-group"><label class="flabel">Description</label><textarea class="finput" id="eventDescription" rows="2" placeholder="What's this event about?"></textarea></div>
-                <div class="form-group"><label class="flabel">Type</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:.3rem;"><div class="price-type-opt selected" data-type="voice_chat" onclick="selectEventType('voice_chat',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎤 Voice Chat</div><div class="price-type-opt" data-type="coding_session" onclick="selectEventType('coding_session',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">💻 Coding Session</div><div class="price-type-opt" data-type="study_meet" onclick="selectEventType('study_meet',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">📚 Study Meet</div><div class="price-type-opt" data-type="webinar" onclick="selectEventType('webinar',this)" style="padding:.4rem;text-align:center;font-size:.7rem;">🎓 Webinar</div></div><input type="hidden" id="eventType" value="voice_chat"></div>
+                <div class="form-group"><label class="flabel">Type</label><select class="finput" id="eventType"><option value="voice_chat">🎤 Voice Chat</option><option value="coding_session">💻 Coding Session</option><option value="study_meet">📚 Study Meet</option><option value="webinar">🎓 Webinar</option></select></div>
                 <div class="row"><div class="col-6"><div class="form-group"><label class="flabel">Start Time *</label><input type="datetime-local" class="finput" id="eventStart"></div></div><div class="col-6"><div class="form-group"><label class="flabel">End Time *</label><input type="datetime-local" class="finput" id="eventEnd"></div></div></div>
                 <div class="form-group"><label class="flabel">Meeting URL (optional)</label><input type="url" class="finput" id="eventMeetingUrl" placeholder="https://meet.google.com/..."></div>
             </div>
@@ -7372,7 +7322,10 @@
     <!-- Already inside dash-instructor above -->
 
     <!-- ─── GROUP DETAIL SUB-SECTION ────────────────────────────────── -->
-    <!-- Already inside dash-group-detail above -->
+    <div id="dash-group-detail" class="dash-sub" style="display:none;">
+        <div class="page-hd"><button class="btn btn-ghost btn-sm" onclick="setDP('groups')"><i class="fas fa-arrow-left"></i> Back to Groups</button></div>
+        <div id="groupDetailContent"></div>
+    </div>
 
     <!-- ============================================================ -->
     <!-- JAVASCRIPT – PRODUCTION READY WITH ALL ENHANCEMENTS          -->
@@ -9323,6 +9276,7 @@
             }
             const storiesBadge = document.getElementById('storiesBadge');
             if (storiesBadge) {
+                // Count unviewed stories
                 let count = 0;
                 try {
                     const storiesData = JSON.parse(sessionStorage.getItem('storiesData') || '{}');
@@ -11961,7 +11915,7 @@
             if (navInd) navInd.textContent = `${S.currentLessonIdx + 1} of ${total}`;
             S.lessonStartTime = Date.now();
             updateLessonInfo();
-            const currentLesson = S.currentLessons[S.currentLessonIdx];
+            const currentLesson = lessons[S.currentLessonIdx];
             if (currentLesson && currentLesson._id) loadInteractiveMaterials(currentLesson._id);
             if (S.currentCourseData?.ratings) {
                 document.getElementById('courseRatingsContainer').innerHTML = renderCourseRatings(S.currentCourseData.ratings);
@@ -15259,7 +15213,7 @@
                         <div onclick="openStoryViewer('${userId}')" style="cursor:pointer;text-align:center;min-width:60px;display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
                             <div class="story-ring" style="background:${hasUnviewed ? 'linear-gradient(135deg,var(--primary),var(--secondary))' : 'var(--border)'};">
                                 <div class="story-avatar" style="background:linear-gradient(135deg,var(--primary),var(--secondary));">
-                                    ${avatarUrl ? `<img src="${avatarUrl}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : initial}
+                                    ${avatarUrl ? `<img src="${avatarUrl}" style="width:100%;height:100%;object-fit:cover;">` : initial}
                                 </div>
                             </div>
                             <span style="font-size:.6rem;color:var(--text3);margin-top:.2rem;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${user.firstName || 'User'}</span>
@@ -15937,21 +15891,6 @@
             loadGroups();
         }
 
-        function filterGroupsList(value) {
-            const container = document.getElementById('groupsList');
-            if (!container) return;
-            const cards = container.querySelectorAll('.group-card');
-            const term = value.toLowerCase().trim();
-            cards.forEach(card => {
-                const parent = card.closest('.col-12');
-                if (!parent) return;
-                const name = card.querySelector('[style*="font-weight:700"]')?.textContent || '';
-                const desc = card.querySelector('p')?.textContent || '';
-                const match = name.toLowerCase().includes(term) || desc.toLowerCase().includes(term);
-                parent.style.display = match ? '' : 'none';
-            });
-        }
-
         function renderGroups(groups) {
             const container = document.getElementById('groupsList');
             if (!container) return;
@@ -15959,11 +15898,11 @@
             if (!groups.length) {
                 container.innerHTML = `
                     <div class="col-12">
-                        <div class="groups-empty">
-                            <i class="fas fa-users"></i>
+                        <div class="empty-state" style="padding:2rem 0;">
+                            <i class="fas fa-users" style="font-size:2.5rem;"></i>
                             <h4>No groups found</h4>
                             <p>${groupFilter === 'all' ? 'Create a group or join an existing one!' : 'No groups match your filter.'}</p>
-                            ${groupFilter === 'all' ? `<button class="btn btn-primary btn-sm" onclick="openCreateGroupModal()"><i class="fas fa-plus"></i> Create Group</button>` : ''}
+                            ${groupFilter === 'all' ? '<button class="btn btn-primary btn-sm" onclick="openCreateGroupModal()"><i class="fas fa-plus"></i> Create Group</button>' : ''}
                         </div>
                     </div>
                 `;
@@ -15972,42 +15911,30 @@
 
             container.innerHTML = groups.map(g => `
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="group-card" onclick="openGroup('${g._id}')">
+                    <div class="group-card" onclick="openGroup('${g._id}')" style="cursor:pointer;height:100%;display:flex;flex-direction:column;">
                         <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;">
-                            <div class="group-avatar">
-                                ${g.avatar ? `<img src="${g.avatar}" alt="${escapeHtml(g.name)}">` : '👥'}
+                            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#000;flex-shrink:0;overflow:hidden;">
+                                ${g.avatar ? `<img src="${g.avatar}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : '👥'}
                             </div>
                             <div style="flex:1;min-width:0;">
                                 <div style="font-weight:700;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(g.name)}</div>
-                                <div style="font-size:.7rem;color:var(--text3);display:flex;gap:.5rem;flex-wrap:wrap;">
-                                    <span><i class="fas fa-user"></i> ${g.memberCount || 0}</span>
-                                    <span class="badge ${g.type === 'public' ? 'badge-cyan' : 'badge-gold'}" style="font-size:.55rem;padding:.05rem .5rem;">${g.type}</span>
+                                <div style="font-size:.7rem;color:var(--text3);">
+                                    <span><i class="fas fa-user"></i> ${g.memberCount || 0} members</span>
+                                    <span style="margin-left:.5rem;"><span class="badge ${g.type === 'public' ? 'badge-cyan' : 'badge-gold'}" style="font-size:.55rem;">${g.type}</span></span>
                                 </div>
                             </div>
                         </div>
-                        <p style="font-size:.82rem;color:var(--text2);flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:.25rem 0 .5rem;">
-                            ${escapeHtml(g.description || 'No description')}
-                        </p>
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.5rem;flex-wrap:wrap;gap:.3rem;">
-                            <div style="display:flex;gap:.3rem;flex-wrap:wrap;">
-                                ${g.isMember ? '<span class="badge badge-success" style="font-size:.55rem;">✅ Member</span>' : ''}
-                                ${g.adminId === S.user._id ? '<span class="badge badge-primary" style="font-size:.55rem;">👑 Admin</span>' : ''}
-                            </div>
-                            ${g.isMember ? 
-                                `<button class="group-leave-btn" onclick="event.stopPropagation();leaveGroup('${g._id}')">Leave</button>` :
-                                `<button class="group-join-btn" onclick="event.stopPropagation();joinGroup('${g._id}')">Join</button>`
-                            }
+                        <p style="font-size:.82rem;color:var(--text2);margin:.25rem 0 .5rem;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${escapeHtml(g.description || '')}</p>
+                        <div style="display:flex;gap:.3rem;margin-top:.5rem;flex-wrap:wrap;">
+                            ${g.isMember ? '<span class="badge badge-success">✅ Member</span>' : ''}
+                            ${g.adminId === S.user._id ? '<span class="badge badge-primary">👑 Admin</span>' : ''}
+                            <span style="flex:1;"></span>
+                            ${g.isMember ? `<button class="btn btn-danger btn-sm" onclick="event.stopPropagation();leaveGroup('${g._id}')" style="font-size:.65rem;padding:.15rem .6rem;">Leave</button>` : 
+                                `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();joinGroup('${g._id}')" style="font-size:.65rem;padding:.15rem .6rem;">Join</button>`}
                         </div>
                     </div>
                 </div>
             `).join('');
-
-            // Update badge count
-            const badge = document.getElementById('navGroupsBadge');
-            if (badge) {
-                const joined = groups.filter(g => g.isMember).length;
-                badge.textContent = joined || 0;
-            }
         }
 
         async function openGroup(groupId) {
@@ -16060,7 +15987,7 @@
                     </div>
                 </div>
 
-                <div class="group-detail-tabs">
+                <div class="tabs mb-3" style="margin-top:1rem;">
                     <button class="tab-btn active" onclick="switchGroupTab('posts',this)">📝 Posts</button>
                     <button class="tab-btn" onclick="switchGroupTab('resources',this)">📎 Resources</button>
                     <button class="tab-btn" onclick="switchGroupTab('events',this)">📅 Events</button>
@@ -16068,18 +15995,18 @@
                 </div>
 
                 <div id="groupTabContent">
-                    <div id="groupTab-posts" class="group-tab-content active">
+                    <div id="groupTab-posts" class="group-tab active">
                         <div class="empty-state"><i class="fas fa-file-alt"></i><h4>No posts yet</h4><p>Be the first to post in this group!</p></div>
                     </div>
-                    <div id="groupTab-resources" class="group-tab-content" style="display:none;">
+                    <div id="groupTab-resources" class="group-tab" style="display:none;">
                         ${isMember ? `<button class="btn btn-primary btn-sm mb-3" onclick="openAddResourceModal()"><i class="fas fa-plus"></i> Add Resource</button>` : ''}
                         <div id="groupResourcesList"></div>
                     </div>
-                    <div id="groupTab-events" class="group-tab-content" style="display:none;">
+                    <div id="groupTab-events" class="group-tab" style="display:none;">
                         ${isMember ? `<button class="btn btn-primary btn-sm mb-3" onclick="openCreateEventModal()"><i class="fas fa-plus"></i> Create Event</button>` : ''}
                         <div id="groupEventsList"></div>
                     </div>
-                    <div id="groupTab-members" class="group-tab-content" style="display:none;">
+                    <div id="groupTab-members" class="group-tab" style="display:none;">
                         <div id="groupMembersList"></div>
                     </div>
                 </div>
@@ -16093,9 +16020,9 @@
         function switchGroupTab(tab, btn) {
             document.querySelectorAll('#groupDetailContent .tab-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
-            document.querySelectorAll('#groupDetailContent .group-tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('#groupDetailContent .group-tab').forEach(t => t.style.display = 'none');
             const target = document.getElementById(`groupTab-${tab}`);
-            if (target) target.classList.add('active');
+            if (target) target.style.display = 'block';
         }
 
         async function joinGroup(groupId) {
@@ -16128,16 +16055,7 @@
             document.getElementById('groupType').value = 'public';
             document.getElementById('groupAvatarPreview').style.display = 'none';
             document.getElementById('groupAvatarInput').value = '';
-            document.getElementById('groupNameCount').textContent = '0';
-            document.querySelectorAll('#createGroupModal .price-type-opt').forEach(el => el.classList.remove('selected'));
-            document.querySelector('#createGroupModal .price-type-opt[data-type="public"]').classList.add('selected');
             openModal('createGroupModal');
-        }
-
-        function selectGroupType(type, el) {
-            document.querySelectorAll('#createGroupModal .price-type-opt').forEach(opt => opt.classList.remove('selected'));
-            if (el) el.classList.add('selected');
-            document.getElementById('groupType').value = type;
         }
 
         function previewGroupAvatar(input) {
@@ -16148,12 +16066,6 @@
             preview.style.display = 'block';
             const img = document.getElementById('groupAvatarPreviewImg');
             img.src = URL.createObjectURL(file);
-        }
-
-        function removeGroupAvatar() {
-            groupAvatarFile = null;
-            document.getElementById('groupAvatarPreview').style.display = 'none';
-            document.getElementById('groupAvatarInput').value = '';
         }
 
         async function createGroup() {
@@ -16221,16 +16133,15 @@
                     return;
                 }
                 container.innerHTML = resources.map(r => `
-                    <div class="resource-item">
-                        <span class="res-icon">${r.type === 'pdf' ? '📄' : r.type === 'code' ? '💻' : r.type === 'image' ? '🖼️' : r.type === 'video' ? '🎬' : '🔗'}</span>
-                        <span class="res-title"><a href="${r.url}" target="_blank">${escapeHtml(r.title)}</a></span>
-                        <span class="res-meta">by ${r.addedBy?.firstName || 'User'} ${r.addedBy?.lastName || ''}</span>
-                        ${r.addedBy?._id === S.user._id || r.addedBy === S.user._id ? `<button class="btn-icon-sm" onclick="deleteResource('${r._id}')" style="color:var(--danger);"><i class="fas fa-times"></i></button>` : ''}
+                    <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:.3rem;">
+                        <span style="font-size:1.1rem;">${r.type === 'pdf' ? '📄' : r.type === 'code' ? '💻' : r.type === 'image' ? '🖼️' : r.type === 'video' ? '🎬' : '🔗'}</span>
+                        <a href="${r.url}" target="_blank" style="flex:1;color:var(--primary);font-size:.82rem;text-decoration:underline;">${escapeHtml(r.title)}</a>
+                        <span style="font-size:.65rem;color:var(--text3);">by ${r.addedBy?.firstName || 'User'}</span>
+                        ${r.addedBy?._id === S.user._id ? `<button class="btn-icon-sm" onclick="deleteResource('${r._id}')" style="color:var(--danger);"><i class="fas fa-times"></i></button>` : ''}
                     </div>
                 `).join('');
             } catch (err) {
                 console.warn('Failed to load resources:', err);
-                if (container) container.innerHTML = '<div class="empty-state"><p>Failed to load resources</p></div>';
             }
         }
 
@@ -16238,15 +16149,7 @@
             document.getElementById('resourceTitle').value = '';
             document.getElementById('resourceUrl').value = '';
             document.getElementById('resourceType').value = 'link';
-            document.querySelectorAll('#addResourceModal .price-type-opt').forEach(el => el.classList.remove('selected'));
-            document.querySelector('#addResourceModal .price-type-opt[data-type="link"]').classList.add('selected');
             openModal('addResourceModal');
-        }
-
-        function selectResourceType(type, el) {
-            document.querySelectorAll('#addResourceModal .price-type-opt').forEach(opt => opt.classList.remove('selected'));
-            if (el) el.classList.add('selected');
-            document.getElementById('resourceType').value = type;
         }
 
         async function addResource() {
@@ -16294,28 +16197,25 @@
                     const typeEmoji = { voice_chat: '🎤', coding_session: '💻', study_meet: '📚', webinar: '🎓' }[e.type] || '📅';
                     const isPast = new Date(e.endTime) < new Date();
                     return `
-                        <div class="event-card ${isPast ? 'past' : ''}">
-                            <div class="event-header">
+                        <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.75rem;margin-bottom:.5rem;${isPast ? 'opacity:0.6;' : ''}">
+                            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
                                 <div>
                                     <span style="font-size:1.2rem;margin-right:.5rem;">${typeEmoji}</span>
-                                    <span class="event-title">${escapeHtml(e.title)}</span>
+                                    <strong>${escapeHtml(e.title)}</strong>
                                     <span class="badge ${isPast ? 'badge-dark' : 'badge-cyan'}" style="font-size:.55rem;">${isPast ? 'Past' : 'Upcoming'}</span>
                                 </div>
-                                <div class="event-meta">
+                                <div style="font-size:.7rem;color:var(--text3);">
                                     ${new Date(e.startTime).toLocaleString()} → ${new Date(e.endTime).toLocaleTimeString()}
                                 </div>
                             </div>
                             <p style="font-size:.82rem;color:var(--text2);margin:.3rem 0;">${escapeHtml(e.description || '')}</p>
-                            <div class="event-actions">
-                                ${e.meetingUrl ? `<a href="${e.meetingUrl}" target="_blank" class="btn btn-primary btn-sm" style="font-size:.7rem;"><i class="fas fa-video"></i> Join Meeting</a>` : ''}
-                                ${e.createdBy === S.user._id ? `<button class="btn btn-danger btn-sm" onclick="deleteEvent('${e._id}')" style="font-size:.65rem;"><i class="fas fa-trash"></i></button>` : ''}
-                            </div>
+                            ${e.meetingUrl ? `<a href="${e.meetingUrl}" target="_blank" class="btn btn-primary btn-sm" style="font-size:.7rem;"><i class="fas fa-video"></i> Join Meeting</a>` : ''}
+                            ${e.createdBy === S.user._id ? `<button class="btn btn-danger btn-sm" onclick="deleteEvent('${e._id}')" style="font-size:.65rem;"><i class="fas fa-trash"></i></button>` : ''}
                         </div>
                     `;
                 }).join('');
             } catch (err) {
                 console.warn('Failed to load events:', err);
-                if (container) container.innerHTML = '<div class="empty-state"><p>Failed to load events</p></div>';
             }
         }
 
@@ -16326,15 +16226,7 @@
             document.getElementById('eventStart').value = '';
             document.getElementById('eventEnd').value = '';
             document.getElementById('eventMeetingUrl').value = '';
-            document.querySelectorAll('#createEventModal .price-type-opt').forEach(el => el.classList.remove('selected'));
-            document.querySelector('#createEventModal .price-type-opt[data-type="voice_chat"]').classList.add('selected');
             openModal('createEventModal');
-        }
-
-        function selectEventType(type, el) {
-            document.querySelectorAll('#createEventModal .price-type-opt').forEach(opt => opt.classList.remove('selected'));
-            if (el) el.classList.add('selected');
-            document.getElementById('eventType').value = type;
         }
 
         async function createEvent() {
@@ -16382,23 +16274,19 @@
                     container.innerHTML = '<div class="empty-state"><p>No members yet</p></div>';
                     return;
                 }
-                container.innerHTML = members.map(m => {
-                    const user = m.userId || {};
-                    const avatarUrl = getAvatarUrl(user);
-                    const initial = (user.firstName?.[0] || 'U') + (user.lastName?.[0] || '');
-                    return `
-                        <div class="member-item" onclick="openUserProfile('${user._id}')">
-                            <div class="member-avatar">
-                                ${avatarUrl ? `<img src="${avatarUrl}" alt="${initial}">` : initial}
-                            </div>
-                            <div class="member-name">${escapeHtml(user.firstName || 'User')} ${escapeHtml(user.lastName || '')}</div>
-                            <span class="member-role ${m.role || 'member'}">${m.role || 'member'}</span>
+                container.innerHTML = members.map(m => `
+                    <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;border-bottom:1px solid var(--border);">
+                        <div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:.65rem;flex-shrink:0;overflow:hidden;">
+                            ${getAvatarUrl(m.userId) ? `<img src="${getAvatarUrl(m.userId)}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">` : (m.userId?.firstName?.[0] || 'U')}
                         </div>
-                    `;
-                }).join('');
+                        <div style="flex:1;min-width:0;">
+                            <div style="font-size:.82rem;font-weight:600;">${escapeHtml(m.userId?.firstName || 'User')} ${escapeHtml(m.userId?.lastName || '')}</div>
+                        </div>
+                        <span class="badge ${m.role === 'admin' ? 'badge-primary' : 'badge-dark'}" style="font-size:.55rem;">${m.role || 'member'}</span>
+                    </div>
+                `).join('');
             } catch (err) {
                 console.warn('Failed to load members:', err);
-                if (container) container.innerHTML = '<div class="empty-state"><p>Failed to load members</p></div>';
             }
         }
 
@@ -16591,67 +16479,7 @@
 
         function openCohortForm(cohortId = null) {
             const container = document.getElementById('cohortFormContainer');
-            if (!container) {
-                // Create container if not exists
-                const instructorTab = document.getElementById('inst-tab-cohorts');
-                if (instructorTab) {
-                    const formContainer = document.createElement('div');
-                    formContainer.id = 'cohortFormContainer';
-                    formContainer.style.display = 'block';
-                    formContainer.innerHTML = `
-                        <div class="card card-p mb-3">
-                            <h5 id="cohortFormTitle">📚 Create New Cohort</h5>
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label class="flabel">Cohort Name *</label>
-                                        <input type="text" class="finput" id="cohortName" placeholder="e.g. Cohort 2025-01">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label class="flabel">Course *</label>
-                                        <select class="finput" id="cohortCourse">
-                                            <option value="">Select Course</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label class="flabel">Start Date *</label>
-                                        <input type="date" class="finput" id="cohortStart">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label class="flabel">End Date *</label>
-                                        <input type="date" class="finput" id="cohortEnd">
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <div class="form-group">
-                                        <label class="flabel">Capacity</label>
-                                        <input type="number" class="finput" id="cohortCapacity" placeholder="Unlimited" min="1">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button class="btn btn-ghost" onclick="closeCohortForm()">Cancel</button>
-                                <button class="btn btn-primary" onclick="saveCohort()"><i class="fas fa-save"></i> <span id="cohortSaveBtnText">Create Cohort</span></button>
-                            </div>
-                        </div>
-                    `;
-                    instructorTab.insertBefore(formContainer, instructorTab.querySelector('#cohortList'));
-                }
-            }
-
-            const container = document.getElementById('cohortFormContainer');
-            if (!container) {
-                toast('Error loading cohort form', 'error');
-                return;
-            }
+            if (!container) return;
             container.style.display = 'block';
 
             populateCohortCourses();
@@ -16671,8 +16499,7 @@
         }
 
         function closeCohortForm() {
-            const container = document.getElementById('cohortFormContainer');
-            if (container) container.style.display = 'none';
+            document.getElementById('cohortFormContainer').style.display = 'none';
         }
 
         function resetCohortForm() {
@@ -16688,12 +16515,10 @@
                 const res = await apiCall('/instructor/dashboard');
                 const courses = res.data?.courses || [];
                 const select = document.getElementById('cohortCourse');
-                if (select) {
-                    select.innerHTML = `
-                        <option value="">Select Course</option>
-                        ${courses.map(c => `<option value="${c._id}">${escapeHtml(c.title)}</option>`).join('')}
-                    `;
-                }
+                select.innerHTML = `
+                    <option value="">Select Course</option>
+                    ${courses.map(c => `<option value="${c._id}">${escapeHtml(c.title)}</option>`).join('')}
+                `;
             } catch (err) {
                 console.warn('Could not load courses:', err);
             }
