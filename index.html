@@ -35,21 +35,21 @@
 
     <title id="pageTitle">ChangeX Academy — Turn Tech Into Income</title>
     <!-- Cache‑busting version for CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css?v=2.0.4" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css?v=2.0.3" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css?v=2.0.4" rel="stylesheet" />
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css?v=2.0.3" rel="stylesheet" />
 
     <!-- Monaco Editor (VS Code-like) -->
     <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.40.0/min/vs/editor/editor.main.min.css" />
 
     <!-- Scripts with versioning -->
-    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js?v=2.0.4">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js?v=2.0.3">
     </script>
-    <script src="https://cdn.socket.io/4.6.1/socket.io.esm.min.js?v=2.0.4">
+    <script src="https://cdn.socket.io/4.6.1/socket.io.esm.min.js?v=2.0.3">
     </script>
-    <script src="https://js.paystack.co/v1/inline.js?v=2.0.4">
+    <script src="https://js.paystack.co/v1/inline.js?v=2.0.3">
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js?v=2.0.4">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js?v=2.0.3">
     </script>
     <!-- Monaco Loader -->
     <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.40.0/min/vs/loader.js">
@@ -6305,178 +6305,81 @@
             }
         }
 
-        /* ─── COURSE SHARE BUTTON ────────────────────────────────────── */
+        /* ─── COURSE SHARE BUTTON ───────────────────────────────────── */
         .course-share-btn {
             background: none;
             border: none;
             color: var(--text3);
             cursor: pointer;
-            padding: 4px 8px;
+            font-size: .75rem;
+            padding: .2rem .5rem;
             border-radius: var(--radius-sm);
             transition: all .2s;
-            font-size: .7rem;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: .3rem;
         }
         .course-share-btn:hover {
             color: var(--primary);
             background: rgba(212, 175, 55, .06);
         }
-        .course-share-btn i {
-            font-size: .8rem;
-        }
 
-        /* ─── UNIFIED CODE EDITOR ────────────────────────────────────── */
-        #unifiedCodeEditor {
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            overflow: hidden;
-            background: var(--bg);
-        }
-        #unifiedCodeEditor .code-tabs {
-            background: var(--bg3);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            flex-wrap: wrap;
-            padding: 0 4px;
-        }
-        #unifiedCodeEditor .code-tabs .tab-btn {
-            padding: 6px 14px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text3);
-            font-size: .78rem;
-            font-family: var(--font-mono);
-            border-bottom: 2px solid transparent;
-            transition: all .2s;
-        }
-        #unifiedCodeEditor .code-tabs .tab-btn.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-        #unifiedCodeEditor .code-tabs .tab-btn:hover {
-            color: var(--text);
-        }
-        #unifiedCodeEditor .code-area {
-            width: 100%;
-            min-height: 250px;
-            font-family: var(--font-mono);
-            padding: 12px;
-            background: var(--bg);
-            color: var(--text);
-            border: none;
-            outline: none;
-            font-size: .88rem;
-            resize: vertical;
-            line-height: 1.6;
-            tab-size: 2;
-        }
-        #unifiedCodeEditor .code-area:focus {
-            outline: none;
-        }
-        #unifiedCodeEditor .code-output-wrap {
-            border-top: 1px solid var(--border);
-            background: #fff;
-        }
-        #unifiedCodeEditor .code-output-wrap iframe {
-            width: 100%;
-            height: 300px;
-            border: none;
-            background: #fff;
-            display: block;
-        }
-        #unifiedCodeEditor .code-output-label {
-            padding: 4px 12px;
-            font-size: .7rem;
-            color: var(--text3);
-            background: var(--bg2);
-            border-bottom: 1px solid var(--border);
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: .05em;
-        }
-        #unifiedCodeEditor .code-toolbar {
+        /* ─── UNIFIED CODE EDITOR (Monaco) ──────────────────────────── */
+        .unified-editor-toolbar {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            background: var(--bg2);
-            border-bottom: 1px solid var(--border);
+            gap: .5rem;
             flex-wrap: wrap;
+            padding: .5rem .75rem;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
         }
-        #unifiedCodeEditor .code-toolbar .btn {
-            font-size: .75rem;
-            padding: 4px 14px;
-            min-height: 32px;
-        }
-        #unifiedCodeEditor .code-toolbar .btn-icon-sm {
-            width: 32px;
+        .unified-editor-toolbar .finput {
+            width: auto;
+            min-width: 120px;
             height: 32px;
-            font-size: .7rem;
+            font-size: .75rem;
+            padding: .2rem .6rem;
         }
-        #unifiedCodeEditor .code-toolbar select {
-            background: var(--bg);
+        .unified-editor-toolbar .btn {
+            min-height: 32px;
+            font-size: .75rem;
+            padding: .2rem .8rem;
+        }
+        #monacoContainer {
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+        }
+        #monacoOutput {
+            margin-top: .5rem;
+            padding: .75rem;
+            background: var(--bg2);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
-            color: var(--text);
-            padding: 4px 8px;
-            font-size: .75rem;
-            height: 32px;
             font-family: var(--font-mono);
+            font-size: .82rem;
+            min-height: 60px;
+            max-height: 200px;
+            overflow-y: auto;
+            color: var(--text2);
+            white-space: pre-wrap;
         }
-        #unifiedCodeEditor .code-toolbar .lang-label {
+        .monaco-status-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: .3rem;
+            padding: .3rem .75rem;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
             font-size: .7rem;
             color: var(--text3);
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: .05em;
         }
-        @media (max-width: 600px) {
-            #unifiedCodeEditor .code-area {
-                min-height: 180px;
-                font-size: .78rem;
-                padding: 8px;
-            }
-            #unifiedCodeEditor .code-output-wrap iframe {
-                height: 200px;
-            }
-            #unifiedCodeEditor .code-toolbar {
-                gap: 4px;
-                padding: 4px 8px;
-            }
-            #unifiedCodeEditor .code-toolbar .btn {
-                font-size: .68rem;
-                padding: 3px 10px;
-                min-height: 28px;
-            }
-            #unifiedCodeEditor .code-tabs .tab-btn {
-                font-size: .7rem;
-                padding: 4px 10px;
-            }
-        }
-
-        /* ─── TOAST NOTIFICATIONS ───────────────────────────────────── */
-        .toast-copy {
-            position: fixed;
-            bottom: 90px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--card);
-            border: 1px solid var(--primary);
-            border-radius: var(--radius-sm);
-            padding: .6rem 1.2rem;
-            box-shadow: var(--shadow);
-            z-index: 7000;
-            animation: slideUp .3s ease;
-            font-size: .82rem;
-            color: var(--text);
-            display: none;
-            backdrop-filter: blur(12px);
-        }
-        .toast-copy.show {
-            display: block;
+        .monaco-status-bar .badge {
+            font-size: .55rem;
         }
     </style>
 </head>
@@ -6820,75 +6723,21 @@
                     <!-- MANUAL PAYMENTS -->
                     <div id="dash-manual-payments" class="dash-sub"><div class="page-hd"><h2 class="page-title">💳 Manual Payments</h2><p class="page-sub">Track your bank transfer submissions</p></div><div id="manualPaymentsList"></div></div>
 
-                    <!-- ============================================================ -->
-                    <!-- TOOLS PAGE – UPGRADED WITH UNIFIED CODE EDITOR & VS CODE MODE -->
-                    <!-- ============================================================ -->
-                    <div id="dash-tools" class="dash-sub"><div class="page-hd"><h2 class="page-title">🛠️ Developer Tools</h2><p class="page-sub">Code runner, VS Code editor, file converter, text editor, and extension marketplace</p></div>
-                    <div class="tabs mb-3">
-                        <button class="tab-btn active" onclick="switchToolTab('unified',this)"><i class="fas fa-code"></i> Code Runner</button>
-                        <button class="tab-btn" onclick="switchToolTab('monaco',this)"><i class="fas fa-file-code"></i> VS Code Editor</button>
-                        <button class="tab-btn" onclick="switchToolTab('converter',this)"><i class="fas fa-exchange-alt"></i> Converter</button>
-                        <button class="tab-btn" onclick="switchToolTab('editor',this)"><i class="fas fa-edit"></i> Text Editor</button>
-                        <button class="tab-btn" onclick="switchToolTab('extensions',this)"><i class="fas fa-puzzle-piece"></i> Extensions</button>
-                    </div>
-
-                    <!-- UNIFIED CODE EDITOR -->
-                    <div id="tool-unified" class="tool-panel active">
-                        <div class="card card-p">
-                            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem;">
-                                <div>
-                                    <h5 style="margin:0;">💻 Unified Code Runner</h5>
-                                    <p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Write HTML, CSS, and JavaScript in one editor — see results live.</p>
-                                </div>
-                                <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
-                                    <select id="unifiedLangSelect" class="finput" style="width:auto;height:32px;font-size:.75rem;min-width:120px;">
-                                        <option value="html">HTML</option>
-                                        <option value="css">CSS</option>
-                                        <option value="javascript">JavaScript</option>
-                                    </select>
-                                    <button class="btn btn-primary btn-sm" onclick="runUnifiedCode()"><i class="fas fa-play"></i> Run</button>
-                                    <button class="btn btn-ghost btn-sm" onclick="saveUnifiedCode()"><i class="fas fa-save"></i> Save</button>
-                                    <button class="btn btn-ghost btn-sm" onclick="clearUnifiedCode()"><i class="fas fa-trash"></i> Clear</button>
-                                </div>
-                            </div>
-
-                            <div id="unifiedCodeEditor">
-                                <div class="code-tabs">
-                                    <button class="tab-btn active" data-tab="html" onclick="switchUnifiedTab('html',this)">HTML</button>
-                                    <button class="tab-btn" data-tab="css" onclick="switchUnifiedTab('css',this)">CSS</button>
-                                    <button class="tab-btn" data-tab="js" onclick="switchUnifiedTab('js',this)">JS</button>
-                                    <span style="flex:1;"></span>
-                                    <button class="btn btn-primary btn-sm" onclick="runUnifiedCode()" style="font-size:.7rem;padding:2px 12px;min-height:28px;border-radius:var(--radius-sm);">
-                                        <i class="fas fa-play"></i> Run
-                                    </button>
-                                </div>
-                                <textarea id="unifiedHtml" class="code-area" style="display:block;min-height:200px;" placeholder="<!-- Write your HTML here -->"></textarea>
-                                <textarea id="unifiedCss" class="code-area" style="display:none;min-height:200px;" placeholder="/* Write your CSS here */"></textarea>
-                                <textarea id="unifiedJs" class="code-area" style="display:none;min-height:200px;" placeholder="// Write your JavaScript here"></textarea>
-                                <div class="code-output-wrap">
-                                    <div class="code-output-label">📺 Output</div>
-                                    <iframe id="unifiedOutput" style="width:100%;height:300px;border:none;background:#fff;display:block;"></iframe>
-                                </div>
-                            </div>
-
-                            <div class="d-flex gap-2 mt-3 flex-wrap">
-                                <span class="badge badge-dark">💾 Auto-saved</span>
-                                <span class="badge badge-cyan" id="unifiedLangBadge">HTML</span>
-                                <span class="badge badge-gold">⚡ Run HTML+CSS+JS together</span>
-                            </div>
+                    <!-- TOOLS PAGE — UNIFIED MONACO CODE EDITOR -->
+                    <div id="dash-tools" class="dash-sub"><div class="page-hd"><h2 class="page-title">🛠️ Developer Tools</h2><p class="page-sub">Full VS Code‑style editor with 50+ languages, file converter, text editor, and extension marketplace</p></div>
+                        <div class="tabs mb-3">
+                            <button class="tab-btn active" onclick="switchToolTab('monaco',this)"><i class="fas fa-file-code"></i> VS Code Editor</button>
+                            <button class="tab-btn" onclick="switchToolTab('converter',this)"><i class="fas fa-exchange-alt"></i> Converter</button>
+                            <button class="tab-btn" onclick="switchToolTab('editor',this)"><i class="fas fa-edit"></i> Text Editor</button>
+                            <button class="tab-btn" onclick="switchToolTab('extensions',this)"><i class="fas fa-puzzle-piece"></i> Extensions</button>
                         </div>
-                    </div>
 
-                    <!-- MONACO VS CODE EDITOR -->
-                    <div id="tool-monaco" class="tool-panel" style="display:none;">
-                        <div class="card card-p">
-                            <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;">
-                                <div>
-                                    <h5 style="margin:0;">⚡ VS Code Editor</h5>
-                                    <p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Full-featured editor with syntax highlighting, autocomplete, and 50+ language support.</p>
-                                </div>
-                                <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
-                                    <select id="monacoLangSelect" class="finput" style="width:auto;height:32px;font-size:.75rem;min-width:120px;">
+                        <!-- ─── MONACO (VS Code) ─────────────────────────────────── -->
+                        <div id="tool-monaco" class="tool-panel active">
+                            <div class="card card-p" style="padding:0;overflow:hidden;">
+                                <div class="unified-editor-toolbar">
+                                    <i class="fas fa-code" style="color:var(--primary);"></i>
+                                    <select id="monacoLangSelect" class="finput" onchange="switchMonacoLanguage(this.value)" style="width:auto;min-width:140px;height:32px;font-size:.75rem;">
                                         <option value="javascript">JavaScript</option>
                                         <option value="typescript">TypeScript</option>
                                         <option value="python">Python</option>
@@ -6905,114 +6754,64 @@
                                         <option value="markdown">Markdown</option>
                                         <option value="xml">XML</option>
                                         <option value="yaml">YAML</option>
+                                        <option value="cpp">C++</option>
+                                        <option value="c">C</option>
+                                        <option value="swift">Swift</option>
+                                        <option value="kotlin">Kotlin</option>
+                                        <option value="dart">Dart</option>
+                                        <option value="r">R</option>
+                                        <option value="perl">Perl</option>
+                                        <option value="lua">Lua</option>
+                                        <option value="shell">Shell</option>
+                                        <option value="dockerfile">Dockerfile</option>
+                                        <option value="nginx">Nginx</option>
+                                        <option value="graphql">GraphQL</option>
+                                        <option value="vue">Vue</option>
+                                        <option value="svelte">Svelte</option>
                                     </select>
                                     <button class="btn btn-primary btn-sm" onclick="runMonacoCode()"><i class="fas fa-play"></i> Run</button>
                                     <button class="btn btn-ghost btn-sm" onclick="saveMonacoCode()"><i class="fas fa-save"></i> Save</button>
+                                    <button class="btn btn-ghost btn-sm" onclick="formatMonacoCode()"><i class="fas fa-align-left"></i> Format</button>
+                                    <button class="btn btn-ghost btn-sm" onclick="clearMonacoCode()" style="color:var(--danger);"><i class="fas fa-trash"></i></button>
+                                    <span style="font-size:.65rem;color:var(--text3);margin-left:auto;" id="monacoLangBadge">JavaScript</span>
+                                </div>
+                                <div id="monacoContainer" style="height:520px;border:1px solid var(--border);border-radius:0;background:var(--bg);"></div>
+                                <div id="monacoOutput" style="margin:0;padding:.75rem;background:var(--bg2);border:1px solid var(--border);border-top:none;font-family:var(--font-mono);font-size:.82rem;min-height:60px;max-height:200px;overflow-y:auto;color:var(--text2);white-space:pre-wrap;">// Output will appear here</div>
+                                <div class="monaco-status-bar">
+                                    <span id="monacoStatus">Ready</span>
+                                    <span><span class="badge badge-dark" id="monacoLines">Ln 1</span> <span class="badge badge-dark" id="monacoCol">Col 1</span></span>
+                                    <span class="badge badge-cyan" id="monacoLangBadge2">JavaScript</span>
                                 </div>
                             </div>
-                            <div id="monacoContainer" style="height:500px;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--bg);"></div>
-                            <div id="monacoOutput" style="margin-top:.75rem;padding:.75rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:.82rem;min-height:60px;max-height:200px;overflow-y:auto;color:var(--text2);white-space:pre-wrap;">// Output will appear here</div>
-                            <div class="d-flex gap-2 mt-3">
-                                <span class="badge badge-dark">💾 Auto-saved</span>
-                                <span class="badge badge-cyan" id="monacoLangBadge">JavaScript</span>
-                            </div>
                         </div>
-                    </div>
 
-                    <!-- CONVERTER -->
-                    <div id="tool-converter" class="tool-panel" style="display:none;">
-                        <div class="card card-p">
-                            <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;">
-                                <div>
-                                    <h5 style="margin:0;">🔄 File Converter</h5>
-                                    <p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Convert between 50+ file formats — documents, images, audio, video, office, ebooks, archives, and code.</p>
+                        <!-- ─── CONVERTER ────────────────────────────────────────── -->
+                        <div id="tool-converter" class="tool-panel" style="display:none;">
+                            <div class="card card-p"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;"><div><h5 style="margin:0;">🔄 File Converter</h5><p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Convert between 50+ file formats — documents, images, audio, video, office, ebooks, archives, and code.</p></div><div><span class="badge badge-premium">97+ conversion pairs</span></div></div>
+                                <div class="converter-tabs" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.75rem;padding:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);">
+                                    <button class="fpill active" data-category="all" onclick="filterConversions('all',this)">🎯 All</button>
+                                    <button class="fpill" data-category="documents" onclick="filterConversions('documents',this)">📄 Documents</button>
+                                    <button class="fpill" data-category="images" onclick="filterConversions('images',this)">🖼️ Images</button>
+                                    <button class="fpill" data-category="audio" onclick="filterConversions('audio',this)">🎵 Audio</button>
+                                    <button class="fpill" data-category="video" onclick="filterConversions('video',this)">🎬 Video</button>
+                                    <button class="fpill" data-category="office" onclick="filterConversions('office',this)">📊 Office</button>
+                                    <button class="fpill" data-category="ebooks" onclick="filterConversions('ebooks',this)">📚 E-books</button>
+                                    <button class="fpill" data-category="archives" onclick="filterConversions('archives',this)">🗜️ Archives</button>
+                                    <button class="fpill" data-category="code" onclick="filterConversions('code',this)">💻 Code</button>
                                 </div>
-                                <div><span class="badge badge-premium">97+ conversion pairs</span></div>
-                            </div>
-                            <div class="converter-tabs" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.75rem;padding:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);">
-                                <button class="fpill active" data-category="all" onclick="filterConversions('all',this)">🎯 All</button>
-                                <button class="fpill" data-category="documents" onclick="filterConversions('documents',this)">📄 Documents</button>
-                                <button class="fpill" data-category="images" onclick="filterConversions('images',this)">🖼️ Images</button>
-                                <button class="fpill" data-category="audio" onclick="filterConversions('audio',this)">🎵 Audio</button>
-                                <button class="fpill" data-category="video" onclick="filterConversions('video',this)">🎬 Video</button>
-                                <button class="fpill" data-category="office" onclick="filterConversions('office',this)">📊 Office</button>
-                                <button class="fpill" data-category="ebooks" onclick="filterConversions('ebooks',this)">📚 E-books</button>
-                                <button class="fpill" data-category="archives" onclick="filterConversions('archives',this)">🗜️ Archives</button>
-                                <button class="fpill" data-category="code" onclick="filterConversions('code',this)">💻 Code</button>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-5">
-                                    <div class="form-group">
-                                        <label class="flabel">📂 Source File</label>
-                                        <div class="upload-zone" id="convDropZone" style="padding:1.5rem;cursor:pointer;">
-                                            <input type="file" id="convFileInput" onchange="handleConversionFile(this)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;">
-                                            <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                                            <div style="font-size:.88rem;color:var(--text2);font-weight:600;">Drop a file or click to upload</div>
-                                            <div style="font-size:.74rem;color:var(--text3);margin-top:.3rem;" id="convFileInfo">Supported: 50+ formats</div>
-                                        </div>
-                                        <div id="convFilePreview" style="display:none;margin-top:.5rem;padding:.75rem;background:var(--bg2);border-radius:var(--radius-sm);border:1px solid var(--border);">
-                                            <div class="d-flex items-center gap-2"><i class="fas fa-file" style="color:var(--accent);font-size:1.2rem;"></i><div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:.85rem;" id="convFileName">file.pdf</div><div style="font-size:.7rem;color:var(--text3);" id="convFileSize">0 KB</div></div><button class="btn-icon-sm" onclick="clearConversionFile()" style="color:var(--danger);"><i class="fas fa-times"></i></button></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-md-2" style="display:flex;align-items:center;justify-content:center;padding:0.5rem 0;"><div style="font-size:2rem;color:var(--primary);"><i class="fas fa-arrow-right"></i></div></div>
-                                <div class="col-12 col-md-5">
-                                    <div class="form-group">
-                                        <label class="flabel">🎯 Convert To</label>
-                                        <select class="finput" id="convTarget" onchange="updateConversionInfo()"><option value="">Select target format...</option></select>
-                                        <div id="convTargetInfo" style="font-size:.72rem;color:var(--text3);margin-top:.3rem;min-height:1.2em;"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3"><div class="col-12"><button class="btn btn-primary btn-lg w-full" id="convBtn" onclick="startConversion()" disabled><i class="fas fa-exchange-alt"></i> Convert</button></div></div>
-                            <div id="convProgress" style="display:none;margin-top:1rem;"><div class="prog" style="height:8px;border-radius:4px;overflow:hidden;background:var(--border);"><div class="prog-fill pf-primary" id="convProgressBar" style="width:0%;transition:width 0.3s ease;"></div></div><div style="display:flex;justify-content:space-between;margin-top:.3rem;font-size:.75rem;color:var(--text3);"><span id="convProgressText">Converting...</span><span id="convProgressPercent">0%</span></div></div>
-                            <div id="convResult" style="display:none;margin-top:1rem;padding:1rem;background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.2);border-radius:var(--radius-sm);"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;"><div style="display:flex;align-items:center;gap:.75rem;"><div class="si si-g" style="width:40px;height:40px;"><i class="fas fa-check-circle"></i></div><div><div style="font-weight:600;color:var(--success);">✅ Conversion Complete!</div><div style="font-size:.78rem;color:var(--text3);" id="convResultInfo">File converted successfully</div></div></div><div style="display:flex;gap:.5rem;"><button class="btn btn-ghost btn-sm" onclick="downloadConvertedFile()"><i class="fas fa-download"></i> Download</button><button class="btn btn-ghost btn-sm" onclick="clearConversionResult()"><i class="fas fa-times"></i></button></div></div></div>
-                            <div class="card card-p mt-3">
-                                <div class="d-flex items-center justify-between mb-3 flex-wrap" style="gap:.5rem;"><h6 style="margin:0;">⚡ Quick Conversions</h6><input type="text" class="finput" id="convSearch" placeholder="Search conversions..." style="width:auto;min-width:200px;height:32px;font-size:.78rem;" oninput="searchConversions(this.value)"></div>
-                                <div id="quickConversionsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;"></div>
-                            </div>
+                                <div class="row"><div class="col-12 col-md-5"><div class="form-group"><label class="flabel">📂 Source File</label><div class="upload-zone" id="convDropZone" style="padding:1.5rem;cursor:pointer;"><input type="file" id="convFileInput" onchange="handleConversionFile(this)" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;"><div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div><div style="font-size:.88rem;color:var(--text2);font-weight:600;">Drop a file or click to upload</div><div style="font-size:.74rem;color:var(--text3);margin-top:.3rem;" id="convFileInfo">Supported: 50+ formats</div></div><div id="convFilePreview" style="display:none;margin-top:.5rem;padding:.75rem;background:var(--bg2);border-radius:var(--radius-sm);border:1px solid var(--border);"><div class="d-flex items-center gap-2"><i class="fas fa-file" style="color:var(--accent);font-size:1.2rem;"></i><div style="flex:1;min-width:0;"><div style="font-weight:600;font-size:.85rem;" id="convFileName">file.pdf</div><div style="font-size:.7rem;color:var(--text3);" id="convFileSize">0 KB</div></div><button class="btn-icon-sm" onclick="clearConversionFile()" style="color:var(--danger);"><i class="fas fa-times"></i></button></div></div></div></div><div class="col-12 col-md-2" style="display:flex;align-items:center;justify-content:center;padding:0.5rem 0;"><div style="font-size:2rem;color:var(--primary);"><i class="fas fa-arrow-right"></i></div></div><div class="col-12 col-md-5"><div class="form-group"><label class="flabel">🎯 Convert To</label><select class="finput" id="convTarget" onchange="updateConversionInfo()"><option value="">Select target format...</option></select><div id="convTargetInfo" style="font-size:.72rem;color:var(--text3);margin-top:.3rem;min-height:1.2em;"></div></div></div></div>
+                                <div class="row mt-3"><div class="col-12"><button class="btn btn-primary btn-lg w-full" id="convBtn" onclick="startConversion()" disabled><i class="fas fa-exchange-alt"></i> Convert</button></div></div>
+                                <div id="convProgress" style="display:none;margin-top:1rem;"><div class="prog" style="height:8px;border-radius:4px;overflow:hidden;background:var(--border);"><div class="prog-fill pf-primary" id="convProgressBar" style="width:0%;transition:width 0.3s ease;"></div></div><div style="display:flex;justify-content:space-between;margin-top:.3rem;font-size:.75rem;color:var(--text3);"><span id="convProgressText">Converting...</span><span id="convProgressPercent">0%</span></div></div>
+                                <div id="convResult" style="display:none;margin-top:1rem;padding:1rem;background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.2);border-radius:var(--radius-sm);"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;"><div style="display:flex;align-items:center;gap:.75rem;"><div class="si si-g" style="width:40px;height:40px;"><i class="fas fa-check-circle"></i></div><div><div style="font-weight:600;color:var(--success);">✅ Conversion Complete!</div><div style="font-size:.78rem;color:var(--text3);" id="convResultInfo">File converted successfully</div></div></div><div style="display:flex;gap:.5rem;"><button class="btn btn-ghost btn-sm" onclick="downloadConvertedFile()"><i class="fas fa-download"></i> Download</button><button class="btn btn-ghost btn-sm" onclick="clearConversionResult()"><i class="fas fa-times"></i></button></div></div></div>
+                                <div class="card card-p mt-3"><div class="d-flex items-center justify-between mb-3 flex-wrap" style="gap:.5rem;"><h6 style="margin:0;">⚡ Quick Conversions</h6><input type="text" class="finput" id="convSearch" placeholder="Search conversions..." style="width:auto;min-width:200px;height:32px;font-size:.78rem;" oninput="searchConversions(this.value)"></div><div id="quickConversionsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px;"></div></div></div>
                         </div>
-                    </div>
 
-                    <!-- TEXT EDITOR -->
-                    <div id="tool-editor" class="tool-panel" style="display:none;">
-                        <div class="card card-p">
-                            <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;">
-                                <div>
-                                    <h5 style="margin:0;">📝 Text Editor</h5>
-                                    <p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Write and save notes, code snippets, or any text.</p>
-                                </div>
-                                <div class="d-flex gap-2"><button class="btn btn-primary btn-sm" onclick="saveTextEditor()"><i class="fas fa-save"></i> Save</button><button class="btn btn-ghost btn-sm" onclick="clearTextEditor()"><i class="fas fa-trash"></i> Clear</button></div>
-                            </div>
-                            <div class="form-group"><label class="flabel">Title</label><input type="text" class="finput" id="textEditorTitle" placeholder="Note title..." /></div>
-                            <div class="form-group"><label class="flabel">Content</label><textarea id="textEditorContent" class="finput" style="min-height:400px;font-family:var(--font-body);font-size:.88rem;line-height:1.8;" placeholder="Write your notes here..."></textarea></div>
-                            <div class="info-box mt-2"><i class="fas fa-info-circle" style="color:var(--primary)"></i> Your notes are saved locally. Auto-saves every 30 seconds. <span id="textEditorStatus" style="display:block;font-size:.72rem;color:var(--text3);margin-top:.3rem;">Last saved: Never</span></div>
-                        </div>
-                    </div>
+                        <!-- ─── TEXT EDITOR ──────────────────────────────────────── -->
+                        <div id="tool-editor" class="tool-panel" style="display:none;"><div class="card card-p"><div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;margin-bottom:.75rem;"><div><h5 style="margin:0;">📝 Text Editor</h5><p style="font-size:.78rem;color:var(--text3);margin:.2rem 0 0;">Write and save notes, code snippets, or any text.</p></div><div class="d-flex gap-2"><button class="btn btn-primary btn-sm" onclick="saveTextEditor()"><i class="fas fa-save"></i> Save</button><button class="btn btn-ghost btn-sm" onclick="clearTextEditor()"><i class="fas fa-trash"></i> Clear</button></div></div><div class="form-group"><label class="flabel">Title</label><input type="text" class="finput" id="textEditorTitle" placeholder="Note title..." /></div><div class="form-group"><label class="flabel">Content</label><textarea id="textEditorContent" class="finput" style="min-height:400px;font-family:var(--font-body);font-size:.88rem;line-height:1.8;" placeholder="Write your notes here..."></textarea></div><div class="info-box mt-2"><i class="fas fa-info-circle" style="color:var(--primary)"></i> Your notes are saved locally. Auto-saves every 30 seconds. <span id="textEditorStatus" style="display:block;font-size:.72rem;color:var(--text3);margin-top:.3rem;">Last saved: Never</span></div></div></div>
 
-                    <!-- EXTENSIONS MARKETPLACE -->
-                    <div id="tool-extensions" class="tool-panel" style="display:none;">
-                        <div class="card card-p">
-                            <h5 style="margin-bottom:.5rem;">🧩 VS Code Extensions Marketplace</h5>
-                            <p style="font-size:.78rem;color:var(--text3);margin-bottom:.75rem;">Discover 50+ essential extensions for your development workflow.</p>
-                            <div class="converter-tabs" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.75rem;padding:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);">
-                                <button class="fpill active" onclick="filterExtensions('all',this)">All</button>
-                                <button class="fpill" onclick="filterExtensions('language',this)">Language</button>
-                                <button class="fpill" onclick="filterExtensions('formatting',this)">Formatting</button>
-                                <button class="fpill" onclick="filterExtensions('linting',this)">Linting</button>
-                                <button class="fpill" onclick="filterExtensions('git',this)">Git</button>
-                                <button class="fpill" onclick="filterExtensions('ui',this)">UI</button>
-                                <button class="fpill" onclick="filterExtensions('web',this)">Web</button>
-                                <button class="fpill" onclick="filterExtensions('devops',this)">DevOps</button>
-                                <button class="fpill" onclick="filterExtensions('testing',this)">Testing</button>
-                                <button class="fpill" onclick="filterExtensions('database',this)">Database</button>
-                                <button class="fpill" onclick="filterExtensions('cloud',this)">Cloud</button>
-                                <button class="fpill" onclick="filterExtensions('security',this)">Security</button>
-                            </div>
-                            <div id="extensionsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;"></div>
-                        </div>
+                        <!-- ─── EXTENSIONS MARKETPLACE ────────────────────────── -->
+                        <div id="tool-extensions" class="tool-panel" style="display:none;"><div class="card card-p"><h5 style="margin-bottom:.5rem;">🧩 VS Code Extensions Marketplace</h5><p style="font-size:.78rem;color:var(--text3);margin-bottom:.75rem;">Discover 50+ essential extensions for your development workflow.</p><div class="converter-tabs" style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:.75rem;padding:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);"><button class="fpill active" onclick="filterExtensions('all',this)">All</button><button class="fpill" onclick="filterExtensions('language',this)">Language</button><button class="fpill" onclick="filterExtensions('formatting',this)">Formatting</button><button class="fpill" onclick="filterExtensions('linting',this)">Linting</button><button class="fpill" onclick="filterExtensions('git',this)">Git</button><button class="fpill" onclick="filterExtensions('ui',this)">UI</button><button class="fpill" onclick="filterExtensions('web',this)">Web</button><button class="fpill" onclick="filterExtensions('devops',this)">DevOps</button><button class="fpill" onclick="filterExtensions('testing',this)">Testing</button><button class="fpill" onclick="filterExtensions('database',this)">Database</button><button class="fpill" onclick="filterExtensions('cloud',this)">Cloud</button><button class="fpill" onclick="filterExtensions('security',this)">Security</button></div><div id="extensionsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;"></div></div></div>
                     </div>
-                </div>
 
                     <!-- SETTINGS -->
                     <div id="dash-settings" class="dash-sub"><div class="page-hd"><h2 class="page-title">Settings</h2><p class="page-sub">Manage your account &amp; preferences</p></div><div class="set-tabs"><div class="set-tab active" onclick="switchSet('ss-profile',this)">Profile</div><div class="set-tab" onclick="switchSet('ss-security',this)">Security</div><div class="set-tab" onclick="switchSet('ss-payout',this)">Payouts</div><div class="set-tab" onclick="switchSet('ss-subscription',this)">Subscription</div><div class="set-tab" onclick="switchSet('ss-prefs',this)">Preferences</div><div class="set-tab" onclick="switchSet('ss-notifs',this)">Notifications</div></div><div class="set-sec active" id="ss-profile"><div class="card card-p"><div class="d-flex items-center gap-3 mb-4 flex-wrap"><div class="um-av" id="settingsAv" style="width:64px;height:64px;font-size:1.4rem;background:linear-gradient(135deg,var(--primary),var(--secondary))">U</div><div><h5 style="margin-bottom:.2rem" id="settingsName">User</h5><div id="settingsRoles"><span class="badge badge-cyan">Student</span></div></div><button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="document.getElementById('avatarFileInput').click()"><i class="fas fa-camera"></i>Change Photo</button><input type="file" id="avatarFileInput" accept="image/*" style="display:none" onchange="uploadAvatar(this)"/></div><div class="row"><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">First Name</label><input type="text" class="finput" id="setFirstName" value=""/></div></div><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">Last Name</label><input type="text" class="finput" id="setLastName" value=""/></div></div></div><div class="form-group"><label class="flabel">Email</label><input type="email" class="finput" id="setEmail" readonly/></div><div class="form-group"><label class="flabel">Phone</label><input type="tel" class="finput" id="setPhone" value=""/></div><div class="form-group"><label class="flabel">Bio</label><textarea class="finput" id="setBio" style="min-height:80px;resize:vertical" placeholder="Tell the world about yourself..."></textarea></div><div class="form-group"><label class="flabel">Location</label><input type="text" class="finput" id="setLocation" placeholder="e.g. Lagos, Nigeria"/></div><button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i>Save Profile</button></div></div><div class="set-sec" id="ss-security"><div class="card card-p"><h5 style="margin-bottom:1rem">Security Settings</h5><div class="form-group"><label class="flabel">Current Password</label><input type="password" class="finput" id="secCurrentPw" placeholder="••••••••"/></div><div class="form-group"><label class="flabel">New Password</label><input type="password" class="finput" id="secNewPw" placeholder="Min 8 characters"/></div><div class="form-group"><label class="flabel">Confirm Password</label><input type="password" class="finput" id="secConfirmPw" placeholder="Repeat new password"/></div><button class="btn btn-primary" onclick="changePassword()"><i class="fas fa-lock"></i>Update Password</button></div></div><div class="set-sec" id="ss-payout"><div class="card card-p"><h5 style="margin-bottom:.7rem">Payout Settings</h5><p style="font-size:.76rem;color:var(--text3);margin-bottom:1rem">Bank details are required before you can withdraw your earnings.</p><div class="form-group"><label class="flabel">Bank</label><select class="finput" id="payoutBank"><option value="">Select Bank</option><option>GTBank</option><option>Access Bank</option><option>Zenith Bank</option><option>UBA</option><option>First Bank</option><option>Opay</option><option>Palmpay</option><option>Kuda Bank</option><option>Moniepoint</option></select></div><div class="row"><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">Account Number</label><input type="text" class="finput" id="payoutAccNum" placeholder="0123456789" maxlength="10"/></div></div><div class="col-12 col-md-6"><div class="form-group"><label class="flabel">Account Name</label><input type="text" class="finput" id="payoutAccName" placeholder="Enter your full name"/></div></div></div><div id="payoutSaveStatus" style="font-size:.76rem;margin-bottom:.75rem;min-height:1.2em"></div><button class="btn btn-primary" onclick="savePayoutSettings()"><i class="fas fa-save"></i>Save Bank Details</button></div></div><div class="set-sec" id="ss-subscription"><div class="card card-p" id="subStatusCard"></div></div><div class="set-sec" id="ss-prefs"><div class="card card-p"><h5 style="margin-bottom:1rem">Preferences</h5><div style="display:flex;flex-direction:column;gap:.55rem"><div class="d-flex items-center justify-between p-3" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm)"><div><div style="font-size:.83rem;font-weight:600">Autoplay Next Lesson</div><div style="font-size:.72rem;color:var(--text3)">Continue automatically</div></div><input type="checkbox" checked style="accent-color:var(--primary);width:15px;height:15px;cursor:pointer"/></div><div class="d-flex items-center justify-between p-3" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm)"><div><div style="font-size:.83rem;font-weight:600">Daily Streak Reminder</div><div style="font-size:.72rem;color:var(--text3)">Push notification daily</div></div><input type="checkbox" checked style="accent-color:var(--primary);width:15px;height:15px;cursor:pointer"/></div><div class="d-flex items-center justify-between p-3" style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm)"><div><div style="font-size:.83rem;font-weight:600">Preferred Currency</div><div style="font-size:.72rem;color:var(--text3)">Display earnings in</div></div><div class="currency-select"><span class="currency-opt" id="prefNGN" onclick="updateCurrencyPreference('NGN')">₦</span><span class="currency-opt" id="prefUSD" onclick="updateCurrencyPreference('USD')">$</span><span class="currency-opt" id="prefGBP" onclick="updateCurrencyPreference('GBP')">£</span><span class="currency-opt" id="prefEUR" onclick="updateCurrencyPreference('EUR')">€</span></div></div></div></div></div><div class="set-sec" id="ss-notifs"><div class="card card-p"><h5 style="margin-bottom:1rem">Notification Settings</h5><div id="notifSettingsList"></div><button class="btn btn-primary mt-4" onclick="toast('Preferences saved!','success')"><i class="fas fa-save"></i>Save</button></div></div></div>
@@ -7391,7 +7190,7 @@
                 courses: '₦45.8M',
                 streak: '🔥 1,284'
             },
-            currentToolTab: 'unified',
+            currentToolTab: 'monaco',
             convertFileData: null,
             convertedFileData: null,
             convertedFileType: '',
@@ -7416,10 +7215,6 @@
             purchasedArticles: [],
             premCourseLessons: [],
         };
-
-        // ─── Unified Code Editor State ──────────────────────────────
-        let unifiedCurrentTab = 'html';
-        const UNIFIED_KEYS = ['unifiedHtml', 'unifiedCss', 'unifiedJs'];
 
         // ================================================================
         // ROUTER – SPA Routing with History API
@@ -7527,8 +7322,10 @@
                     case 'openCourse':
                         const courseId = routeParams.id;
                         if (!courseId) break;
+                        // ─── FIX: AFFILIATE TRACKING ON COURSE LINKS ──────────
                         const affCode = queryParams.get('aff');
                         if (affCode) {
+                            // Track affiliate click silently
                             fetch(`${API_BASE}/affiliate/track/${affCode}`, { method: 'GET', credentials: 'include' })
                                 .catch(() => {});
                             toast(`🔗 Referred via affiliate ${affCode}`, 'info');
@@ -8114,6 +7911,10 @@
             localStorage.setItem('cx_theme', next);
             updateThemeIcons();
             toast(`Switched to ${next} mode`, 'info');
+            if (monacoEditorInstance) {
+                const isDark = next === 'dark';
+                monaco.editor.setTheme(isDark ? 'vs-dark' : 'vs');
+            }
         }
 
         function updateThemeIcons() {
@@ -8155,6 +7956,7 @@
         }
 
         function setDP(pg) {
+            // Reset all dash-sub elements: hide and remove active class
             document.querySelectorAll('.dash-sub').forEach(d => {
                 d.classList.remove('active');
                 d.style.display = 'none';
@@ -8167,10 +7969,12 @@
                 S.dp = pg;
             }
 
+            // Update nav items
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const ni = document.getElementById('nav-' + pg);
             if (ni) ni.classList.add('active');
 
+            // Bottom nav
             ['feed', 'challenges', 'explore', 'wallet', 'home', 'books', 'following', 'social-earnings'].forEach(k => {
                 const m = document.getElementById('mbn-' + k);
                 if (m) m.classList.toggle('active', k === pg);
@@ -8178,6 +7982,7 @@
 
             closeSidebar();
 
+            // Page-specific actions
             const map = {
                 feed: () => { loadFeed(1);
                     loadSidebarAd();
@@ -8397,6 +8202,7 @@
                         toast('💰 Wallet updated!', 'success');
                     }
                 });
+                // ─── Campaign / Sponsorship Socket Events ──────────────────
                 socket.on('campaign_pending', (data) => {
                     toast(`📢 New campaign pending: ${data.title}`, 'info');
                     if (S.dp === 'admin' && S.admSec === 'campaigns') loadAdminCampaigns();
@@ -8562,6 +8368,7 @@
             if (!token || !user) { toast('Invalid server response', 'error');
                 hideLoading(); return; }
 
+            // ─── 30-DAY SESSION (like GitHub) ────────────────────────────
             const now = Date.now();
             const sessionExpiry = now + (30 * 24 * 60 * 60 * 1000);
             localStorage.setItem('cx_accessToken', token);
@@ -8663,7 +8470,7 @@
         }
 
         // ================================================================
-        // SESSION PERSISTENCE – 30-DAY AUTO-REDIRECT
+        // SESSION PERSISTENCE – 30-DAY AUTO-REDIRECT (like GitHub)
         // ================================================================
         function checkSessionAndRedirect() {
             const token = localStorage.getItem('cx_accessToken');
@@ -8708,7 +8515,7 @@
         }
 
         // ================================================================
-        // LANDING PAGE HERO STATS
+        // LANDING PAGE HERO STATS – HARDCODED FOR MARKETING
         // ================================================================
         function updateLandingHeroStats() {
             document.getElementById('heroEarnings').textContent = '₦85M+';
@@ -9095,7 +8902,6 @@
             }
         }
 
-
         // ─── UPLOAD POST IMAGE ──────────────────────────────────────────
         function uploadPostImage(input) {
             const file = input.files[0];
@@ -9210,6 +9016,7 @@
         }
 
         function resetBookUploadForm() {
+            // ─── FIX: removed references to non-existent elements ────────
             document.getElementById('bookUploadTitle').value = '';
             document.getElementById('bookUploadAuthor').value = '';
             document.getElementById('bookUploadDesc').value = '';
@@ -10162,6 +9969,7 @@
                     await fetch(`${API_BASE}/posts/${postId}/video`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` },
                         body: formData });
                 }
+                // Ensure featuredImage is set from response if not already
                 if (newPost.featuredImage && !featuredImage) {
                     featuredImage = newPost.featuredImage;
                 }
@@ -10949,37 +10757,36 @@
                 const instructorName = c.instructor?.firstName || 'Instructor';
                 const lessonCount = c.totalLessons || (Array.isArray(c.lessons) ? c.lessons.length : 0);
                 const views = c.views || 0;
-                const rating = c.averageRating || c.rating || 0;
-                const students = c.totalStudents || c.enrollments || 0;
-                // Build course share link
-                const shareLink = `${FRONTEND_URL}/courses/${c.slug || c._id}`;
+                const rating = c.avgRating || c.rating || 0;
+                const ratingStars = '★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating));
+                const shareLink = `${FRONTEND_URL}/courses/${c._id}`;
 
                 html += `
                     <div class="course-card" onclick="openBuyCourse('${c._id}')">
-                        <div class="cc-img" style="background:linear-gradient(135deg,var(--card2),var(--card3))">${c.thumbnail || c.emoji || '📚'}</div>
+                        <div class="cc-img" style="background:linear-gradient(135deg,var(--card2),var(--card3))">
+                            ${c.thumbnail || c.emoji || '📚'}
+                            <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px;">
+                                ${c.hasAffiliate ? `<span class="badge badge-violet" style="font-size:.55rem">${c.affiliatePercent || 0}% aff</span>` : ''}
+                            </div>
+                        </div>
                         <div class="cc-bar"><div class="cc-fill pf-primary" style="width:${c.progress || 0}%"></div></div>
                         <div class="cc-body">
                             <div style="font-size:.82rem;font-weight:700;margin-bottom:.25rem">${c.title || 'Course'}</div>
-                            <div style="font-size:.73rem;color:var(--text3);display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.4rem">
-                                <span>${instructorName}</span>
-                                <span>· ${lessonCount} lessons</span>
-                                <span>· ${c.level || 'All'}</span>
-                                <span>· 👁️ ${views}</span>
-                                ${students > 0 ? `<span>· 👥 ${students}</span>` : ''}
-                                ${rating > 0 ? `<span>· ⭐ ${rating.toFixed(1)}</span>` : ''}
+                            <div style="font-size:.73rem;color:var(--text3);margin-bottom:.4rem">
+                                ${instructorName} · ${lessonCount} lessons · ${c.level || 'All'}
+                                <span style="margin-left:.5rem;">${ratingStars} ${rating.toFixed(1)}</span>
+                                <span style="margin-left:.5rem;"><i class="fas fa-eye"></i> ${views}</span>
                             </div>
-                            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.3rem">
+                            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.3rem;">
                                 <div style="font-weight:800;color:var(--lime)">${fmtMoneyAPI(price)}</div>
-                                <div style="display:flex;gap:.3rem;align-items:center">
-                                    ${c.hasAffiliate ? `<span class="badge badge-violet" style="font-size:.58rem">${c.affiliatePercent || 0}% aff</span>` : ''}
-                                    <button class="course-share-btn" onclick="event.stopPropagation();shareCourse('${c._id}','${encodeURIComponent(c.title)}','${shareLink}')" title="Share course">
-                                        <i class="fas fa-share-alt"></i> Share
+                                <div style="display:flex;gap:.3rem;align-items:center;">
+                                    <button class="course-share-btn" onclick="event.stopPropagation();shareCourseLink('${c._id}','${escapeHtml(c.title)}')" title="Share course">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                    <button class="course-share-btn" onclick="event.stopPropagation();copyToClipboard('${shareLink}')" title="Copy link">
+                                        <i class="fas fa-link"></i>
                                     </button>
                                 </div>
-                            </div>
-                            <div style="font-size:.7rem;color:var(--text3);margin-top:.3rem">
-                                <i class="fas fa-eye"></i> ${views} views
-                                ${students > 0 ? ` · <i class="fas fa-user-graduate"></i> ${students} students` : ''}
                             </div>
                         </div>
                     </div>
@@ -11005,84 +10812,22 @@
             return html;
         }
 
-        // ─── SHARE COURSE ──────────────────────────────────────────────
-        function shareCourse(courseId, title, link) {
-            const encodedTitle = title || 'Course';
-            const encodedLink = link || `${FRONTEND_URL}/courses/${courseId}`;
-            const text = `📚 Check out "${encodedTitle}" on ChangeX Academy! Learn tech skills and earn real income. 🚀`;
-
-            // Use native share if available (mobile)
+        // ─── SHARE COURSE LINK ──────────────────────────────────────────
+        function shareCourseLink(courseId, courseTitle) {
+            const link = `${FRONTEND_URL}/courses/${courseId}`;
+            const text = `📚 Check out "${courseTitle}" on ChangeX Academy! Learn tech skills and earn real money. 🚀`;
             if (navigator.share) {
                 navigator.share({
-                    title: encodedTitle,
+                    title: courseTitle || 'Course',
                     text: text,
-                    url: encodedLink
+                    url: link
                 }).catch(() => {});
-                return;
-            }
-
-            // Show share modal with options
-            const modal = document.getElementById('shareModal');
-            if (!modal) {
-                // Fallback: copy link
-                copyToClipboard(encodedLink);
-                toast('📋 Course link copied!', 'success');
-                return;
-            }
-
-            const body = modal.querySelector('.modal-bd');
-            if (body) {
-                body.innerHTML = `
-                    <div class="fb-share-modal">
-                        <p style="color:var(--text2);font-size:0.9rem;margin-bottom:0.5rem;">Share this course</p>
-                        <div class="share-options">
-                            <button class="btn btn-ghost btn-sm" onclick="shareCourseVia('facebook','${encodedLink}','${encodedTitle}')" style="color:#1877F2;"><i class="fab fa-facebook"></i> Facebook</button>
-                            <button class="btn btn-ghost btn-sm" onclick="shareCourseVia('twitter','${encodedLink}','${encodedTitle}')" style="color:#1DA1F2;"><i class="fab fa-twitter"></i> Twitter</button>
-                            <button class="btn btn-ghost btn-sm" onclick="shareCourseVia('linkedin','${encodedLink}','${encodedTitle}')" style="color:#0A66C2;"><i class="fab fa-linkedin"></i> LinkedIn</button>
-                            <button class="btn btn-ghost btn-sm" onclick="shareCourseVia('whatsapp','${encodedLink}','${encodedTitle}')" style="color:#25D366;"><i class="fab fa-whatsapp"></i> WhatsApp</button>
-                            <button class="btn btn-ghost btn-sm" onclick="shareCourseVia('telegram','${encodedLink}','${encodedTitle}')" style="color:#0088CC;"><i class="fab fa-telegram"></i> Telegram</button>
-                            <button class="btn btn-ghost btn-sm" onclick="copyToClipboard('${encodedLink}')"><i class="fas fa-link"></i> Copy Link</button>
-                        </div>
-                        <div class="share-link-box">
-                            <input type="text" value="${encodedLink}" readonly id="shareLinkInput">
-                            <button class="btn btn-primary btn-sm" onclick="copyToClipboard(document.getElementById('shareLinkInput').value)">Copy</button>
-                        </div>
-                    </div>
-                `;
-            }
-
-            modal.classList.remove('hidden');
-            S.sharePostId = courseId;
-            S.sharePostSlug = courseId;
-        }
-
-        function shareCourseVia(platform, link, title) {
-            const text = `📚 Check out "${title}" on ChangeX Academy! Learn tech skills and earn real income. 🚀`;
-            let url = '';
-            switch (platform) {
-                case 'facebook':
-                    url =
-                        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}&quote=${encodeURIComponent(text)}`;
-                    break;
-                case 'twitter':
-                    url =
-                        `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(link)}`;
-                    break;
-                case 'linkedin':
-                    url = `https://www.linkedin.com/sharing/share-offscreen/?url=${encodeURIComponent(link)}`;
-                    break;
-                case 'whatsapp':
-                    url = `https://wa.me/?text=${encodeURIComponent(text + ' ' + link)}`;
-                    break;
-                case 'telegram':
-                    url = `https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`;
-                    break;
-                default:
-                    return;
-            }
-            if (url) {
-                window.open(url, '_blank');
-                closeModal('shareModal');
+            } else {
+                const encodedText = encodeURIComponent(text);
+                const encodedLink = encodeURIComponent(link);
+                const whatsappUrl = `https://wa.me/?text=${encodedText}%20${encodedLink}`;
+                window.open(whatsappUrl, '_blank');
+                setTimeout(() => copyToClipboard(link), 500);
             }
         }
 
@@ -11098,7 +10843,7 @@
                 '<div class="empty-state"><i class="fas fa-search"></i><h4>No courses found</h4></div>';
         }
 
-        // ─── FIX: openBuyCourse with server fetch for cold links ─────
+        // ─── FIXED: openBuyCourse – cold-link fetch ──────────────────────
         async function openBuyCourse(courseId) {
             // Try the in-memory list first (fast path when already browsing)
             let c = (S.appCourses || []).find(x => x._id === courseId || x.slug === courseId);
@@ -11110,6 +10855,7 @@
                     const res = await apiCall(`/courses/${courseId}`);
                     c = res.data || res;
                     if (c && c._id) {
+                        // Cache it so the rest of this function works exactly as before
                         if (!Array.isArray(S.appCourses)) S.appCourses = [];
                         if (!S.appCourses.some(x => x._id === c._id)) {
                             S.appCourses.push(c);
@@ -12934,7 +12680,7 @@
             if (!inp?.value.trim()) return;
             const q = inp.value.trim();
             msgs.innerHTML +=
-                `<div style="display:flex;justify-content:flex-end;margin-bottom:.5rem"><div style="background:rgba(212,175,55,.12);border-radius:var(--radius-sm);padding:.6rem;font-size:.82rem;max-width:85%">${q}</div></div>`;
+                `<div style="display:flex;justify-content:flex-end;margin-bottom:.5rem"><div style="background:rgba(212,175,55,.12);border-radius:var(--radius-sm);padding:.6rem;font-size:.82rem">${q}</div></div>`;
             msgs.innerHTML +=
                 `<div id="aiTyping" style="display:flex;gap:.5rem"><div class="si si-c" style="width:28px;height:28px"><i class="fas fa-robot"></i></div><div style="background:var(--bg3);border-radius:var(--radius-sm);padding:.6rem;font-size:.82rem;color:var(--text3)">Thinking...</div></div>`;
             inp.value = '';
@@ -12968,10 +12714,12 @@
             if (mode === 'upload' && !S.isPremium) { toast('File uploads require Premium!', 'warning');
                 openModal('premiumModal'); }
 
+            // ─── Extension marketplace in AI ──────────────────────────────
             if (mode === 'extensions') {
                 document.getElementById('aiMessages').innerHTML = renderExtensionConversation();
                 document.getElementById('aiUploadPanel').style.display = 'none';
             } else {
+                // Reset AI messages if leaving extensions view
                 if (document.getElementById('aiMessages').querySelector('.extension-marketplace')) {
                     document.getElementById('aiMessages').innerHTML =
                         `<div style="display:flex;gap:.5rem"><div class="si si-c" style="width:28px;height:28px"><i class="fas fa-robot"></i></div><div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.6rem;font-size:.82rem">Hi ${S.user?.firstName || 'there'}! 👋 I'm your ChangeX AI Tutor. Ask me anything about coding, your courses, or tech in general!</div></div>`;
@@ -13034,6 +12782,7 @@
 
             const list = document.getElementById('extensionsList');
             if (list) list.innerHTML = renderExtensionCards(filtered);
+            // Also update the tools page if visible
             const grid = document.getElementById('extensionsGrid');
             if (grid) grid.innerHTML = renderExtensionCards(filtered);
         }
@@ -13049,73 +12798,464 @@
         }
 
         // ================================================================
-        // UNIFIED CODE EDITOR (HTML+CSS+JS in one page)
+        // BOOKS MODULE
         // ================================================================
-        function switchUnifiedTab(tab, btn) {
-            unifiedCurrentTab = tab;
-            document.querySelectorAll('#unifiedCodeEditor .code-tabs .tab-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-
-            document.getElementById('unifiedHtml').style.display = tab === 'html' ? 'block' : 'none';
-            document.getElementById('unifiedCss').style.display = tab === 'css' ? 'block' : 'none';
-            document.getElementById('unifiedJs').style.display = tab === 'js' ? 'block' : 'none';
-
-            document.getElementById('unifiedLangBadge').textContent = tab.toUpperCase();
-
-            // Auto-save current tab content
-            saveUnifiedCode();
+        async function loadBooks() {
+            showLoading('Loading books...');
+            try {
+                const res = await apiCall(BOOKS_API);
+                S.books = res.data || [];
+                renderBooks(S.books);
+                loadSidebarAd();
+                loadBottomAd();
+                if (!S.isPremium && !S.bookAds.length) loadBookPageAds();
+            } catch (err) {
+                toast('Failed to load books: ' + err.message, 'error');
+                document.getElementById('booksGrid').innerHTML =
+                    '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>Could not load books. Please try again.</p></div>';
+            } finally { hideLoading(); }
         }
 
-        function runUnifiedCode() {
-            const html = document.getElementById('unifiedHtml').value || '';
-            const css = document.getElementById('unifiedCss').value || '';
-            const js = document.getElementById('unifiedJs').value || '';
-            const output = document.getElementById('unifiedOutput');
+        function renderBooks(books) {
+            const container = document.getElementById('booksGrid');
+            if (!container) return;
+            if (!books || !books.length) {
+                container.innerHTML =
+                    '<div class="empty-state"><i class="fas fa-book"></i><h4>No books available</h4><p>Check back soon for new additions!</p></div>';
+                return;
+            }
+            if (!S.isPremium && !S.bookAds.length) loadBookPageAds();
 
-            if (!output) return;
+            let html = '';
+            const showAds = !S.isPremium && shouldShowAd('book-sponsor');
+            const adFrequency = 3;
+            const userId = S.user?._id;
+
+            books.filter(b => b.isPublished !== false || b.userId === userId || b.authorId === userId).forEach((book, index) => {
+                const isOwner = book.userId === userId || book.authorId === userId;
+                let statusBadge = '';
+                if (isOwner) {
+                    if (book.approvalStatus === 'pending') {
+                        statusBadge = `<span class="badge badge-orange" style="font-size:.55rem">⏳ Pending</span>`;
+                    } else if (book.approvalStatus === 'approved') {
+                        statusBadge = `<span class="badge badge-success" style="font-size:.55rem">✅ Approved</span>`;
+                    } else if (book.approvalStatus === 'rejected') {
+                        statusBadge = `<span class="badge badge-danger" style="font-size:.55rem">❌ Rejected</span>`;
+                    }
+                }
+                html += `
+                    <div class="book-card" onclick="openBookDetail('${book._id}')">
+                        <div class="book-cover">${book.coverImage ? `<img src="${book.coverImage}" alt="${escapeHtml(book.title)}" loading="lazy">` : '📖'}</div>
+                        <div class="book-body">
+                            <div class="book-title">${escapeHtml(book.title)} ${statusBadge}</div>
+                            <div class="book-author">By ${escapeHtml(book.author || 'Unknown')}</div>
+                            <div class="book-price">${book.price === 0 ? 'Free' : fmtMoneyAPI(book.price)}</div>
+                            <div class="book-meta">📥 ${book.downloads || 0} downloads · 👁️ ${book.views || 0} views</div>
+                        </div>
+                    </div>
+                `;
+                if (showAds && (index + 1) % adFrequency === 0 && index < books.length - 1) {
+                    const ad = getNextAd('book-sponsor');
+                    if (ad && ad.type === 'custom') {
+                        html += `<div class="book-ad-banner" style="grid-column:1/-1;">${renderSponsoredBook(ad)}</div>`;
+                        const adId = ad.data?._id;
+                        if (adId) trackAdImpression(adId, null, 'custom');
+                    } else if (ad && ad.type === 'adsterra') {
+                        html += `<div class="book-ad-banner" style="grid-column:1/-1;"><div class="ad-card adsterra-wrapper"><div class="ad-label">📢 Sponsored</div><div style="text-align:center;padding:.5rem;color:var(--text3);font-size:.7rem;">Advertisement</div></div></div>`;
+                    }
+                }
+            });
+            container.innerHTML = html;
+            observeAdImpressions();
+        }
+
+        async function loadBookPageAds() {
             try {
-                const doc = output.contentWindow.document;
-                doc.open();
-                doc.write(`<!DOCTYPE html><html><head><style>${css}</style></head><body>${html}<script>${js}<\/script></body></html>`);
-                doc.close();
-                toast('✅ Code executed!', 'success');
-            } catch (e) {
-                toast('❌ Error running code: ' + e.message, 'error');
+                const res = await apiCall('/ads/placement/book-page');
+                S.bookAds = res.data || [];
+                S.bookAdIndex = 0;
+                if (S.bookAds.length === 0) loadAdsterra();
+            } catch (e) { loadAdsterra();
+                S.bookAds = []; }
+        }
+
+        async function openBookDetail(bookId) {
+            showLoading('Loading book...');
+            try {
+                const res = await apiCall(`${BOOKS_API}/${bookId}`);
+                const book = res.data;
+                trackBookView(bookId);
+                S.currentBook = book;
+                renderBookDetail(book);
+                setDP('book-detail');
+                updateSEO({ title: book.title, description: book.description, thumbnail: book.coverImage });
+                loadSidebarAd();
+                loadBottomAd();
+                if (!S.isPremium) loadBookPageAds();
+            } catch (err) { toast('Failed to load book: ' + err.message, 'error');
+                setDP('books'); } finally { hideLoading(); }
+        }
+
+        function renderBookDetail(book) {
+            const container = document.getElementById('bookDetailContent');
+            if (!container) return;
+            const isPurchased = book.isPurchased || false;
+            const isFree = book.price === 0;
+            const canDownload = isFree || isPurchased;
+            if (!S.isPremium && !S.bookAds.length) loadBookPageAds();
+
+            let adHtml = '';
+            if (!S.isPremium) {
+                const ad = getNextAd('book-page');
+                if (ad && ad.type === 'custom') {
+                    adHtml = `<div class="book-ad-banner mt-3">${renderSponsoredBook(ad)}</div>`;
+                    const adId = ad.data?._id;
+                    if (adId) trackAdImpression(adId, null, 'custom');
+                } else if (ad && ad.type === 'adsterra') {
+                    adHtml = `<div class="book-ad-banner mt-3"><div class="ad-card adsterra-wrapper"><div class="ad-label">📢 Sponsored</div><div style="text-align:center;padding:.5rem;color:var(--text3);font-size:.7rem;">Advertisement</div></div></div>`;
+                }
+            }
+
+            let affiliateHtml = '';
+            if (book.affiliatePercent > 0 && S.isPremium) {
+                const hasAffiliateLink = S.myAffiliateLinks.some(l => l.bookId === book._id);
+                affiliateHtml = `
+                    <div style="margin-top:1rem;padding:0.75rem;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:var(--radius-sm);">
+                        <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;">
+                            <div><strong>🤝 Affiliate Opportunity</strong><div style="font-size:.78rem;color:var(--text3);">Earn ${book.affiliatePercent}% commission per sale</div></div>
+                            ${hasAffiliateLink ? `<span class="badge badge-success">✅ Affiliate Link Active</span>` : `<button class="btn btn-violet btn-sm" onclick="acceptBookAffiliate('${book._id}')">Get Affiliate Link</button>`}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="card card-p">
+                    <div style="display:flex;flex-wrap:wrap;gap:1.5rem;align-items:flex-start;">
+                        <div style="flex:0 0 200px;">
+                            <div style="background:linear-gradient(135deg,var(--card2),var(--card3));border-radius:var(--radius);padding:1rem;text-align:center;">
+                                ${book.coverImage ? `<img src="${book.coverImage}" alt="${escapeHtml(book.title)}" style="width:100%;border-radius:var(--radius-sm);">` : '<div style="font-size:5rem;padding:1rem 0;">📖</div>'}
+                            </div>
+                        </div>
+                        <div style="flex:1;min-width:200px;">
+                            <h2 style="margin-bottom:.25rem;">${escapeHtml(book.title)}</h2>
+                            <p style="color:var(--text3);font-size:.9rem;">By ${escapeHtml(book.author || 'Unknown')}</p>
+                            <div style="font-size:1.2rem;font-weight:800;color:var(--lime);margin:.5rem 0;">${book.price === 0 ? 'Free' : fmtMoneyAPI(book.price)}</div>
+                            <p style="color:var(--text2);line-height:1.7;margin:.75rem 0;">${escapeHtml(book.description || 'No description available.')}</p>
+                            <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin:.75rem 0;">
+                                <span class="badge badge-dark">📥 ${book.downloads || 0} downloads</span>
+                                <span class="badge badge-dark">👁️ ${book.views || 0} views</span>
+                            </div>
+                            ${canDownload ? `<div><button class="book-download-btn" onclick="downloadBook('${book._id}')"><i class="fas fa-download"></i> Download Now</button><div id="bookDownloadProgress-${book._id}" class="book-download-progress"><div class="prog"><div class="prog-fill pf-primary" id="bookProgBar-${book._id}" style="width:0%"></div></div><div class="prog-label" id="bookProgLabel-${book._id}">Starting download...</div></div></div>` : `<div><button class="book-purchase-btn" onclick="openBuyBook('${book._id}')"><i class="fas fa-shopping-cart"></i> Purchase — ${fmtMoneyAPI(book.price)}</button><p style="font-size:.75rem;color:var(--text3);margin-top:.5rem;">Purchase this book to download the PDF.</p></div>`}
+                            ${affiliateHtml}
+                            ${adHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+            observeAdImpressions();
+        }
+
+        // ─── BOOK DOWNLOAD ─────────────────────────────────────────────
+        async function downloadBook(bookId) {
+            const token = localStorage.getItem('cx_accessToken');
+            if (!token) { toast('Please log in to download', 'error');
+                goPage('login'); return; }
+            const book = S.currentBook || S.books.find(b => b._id === bookId);
+            if (!book) { toast('Book not found', 'error'); return; }
+            if (book.price > 0 && !book.isPurchased) { toast('Please purchase this book first.', 'warning');
+                openBuyBook(bookId); return; }
+            if (!book.fileUrl) { toast('No file available for this book.', 'error'); return; }
+
+            const progressContainer = document.getElementById(`bookDownloadProgress-${bookId}`);
+            const progressBar = document.getElementById(`bookProgBar-${bookId}`);
+            const progressLabel = document.getElementById(`bookProgLabel-${bookId}`);
+            if (progressContainer) progressContainer.classList.add('visible');
+
+            showLoading('Preparing download...');
+            const cleanTitle = (book.title || 'book').replace(/[^a-zA-Z0-9 ]/g, ' ').trim();
+            const fileName = `${cleanTitle}.pdf`;
+
+            try {
+                const response = await fetch(book.fileUrl);
+                if (!response.ok) {
+                    const link = document.createElement('a');
+                    link.href = book.fileUrl;
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    toast('Download started.', 'info');
+                    book.downloads = (book.downloads || 0) + 1;
+                    if (S.dp === 'book-detail' && S.currentBook) { S.currentBook.downloads = book.downloads;
+                        renderBookDetail(S.currentBook); }
+                    if (progressContainer) progressContainer.classList.remove('visible');
+                    hideLoading();
+                    return;
+                }
+                const contentLength = response.headers.get('content-length');
+                const total = parseInt(contentLength, 10);
+                let loaded = 0;
+                const reader = response.body.getReader();
+                const chunks = [];
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    chunks.push(value);
+                    loaded += value.length;
+                    if (total) {
+                        const percent = Math.round((loaded / total) * 100);
+                        if (progressBar) progressBar.style.width = percent + '%';
+                        if (progressLabel) progressLabel.textContent = `Downloading... ${percent}%`;
+                        document.getElementById('loadingText').textContent = `Downloading... ${percent}%`;
+                    }
+                }
+                const blob = new Blob(chunks, { type: 'application/pdf' });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+                if (progressBar) progressBar.style.width = '100%';
+                if (progressLabel) progressLabel.textContent = '✅ Download complete!';
+                toast('📥 Download complete!', 'success');
+                book.downloads = (book.downloads || 0) + 1;
+                if (S.dp === 'book-detail' && S.currentBook) { S.currentBook.downloads = book.downloads;
+                    renderBookDetail(S.currentBook); }
+                setTimeout(() => { if (progressContainer) progressContainer.classList.remove('visible'); if (
+                        progressBar) progressBar.style.width = '0%'; if (progressLabel) progressLabel
+                        .textContent = 'Starting download...'; }, 3000);
+            } catch (err) {
+                console.error('Download error:', err);
+                const link = document.createElement('a');
+                link.href = book.fileUrl;
+                link.download = fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                toast('Download started.', 'info');
+                if (progressContainer) progressContainer.classList.remove('visible');
+            } finally { hideLoading(); }
+        }
+
+        // ─── BOOK AFFILIATE ─────────────────────────────────────────────
+        async function acceptBookAffiliate(bookId) {
+            try {
+                const res = await apiCall('/affiliate/accept-book', {
+                    method: 'POST',
+                    body: { bookId }
+                });
+                if (res.success) {
+                    toast('✅ Affiliate link created!', 'success');
+                    if (res.data.link) copyToClipboard(res.data.link);
+                    renderAffiliates();
+                    if (S.dp === 'book-detail') {
+                        const book = await apiCall(`${BOOKS_API}/${bookId}`);
+                        renderBookDetail(book.data);
+                    }
+                }
+            } catch (err) {
+                toast(err.message, 'error');
             }
         }
 
-        function saveUnifiedCode() {
-            const html = document.getElementById('unifiedHtml').value || '';
-            const css = document.getElementById('unifiedCss').value || '';
-            const js = document.getElementById('unifiedJs').value || '';
-            localStorage.setItem('unifiedHtml', html);
-            localStorage.setItem('unifiedCss', css);
-            localStorage.setItem('unifiedJs', js);
+        // ─── BOOK UPLOAD (already defined above) ──────────────────────
+
+        // ─── MY LIBRARY ────────────────────────────────────────────────
+        async function loadMyLibrary() {
+            showLoading('Loading your library...');
+            try {
+                const res = await apiCall('/books/purchased');
+                const books = res.data || [];
+                const container = document.getElementById('myLibraryBooks');
+                if (!container) return;
+
+                if (!books.length) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-book-open"></i>
+                            <h4>Your library is empty</h4>
+                            <p>Purchase premium books to add them to your library.</p>
+                            <button class="btn btn-primary btn-sm mt-3" onclick="setDP('books')">Browse Books</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = books.map(book => `
+                    <div class="book-card" onclick="openBookDetail('${book._id}')">
+                        <div class="book-cover">
+                            ${book.coverImage ? `<img src="${book.coverImage}" alt="${escapeHtml(book.title)}" loading="lazy">` : '📖'}
+                            <span class="badge badge-success" style="position:absolute;top:8px;right:8px;">✅ Purchased</span>
+                        </div>
+                        <div class="book-body">
+                            <div class="book-title">${escapeHtml(book.title)}</div>
+                            <div class="book-author">By ${escapeHtml(book.author || 'Unknown')}</div>
+                            <div class="book-price">${book.price === 0 ? 'Free' : fmtMoneyAPI(book.price)}</div>
+                            <button class="book-download-btn mt-2" onclick="event.stopPropagation();downloadBook('${book._id}')">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                toast('Failed to load your library: ' + err.message, 'error');
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-exclamation-circle"></i><p>Could not load your library.</p></div>';
+            } finally {
+                hideLoading();
+            }
         }
 
-        function clearUnifiedCode() {
-            if (!confirm('Clear all code?')) return;
-            document.getElementById('unifiedHtml').value = '';
-            document.getElementById('unifiedCss').value = '';
-            document.getElementById('unifiedJs').value = '';
-            localStorage.removeItem('unifiedHtml');
-            localStorage.removeItem('unifiedCss');
-            localStorage.removeItem('unifiedJs');
-            document.getElementById('unifiedOutput').src = 'about:blank';
-            toast('Cleared', 'info');
+        // ─── ADMIN BOOKS ──────────────────────────────────────────────
+        async function loadAdminBooks() {
+            try {
+                const res = await apiCall('/admin/books');
+                const books = res.data || [];
+                renderAdminBooks(books);
+            } catch (err) {
+                const container = document.getElementById('adminBooksContainer');
+                if (container) container.innerHTML = '<p style="color:var(--danger)">Failed to load books: ' + err.message +
+                    '</p>';
+            }
         }
 
-        function loadUnifiedCode() {
-            const html = localStorage.getItem('unifiedHtml') || '';
-            const css = localStorage.getItem('unifiedCss') || '';
-            const js = localStorage.getItem('unifiedJs') || '';
-            document.getElementById('unifiedHtml').value = html;
-            document.getElementById('unifiedCss').value = css;
-            document.getElementById('unifiedJs').value = js;
-            if (html || css || js) runUnifiedCode();
+        function renderAdminBooks(books) {
+            const container = document.getElementById('adminBooksContainer');
+            if (!container) return;
+            if (!books || !books.length) {
+                container.innerHTML = '<div class="empty-state"><p>No books added yet.</p></div>';
+                return;
+            }
+            const filter = document.getElementById('bookFilter')?.value || 'all';
+            let filtered = books;
+            if (filter !== 'all') {
+                filtered = books.filter(b => b.approvalStatus === filter);
+            }
+
+            container.innerHTML = filtered.map(book => {
+                const isPending = book.approvalStatus === 'pending';
+                return `
+                    <div class="admin-book-item">
+                        <div class="book-info">
+                            <strong>${escapeHtml(book.title)}</strong>
+                            <span class="badge ${book.isPublished !== false ? 'badge-success' : 'badge-dark'}" style="font-size:.55rem">${book.isPublished !== false ? 'Published' : 'Draft'}</span>
+                            <span class="badge ${book.approvalStatus === 'pending' ? 'badge-orange' : book.approvalStatus === 'approved' ? 'badge-success' : 'badge-dark'}" style="font-size:.55rem">${book.approvalStatus || 'pending'}</span>
+                            <div class="meta">By ${escapeHtml(book.author || 'Unknown')} · ${fmtMoneyAPI(book.price)} · 📥 ${book.downloads || 0} · 👁️ ${book.views || 0}</div>
+                        </div>
+                        <div class="book-actions">
+                            ${isPending ? `<button class="btn btn-success btn-sm" onclick="approveBook('${book._id}')"><i class="fas fa-check"></i> Approve</button><button class="btn btn-danger btn-sm" onclick="rejectBook('${book._id}')"><i class="fas fa-times"></i> Reject</button>` : ''}
+                            <button class="btn btn-ghost btn-sm" onclick="editBook('${book._id}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteBookAdmin('${book._id}')"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
-        // ─── MONACO VS CODE EDITOR ─────────────────────────────────────
+        async function approveBook(bookId) {
+            try {
+                const res = await apiCall(`/admin/books/${bookId}/approve`, { method: 'POST' });
+                toast('Book approved!', 'success');
+                loadAdminBooks();
+                loadBooks();
+            } catch (err) { toast('Failed to approve: ' + err.message, 'error'); }
+        }
+
+        async function rejectBook(bookId) {
+            const reason = prompt('Rejection reason:');
+            try {
+                const res = await apiCall(`/admin/books/${bookId}/reject`, { method: 'POST', body: { reason: reason ||
+                            'Not specified' } });
+                toast('Book rejected', 'info');
+                loadAdminBooks();
+                loadBooks();
+            } catch (err) { toast('Failed to reject: ' + err.message, 'error'); }
+        }
+
+        async function editBook(bookId) {
+            toast('Edit book feature coming soon!', 'info');
+        }
+
+        async function deleteBookAdmin(bookId) {
+            if (!confirm('Delete this book permanently?')) return;
+            try { await apiCall(`/admin/books/${bookId}`, { method: 'DELETE' });
+                toast('Book deleted', 'success');
+                loadAdminBooks();
+                loadBooks(); } catch (err) { toast('Failed to delete: ' + err.message, 'error'); }
+        }
+
+        // ================================================================
+        // BADGES
+        // ================================================================
+        async function loadUserBadges() {
+            try {
+                const res = await apiCall('/users/badges');
+                const badges = res.data || [];
+                S.badges = badges;
+                const container = document.getElementById('badgesGrid');
+                if (!container) return;
+                if (!badges.length) {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-medal"></i><p>No badges yet. Complete challenges and courses to earn badges!</p></div>';
+                    return;
+                }
+                container.innerHTML = badges.map(b => `
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card card-p text-center" style="padding:1rem;">
+                            <div style="font-size:2.5rem;">${b.icon || '🏆'}</div>
+                            <div style="font-weight:700;font-size:.9rem;">${escapeHtml(b.name)}</div>
+                            <div style="font-size:.7rem;color:var(--text3);">${escapeHtml(b.description || '')}</div>
+                            <div style="font-size:.6rem;color:var(--text3);margin-top:.3rem;">Earned: ${new Date(b.awardedAt).toLocaleDateString()}</div>
+                            <span class="badge badge-earned" style="font-size:.55rem;margin-top:.3rem;">✅ Earned</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) { toast('Failed to load badges: ' + err.message, 'error'); }
+        }
+
+        // ================================================================
+        // MANUAL PAYMENTS (User)
+        // ================================================================
+        async function loadUserManualPayments() {
+            try {
+                const res = await apiCall('/payments/manual/user/all');
+                const payments = res.data || [];
+                const container = document.getElementById('manualPaymentsList');
+                if (!container) return;
+                if (!payments.length) {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-credit-card"></i><p>No manual payments submitted.</p></div>';
+                    return;
+                }
+                const pendingCount = payments.filter(p => p.status === 'pending_review').length;
+                document.getElementById('navManualBadge').textContent = pendingCount;
+                localStorage.setItem('cx_manual_payments', JSON.stringify(payments));
+                container.innerHTML = payments.map(p => {
+                    const statusClass = p.status === 'approved' ? 'badge-success' :
+                        p.status === 'rejected' ? 'badge-danger' : 'badge-gold';
+                    const statusLabel = p.status === 'approved' ? '✅ Approved' :
+                        p.status === 'rejected' ? '❌ Rejected' : '⏳ Pending Review';
+                    return `
+                        <div class="card card-p mb-2" style="border-left: 4px solid ${p.status === 'approved' ? 'var(--success)' : p.status === 'rejected' ? 'var(--danger)' : 'var(--gold)'};">
+                            <div class="d-flex items-center justify-between flex-wrap" style="gap:.5rem;">
+                                <div>
+                                    <strong>${p.type.charAt(0).toUpperCase() + p.type.slice(1)}</strong>
+                                    <span class="badge ${statusClass}">${statusLabel}</span>
+                                    <div style="font-size:.75rem;color:var(--text3);">Reference: ${p.reference}</div>
+                                    <div style="font-size:.75rem;color:var(--text3);">Amount: ${fmtMoneyAPI(p.amount)}</div>
+                                    <div style="font-size:.75rem;color:var(--text3);">Date: ${new Date(p.paymentDate).toLocaleDateString()}</div>
+                                    ${p.adminNote ? `<div style="font-size:.75rem;color:var(--text2);">Note: ${escapeHtml(p.adminNote)}</div>` : ''}
+                                </div>
+                                <a href="${p.receiptUrl}" target="_blank" class="btn btn-ghost btn-sm"><i class="fas fa-eye"></i> Receipt</a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) { toast('Failed to load manual payments: ' + err.message, 'error'); }
+        }
+
+        // ─── MONACO EDITOR (VS Code-like) ─────────────────────────────
         async function initMonacoEditor(containerId, language = 'javascript', initialCode = '') {
             if (monacoInitialized) {
                 if (monacoEditorInstance) {
@@ -13130,9 +13270,11 @@
                 return;
             }
 
+            // Clear container
             container.innerHTML = '';
 
             try {
+                // Load monaco if not already loaded
                 if (typeof monaco === 'undefined') {
                     await new Promise((resolve) => {
                         require.config({ paths: { vs: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.40.0/min/vs' } });
@@ -13167,14 +13309,31 @@
                 monacoInitialized = true;
                 document.getElementById('monacoLangBadge').textContent = language.charAt(0).toUpperCase() + language.slice(1);
 
+                // Load saved content
                 const saved = localStorage.getItem('monacoCode');
                 if (saved && !initialCode) {
                     monacoEditorInstance.setValue(saved);
                 }
 
+                // Auto-save
                 monacoEditorInstance.onDidChangeModelContent(() => {
                     const val = monacoEditorInstance.getValue();
                     localStorage.setItem('monacoCode', val);
+                });
+
+                // Update status bar
+                monacoEditorInstance.onDidChangeCursorPosition((e) => {
+                    const pos = e.position;
+                    document.getElementById('monacoLines').textContent = `Ln ${pos.lineNumber}`;
+                    document.getElementById('monacoCol').textContent = `Col ${pos.column}`;
+                });
+
+                monacoEditorInstance.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+                    runMonacoCode();
+                });
+
+                monacoEditorInstance.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+                    saveMonacoCode();
                 });
 
             } catch (err) {
@@ -13192,6 +13351,19 @@
         function retryMonaco() {
             monacoInitialized = false;
             initMonacoEditor('monacoContainer', document.getElementById('monacoLangSelect').value);
+        }
+
+        function switchMonacoLanguage(lang) {
+            if (monacoEditorInstance) {
+                const model = monacoEditorInstance.getModel();
+                if (model) {
+                    monaco.editor.setModelLanguage(model, lang);
+                }
+                document.getElementById('monacoLangBadge').textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+                document.getElementById('monacoLangBadge2').textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+                localStorage.setItem('monacoLanguage', lang);
+                document.getElementById('monacoStatus').textContent = `Language: ${lang}`;
+            }
         }
 
         function runMonacoCode() {
@@ -13218,9 +13390,11 @@
                         outputText += '\n\nReturn value: ' + String(result);
                     }
                     output.textContent = outputText;
+                    document.getElementById('monacoStatus').textContent = '✅ Execution completed';
                 } catch (err) {
                     output.textContent = '❌ Error: ' + err.message;
                     output.style.color = 'var(--danger)';
+                    document.getElementById('monacoStatus').textContent = '❌ Error: ' + err.message;
                     setTimeout(() => output.style.color = '', 3000);
                 }
             } else if (lang === 'html') {
@@ -13230,9 +13404,47 @@
                         ${code}
                     </div>
                 `;
+                document.getElementById('monacoStatus').textContent = '✅ HTML preview rendered';
+            } else if (lang === 'markdown') {
+                const preview = document.getElementById('monacoOutput');
+                preview.innerHTML = `
+                    <div style="border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:#fff;padding:8px;min-height:100px;font-family:var(--font-body);line-height:1.8;">
+                        ${code.replace(/\n/g, '<br>')}
+                    </div>
+                `;
+                document.getElementById('monacoStatus').textContent = '✅ Markdown preview rendered';
             } else {
-                toast(`Running ${lang} code via interpreter is not yet supported.`, 'info');
-                output.textContent = `// ${lang} code execution coming soon!`;
+                // For other languages, try to use a simple interpreter or show a message
+                document.getElementById('monacoStatus').textContent = `Running ${lang} code...`;
+                if (lang === 'python') {
+                    try {
+                        const logs = [];
+                        const originalLog = console.log;
+                        console.log = function(...args) {
+                            logs.push(args.map(a => String(a)).join(' '));
+                            originalLog(...args);
+                        };
+                        // Simple Python-like evaluation for basic expressions
+                        const sanitized = code.replace(/print\(/g, 'console.log(');
+                        const result = new Function(sanitized)();
+                        console.log = originalLog;
+                        let outputText = logs.length ? logs.join('\n') : '✅ Code executed successfully!';
+                        if (result !== undefined && result !== null && typeof result !== 'function') {
+                            outputText += '\n\nReturn value: ' + String(result);
+                        }
+                        output.textContent = outputText;
+                        document.getElementById('monacoStatus').textContent = '✅ Python-like execution completed';
+                    } catch (err) {
+                        output.textContent = '❌ Error: ' + err.message;
+                        output.style.color = 'var(--danger)';
+                        document.getElementById('monacoStatus').textContent = '❌ Error: ' + err.message;
+                        setTimeout(() => output.style.color = '', 3000);
+                    }
+                } else {
+                    output.textContent =
+                        `// ${lang} code\n// To run ${lang}, use the appropriate interpreter.\n// The Monaco editor provides syntax highlighting and autocomplete for ${lang}.`;
+                    document.getElementById('monacoStatus').textContent = `${lang} - syntax highlighting only`;
+                }
             }
         }
 
@@ -13240,21 +13452,54 @@
             if (!monacoEditorInstance) { toast('Editor not initialized', 'error'); return; }
             const code = monacoEditorInstance.getValue();
             localStorage.setItem('monacoCode', code);
+            document.getElementById('monacoStatus').textContent = '💾 Code saved!';
             toast('💾 Code saved!', 'success');
+        }
+
+        function formatMonacoCode() {
+            if (!monacoEditorInstance) { toast('Editor not initialized', 'error'); return; }
+            try {
+                const model = monacoEditorInstance.getModel();
+                if (model) {
+                    const formatted = model.getValue();
+                    // Simple formatting - for more advanced, use monaco's built-in formatter
+                    monacoEditorInstance.executeEdits('format', [{
+                        range: model.getFullModelRange(),
+                        text: formatted.replace(/\s+$/gm, '')
+                    }]);
+                    document.getElementById('monacoStatus').textContent = '✅ Formatted';
+                    toast('✅ Code formatted!', 'success');
+                }
+            } catch (err) {
+                toast('Format error: ' + err.message, 'error');
+            }
+        }
+
+        function clearMonacoCode() {
+            if (!confirm('Clear all code?')) return;
+            if (monacoEditorInstance) {
+                monacoEditorInstance.setValue('');
+                localStorage.removeItem('monacoCode');
+                document.getElementById('monacoStatus').textContent = '🗑️ Cleared';
+                toast('Cleared', 'info');
+            }
         }
 
         // ─── TOOLS PAGE ──────────────────────────────────────────────────
         function loadTools() {
-            loadUnifiedCode();
             loadTextEditor();
-            loadConversionTool();
+            // Initialize Monaco if on monaco tab
             setTimeout(() => {
                 if (S.currentToolTab === 'monaco') {
-                    initMonacoEditor('monacoContainer', document.getElementById('monacoLangSelect').value);
+                    const lang = localStorage.getItem('monacoLanguage') || 'javascript';
+                    document.getElementById('monacoLangSelect').value = lang;
+                    initMonacoEditor('monacoContainer', lang);
                 }
+                // Initialize converter
                 if (S.currentToolTab === 'converter') {
                     initConversionTool();
                 }
+                // Initialize extensions
                 if (S.currentToolTab === 'extensions') {
                     renderExtensionsTool();
                 }
@@ -13268,10 +13513,11 @@
             document.getElementById('tool-' + tab).style.display = 'block';
             S.currentToolTab = tab;
             if (tab === 'editor') loadTextEditor();
-            if (tab === 'unified') loadUnifiedCode();
             if (tab === 'monaco') {
                 setTimeout(() => {
-                    initMonacoEditor('monacoContainer', document.getElementById('monacoLangSelect').value);
+                    const lang = localStorage.getItem('monacoLanguage') || 'javascript';
+                    document.getElementById('monacoLangSelect').value = lang;
+                    initMonacoEditor('monacoContainer', lang);
                 }, 300);
             }
             if (tab === 'converter') {
@@ -13282,8 +13528,8 @@
             }
         }
 
-        // ─── CONVERTER ────────────────────────────────────────────────────
-        function loadConversionTool() {
+        // ─── CONVERTER ──────────────────────────────────────────────────
+        function initConversionTool() {
             renderQuickConversions();
             populateTargetOptions();
             setupDropZone();
@@ -13298,6 +13544,7 @@
                 conversions = CONVERSION_CATEGORIES[category]?.conversions || [];
             }
 
+            // Sort by popularity
             const popular = ['docx→pdf', 'png→jpg', 'xlsx→csv', 'mp3→wav', 'mp4→avi'];
             conversions.sort((a, b) => {
                 const keyA = `${a.from}→${a.to}`;
@@ -13319,6 +13566,8 @@
                     <span style="font-weight:600;">${conv.to.toUpperCase()}</span>
                 </button>
             `).join('');
+
+            // Update stats
             document.getElementById('convPairs').textContent = ALL_CONVERSIONS.length;
         }
 
@@ -13326,6 +13575,7 @@
             const targetSelect = document.getElementById('convTarget');
             if (!targetSelect) return;
 
+            // Group by category
             const options = [];
             for (const [category, data] of Object.entries(CONVERSION_CATEGORIES)) {
                 const formats = new Set();
@@ -13350,12 +13600,16 @@
             currentFile = file;
             currentFrom = file.name.split('.').pop().toLowerCase();
 
+            // Show file preview
             const preview = document.getElementById('convFilePreview');
             preview.style.display = 'block';
             document.getElementById('convFileName').textContent = file.name;
             document.getElementById('convFileSize').textContent = formatFileSize(file.size);
 
+            // Update target options based on source format
             updateTargetOptions(currentFrom);
+
+            // Enable convert button if target is selected
             checkConvertReady();
         }
 
@@ -13365,6 +13619,7 @@
                 .filter(c => c.from === from)
                 .map(c => c.to);
 
+            // Show only compatible targets
             targetSelect.innerHTML = `<option value="">Select target format...</option>`;
 
             for (const [category, data] of Object.entries(CONVERSION_CATEGORIES)) {
@@ -13385,6 +13640,7 @@
                 }
             }
 
+            // If no compatible targets, show all
             if (targetSelect.options.length <= 1) {
                 populateTargetOptions();
                 document.getElementById('convTargetInfo').textContent = '⚠️ No direct conversion available for this format';
@@ -13512,6 +13768,7 @@
             document.getElementById('convProgressPercent').textContent = '0%';
 
             try {
+                // Simulate progress
                 let progressInterval = setInterval(() => {
                     const bar = document.getElementById('convProgressBar');
                     const currentWidth = parseFloat(bar.style.width) || 0;
@@ -13523,6 +13780,7 @@
                     }
                 }, 200);
 
+                // Client-side conversion for supported formats
                 convertedBlob = await clientSideConvert(currentFile, from, currentTo);
 
                 clearInterval(progressInterval);
@@ -13533,6 +13791,7 @@
                 const baseName = currentFile.name.replace(/\.[^.]+$/, '');
                 convertedFilename = `${baseName}.${currentTo}`;
 
+                // Show result
                 const result = document.getElementById('convResult');
                 result.style.display = 'block';
                 document.getElementById('convResultInfo').textContent =
@@ -13552,6 +13811,7 @@
         }
 
         async function clientSideConvert(file, from, to) {
+            // ─── Image conversions ──────────────────────────────────────────
             if (['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif', 'bmp', 'tiff', 'ico'].includes(from) &&
                 ['png', 'jpg', 'jpeg', 'webp', 'avif', 'gif', 'bmp', 'tiff', 'ico'].includes(to)) {
                 return new Promise((resolve, reject) => {
@@ -13587,6 +13847,7 @@
                 });
             }
 
+            // ─── Text/Code conversions ─────────────────────────────────────
             if (from === 'json' && to === 'csv') {
                 const text = await file.text();
                 const data = JSON.parse(text);
@@ -13611,6 +13872,7 @@
                 return new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             }
 
+            // ─── HTML → Markdown ───────────────────────────────────────────
             if (from === 'html' && to === 'md') {
                 const text = await file.text();
                 const parser = new DOMParser();
@@ -13621,12 +13883,14 @@
                 return new Blob([md], { type: 'text/markdown' });
             }
 
+            // ─── TXT → PDF (simple) ────────────────────────────────────────
             if (from === 'txt' && to === 'pdf') {
                 const text = await file.text();
                 const html = `<html><body><pre>${text}</pre></body></html>`;
                 return new Blob([html], { type: 'application/pdf' });
             }
 
+            // ─── Default: try server-side ──────────────────────────────────
             return await convertViaServer(file, from, to);
         }
 
@@ -13739,6 +14003,18 @@
             document.getElementById('textEditorTitle').value = title;
             document.getElementById('textEditorContent').value = content;
             updateTextEditorStatus();
+
+            // Auto-save every 30 seconds
+            if (window.textEditorAutoSave) clearInterval(window.textEditorAutoSave);
+            window.textEditorAutoSave = setInterval(() => {
+                const currentTitle = document.getElementById('textEditorTitle').value || '';
+                const currentContent = document.getElementById('textEditorContent').value || '';
+                if (currentTitle || currentContent) {
+                    localStorage.setItem('textEditorTitle', currentTitle);
+                    localStorage.setItem('textEditorContent', currentContent);
+                    updateTextEditorStatus();
+                }
+            }, 30000);
         }
 
         function saveTextEditor() {
@@ -17145,13 +17421,15 @@
         }
 
         // ================================================================
-        // BOOTSTRAP – CHECK SESSION & REDIRECT ON PAGE LOAD
+        // BOOTSTRAP – CHECK SESSION & REDIRECT ON PAGE LOAD (like GitHub)
         // ================================================================
         document.addEventListener('DOMContentLoaded', function() {
+            // ─── FIRST: Check if user is already logged in (session check) ───
             const token = localStorage.getItem('cx_accessToken');
             const userData = localStorage.getItem('cx_user');
             const expiry = localStorage.getItem('cx_session_expiry');
 
+            // ─── If user is on the landing page but has a valid session → redirect to app ───
             const isLandingPage = document.getElementById('page-landing')?.classList.contains('active');
             const isLoginPage = document.getElementById('page-login')?.classList.contains('active');
             const isRegisterPage = document.getElementById('page-register')?.classList.contains('active');
@@ -17167,6 +17445,7 @@
                         S.isPremium = user.isPremium || false;
                         S.walletBal = user.walletBalance || 0;
 
+                        // ─── If on landing, login, or register → redirect to app ───
                         if (isLandingPage || isLoginPage || isRegisterPage) {
                             console.log('🔐 Valid session detected, redirecting to dashboard...');
                             forceRedirect('app');
@@ -17177,6 +17456,7 @@
                             return;
                         }
 
+                        // ─── If already on app page, just init ───
                         if (document.getElementById('page-app')?.classList.contains('active')) {
                             initApp();
                             setDP(S.dp || 'feed');
@@ -17189,6 +17469,7 @@
                         localStorage.removeItem('cx_session_expiry');
                     }
                 } else {
+                    // Session expired
                     localStorage.removeItem('cx_accessToken');
                     localStorage.removeItem('cx_user');
                     localStorage.removeItem('cx_session_expiry');
@@ -17196,12 +17477,15 @@
                 }
             }
 
+            // ─── If we get here, no valid session exists ───
+            // ─── If on app page without session → redirect to landing ───
             if (document.getElementById('page-app')?.classList.contains('active') && !S.loggedIn) {
                 console.log('🔒 No valid session, redirecting to landing page...');
                 goPage('landing');
                 return;
             }
 
+            // ─── Otherwise, initialize the page normally ───
             const isAppPage = document.getElementById('page-app')?.classList.contains('active');
 
             if (isAppPage && S.loggedIn) {
@@ -17295,20 +17579,23 @@
             console.log('📌 Facebook-style comments: Nested replies, like comments, reaction picker.');
             console.log('📌 Share modal: Social media sharing with copy link.');
             console.log('📌 Post menu: Edit/Delete for authors and admins.');
-            console.log('📌 Course share link button in Explore with social sharing and copy link.');
-            console.log('📌 Unified Code Editor: HTML+CSS+JS in one page with live output.');
-            console.log('📌 VS Code Editor with 50+ language support and Monaco integration.');
-            console.log('📌 Extension Marketplace with 50+ VS Code extensions.');
-            console.log('📌 File Converter with 50+ format support and quick conversions.');
-            console.log('📌 Text Editor with auto-save and local storage.');
-            console.log('📌 Mobile responsive code editor with touch support.');
-            console.log('📌 Auto-download extensions for any language/framework.');
-            console.log('📌 Course share link generation with social sharing options.');
-            console.log('📌 Explore courses show lessons, views, students, rating.');
-            console.log('✅ FIXED: openBuyCourse now fetches from server on cold link opens.');
-            console.log('✅ FIXED: Course share links work from any page.');
-            console.log('✅ FIXED: Code editor unified into one complete page.');
-            console.log('✅ FIXED: Explore courses show all stats properly.');
+            console.log('✅ FIXED: uploadBookCover and uploadBookPdf now handle JSON responses correctly with xhr.response fallback.');
+            console.log('✅ FIXED: uploadPostImage added for post image uploads.');
+            console.log('✅ FIXED: Images in posts now have onerror handlers to hide broken images.');
+            console.log('✅ FIXED: Post creation modal now includes image upload zone.');
+            console.log('✅ FIXED: featuredImage is now properly set from upload response.');
+            console.log('✅ FIXED: resetBookUploadForm no longer references non-existent elements.');
+            console.log('✅ FIXED: Admin books use approvalStatus field instead of status.');
+            console.log('✅ FIXED: Affiliate tracking on course links now reads ?aff=code query param.');
+            console.log('✅ FIXED: Monaco editor initialized properly with language support.');
+            console.log('✅ FIXED: 50+ extension marketplace added to AI Tutor and Tools page.');
+            console.log('✅ FIXED: Full file converter with 50+ format support added to Tools.');
+            console.log('✅ FIXED: Code editor mobile responsive.');
+            console.log('✅ FIXED: VS Code-like full-screen editor with 50+ language support.');
+            console.log('✅ FIXED: Course links now work on cold opens — /courses/:id fetches from server if not cached.');
+            console.log('✅ FIXED: Course share links auto-create copy/share buttons on each course card in Explore.');
+            console.log('✅ FIXED: Share course link opens WhatsApp with the course title and link.');
+            console.log('📱 PWA forces update on every deploy with cache-busting versioning.');
         });
 
         // Expose functions globally
@@ -17322,8 +17609,12 @@
         window.checkSessionAndRedirect = checkSessionAndRedirect;
         window.uploadPostImage = uploadPostImage;
         window.initMonacoEditor = initMonacoEditor;
+        window.switchMonacoLanguage = switchMonacoLanguage;
         window.runMonacoCode = runMonacoCode;
         window.saveMonacoCode = saveMonacoCode;
+        window.formatMonacoCode = formatMonacoCode;
+        window.clearMonacoCode = clearMonacoCode;
+        window.retryMonaco = retryMonaco;
         window.filterExtensions = filterExtensions;
         window.installExtension = installExtension;
         window.copyExtensionId = copyExtensionId;
@@ -17336,14 +17627,7 @@
         window.filterConversions = filterConversions;
         window.searchConversions = searchConversions;
         window.selectQuickConversion = selectQuickConversion;
-        window.shareCourse = shareCourse;
-        window.shareCourseVia = shareCourseVia;
-        window.openBuyCourse = openBuyCourse;
-        window.switchUnifiedTab = switchUnifiedTab;
-        window.runUnifiedCode = runUnifiedCode;
-        window.saveUnifiedCode = saveUnifiedCode;
-        window.clearUnifiedCode = clearUnifiedCode;
-        window.loadUnifiedCode = loadUnifiedCode;
+        window.shareCourseLink = shareCourseLink;
     </script>
 </body>
 </html>
