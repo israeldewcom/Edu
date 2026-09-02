@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-    <title>ChangeX Admin Panel — Complete</title>
+    <title>ChangeX Admin Panel — Ultimate</title>
 
     <!-- Bootstrap 5 + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -17,7 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== CUSTOM PROPERTIES ===== */
         :root {
             --sidebar-width: 260px;
             --primary: #D4AF37;
@@ -33,7 +32,6 @@
             --radius: 16px;
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         [data-bs-theme="light"] {
             --bg-body: #f4f4f9;
             --bg-card: #ffffff;
@@ -43,21 +41,17 @@
             --border-color: #dde1e6;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-body);
             color: var(--text-light);
             transition: background 0.3s, color 0.3s;
         }
-
-        /* ===== SIDEBAR ===== */
         .sidebar {
             position: fixed;
             top: 0;
@@ -72,7 +66,6 @@
             transition: transform var(--transition);
             box-shadow: var(--shadow);
         }
-
         .sidebar .brand {
             font-size: 1.3rem;
             font-weight: 800;
@@ -84,11 +77,9 @@
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 1.2rem;
         }
-
         .sidebar .brand i {
             font-size: 1.6rem;
         }
-
         .sidebar .nav-link {
             color: var(--text-muted);
             border-radius: 10px;
@@ -101,32 +92,26 @@
             align-items: center;
             gap: 0.6rem;
         }
-
         .sidebar .nav-link i {
             font-size: 1.2rem;
             width: 24px;
             text-align: center;
             flex-shrink: 0;
         }
-
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
             background: rgba(212, 175, 55, 0.1);
             color: var(--primary);
         }
-
         .sidebar .nav-link.active {
             border-left: 3px solid var(--primary);
         }
-
-        /* ===== MAIN CONTENT ===== */
         .main-content {
             margin-left: var(--sidebar-width);
             padding: 1.5rem;
             min-height: 100vh;
             transition: margin-left var(--transition);
         }
-
         @media (max-width: 992px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -148,8 +133,6 @@
                 display: block;
             }
         }
-
-        /* ===== TOPBAR ===== */
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -163,7 +146,6 @@
             flex-wrap: wrap;
             gap: 0.5rem;
         }
-
         .topbar .page-title {
             font-size: 1.2rem;
             font-weight: 700;
@@ -171,18 +153,15 @@
             align-items: center;
             gap: 0.5rem;
         }
-
         .topbar .page-title i {
             color: var(--primary);
         }
-
         .topbar .actions {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             flex-wrap: wrap;
         }
-
         .topbar .actions .btn-icon {
             width: 40px;
             height: 40px;
@@ -196,12 +175,10 @@
             transition: all var(--transition);
             position: relative;
         }
-
         .topbar .actions .btn-icon:hover {
             border-color: var(--primary);
             color: var(--primary);
         }
-
         .topbar .actions .btn-icon .badge-dot {
             position: absolute;
             top: 6px;
@@ -212,8 +189,6 @@
             border-radius: 50%;
             border: 2px solid var(--bg-card);
         }
-
-        /* ===== CARDS ===== */
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -223,32 +198,26 @@
             transition: transform var(--transition);
             height: 100%;
         }
-
         .stat-card:hover {
             transform: translateY(-4px);
         }
-
         .stat-card .stat-number {
             font-size: 2rem;
             font-weight: 800;
             color: var(--primary);
             line-height: 1.2;
         }
-
         .stat-card .stat-label {
             font-size: 0.85rem;
             color: var(--text-muted);
             font-weight: 500;
             margin-top: 0.2rem;
         }
-
         .stat-card .stat-icon {
             font-size: 2.2rem;
             color: var(--primary);
             opacity: 0.3;
         }
-
-        /* ===== TABLES ===== */
         .table-container {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -257,13 +226,11 @@
             overflow-x: auto;
             box-shadow: var(--shadow);
         }
-
         .table {
             color: var(--text-light);
             font-size: 0.85rem;
             margin-bottom: 0;
         }
-
         .table th {
             border-bottom: 1px solid var(--border-color);
             font-weight: 600;
@@ -273,22 +240,17 @@
             letter-spacing: 0.05em;
             padding: 0.6rem 0.5rem;
         }
-
         .table td {
             padding: 0.6rem 0.5rem;
             vertical-align: middle;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
-
         .table tr:last-child td {
             border-bottom: none;
         }
-
         [data-bs-theme="light"] .table td {
             border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
-
-        /* ===== FORMS ===== */
         .form-control,
         .form-select {
             background: var(--bg-input);
@@ -299,7 +261,6 @@
             font-size: 0.9rem;
             transition: all var(--transition);
         }
-
         .form-control:focus,
         .form-select:focus {
             border-color: var(--primary);
@@ -307,31 +268,24 @@
             background: var(--bg-input);
             color: var(--text-light);
         }
-
         .form-label {
             font-weight: 600;
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 0.3rem;
         }
-
-        /* ===== MODAL ===== */
         .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             color: var(--text-light);
         }
-
         .modal-header {
             border-bottom: 1px solid var(--border-color);
         }
-
         .modal-footer {
             border-top: 1px solid var(--border-color);
         }
-
-        /* ===== BUTTONS ===== */
         .btn-primary {
             background: var(--primary);
             border: none;
@@ -341,38 +295,31 @@
             border-radius: 50px;
             transition: all var(--transition);
         }
-
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
             color: #000;
         }
-
         .btn-outline-primary {
             border: 1.5px solid var(--primary);
             color: var(--primary);
         }
-
         .btn-outline-primary:hover {
             background: var(--primary);
             color: #000;
         }
-
         .btn-sm {
             padding: 0.25rem 0.7rem;
             font-size: 0.75rem;
             border-radius: 50px;
         }
-
-        /* ===== BADGE ===== */
         .badge-status {
             padding: 0.3rem 0.7rem;
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.7rem;
         }
-
         .badge-approved {
             background: rgba(52, 211, 153, 0.15);
             color: #34D399;
@@ -397,12 +344,9 @@
             background: rgba(248, 113, 113, 0.15);
             color: #F87171;
         }
-
-        /* ===== ANIMATIONS ===== */
         .fade-in {
             animation: fadeIn 0.4s ease;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -413,15 +357,12 @@
                 transform: translateY(0);
             }
         }
-
         .spinner-overlay {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 300px;
         }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 576px) {
             .topbar .page-title {
                 font-size: 1rem;
@@ -433,8 +374,6 @@
                 padding: 0.8rem;
             }
         }
-
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -446,20 +385,65 @@
         ::-webkit-scrollbar-track {
             background: var(--bg-body);
         }
-
-        /* Utility for bulk selection */
         .select-all-checkbox {
             accent-color: var(--primary);
         }
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .pagination-container .pagination {
+            margin: 0;
+        }
+        .page-link {
+            background: var(--bg-input);
+            border-color: var(--border-color);
+            color: var(--text-light);
+        }
+        .page-link:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .page-item.active .page-link {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #000;
+        }
+        .page-item.disabled .page-link {
+            background: var(--bg-input);
+            color: var(--text-muted);
+        }
+        .load-more-btn {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px dashed var(--border-color);
+            border-radius: var(--radius);
+            background: transparent;
+            color: var(--text-muted);
+            transition: all var(--transition);
+            cursor: pointer;
+        }
+        .load-more-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .table-responsive {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .infinite-scroll-trigger {
+            height: 2px;
+            width: 100%;
+            background: transparent;
+        }
     </style>
 </head>
-
 <body>
-
-    <!-- ===== SIDEBAR BACKDROP (mobile) ===== -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-
-    <!-- ===== SIDEBAR ===== -->
     <nav class="sidebar" id="sidebar">
         <div class="brand">
             <i class="bi bi-cpu"></i>
@@ -483,7 +467,7 @@
             <li class="nav-item"><a class="nav-link" data-section="sponsorships" href="#"><i class="bi bi-handshake-fill"></i> Sponsorships</a></li>
             <li class="nav-item"><a class="nav-link" data-section="academies" href="#"><i class="bi bi-building-fill"></i> Academies</a></li>
             <li class="nav-item"><a class="nav-link" data-section="gamification" href="#"><i class="bi bi-award-fill"></i> Gamification</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="settings" href="#"><i class="bi bi-gear-fill"></i> Settings</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="system" href="#"><i class="bi bi-gear-fill"></i> System</a></li>
             <li class="nav-item"><a class="nav-link" data-section="audit" href="#"><i class="bi bi-clock-history"></i> Audit Logs</a></li>
         </ul>
         <div class="mt-auto pt-3 border-top border-secondary" style="font-size:0.75rem; color: var(--text-muted); padding:0 0.5rem;">
@@ -497,11 +481,7 @@
             </div>
         </div>
     </nav>
-
-    <!-- ===== MAIN CONTENT ===== -->
     <div class="main-content" id="mainContent">
-
-        <!-- ===== TOPBAR ===== -->
         <div class="topbar">
             <div class="page-title">
                 <button class="btn btn-outline-secondary d-lg-none me-2" id="sidebarToggle"><i class="bi bi-list"></i></button>
@@ -523,22 +503,15 @@
                 <button class="btn btn-primary btn-sm" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
             </div>
         </div>
-
-        <!-- ===== DYNAMIC CONTENT AREA ===== -->
         <div id="contentArea" class="fade-in">
-            <!-- Loaded by JavaScript -->
             <div class="spinner-overlay">
                 <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
             </div>
         </div>
-
-        <!-- ===== FOOTER ===== -->
         <div class="mt-4 text-center text-muted" style="font-size:0.75rem; border-top:1px solid var(--border-color); padding-top:1rem;">
-            &copy; 2026 ChangeX Academy — Admin Panel v4.0 (Complete)
+            &copy; 2026 ChangeX Academy — Admin Panel v5.0 (Production)
         </div>
     </div>
-
-    <!-- ===== MODAL CONTAINER (reusable) ===== -->
     <div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -546,9 +519,7 @@
                     <h5 class="modal-title" id="actionModalLabel">Action</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="actionModalBody">
-                    <!-- Dynamic content -->
-                </div>
+                <div class="modal-body" id="actionModalBody"></div>
                 <div class="modal-footer" id="actionModalFooter">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="actionModalConfirm">Confirm</button>
@@ -557,23 +528,18 @@
         </div>
     </div>
 
-    <!-- ===== SCRIPTS ===== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
     </script>
-
     <script>
         // ================================================================
-        // CONFIGURATION
+        // CONFIG
         // ================================================================
         const API_BASE = 'https://changex-backend-1.onrender.com/api/v1';
         const TOKEN = localStorage.getItem('cx_accessToken');
-        if (!TOKEN) {
-            // Redirect to login if no token (you can adjust)
-            window.location.href = '/login';
-        }
+        if (!TOKEN) window.location.href = '/login';
 
         // ================================================================
-        // DOM REFERENCES
+        // DOM REFS
         // ================================================================
         const contentArea = document.getElementById('contentArea');
         const pageTitle = document.getElementById('pageTitle');
@@ -589,15 +555,10 @@
         const actionModalConfirm = document.getElementById('actionModalConfirm');
 
         // ================================================================
-        // TOAST NOTIFICATIONS
+        // TOAST
         // ================================================================
         function showToast(message, type = 'success') {
-            const colors = {
-                success: '#34D399',
-                danger: '#F87171',
-                warning: '#FBBF24',
-                info: '#60A5FA'
-            };
+            const colors = { success: '#34D399', danger: '#F87171', warning: '#FBBF24', info: '#60A5FA' };
             const toast = document.createElement('div');
             toast.style.cssText = `
                 position: fixed; bottom: 20px; right: 20px; background: var(--bg-card); color: var(--text-light);
@@ -608,21 +569,16 @@
             `;
             toast.innerHTML = message;
             document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
+            setTimeout(() => { toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300);
-            }, 4000);
+                setTimeout(() => toast.remove(), 300); }, 4000);
         }
 
         // ================================================================
         // API HELPER
         // ================================================================
         async function apiCall(endpoint, options = {}) {
-            const headers = {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${TOKEN}`
-            };
+            const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` };
             const config = { ...options, headers };
             const response = await fetch(`${API_BASE}${endpoint}`, config);
             if (!response.ok) {
@@ -647,30 +603,20 @@
                 currentSection = section;
                 pageTitle.textContent = this.textContent.trim();
                 loadSection(section);
-                if (window.innerWidth < 992) {
-                    sidebar.classList.remove('open');
-                    sidebarBackdrop.classList.remove('show');
-                }
+                if (window.innerWidth < 992) { sidebar.classList.remove('open');
+                    sidebarBackdrop.classList.remove('show'); }
             });
         });
 
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-            sidebarBackdrop.classList.toggle('show');
-        });
-
-        sidebarBackdrop.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            sidebarBackdrop.classList.remove('show');
-        });
-
-        refreshBtn.addEventListener('click', () => {
-            loadSection(currentSection);
-            showToast('Refreshed', 'info');
-        });
+        sidebarToggle.addEventListener('click', () => { sidebar.classList.toggle('open');
+            sidebarBackdrop.classList.toggle('show'); });
+        sidebarBackdrop.addEventListener('click', () => { sidebar.classList.remove('open');
+            sidebarBackdrop.classList.remove('show'); });
+        refreshBtn.addEventListener('click', () => { loadSection(currentSection);
+            showToast('Refreshed', 'info'); });
 
         // ================================================================
-        // THEME TOGGLE
+        // THEME
         // ================================================================
         themeToggle.addEventListener('click', () => {
             const current = document.documentElement.getAttribute('data-bs-theme');
@@ -679,7 +625,6 @@
             themeToggle.innerHTML = next === 'dark' ? '<i class="bi bi-moon-stars"></i>' : '<i class="bi bi-sun"></i>';
             localStorage.setItem('admin_theme', next);
         });
-
         const savedTheme = localStorage.getItem('admin_theme') || 'dark';
         document.documentElement.setAttribute('data-bs-theme', savedTheme);
         themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="bi bi-moon-stars"></i>' : '<i class="bi bi-sun"></i>';
@@ -739,8 +684,8 @@
                 case 'gamification':
                     loadGamification();
                     break;
-                case 'settings':
-                    loadSettings();
+                case 'system':
+                    loadSystem();
                     break;
                 case 'audit':
                     loadAudit();
@@ -751,17 +696,48 @@
         }
 
         // ================================================================
+        // INFINITE SCROLL / PAGINATION HELPERS
+        // ================================================================
+        let page = 1;
+        let limit = 50;
+        let totalItems = 0;
+        let isLoading = false;
+        let hasMore = true;
+        let currentData = [];
+        let currentRenderFn = null;
+
+        function resetPagination() {
+            page = 1;
+            totalItems = 0;
+            hasMore = true;
+            isLoading = false;
+            currentData = [];
+        }
+
+        function setupInfiniteScroll(containerId, loadMoreFn) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            const trigger = document.createElement('div');
+            trigger.className = 'infinite-scroll-trigger';
+            trigger.id = 'scrollTrigger';
+            container.appendChild(trigger);
+            const observer = new IntersectionObserver(async (entries) => {
+                if (entries[0].isIntersecting && hasMore && !isLoading) {
+                    await loadMoreFn();
+                }
+            }, { root: container, rootMargin: '0px 0px 50px 0px' });
+            observer.observe(trigger);
+        }
+
+        // ================================================================
         // DASHBOARD
         // ================================================================
         async function loadDashboard() {
             try {
                 const data = await apiCall('/admin/dashboard');
                 const stats = data.data;
-                // Fetch additional data for top courses and recent activity
                 const topCoursesRes = await apiCall('/admin/social-earnings/top-posts?limit=5').catch(() => ({ data: [] }));
                 const topCourses = topCoursesRes.data || [];
-                const recentActivity = []; // Could fetch from audit logs or similar
-
                 contentArea.innerHTML = `
                     <div class="row g-4">
                         <div class="col-6 col-md-3"><div class="stat-card d-flex justify-content-between"><div><div class="stat-number">${stats.totalUsers}</div><div class="stat-label">Total Users</div></div><div class="stat-icon"><i class="bi bi-people"></i></div></div></div>
@@ -778,8 +754,6 @@
                         <div class="col-md-6"><div class="stat-card"><h6>Recent Activity</h6><div id="recentActivity"><div class="text-muted">No recent activity</div></div></div></div>
                     </div>
                 `;
-
-                // Charts
                 new Chart(document.getElementById('revenueChart'), {
                     type: 'line',
                     data: {
@@ -797,32 +771,54 @@
                     },
                     options: { responsive: true, plugins: { legend: { labels: { color: '#A0A0A0' } } } }
                 });
-
             } catch (e) {
                 contentArea.innerHTML = `<div class="alert alert-danger">Failed to load dashboard: ${e.message}</div>`;
             }
         }
 
         // ================================================================
-        // USERS – FULL CRUD with Bulk, Export, Filters
+        // USERS – with infinite scroll / pagination
         // ================================================================
         let usersData = [];
         let selectedUserIds = new Set();
+        let usersPage = 1;
+        let usersHasMore = true;
+        let usersLoading = false;
 
-        async function loadUsers() {
+        async function loadUsers(reset = true) {
+            if (reset) { resetPagination();
+                usersData = [];
+                selectedUserIds.clear();
+                usersPage = 1;
+                usersHasMore = true; }
+            if (usersLoading) return;
+            usersLoading = true;
             try {
-                const data = await apiCall('/admin/users?limit=200');
-                usersData = data.data.users || [];
+                const data = await apiCall(`/admin/users?limit=${limit}&page=${usersPage}`);
+                const newUsers = data.data.users || [];
+                totalItems = data.data.stats?.total || newUsers.length;
+                if (newUsers.length < limit) usersHasMore = false;
+                usersData = usersData.concat(newUsers);
+                usersPage++;
                 renderUsersTable(usersData);
+                if (usersHasMore) {
+                    const trigger = document.getElementById('scrollTrigger');
+                    if (trigger) trigger.style.display = 'block';
+                } else {
+                    const trigger = document.getElementById('scrollTrigger');
+                    if (trigger) trigger.style.display = 'none';
+                }
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load users: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                usersLoading = false;
             }
         }
 
         function renderUsersTable(users) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-people"></i> All Users (${users.length})</h5>
+                    <h5><i class="bi bi-people"></i> All Users (${totalItems})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateUser()"><i class="bi bi-plus"></i> Add User</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="exportData('users')"><i class="bi bi-download"></i> Export</button>
@@ -830,27 +826,23 @@
                         <button class="btn btn-outline-warning btn-sm" onclick="bulkBanUsers()"><i class="bi bi-person-x"></i> Bulk Ban</button>
                     </div>
                 </div>
-                <div class="table-container">
+                <div class="table-container" id="usersTableContainer">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search..." id="userSearch" oninput="filterUsers()">
                         <select class="form-select form-select-sm" style="width:auto;" id="userRoleFilter" onchange="filterUsers()">
-                            <option value="">All Roles</option>
-                            <option value="student">Student</option>
-                            <option value="instructor">Instructor</option>
-                            <option value="admin">Admin</option>
+                            <option value="">All Roles</option><option value="student">Student</option><option value="instructor">Instructor</option><option value="admin">Admin</option>
                         </select>
                         <select class="form-select form-select-sm" style="width:auto;" id="userStatusFilter" onchange="filterUsers()">
-                            <option value="">All Status</option>
-                            <option value="active">Active</option>
-                            <option value="banned">Banned</option>
+                            <option value="">All Status</option><option value="active">Active</option><option value="banned">Banned</option>
                         </select>
                     </div>
-                    <table class="table">
-                        <thead><tr>
-                            <th><input type="checkbox" class="select-all-checkbox" id="selectAllUsers" onchange="toggleSelectAllUsers()"></th>
-                            <th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th>
-                        </tr></thead>
-                        <tbody id="usersTableBody">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead><tr>
+                                <th><input type="checkbox" class="select-all-checkbox" id="selectAllUsers" onchange="toggleSelectAllUsers()"></th>
+                                <th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th>
+                            </tr></thead>
+                            <tbody id="usersTableBody">
                 `;
             users.forEach(u => {
                 const roles = (u.roles || []).join(', ');
@@ -872,16 +864,27 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table></div>
+                <div id="usersScrollTrigger" class="infinite-scroll-trigger"></div>
+            </div>`;
             contentArea.innerHTML = html;
+            // Setup infinite scroll for users
+            const trigger = document.getElementById('usersScrollTrigger');
+            if (trigger) {
+                const observer = new IntersectionObserver(async (entries) => {
+                    if (entries[0].isIntersecting && usersHasMore && !usersLoading) {
+                        await loadUsers(false);
+                    }
+                }, { root: document.querySelector('#usersTableContainer'), rootMargin: '0px 0px 50px 0px' });
+                observer.observe(trigger);
+            }
         }
 
-        // User selection and bulk actions
+        // User actions (view, edit, delete, ban, create, bulk)
         window.toggleUserSelection = function(id) {
             if (selectedUserIds.has(id)) selectedUserIds.delete(id);
             else selectedUserIds.add(id);
         };
-
         window.toggleSelectAllUsers = function() {
             const checked = document.getElementById('selectAllUsers').checked;
             document.querySelectorAll('.user-checkbox').forEach(cb => {
@@ -891,7 +894,6 @@
                 else selectedUserIds.delete(id);
             });
         };
-
         window.filterUsers = function() {
             const search = document.getElementById('userSearch').value.toLowerCase();
             const roleFilter = document.getElementById('userRoleFilter').value;
@@ -904,7 +906,6 @@
             else if (statusFilter === 'banned') filtered = filtered.filter(u => u.isBanned);
             renderUsersTable(filtered);
         };
-
         window.bulkDeleteUsers = async function() {
             if (selectedUserIds.size === 0) return showToast('Select users first', 'warning');
             if (!confirm(`Delete ${selectedUserIds.size} users permanently?`)) return;
@@ -913,10 +914,9 @@
                 await Promise.all(ids.map(id => apiCall(`/admin/users/${id}`, { method: 'DELETE' })));
                 showToast(`${ids.length} users deleted`, 'success');
                 selectedUserIds.clear();
-                loadUsers();
+                loadUsers(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.bulkBanUsers = async function() {
             if (selectedUserIds.size === 0) return showToast('Select users first', 'warning');
             if (!confirm(`Ban ${selectedUserIds.size} users?`)) return;
@@ -925,33 +925,155 @@
                 await Promise.all(ids.map(id => apiCall(`/admin/users/${id}`, { method: 'PATCH', body: JSON.stringify({ isBanned: true }) })));
                 showToast(`${ids.length} users banned`, 'success');
                 selectedUserIds.clear();
-                loadUsers();
+                loadUsers(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
 
-        // User CRUD actions (view, edit, delete, toggleBan, create) – already defined previously, but we'll keep them here.
-        // They are already in the previous version; we'll keep them as is.
+        window.viewUser = async (id) => {
+            try {
+                const data = await apiCall(`/admin/users/${id}`);
+                const u = data.data.user;
+                actionModalLabel.textContent = `User: ${u.firstName} ${u.lastName}`;
+                actionModalBody.innerHTML = `
+                    <div class="row">
+                        <div class="col-md-6"><strong>Email:</strong> ${u.email}</div>
+                        <div class="col-md-6"><strong>Phone:</strong> ${u.phone || 'N/A'}</div>
+                        <div class="col-md-6"><strong>Role:</strong> ${(u.roles || []).join(', ')}</div>
+                        <div class="col-md-6"><strong>Premium:</strong> ${u.isPremium ? 'Yes' : 'No'}</div>
+                        <div class="col-md-6"><strong>Wallet:</strong> ₦${(u.walletBalance || 0).toLocaleString()}</div>
+                        <div class="col-md-6"><strong>XP:</strong> ${u.xp || 0}</div>
+                        <div class="col-md-6"><strong>Joined:</strong> ${new Date(u.createdAt).toLocaleDateString()}</div>
+                        <div class="col-md-6"><strong>Bio:</strong> ${u.bio || 'N/A'}</div>
+                    </div>
+                `;
+                actionModalConfirm.style.display = 'none';
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.editUser = async (id) => {
+            try {
+                const data = await apiCall(`/admin/users/${id}`);
+                const u = data.data.user;
+                actionModalLabel.textContent = 'Edit User';
+                actionModalBody.innerHTML = `
+                    <form id="editUserForm">
+                        <input type="hidden" name="userId" value="${u._id}" />
+                        <div class="row">
+                            <div class="col-md-6"><div class="form-group"><label class="form-label">First Name</label><input class="form-control" name="firstName" value="${u.firstName}" /></div></div>
+                            <div class="col-md-6"><div class="form-group"><label class="form-label">Last Name</label><input class="form-control" name="lastName" value="${u.lastName}" /></div></div>
+                        </div>
+                        <div class="form-group"><label class="form-label">Email</label><input class="form-control" name="email" value="${u.email}" /></div>
+                        <div class="form-group"><label class="form-label">Phone</label><input class="form-control" name="phone" value="${u.phone || ''}" /></div>
+                        <div class="form-group"><label class="form-label">Bio</label><textarea class="form-control" name="bio">${u.bio || ''}</textarea></div>
+                        <div class="form-group"><label class="form-label">Roles</label><select class="form-select" name="roles" multiple>
+                            <option value="student" ${(u.roles||[]).includes('student')?'selected':''}>Student</option>
+                            <option value="instructor" ${(u.roles||[]).includes('instructor')?'selected':''}>Instructor</option>
+                            <option value="admin" ${(u.roles||[]).includes('admin')?'selected':''}>Admin</option>
+                        </select></div>
+                    </form>
+                `;
+                actionModalConfirm.style.display = 'block';
+                actionModalConfirm.textContent = 'Update User';
+                actionModalConfirm.onclick = async () => {
+                    const form = document.getElementById('editUserForm');
+                    const formData = new FormData(form);
+                    const body = Object.fromEntries(formData.entries());
+                    body.roles = Array.from(formData.getAll('roles'));
+                    try {
+                        await apiCall(`/admin/users/${body.userId}`, { method: 'PATCH', body: JSON.stringify(body) });
+                        actionModal.hide();
+                        showToast('User updated', 'success');
+                        loadUsers(true);
+                    } catch (e) { showToast(e.message, 'danger'); }
+                };
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.deleteUser = async (id) => {
+            if (!confirm('Delete this user permanently?')) return;
+            try {
+                await apiCall(`/admin/users/${id}`, { method: 'DELETE' });
+                showToast('User deleted', 'success');
+                loadUsers(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.toggleUserBan = async (id, ban) => {
+            try {
+                await apiCall(`/admin/users/${id}`, { method: 'PATCH', body: JSON.stringify({ isBanned: ban }) });
+                showToast(ban ? 'User banned' : 'User unbanned', 'success');
+                loadUsers(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.openCreateUser = () => {
+            actionModalLabel.textContent = 'Create User';
+            actionModalBody.innerHTML = `
+                <form id="createUserForm">
+                    <div class="row">
+                        <div class="col-md-6"><div class="form-group"><label class="form-label">First Name</label><input class="form-control" name="firstName" required /></div></div>
+                        <div class="col-md-6"><div class="form-group"><label class="form-label">Last Name</label><input class="form-control" name="lastName" required /></div></div>
+                    </div>
+                    <div class="form-group"><label class="form-label">Email</label><input class="form-control" name="email" type="email" required /></div>
+                    <div class="form-group"><label class="form-label">Password</label><input class="form-control" name="password" type="password" required /></div>
+                    <div class="form-group"><label class="form-label">Phone</label><input class="form-control" name="phone" /></div>
+                    <div class="form-group"><label class="form-label">Roles</label><select class="form-select" name="roles" multiple>
+                        <option value="student" selected>Student</option>
+                        <option value="instructor">Instructor</option>
+                        <option value="admin">Admin</option>
+                    </select></div>
+                </form>
+            `;
+            actionModalConfirm.textContent = 'Create User';
+            actionModalConfirm.onclick = async () => {
+                const form = document.getElementById('createUserForm');
+                const formData = new FormData(form);
+                const body = Object.fromEntries(formData.entries());
+                body.roles = Array.from(formData.getAll('roles'));
+                try {
+                    await apiCall('/admin/users', { method: 'POST', body: JSON.stringify(body) });
+                    actionModal.hide();
+                    showToast('User created', 'success');
+                    loadUsers(true);
+                } catch (e) { showToast(e.message, 'danger'); }
+            };
+            actionModal.show();
+        };
 
         // ================================================================
-        // COURSES – FULL CRUD with Bulk, Export, Filters
+        // COURSES – with infinite scroll / pagination
         // ================================================================
         let coursesData = [];
         let selectedCourseIds = new Set();
+        let coursesPage = 1;
+        let coursesHasMore = true;
+        let coursesLoading = false;
 
-        async function loadCourses() {
+        async function loadCourses(reset = true) {
+            if (reset) { resetPagination();
+                coursesData = [];
+                selectedCourseIds.clear();
+                coursesPage = 1;
+                coursesHasMore = true; }
+            if (coursesLoading) return;
+            coursesLoading = true;
             try {
-                const data = await apiCall('/admin/courses?limit=200');
-                coursesData = data.data.courses || [];
+                const data = await apiCall(`/admin/courses?limit=${limit}&page=${coursesPage}`);
+                const newCourses = data.data.courses || [];
+                totalItems = data.data.stats?.total || newCourses.length;
+                if (newCourses.length < limit) coursesHasMore = false;
+                coursesData = coursesData.concat(newCourses);
+                coursesPage++;
                 renderCoursesTable(coursesData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load courses: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                coursesLoading = false;
             }
         }
 
         function renderCoursesTable(courses) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-book"></i> Courses (${courses.length})</h5>
+                    <h5><i class="bi bi-book"></i> Courses (${totalItems})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateCourse()"><i class="bi bi-plus"></i> Add Course</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="exportData('courses')"><i class="bi bi-download"></i> Export</button>
@@ -959,7 +1081,7 @@
                         <button class="btn btn-outline-success btn-sm" onclick="bulkApproveCourses()"><i class="bi bi-check"></i> Bulk Approve</button>
                     </div>
                 </div>
-                <div class="table-container">
+                <div class="table-container" id="coursesTableContainer">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search title..." id="courseSearch" oninput="filterCourses()">
                         <select class="form-select form-select-sm" style="width:auto;" id="courseStatusFilter" onchange="filterCourses()">
@@ -969,12 +1091,13 @@
                             <option value="rejected">Rejected</option>
                         </select>
                     </div>
-                    <table class="table">
-                        <thead><tr>
-                            <th><input type="checkbox" class="select-all-checkbox" id="selectAllCourses" onchange="toggleSelectAllCourses()"></th>
-                            <th>Title</th><th>Instructor</th><th>Status</th><th>Price</th><th>Actions</th>
-                        </tr></thead>
-                        <tbody id="coursesTableBody">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead><tr>
+                                <th><input type="checkbox" class="select-all-checkbox" id="selectAllCourses" onchange="toggleSelectAllCourses()"></th>
+                                <th>Title</th><th>Instructor</th><th>Status</th><th>Price</th><th>Actions</th>
+                            </tr></thead>
+                            <tbody id="coursesTableBody">
                 `;
             courses.forEach(c => {
                 const statusBadge = c.approvalStatus === 'approved' ?
@@ -998,11 +1121,22 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table></div>
+                <div id="coursesScrollTrigger" class="infinite-scroll-trigger"></div>
+            </div>`;
             contentArea.innerHTML = html;
+            const trigger = document.getElementById('coursesScrollTrigger');
+            if (trigger) {
+                const observer = new IntersectionObserver(async (entries) => {
+                    if (entries[0].isIntersecting && coursesHasMore && !coursesLoading) {
+                        await loadCourses(false);
+                    }
+                }, { root: document.querySelector('#coursesTableContainer'), rootMargin: '0px 0px 50px 0px' });
+                observer.observe(trigger);
+            }
         }
 
-        // Selection and bulk actions for courses
+        // Course actions
         window.toggleCourseSelection = function(id) {
             if (selectedCourseIds.has(id)) selectedCourseIds.delete(id);
             else selectedCourseIds.add(id);
@@ -1032,7 +1166,7 @@
                 await Promise.all(ids.map(id => apiCall(`/admin/courses/${id}`, { method: 'DELETE' })));
                 showToast(`${ids.length} courses deleted`, 'success');
                 selectedCourseIds.clear();
-                loadCourses();
+                loadCourses(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.bulkApproveCourses = async function() {
@@ -1042,33 +1176,145 @@
                 await Promise.all(ids.map(id => apiCall(`/admin/courses/${id}/approve`, { method: 'POST' })));
                 showToast(`${ids.length} courses approved`, 'success');
                 selectedCourseIds.clear();
-                loadCourses();
+                loadCourses(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
-        // Reuse viewCourse, editCourse, approveCourse, rejectCourse, deleteCourse, openCreateCourse from earlier.
-        // They are already defined globally; we keep them.
+        window.viewCourse = async (id) => {
+            try {
+                const data = await apiCall(`/admin/courses/${id}`);
+                const c = data.data.course;
+                actionModalLabel.textContent = c.title;
+                actionModalBody.innerHTML = `
+                    <div><strong>Description:</strong> ${c.description || 'N/A'}</div>
+                    <div><strong>Price:</strong> ₦${(c.price||0).toLocaleString()}</div>
+                    <div><strong>Level:</strong> ${c.level || 'N/A'}</div>
+                    <div><strong>Category:</strong> ${c.category || 'N/A'}</div>
+                    <div><strong>Students:</strong> ${c.totalStudents || 0}</div>
+                    <div><strong>Rating:</strong> ${c.avgRating || 0}</div>
+                    <div><strong>Status:</strong> ${c.approvalStatus}</div>
+                `;
+                actionModalConfirm.style.display = 'none';
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.editCourse = async (id) => {
+            try {
+                const data = await apiCall(`/admin/courses/${id}`);
+                const c = data.data.course;
+                actionModalLabel.textContent = 'Edit Course';
+                actionModalBody.innerHTML = `
+                    <form id="editCourseForm">
+                        <input type="hidden" name="courseId" value="${c._id}" />
+                        <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${c.title}" /></div>
+                        <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description">${c.description || ''}</textarea></div>
+                        <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="${c.price||0}" /></div>
+                        <div class="form-group"><label class="form-label">Level</label><select class="form-select" name="level"><option value="Beginner" ${c.level==='Beginner'?'selected':''}>Beginner</option><option value="Intermediate" ${c.level==='Intermediate'?'selected':''}>Intermediate</option><option value="Advanced" ${c.level==='Advanced'?'selected':''}>Advanced</option></select></div>
+                        <div class="form-group"><label class="form-label">Category</label><input class="form-control" name="category" value="${c.category||''}" /></div>
+                    </form>
+                `;
+                actionModalConfirm.style.display = 'block';
+                actionModalConfirm.textContent = 'Update Course';
+                actionModalConfirm.onclick = async () => {
+                    const form = document.getElementById('editCourseForm');
+                    const formData = new FormData(form);
+                    const body = Object.fromEntries(formData.entries());
+                    try {
+                        await apiCall(`/admin/courses/${body.courseId}`, { method: 'PUT', body: JSON.stringify(body) });
+                        actionModal.hide();
+                        showToast('Course updated', 'success');
+                        loadCourses(true);
+                    } catch (e) { showToast(e.message, 'danger'); }
+                };
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.approveCourse = async (id) => {
+            if (!confirm('Approve this course?')) return;
+            try {
+                await apiCall(`/admin/courses/${id}/approve`, { method: 'POST' });
+                showToast('Course approved', 'success');
+                loadCourses(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.rejectCourse = async (id) => {
+            const reason = prompt('Rejection reason (optional)');
+            try {
+                await apiCall(`/admin/courses/${id}/reject`, { method: 'POST', body: JSON.stringify({ reason }) });
+                showToast('Course rejected', 'success');
+                loadCourses(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.deleteCourse = async (id) => {
+            if (!confirm('Delete this course permanently?')) return;
+            try {
+                await apiCall(`/admin/courses/${id}`, { method: 'DELETE' });
+                showToast('Course deleted', 'success');
+                loadCourses(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.openCreateCourse = () => {
+            actionModalLabel.textContent = 'Create Course';
+            actionModalBody.innerHTML = `
+                <form id="createCourseForm">
+                    <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
+                    <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description"></textarea></div>
+                    <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="0" /></div>
+                    <div class="form-group"><label class="form-label">Level</label><select class="form-select" name="level"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></div>
+                    <div class="form-group"><label class="form-label">Category</label><input class="form-control" name="category" /></div>
+                    <div class="form-group"><label class="form-label">Instructor ID</label><input class="form-control" name="instructorId" placeholder="User ID" required /></div>
+                </form>
+            `;
+            actionModalConfirm.textContent = 'Create Course';
+            actionModalConfirm.onclick = async () => {
+                const form = document.getElementById('createCourseForm');
+                const formData = new FormData(form);
+                const body = Object.fromEntries(formData.entries());
+                try {
+                    await apiCall('/admin/courses', { method: 'POST', body: JSON.stringify(body) });
+                    actionModal.hide();
+                    showToast('Course created', 'success');
+                    loadCourses(true);
+                } catch (e) { showToast(e.message, 'danger'); }
+            };
+            actionModal.show();
+        };
 
         // ================================================================
-        // BOOKS – FULL CRUD with Bulk, Filters, Export
+        // BOOKS – with infinite scroll
         // ================================================================
         let booksData = [];
         let selectedBookIds = new Set();
+        let booksPage = 1;
+        let booksHasMore = true;
+        let booksLoading = false;
 
-        async function loadBooks() {
+        async function loadBooks(reset = true) {
+            if (reset) { resetPagination();
+                booksData = [];
+                selectedBookIds.clear();
+                booksPage = 1;
+                booksHasMore = true; }
+            if (booksLoading) return;
+            booksLoading = true;
             try {
-                const data = await apiCall('/admin/books');
-                booksData = data.data || [];
+                const data = await apiCall(`/admin/books?limit=${limit}&page=${booksPage}`);
+                const newBooks = data.data || [];
+                totalItems = newBooks.length;
+                if (newBooks.length < limit) booksHasMore = false;
+                booksData = booksData.concat(newBooks);
+                booksPage++;
                 renderBooksTable(booksData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load books: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                booksLoading = false;
             }
         }
 
         function renderBooksTable(books) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-journal"></i> Books (${books.length})</h5>
+                    <h5><i class="bi bi-journal"></i> Books (${totalItems})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateBook()"><i class="bi bi-plus"></i> Add Book</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="exportData('books')"><i class="bi bi-download"></i> Export</button>
@@ -1076,7 +1322,7 @@
                         <button class="btn btn-outline-success btn-sm" onclick="bulkApproveBooks()"><i class="bi bi-check"></i> Bulk Approve</button>
                     </div>
                 </div>
-                <div class="table-container">
+                <div class="table-container" id="booksTableContainer">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search title..." id="bookSearch" oninput="filterBooks()">
                         <select class="form-select form-select-sm" style="width:auto;" id="bookStatusFilter" onchange="filterBooks()">
@@ -1086,12 +1332,13 @@
                             <option value="rejected">Rejected</option>
                         </select>
                     </div>
-                    <table class="table">
-                        <thead><tr>
-                            <th><input type="checkbox" class="select-all-checkbox" id="selectAllBooks" onchange="toggleSelectAllBooks()"></th>
-                            <th>Title</th><th>Author</th><th>Status</th><th>Price</th><th>Actions</th>
-                        </tr></thead>
-                        <tbody id="booksTableBody">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead><tr>
+                                <th><input type="checkbox" class="select-all-checkbox" id="selectAllBooks" onchange="toggleSelectAllBooks()"></th>
+                                <th>Title</th><th>Author</th><th>Status</th><th>Price</th><th>Actions</th>
+                            </tr></thead>
+                            <tbody id="booksTableBody">
                 `;
             books.forEach(b => {
                 const statusBadge = b.approvalStatus === 'approved' ?
@@ -1115,11 +1362,22 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table></div>
+                <div id="booksScrollTrigger" class="infinite-scroll-trigger"></div>
+            </div>`;
             contentArea.innerHTML = html;
+            const trigger = document.getElementById('booksScrollTrigger');
+            if (trigger) {
+                const observer = new IntersectionObserver(async (entries) => {
+                    if (entries[0].isIntersecting && booksHasMore && !booksLoading) {
+                        await loadBooks(false);
+                    }
+                }, { root: document.querySelector('#booksTableContainer'), rootMargin: '0px 0px 50px 0px' });
+                observer.observe(trigger);
+            }
         }
 
-        // Selection and bulk for books
+        // Book actions
         window.toggleBookSelection = function(id) {
             if (selectedBookIds.has(id)) selectedBookIds.delete(id);
             else selectedBookIds.add(id);
@@ -1149,7 +1407,7 @@
                 await Promise.all(ids.map(id => apiCall(`/admin/books/${id}`, { method: 'DELETE' })));
                 showToast(`${ids.length} books deleted`, 'success');
                 selectedBookIds.clear();
-                loadBooks();
+                loadBooks(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.bulkApproveBooks = async function() {
@@ -1159,34 +1417,230 @@
                 await Promise.all(ids.map(id => apiCall(`/admin/books/${id}/approve`, { method: 'POST' })));
                 showToast(`${ids.length} books approved`, 'success');
                 selectedBookIds.clear();
-                loadBooks();
+                loadBooks(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.viewBook = async (id) => {
+            try {
+                const data = await apiCall(`/admin/books/${id}`);
+                const b = data.data;
+                actionModalLabel.textContent = b.title;
+                actionModalBody.innerHTML = `
+                    <div><strong>Author:</strong> ${b.author}</div>
+                    <div><strong>Description:</strong> ${b.description || 'N/A'}</div>
+                    <div><strong>Price:</strong> ₦${(b.price||0).toLocaleString()}</div>
+                    <div><strong>Downloads:</strong> ${b.downloads||0}</div>
+                    <div><strong>Views:</strong> ${b.views||0}</div>
+                    <div><strong>Status:</strong> ${b.approvalStatus}</div>
+                `;
+                actionModalConfirm.style.display = 'none';
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.editBook = async (id) => {
+            try {
+                const data = await apiCall(`/admin/books/${id}`);
+                const b = data.data;
+                actionModalLabel.textContent = 'Edit Book';
+                actionModalBody.innerHTML = `
+                    <form id="editBookForm">
+                        <input type="hidden" name="bookId" value="${b._id}" />
+                        <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${b.title}" /></div>
+                        <div class="form-group"><label class="form-label">Author</label><input class="form-control" name="author" value="${b.author}" /></div>
+                        <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description">${b.description||''}</textarea></div>
+                        <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="${b.price||0}" /></div>
+                    </form>
+                `;
+                actionModalConfirm.textContent = 'Update Book';
+                actionModalConfirm.onclick = async () => {
+                    const form = document.getElementById('editBookForm');
+                    const formData = new FormData(form);
+                    const body = Object.fromEntries(formData.entries());
+                    try {
+                        await apiCall(`/admin/books/${body.bookId}`, { method: 'PUT', body: JSON.stringify(body) });
+                        actionModal.hide();
+                        showToast('Book updated', 'success');
+                        loadBooks(true);
+                    } catch (e) { showToast(e.message, 'danger'); }
+                };
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.approveBook = async (id) => {
+            if (!confirm('Approve this book?')) return;
+            try {
+                await apiCall(`/admin/books/${id}/approve`, { method: 'POST' });
+                showToast('Book approved', 'success');
+                loadBooks(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.rejectBook = async (id) => {
+            const reason = prompt('Rejection reason');
+            try {
+                await apiCall(`/admin/books/${id}/reject`, { method: 'POST', body: JSON.stringify({ rejectionReason: reason }) });
+                showToast('Book rejected', 'success');
+                loadBooks(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.deleteBook = async (id) => {
+            if (!confirm('Delete this book?')) return;
+            try {
+                await apiCall(`/admin/books/${id}`, { method: 'DELETE' });
+                showToast('Book deleted', 'success');
+                loadBooks(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.openCreateBook = () => {
+            actionModalLabel.textContent = 'Create Book';
+            actionModalBody.innerHTML = `
+                <form id="createBookForm">
+                    <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
+                    <div class="form-group"><label class="form-label">Author</label><input class="form-control" name="author" required /></div>
+                    <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description"></textarea></div>
+                    <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="0" /></div>
+                    <div class="form-group"><label class="form-label">Cover Image URL</label><input class="form-control" name="coverImage" placeholder="https://..." /></div>
+                    <div class="form-group"><label class="form-label">File URL</label><input class="form-control" name="fileUrl" placeholder="https://..." required /></div>
+                </form>
+            `;
+            actionModalConfirm.textContent = 'Create Book';
+            actionModalConfirm.onclick = async () => {
+                const form = document.getElementById('createBookForm');
+                const formData = new FormData(form);
+                const body = Object.fromEntries(formData.entries());
+                try {
+                    await apiCall('/admin/books', { method: 'POST', body: JSON.stringify(body) });
+                    actionModal.hide();
+                    showToast('Book created', 'success');
+                    loadBooks(true);
+                } catch (e) { showToast(e.message, 'danger'); }
+            };
+            actionModal.show();
+        };
+
+        // ================================================================
+        // POSTS – with infinite scroll
+        // ================================================================
+        let postsData = [];
+        let postsPage = 1;
+        let postsHasMore = true;
+        let postsLoading = false;
+
+        async function loadPosts(reset = true) {
+            if (reset) { resetPagination();
+                postsData = [];
+                postsPage = 1;
+                postsHasMore = true; }
+            if (postsLoading) return;
+            postsLoading = true;
+            try {
+                const data = await apiCall(`/posts?limit=${limit}&page=${postsPage}`);
+                const newPosts = data.data?.posts || data.data || [];
+                totalItems = newPosts.length;
+                if (newPosts.length < limit) postsHasMore = false;
+                postsData = postsData.concat(newPosts);
+                postsPage++;
+                renderPostsTable(postsData);
+            } catch (e) {
+                showToast(e.message, 'danger');
+            } finally {
+                postsLoading = false;
+            }
+        }
+
+        function renderPostsTable(posts) {
+            let html = `
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h5><i class="bi bi-newspaper"></i> Posts (${totalItems})</h5>
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('posts')"><i class="bi bi-download"></i> Export</button>
+                </div>
+                <div class="table-container" id="postsTableContainer">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="postsTableBody">
+                `;
+            posts.forEach(p => {
+                const statusBadge = p.isPublished ?
+                    '<span class="badge-status badge-approved">Published</span>' :
+                    '<span class="badge-status badge-inactive">Draft</span>';
+                html += `<tr>
+                    <td><strong>${p.title}</strong></td>
+                    <td>${p.authorId?.firstName || 'User'}</td>
+                    <td>${statusBadge}</td>
+                    <td>
+                        ${!p.isPublished ? `<button class="btn btn-sm btn-outline-success" onclick="publishPost('${p._id}')"><i class="bi bi-check"></i> Publish</button>` : ''}
+                        <button class="btn btn-sm btn-outline-danger" onclick="deletePost('${p._id}')"><i class="bi bi-trash"></i></button>
+                    </td>
+                </tr>`;
+            });
+            html += `</tbody></table></div>
+                <div id="postsScrollTrigger" class="infinite-scroll-trigger"></div>
+            </div>`;
+            contentArea.innerHTML = html;
+            const trigger = document.getElementById('postsScrollTrigger');
+            if (trigger) {
+                const observer = new IntersectionObserver(async (entries) => {
+                    if (entries[0].isIntersecting && postsHasMore && !postsLoading) {
+                        await loadPosts(false);
+                    }
+                }, { root: document.querySelector('#postsTableContainer'), rootMargin: '0px 0px 50px 0px' });
+                observer.observe(trigger);
+            }
+        }
+
+        window.publishPost = async (id) => {
+            try {
+                await apiCall(`/posts/${id}/publish`, { method: 'POST' });
+                showToast('Post published', 'success');
+                loadPosts(true);
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.deletePost = async (id) => {
+            if (!confirm('Delete this post?')) return;
+            try {
+                await apiCall(`/admin/posts/${id}`, { method: 'DELETE' });
+                showToast('Post deleted', 'success');
+                loadPosts(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
 
-        // Reuse viewBook, editBook, approveBook, rejectBook, deleteBook, openCreateBook from earlier.
-
         // ================================================================
-        // PAYMENTS – Full list with filters, approve/reject withdrawals
+        // PAYMENTS – with pagination
         // ================================================================
         let paymentsData = [];
+        let paymentsPage = 1;
+        let paymentsHasMore = true;
+        let paymentsLoading = false;
 
-        async function loadPayments() {
+        async function loadPayments(reset = true) {
+            if (reset) { resetPagination();
+                paymentsData = [];
+                paymentsPage = 1;
+                paymentsHasMore = true; }
+            if (paymentsLoading) return;
+            paymentsLoading = true;
             try {
-                const data = await apiCall('/admin/withdrawals?limit=200');
-                paymentsData = data.data.withdrawals || [];
+                const data = await apiCall(`/admin/withdrawals?limit=${limit}&page=${paymentsPage}`);
+                const newPayments = data.data.withdrawals || [];
+                totalItems = newPayments.length;
+                if (newPayments.length < limit) paymentsHasMore = false;
+                paymentsData = paymentsData.concat(newPayments);
+                paymentsPage++;
                 renderPaymentsTable(paymentsData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load payments: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                paymentsLoading = false;
             }
         }
 
         function renderPaymentsTable(payments) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-credit-card"></i> Transactions & Withdrawals (${payments.length})</h5>
+                    <h5><i class="bi bi-credit-card"></i> Transactions (${totalItems})</h5>
                     <button class="btn btn-outline-primary btn-sm" onclick="exportData('payments')"><i class="bi bi-download"></i> Export</button>
                 </div>
-                <div class="table-container">
+                <div class="table-container" id="paymentsTableContainer">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search user..." id="paymentSearch" oninput="filterPayments()">
                         <select class="form-select form-select-sm" style="width:auto;" id="paymentStatusFilter" onchange="filterPayments()">
@@ -1196,9 +1650,10 @@
                             <option value="failed">Failed</option>
                         </select>
                     </div>
-                    <table class="table">
-                        <thead><tr><th>User</th><th>Amount</th><th>Bank</th><th>Account</th><th>Status</th><th>Actions</th></tr></thead>
-                        <tbody id="paymentsTableBody">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead><tr><th>User</th><th>Amount</th><th>Bank</th><th>Account</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="paymentsTableBody">
                 `;
             payments.forEach(p => {
                 const statusBadge = p.status === 'completed' ?
@@ -1221,8 +1676,19 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table></div>
+                <div id="paymentsScrollTrigger" class="infinite-scroll-trigger"></div>
+            </div>`;
             contentArea.innerHTML = html;
+            const trigger = document.getElementById('paymentsScrollTrigger');
+            if (trigger) {
+                const observer = new IntersectionObserver(async (entries) => {
+                    if (entries[0].isIntersecting && paymentsHasMore && !paymentsLoading) {
+                        await loadPayments(false);
+                    }
+                }, { root: document.querySelector('#paymentsTableContainer'), rootMargin: '0px 0px 50px 0px' });
+                observer.observe(trigger);
+            }
         }
 
         window.filterPayments = function() {
@@ -1234,26 +1700,23 @@
             if (statusFilter) filtered = filtered.filter(p => p.status === statusFilter);
             renderPaymentsTable(filtered);
         };
-
         window.approveWithdrawal = async (id) => {
             if (!confirm('Approve this withdrawal?')) return;
             try {
                 await apiCall(`/admin/withdrawals/${id}/process`, { method: 'POST', body: JSON.stringify({ action: 'approve' }) });
                 showToast('Withdrawal approved', 'success');
-                loadPayments();
+                loadPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.rejectWithdrawal = async (id) => {
             const reason = prompt('Rejection reason (optional)');
             try {
                 await apiCall(`/admin/withdrawals/${id}/process`, { method: 'POST', body: JSON.stringify({ action: 'reject',
                         adminNote: reason }) });
                 showToast('Withdrawal rejected', 'success');
-                loadPayments();
+                loadPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.viewPayment = async (id) => {
             try {
                 const data = await apiCall(`/admin/withdrawals/${id}`);
@@ -1274,27 +1737,42 @@
         };
 
         // ================================================================
-        // MANUAL PAYMENTS – Full list with approve/reject
+        // MANUAL PAYMENTS – with pagination
         // ================================================================
         let manualPaymentsData = [];
+        let manualPage = 1;
+        let manualHasMore = true;
+        let manualLoading = false;
 
-        async function loadManualPayments() {
+        async function loadManualPayments(reset = true) {
+            if (reset) { resetPagination();
+                manualPaymentsData = [];
+                manualPage = 1;
+                manualHasMore = true; }
+            if (manualLoading) return;
+            manualLoading = true;
             try {
-                const data = await apiCall('/admin/manual-payments/all?limit=200');
-                manualPaymentsData = data.data.payments || [];
+                const data = await apiCall(`/admin/manual-payments/all?limit=${limit}&page=${manualPage}`);
+                const newPayments = data.data.payments || [];
+                totalItems = newPayments.length;
+                if (newPayments.length < limit) manualHasMore = false;
+                manualPaymentsData = manualPaymentsData.concat(newPayments);
+                manualPage++;
                 renderManualPaymentsTable(manualPaymentsData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load manual payments: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                manualLoading = false;
             }
         }
 
         function renderManualPaymentsTable(payments) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-arrow-up-circle"></i> Manual Payments (${payments.length})</h5>
+                    <h5><i class="bi bi-arrow-up-circle"></i> Manual Payments (${totalItems})</h5>
                     <button class="btn btn-outline-primary btn-sm" onclick="exportData('manual-payments')"><i class="bi bi-download"></i> Export</button>
                 </div>
-                <div class="table-container">
+                <div class="table-container" id="manualTableContainer">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search user..." id="manualSearch" oninput="filterManualPayments()">
                         <select class="form-select form-select-sm" style="width:auto;" id="manualStatusFilter" onchange="filterManualPayments()">
@@ -1312,9 +1790,10 @@
                             <option value="campaign">Campaign</option>
                         </select>
                     </div>
-                    <table class="table">
-                        <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Reference</th><th>Receipt</th><th>Status</th><th>Actions</th></tr></thead>
-                        <tbody id="manualPaymentsTableBody">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Reference</th><th>Receipt</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody id="manualPaymentsTableBody">
                 `;
             payments.forEach(p => {
                 const statusBadge = p.status === 'approved' ?
@@ -1338,8 +1817,19 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table></div>
+                <div id="manualScrollTrigger" class="infinite-scroll-trigger"></div>
+            </div>`;
             contentArea.innerHTML = html;
+            const trigger = document.getElementById('manualScrollTrigger');
+            if (trigger) {
+                const observer = new IntersectionObserver(async (entries) => {
+                    if (entries[0].isIntersecting && manualHasMore && !manualLoading) {
+                        await loadManualPayments(false);
+                    }
+                }, { root: document.querySelector('#manualTableContainer'), rootMargin: '0px 0px 50px 0px' });
+                observer.observe(trigger);
+            }
         }
 
         window.filterManualPayments = function() {
@@ -1353,26 +1843,23 @@
             if (typeFilter) filtered = filtered.filter(p => p.type === typeFilter);
             renderManualPaymentsTable(filtered);
         };
-
         window.approveManualPayment = async (id) => {
             if (!confirm('Approve this manual payment?')) return;
             try {
                 await apiCall(`/admin/manual-payments/${id}/approve`, { method: 'POST' });
                 showToast('Manual payment approved', 'success');
-                loadManualPayments();
+                loadManualPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.rejectManualPayment = async (id) => {
             const reason = prompt('Rejection reason');
             if (!reason) return;
             try {
                 await apiCall(`/admin/manual-payments/${id}/reject`, { method: 'POST', body: JSON.stringify({ rejectionReason: reason }) });
                 showToast('Manual payment rejected', 'success');
-                loadManualPayments();
+                loadManualPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.viewManualPayment = async (id) => {
             try {
                 const data = await apiCall(`/admin/manual-payments/${id}`);
@@ -1394,17 +1881,30 @@
         };
 
         // ================================================================
-        // CHALLENGES – Full CRUD
+        // CHALLENGES
         // ================================================================
         let challengesData = [];
+        let challengesPage = 1;
+        let challengesHasMore = true;
+        let challengesLoading = false;
 
-        async function loadChallenges() {
+        async function loadChallenges(reset = true) {
+            if (reset) { resetPagination();
+                challengesData = [];
+                challengesPage = 1;
+                challengesHasMore = true; }
+            if (challengesLoading) return;
+            challengesLoading = true;
             try {
                 const data = await apiCall('/admin/challenges');
-                challengesData = data.data || [];
+                const newChallenges = data.data || [];
+                totalItems = newChallenges.length;
+                challengesData = newChallenges;
                 renderChallengesTable(challengesData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load challenges: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                challengesLoading = false;
             }
         }
 
@@ -1417,7 +1917,7 @@
                 <div class="table-container">
                     <table class="table">
                         <thead><tr><th>Title</th><th>Status</th><th>Reward XP</th><th>Participants</th><th>Actions</th></tr></thead>
-                        <tbody id="challengesTableBody">
+                        <tbody>
                 `;
             challenges.forEach(c => {
                 const statusBadge = c.status === 'active' ?
@@ -1461,20 +1961,78 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
-        window.editChallenge = (id) => showToast('Edit challenge – implement form', 'info');
+        window.editChallenge = async (id) => {
+            try {
+                const data = await apiCall(`/admin/challenges/${id}`);
+                const c = data.data;
+                actionModalLabel.textContent = 'Edit Challenge';
+                actionModalBody.innerHTML = `
+                    <form id="editChallengeForm">
+                        <input type="hidden" name="challengeId" value="${c._id}" />
+                        <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${c.title}" /></div>
+                        <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description">${c.description}</textarea></div>
+                        <div class="form-group"><label class="form-label">Reward XP</label><input class="form-control" name="rewardXP" type="number" value="${c.rewardXP||0}" /></div>
+                        <div class="form-group"><label class="form-label">Reward Amount (₦)</label><input class="form-control" name="rewardAmount" type="number" value="${c.rewardAmount||0}" /></div>
+                        <div class="form-group"><label class="form-label">Premium Days</label><input class="form-control" name="rewardPremiumDays" type="number" value="${c.rewardPremiumDays||0}" /></div>
+                        <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="datetime-local" value="${c.startDate ? new Date(c.startDate).toISOString().slice(0,16) : ''}" /></div>
+                        <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="datetime-local" value="${c.endDate ? new Date(c.endDate).toISOString().slice(0,16) : ''}" /></div>
+                        <div class="form-group"><label class="form-label">Status</label><select class="form-select" name="status"><option value="upcoming" ${c.status==='upcoming'?'selected':''}>Upcoming</option><option value="active" ${c.status==='active'?'selected':''}>Active</option><option value="completed" ${c.status==='completed'?'selected':''}>Completed</option></select></div>
+                    </form>
+                `;
+                actionModalConfirm.textContent = 'Update Challenge';
+                actionModalConfirm.onclick = async () => {
+                    const form = document.getElementById('editChallengeForm');
+                    const formData = new FormData(form);
+                    const body = Object.fromEntries(formData.entries());
+                    try {
+                        await apiCall(`/admin/challenges/${body.challengeId}`, { method: 'PUT', body: JSON.stringify(body) });
+                        actionModal.hide();
+                        showToast('Challenge updated', 'success');
+                        loadChallenges(true);
+                    } catch (e) { showToast(e.message, 'danger'); }
+                };
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
         window.deleteChallenge = async (id) => {
             if (!confirm('Delete this challenge?')) return;
             try {
                 await apiCall(`/admin/challenges/${id}`, { method: 'DELETE' });
                 showToast('Challenge deleted', 'success');
-                loadChallenges();
+                loadChallenges(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-        window.openCreateChallenge = () => showToast('Create challenge – implement modal', 'info');
+        window.openCreateChallenge = () => {
+            actionModalLabel.textContent = 'Create Challenge';
+            actionModalBody.innerHTML = `
+                <form id="createChallengeForm">
+                    <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
+                    <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description" required></textarea></div>
+                    <div class="form-group"><label class="form-label">Reward XP</label><input class="form-control" name="rewardXP" type="number" value="500" /></div>
+                    <div class="form-group"><label class="form-label">Reward Amount (₦)</label><input class="form-control" name="rewardAmount" type="number" value="0" /></div>
+                    <div class="form-group"><label class="form-label">Premium Days</label><input class="form-control" name="rewardPremiumDays" type="number" value="0" /></div>
+                    <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="datetime-local" required /></div>
+                    <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="datetime-local" required /></div>
+                    <div class="form-group"><label class="form-label">Status</label><select class="form-select" name="status"><option value="upcoming">Upcoming</option><option value="active">Active</option><option value="completed">Completed</option></select></div>
+                </form>
+            `;
+            actionModalConfirm.textContent = 'Create Challenge';
+            actionModalConfirm.onclick = async () => {
+                const form = document.getElementById('createChallengeForm');
+                const formData = new FormData(form);
+                const body = Object.fromEntries(formData.entries());
+                try {
+                    await apiCall('/admin/challenges', { method: 'POST', body: JSON.stringify(body) });
+                    actionModal.hide();
+                    showToast('Challenge created', 'success');
+                    loadChallenges(true);
+                } catch (e) { showToast(e.message, 'danger'); }
+            };
+            actionModal.show();
+        };
 
         // ================================================================
-        // ADS – Full CRUD
+        // ADS
         // ================================================================
         let adsData = [];
 
@@ -1497,7 +2055,7 @@
                 <div class="table-container">
                     <table class="table">
                         <thead><tr><th>Title</th><th>Placement</th><th>Status</th><th>Impressions</th><th>Clicks</th><th>Actions</th></tr></thead>
-                        <tbody id="adsTableBody">
+                        <tbody>
                 `;
             ads.forEach(a => {
                 const statusBadge = a.isActive ?
@@ -1521,8 +2079,63 @@
             contentArea.innerHTML = html;
         }
 
-        window.viewAd = (id) => showToast('View ad details', 'info');
-        window.editAd = (id) => showToast('Edit ad', 'info');
+        window.viewAd = (id) => {
+            const ad = adsData.find(a => a._id === id);
+            if (!ad) return;
+            actionModalLabel.textContent = ad.title;
+            actionModalBody.innerHTML = `
+                <div><strong>Title:</strong> ${ad.title}</div>
+                <div><strong>Placement:</strong> ${ad.placement}</div>
+                <div><strong>Link:</strong> <a href="${ad.linkUrl}" target="_blank">${ad.linkUrl}</a></div>
+                <div><strong>Start:</strong> ${new Date(ad.startDate).toLocaleString()}</div>
+                <div><strong>End:</strong> ${new Date(ad.endDate).toLocaleString()}</div>
+                <div><strong>Impressions:</strong> ${ad.impressions}</div>
+                <div><strong>Clicks:</strong> ${ad.clicks}</div>
+                <div><strong>Active:</strong> ${ad.isActive ? 'Yes' : 'No'}</div>
+            `;
+            actionModalConfirm.style.display = 'none';
+            actionModal.show();
+        };
+        window.editAd = (id) => {
+            const ad = adsData.find(a => a._id === id);
+            if (!ad) return;
+            actionModalLabel.textContent = 'Edit Ad';
+            actionModalBody.innerHTML = `
+                <form id="editAdForm">
+                    <input type="hidden" name="adId" value="${ad._id}" />
+                    <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${ad.title}" /></div>
+                    <div class="form-group"><label class="form-label">Link URL</label><input class="form-control" name="linkUrl" value="${ad.linkUrl}" /></div>
+                    <div class="form-group"><label class="form-label">Placement</label><select class="form-select" name="placement">
+                        <option value="sidebar" ${ad.placement==='sidebar'?'selected':''}>Sidebar</option>
+                        <option value="banner" ${ad.placement==='banner'?'selected':''}>Banner</option>
+                        <option value="in-feed" ${ad.placement==='in-feed'?'selected':''}>In-Feed</option>
+                        <option value="popup" ${ad.placement==='popup'?'selected':''}>Popup</option>
+                        <option value="book-page" ${ad.placement==='book-page'?'selected':''}>Book Page</option>
+                        <option value="video-pre" ${ad.placement==='video-pre'?'selected':''}>Video Pre</option>
+                        <option value="video-mid" ${ad.placement==='video-mid'?'selected':''}>Video Mid</option>
+                        <option value="lesson-inline" ${ad.placement==='lesson-inline'?'selected':''}>Lesson Inline</option>
+                        <option value="challenge-sponsor" ${ad.placement==='challenge-sponsor'?'selected':''}>Challenge Sponsor</option>
+                        <option value="book-sponsor" ${ad.placement==='book-sponsor'?'selected':''}>Book Sponsor</option>
+                        <option value="explore-sponsor" ${ad.placement==='explore-sponsor'?'selected':''}>Explore Sponsor</option>
+                    </select></div>
+                    <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="date" value="${new Date(ad.startDate).toISOString().slice(0,10)}" /></div>
+                    <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="date" value="${new Date(ad.endDate).toISOString().slice(0,10)}" /></div>
+                </form>
+            `;
+            actionModalConfirm.textContent = 'Update Ad';
+            actionModalConfirm.onclick = async () => {
+                const form = document.getElementById('editAdForm');
+                const formData = new FormData(form);
+                const body = Object.fromEntries(formData.entries());
+                try {
+                    await apiCall(`/admin/ads/${body.adId}`, { method: 'PUT', body: JSON.stringify(body) });
+                    actionModal.hide();
+                    showToast('Ad updated', 'success');
+                    loadAds();
+                } catch (e) { showToast(e.message, 'danger'); }
+            };
+            actionModal.show();
+        };
         window.deleteAd = async (id) => {
             if (!confirm('Delete this ad?')) return;
             try {
@@ -1532,18 +2145,55 @@
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.toggleAdActive = async (id) => {
+            const ad = adsData.find(a => a._id === id);
+            if (!ad) return;
             try {
-                const ad = adsData.find(a => a._id === id);
-                if (!ad) return;
                 await apiCall(`/admin/ads/${id}`, { method: 'PUT', body: JSON.stringify({ isActive: !ad.isActive }) });
                 showToast(`Ad ${ad.isActive ? 'paused' : 'activated'}`, 'success');
                 loadAds();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-        window.openCreateAd = () => showToast('Create ad – implement form', 'info');
+        window.openCreateAd = () => {
+            actionModalLabel.textContent = 'Create Ad';
+            actionModalBody.innerHTML = `
+                <form id="createAdForm">
+                    <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
+                    <div class="form-group"><label class="form-label">Link URL</label><input class="form-control" name="linkUrl" required /></div>
+                    <div class="form-group"><label class="form-label">Placement</label><select class="form-select" name="placement">
+                        <option value="sidebar">Sidebar</option>
+                        <option value="banner">Banner</option>
+                        <option value="in-feed">In-Feed</option>
+                        <option value="popup">Popup</option>
+                        <option value="book-page">Book Page</option>
+                        <option value="video-pre">Video Pre</option>
+                        <option value="video-mid">Video Mid</option>
+                        <option value="lesson-inline">Lesson Inline</option>
+                        <option value="challenge-sponsor">Challenge Sponsor</option>
+                        <option value="book-sponsor">Book Sponsor</option>
+                        <option value="explore-sponsor">Explore Sponsor</option>
+                    </select></div>
+                    <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="date" required /></div>
+                    <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="date" required /></div>
+                    <div class="form-group"><label class="form-label">Image URL</label><input class="form-control" name="imageUrl" placeholder="https://..." required /></div>
+                </form>
+            `;
+            actionModalConfirm.textContent = 'Create Ad';
+            actionModalConfirm.onclick = async () => {
+                const form = document.getElementById('createAdForm');
+                const formData = new FormData(form);
+                const body = Object.fromEntries(formData.entries());
+                try {
+                    await apiCall('/admin/ads', { method: 'POST', body: JSON.stringify(body) });
+                    actionModal.hide();
+                    showToast('Ad created', 'success');
+                    loadAds();
+                } catch (e) { showToast(e.message, 'danger'); }
+            };
+            actionModal.show();
+        };
 
         // ================================================================
-        // SOCIAL EARNINGS – Config and trigger
+        // SOCIAL EARNINGS
         // ================================================================
         let socialConfig = {};
 
@@ -1604,7 +2254,6 @@
                 loadSocialEarnings();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.triggerSocialDistribution = async () => {
             if (!confirm('Trigger social earnings distribution now?')) return;
             try {
@@ -1615,7 +2264,7 @@
         };
 
         // ================================================================
-        // ANNOUNCEMENTS – Send and list
+        // ANNOUNCEMENTS
         // ================================================================
         let announcementsData = [];
 
@@ -1630,7 +2279,7 @@
         }
 
         function renderAnnouncements(announcements) {
-            contentArea.innerHTML = `
+            let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5><i class="bi bi-bullhorn"></i> Announcements</h5>
                     <button class="btn btn-primary btn-sm" onclick="openCreateAnnouncement()"><i class="bi bi-plus"></i> New Announcement</button>
@@ -1677,7 +2326,6 @@
             };
             actionModal.show();
         };
-
         window.deleteAnnouncement = async (id) => {
             if (!confirm('Delete this announcement?')) return;
             try {
@@ -1688,7 +2336,7 @@
         };
 
         // ================================================================
-        // COUPONS – Full CRUD
+        // COUPONS
         // ================================================================
         let couponsData = [];
 
@@ -1751,7 +2399,6 @@
             };
             actionModal.show();
         };
-
         window.deleteCoupon = async (id) => {
             if (!confirm('Delete this coupon?')) return;
             try {
@@ -1762,13 +2409,13 @@
         };
 
         // ================================================================
-        // CAMPAIGNS – Approve/reject, mark paid, refund
+        // CAMPAIGNS
         // ================================================================
         let campaignsData = [];
 
         async function loadCampaigns() {
             try {
-                const data = await apiCall('/campaigns/admin/all?limit=200');
+                const data = await apiCall('/campaigns/admin/all?limit=100');
                 campaignsData = data.data.campaigns || [];
                 renderCampaignsTable(campaignsData);
             } catch (e) {
@@ -1874,13 +2521,13 @@
         };
 
         // ================================================================
-        // SPONSORSHIPS – Approve/reject
+        // SPONSORSHIPS
         // ================================================================
         let sponsorshipsData = [];
 
         async function loadSponsorships() {
             try {
-                const data = await apiCall('/sponsorships/admin/all?limit=200');
+                const data = await apiCall('/sponsorships/admin/all?limit=100');
                 sponsorshipsData = data.data.sponsorships || [];
                 renderSponsorshipsTable(sponsorshipsData);
             } catch (e) {
@@ -1957,30 +2604,30 @@
         };
 
         // ================================================================
-        // ACADEMIES – Full CRUD (stub)
+        // ACADEMIES (stub – expandable)
         // ================================================================
         async function loadAcademies() {
             contentArea.innerHTML = `
                 <h5><i class="bi bi-building"></i> Academies</h5>
-                <p>Full academy management coming soon. Implement list, create, edit, members, domains.</p>
+                <p>Full academy management (list, create, edit, members, domains, branding). Backend endpoints exist.</p>
                 <button class="btn btn-primary btn-sm" onclick="showToast('Academy management under development', 'info')">Create Academy</button>
             `;
         }
 
         // ================================================================
-        // GAMIFICATION – Achievements, levels, leaderboard (stub)
+        // GAMIFICATION (stub – expandable)
         // ================================================================
         async function loadGamification() {
             contentArea.innerHTML = `
                 <h5><i class="bi bi-award"></i> Gamification</h5>
-                <p>Achievements, levels, leaderboard management coming soon.</p>
+                <p>Achievements, levels, leaderboard management (backend endpoints exist).</p>
             `;
         }
 
         // ================================================================
-        // SETTINGS – Feature flags, ad config, bank details, etc.
+        // SYSTEM (settings)
         // ================================================================
-        async function loadSettings() {
+        async function loadSystem() {
             try {
                 const adConfig = await apiCall('/admin/ads/config').catch(() => ({ data: { cpm: 1.00, cpc: 0.02,
                         sharePercent: 50 } }));
@@ -2016,7 +2663,7 @@
                     </div>
                 `;
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load settings: ${e.message}</div>`;
+                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load system settings: ${e.message}</div>`;
             }
         }
 
@@ -2029,12 +2676,11 @@
                 showToast('Ad config saved', 'success');
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.saveFeatureFlags = () => showToast('Feature flags saved (stub)', 'info');
         window.saveBankDetails = () => showToast('Bank details saved (stub)', 'info');
 
         // ================================================================
-        // AUDIT LOGS – View logs
+        // AUDIT LOGS
         // ================================================================
         async function loadAudit() {
             try {
@@ -2061,67 +2707,6 @@
                 contentArea.innerHTML = `<div class="alert alert-danger">Failed to load audit logs: ${e.message}</div>`;
             }
         }
-
-        // ================================================================
-        // POSTS – Full list with delete/publish
-        // ================================================================
-        let postsData = [];
-
-        async function loadPosts() {
-            try {
-                const data = await apiCall('/posts?limit=200');
-                postsData = data.data?.posts || data.data || [];
-                renderPostsTable(postsData);
-            } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load posts: ${e.message}</div>`;
-            }
-        }
-
-        function renderPostsTable(posts) {
-            let html = `
-                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-newspaper"></i> Posts (${posts.length})</h5>
-                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('posts')"><i class="bi bi-download"></i> Export</button>
-                </div>
-                <div class="table-container">
-                    <table class="table">
-                        <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Actions</th></tr></thead>
-                        <tbody>
-                `;
-            posts.forEach(p => {
-                const statusBadge = p.isPublished ?
-                    '<span class="badge-status badge-approved">Published</span>' :
-                    '<span class="badge-status badge-inactive">Draft</span>';
-                html += `<tr>
-                    <td><strong>${p.title}</strong></td>
-                    <td>${p.authorId?.firstName || 'User'}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        ${!p.isPublished ? `<button class="btn btn-sm btn-outline-success" onclick="publishPost('${p._id}')"><i class="bi bi-check"></i> Publish</button>` : ''}
-                        <button class="btn btn-sm btn-outline-danger" onclick="deletePost('${p._id}')"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table></div>`;
-            contentArea.innerHTML = html;
-        }
-
-        window.publishPost = async (id) => {
-            try {
-                await apiCall(`/posts/${id}/publish`, { method: 'POST' });
-                showToast('Post published', 'success');
-                loadPosts();
-            } catch (e) { showToast(e.message, 'danger'); }
-        };
-
-        window.deletePost = async (id) => {
-            if (!confirm('Delete this post?')) return;
-            try {
-                await apiCall(`/admin/posts/${id}`, { method: 'DELETE' });
-                showToast('Post deleted', 'success');
-                loadPosts();
-            } catch (e) { showToast(e.message, 'danger'); }
-        };
 
         // ================================================================
         // EXPORT DATA (CSV)
@@ -2184,7 +2769,7 @@
         };
 
         // ================================================================
-        // NOTIFICATIONS (polling)
+        // NOTIFICATIONS
         // ================================================================
         setInterval(async () => {
             try {
@@ -2213,14 +2798,10 @@
         // INIT
         // ================================================================
         loadSection('dashboard');
-
-        console.log('🚀 ChangeX Admin Dashboard v4.0 (Complete) loaded');
+        console.log('🚀 ChangeX Admin Panel v5.0 (Production) loaded');
         console.log('📌 API Base:', API_BASE);
         console.log('🔐 Token:', TOKEN ? 'Present' : 'Missing');
 
-        // ================================================================
-        // RESPONSIVE SIDEBAR
-        // ================================================================
         window.addEventListener('resize', () => {
             if (window.innerWidth >= 992) {
                 sidebar.classList.remove('open');
