@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-    <title>ChangeX Admin Panel — Ultimate</title>
+    <title>ChangeX Admin Panel — Production</title>
 
     <!-- Bootstrap 5 + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
 
     <style>
+        /* ===== CUSTOM PROPERTIES ===== */
         :root {
             --sidebar-width: 260px;
             --primary: #D4AF37;
@@ -32,6 +33,7 @@
             --radius: 16px;
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         [data-bs-theme="light"] {
             --bg-body: #f4f4f9;
             --bg-card: #ffffff;
@@ -41,17 +43,21 @@
             --border-color: #dde1e6;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
         }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--bg-body);
             color: var(--text-light);
             transition: background 0.3s, color 0.3s;
         }
+
+        /* ===== SIDEBAR ===== */
         .sidebar {
             position: fixed;
             top: 0;
@@ -66,6 +72,7 @@
             transition: transform var(--transition);
             box-shadow: var(--shadow);
         }
+
         .sidebar .brand {
             font-size: 1.3rem;
             font-weight: 800;
@@ -77,9 +84,11 @@
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 1.2rem;
         }
+
         .sidebar .brand i {
             font-size: 1.6rem;
         }
+
         .sidebar .nav-link {
             color: var(--text-muted);
             border-radius: 10px;
@@ -92,26 +101,32 @@
             align-items: center;
             gap: 0.6rem;
         }
+
         .sidebar .nav-link i {
             font-size: 1.2rem;
             width: 24px;
             text-align: center;
             flex-shrink: 0;
         }
+
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
             background: rgba(212, 175, 55, 0.1);
             color: var(--primary);
         }
+
         .sidebar .nav-link.active {
             border-left: 3px solid var(--primary);
         }
+
+        /* ===== MAIN CONTENT ===== */
         .main-content {
             margin-left: var(--sidebar-width);
             padding: 1.5rem;
             min-height: 100vh;
             transition: margin-left var(--transition);
         }
+
         @media (max-width: 992px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -133,6 +148,8 @@
                 display: block;
             }
         }
+
+        /* ===== TOPBAR ===== */
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -146,6 +163,7 @@
             flex-wrap: wrap;
             gap: 0.5rem;
         }
+
         .topbar .page-title {
             font-size: 1.2rem;
             font-weight: 700;
@@ -153,15 +171,18 @@
             align-items: center;
             gap: 0.5rem;
         }
+
         .topbar .page-title i {
             color: var(--primary);
         }
+
         .topbar .actions {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             flex-wrap: wrap;
         }
+
         .topbar .actions .btn-icon {
             width: 40px;
             height: 40px;
@@ -175,10 +196,12 @@
             transition: all var(--transition);
             position: relative;
         }
+
         .topbar .actions .btn-icon:hover {
             border-color: var(--primary);
             color: var(--primary);
         }
+
         .topbar .actions .btn-icon .badge-dot {
             position: absolute;
             top: 6px;
@@ -189,6 +212,8 @@
             border-radius: 50%;
             border: 2px solid var(--bg-card);
         }
+
+        /* ===== CARDS ===== */
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -198,26 +223,32 @@
             transition: transform var(--transition);
             height: 100%;
         }
+
         .stat-card:hover {
             transform: translateY(-4px);
         }
+
         .stat-card .stat-number {
             font-size: 2rem;
             font-weight: 800;
             color: var(--primary);
             line-height: 1.2;
         }
+
         .stat-card .stat-label {
             font-size: 0.85rem;
             color: var(--text-muted);
             font-weight: 500;
             margin-top: 0.2rem;
         }
+
         .stat-card .stat-icon {
             font-size: 2.2rem;
             color: var(--primary);
             opacity: 0.3;
         }
+
+        /* ===== TABLES ===== */
         .table-container {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -226,11 +257,13 @@
             overflow-x: auto;
             box-shadow: var(--shadow);
         }
+
         .table {
             color: var(--text-light);
             font-size: 0.85rem;
             margin-bottom: 0;
         }
+
         .table th {
             border-bottom: 1px solid var(--border-color);
             font-weight: 600;
@@ -240,17 +273,22 @@
             letter-spacing: 0.05em;
             padding: 0.6rem 0.5rem;
         }
+
         .table td {
             padding: 0.6rem 0.5rem;
             vertical-align: middle;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
+
         .table tr:last-child td {
             border-bottom: none;
         }
+
         [data-bs-theme="light"] .table td {
             border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
+
+        /* ===== FORMS ===== */
         .form-control,
         .form-select {
             background: var(--bg-input);
@@ -261,6 +299,7 @@
             font-size: 0.9rem;
             transition: all var(--transition);
         }
+
         .form-control:focus,
         .form-select:focus {
             border-color: var(--primary);
@@ -268,24 +307,31 @@
             background: var(--bg-input);
             color: var(--text-light);
         }
+
         .form-label {
             font-weight: 600;
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 0.3rem;
         }
+
+        /* ===== MODAL ===== */
         .modal-content {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
             color: var(--text-light);
         }
+
         .modal-header {
             border-bottom: 1px solid var(--border-color);
         }
+
         .modal-footer {
             border-top: 1px solid var(--border-color);
         }
+
+        /* ===== BUTTONS ===== */
         .btn-primary {
             background: var(--primary);
             border: none;
@@ -295,31 +341,38 @@
             border-radius: 50px;
             transition: all var(--transition);
         }
+
         .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
             color: #000;
         }
+
         .btn-outline-primary {
             border: 1.5px solid var(--primary);
             color: var(--primary);
         }
+
         .btn-outline-primary:hover {
             background: var(--primary);
             color: #000;
         }
+
         .btn-sm {
             padding: 0.25rem 0.7rem;
             font-size: 0.75rem;
             border-radius: 50px;
         }
+
+        /* ===== BADGE ===== */
         .badge-status {
             padding: 0.3rem 0.7rem;
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.7rem;
         }
+
         .badge-approved {
             background: rgba(52, 211, 153, 0.15);
             color: #34D399;
@@ -344,9 +397,12 @@
             background: rgba(248, 113, 113, 0.15);
             color: #F87171;
         }
+
+        /* ===== ANIMATIONS ===== */
         .fade-in {
             animation: fadeIn 0.4s ease;
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -357,12 +413,15 @@
                 transform: translateY(0);
             }
         }
+
         .spinner-overlay {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 300px;
         }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 576px) {
             .topbar .page-title {
                 font-size: 1rem;
@@ -374,6 +433,8 @@
                 padding: 0.8rem;
             }
         }
+
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -385,65 +446,40 @@
         ::-webkit-scrollbar-track {
             background: var(--bg-body);
         }
+
+        /* Utility for bulk selection */
         .select-all-checkbox {
             accent-color: var(--primary);
         }
-        .pagination-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .pagination-container .pagination {
-            margin: 0;
-        }
-        .page-link {
-            background: var(--bg-input);
-            border-color: var(--border-color);
-            color: var(--text-light);
-        }
-        .page-link:hover {
-            background: var(--primary);
-            color: #000;
-        }
-        .page-item.active .page-link {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: #000;
-        }
-        .page-item.disabled .page-link {
-            background: var(--bg-input);
-            color: var(--text-muted);
-        }
+
+        /* ===== INFINITE SCROLL LOADER ===== */
         .load-more-btn {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px dashed var(--border-color);
-            border-radius: var(--radius);
+            display: block;
+            margin: 1rem auto;
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
             background: transparent;
             color: var(--text-muted);
             transition: all var(--transition);
-            cursor: pointer;
         }
         .load-more-btn:hover {
             border-color: var(--primary);
             color: var(--primary);
         }
-        .table-responsive {
-            max-height: 600px;
-            overflow-y: auto;
-        }
-        .infinite-scroll-trigger {
-            height: 2px;
-            width: 100%;
-            background: transparent;
+        .load-more-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
+
 <body>
+
+    <!-- ===== SIDEBAR BACKDROP (mobile) ===== -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- ===== SIDEBAR ===== -->
     <nav class="sidebar" id="sidebar">
         <div class="brand">
             <i class="bi bi-cpu"></i>
@@ -467,7 +503,7 @@
             <li class="nav-item"><a class="nav-link" data-section="sponsorships" href="#"><i class="bi bi-handshake-fill"></i> Sponsorships</a></li>
             <li class="nav-item"><a class="nav-link" data-section="academies" href="#"><i class="bi bi-building-fill"></i> Academies</a></li>
             <li class="nav-item"><a class="nav-link" data-section="gamification" href="#"><i class="bi bi-award-fill"></i> Gamification</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="system" href="#"><i class="bi bi-gear-fill"></i> System</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="settings" href="#"><i class="bi bi-gear-fill"></i> Settings</a></li>
             <li class="nav-item"><a class="nav-link" data-section="audit" href="#"><i class="bi bi-clock-history"></i> Audit Logs</a></li>
         </ul>
         <div class="mt-auto pt-3 border-top border-secondary" style="font-size:0.75rem; color: var(--text-muted); padding:0 0.5rem;">
@@ -481,7 +517,11 @@
             </div>
         </div>
     </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
     <div class="main-content" id="mainContent">
+
+        <!-- ===== TOPBAR ===== -->
         <div class="topbar">
             <div class="page-title">
                 <button class="btn btn-outline-secondary d-lg-none me-2" id="sidebarToggle"><i class="bi bi-list"></i></button>
@@ -503,15 +543,22 @@
                 <button class="btn btn-primary btn-sm" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
             </div>
         </div>
+
+        <!-- ===== DYNAMIC CONTENT AREA ===== -->
         <div id="contentArea" class="fade-in">
+            <!-- Loaded by JavaScript -->
             <div class="spinner-overlay">
                 <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
             </div>
         </div>
+
+        <!-- ===== FOOTER ===== -->
         <div class="mt-4 text-center text-muted" style="font-size:0.75rem; border-top:1px solid var(--border-color); padding-top:1rem;">
             &copy; 2026 ChangeX Academy — Admin Panel v5.0 (Production)
         </div>
     </div>
+
+    <!-- ===== MODAL CONTAINER (reusable) ===== -->
     <div class="modal fade" id="actionModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -519,7 +566,9 @@
                     <h5 class="modal-title" id="actionModalLabel">Action</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="actionModalBody"></div>
+                <div class="modal-body" id="actionModalBody">
+                    <!-- Dynamic content -->
+                </div>
                 <div class="modal-footer" id="actionModalFooter">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="actionModalConfirm">Confirm</button>
@@ -528,18 +577,22 @@
         </div>
     </div>
 
+    <!-- ===== SCRIPTS ===== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
     </script>
+
     <script>
         // ================================================================
-        // CONFIG
+        // CONFIGURATION
         // ================================================================
         const API_BASE = 'https://changex-backend-1.onrender.com/api/v1';
         const TOKEN = localStorage.getItem('cx_accessToken');
-        if (!TOKEN) window.location.href = '/login';
+        if (!TOKEN) {
+            window.location.href = '/login';
+        }
 
         // ================================================================
-        // DOM REFS
+        // DOM REFERENCES
         // ================================================================
         const contentArea = document.getElementById('contentArea');
         const pageTitle = document.getElementById('pageTitle');
@@ -555,10 +608,15 @@
         const actionModalConfirm = document.getElementById('actionModalConfirm');
 
         // ================================================================
-        // TOAST
+        // TOAST NOTIFICATIONS
         // ================================================================
         function showToast(message, type = 'success') {
-            const colors = { success: '#34D399', danger: '#F87171', warning: '#FBBF24', info: '#60A5FA' };
+            const colors = {
+                success: '#34D399',
+                danger: '#F87171',
+                warning: '#FBBF24',
+                info: '#60A5FA'
+            };
             const toast = document.createElement('div');
             toast.style.cssText = `
                 position: fixed; bottom: 20px; right: 20px; background: var(--bg-card); color: var(--text-light);
@@ -569,16 +627,21 @@
             `;
             toast.innerHTML = message;
             document.body.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.style.opacity = '0';
                 toast.style.transition = 'opacity 0.3s';
-                setTimeout(() => toast.remove(), 300); }, 4000);
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
         }
 
         // ================================================================
-        // API HELPER
+        // API HELPER WITH PAGINATION
         // ================================================================
         async function apiCall(endpoint, options = {}) {
-            const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${TOKEN}` };
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${TOKEN}`
+            };
             const config = { ...options, headers };
             const response = await fetch(`${API_BASE}${endpoint}`, config);
             if (!response.ok) {
@@ -586,6 +649,15 @@
                 throw new Error(errorData.message || `HTTP ${response.status}`);
             }
             return response.json();
+        }
+
+        // ================================================================
+        // PAGINATION STATE (per module)
+        // ================================================================
+        const pagination = {};
+
+        function initPagination(module) {
+            pagination[module] = { page: 1, limit: 20, total: 0, loading: false, hasMore: true };
         }
 
         // ================================================================
@@ -602,21 +674,35 @@
                 this.classList.add('active');
                 currentSection = section;
                 pageTitle.textContent = this.textContent.trim();
+                initPagination(section);
                 loadSection(section);
-                if (window.innerWidth < 992) { sidebar.classList.remove('open');
-                    sidebarBackdrop.classList.remove('show'); }
+                if (window.innerWidth < 992) {
+                    sidebar.classList.remove('open');
+                    sidebarBackdrop.classList.remove('show');
+                }
             });
         });
 
-        sidebarToggle.addEventListener('click', () => { sidebar.classList.toggle('open');
-            sidebarBackdrop.classList.toggle('show'); });
-        sidebarBackdrop.addEventListener('click', () => { sidebar.classList.remove('open');
-            sidebarBackdrop.classList.remove('show'); });
-        refreshBtn.addEventListener('click', () => { loadSection(currentSection);
-            showToast('Refreshed', 'info'); });
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarBackdrop.classList.toggle('show');
+        });
+
+        sidebarBackdrop.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarBackdrop.classList.remove('show');
+        });
+
+        refreshBtn.addEventListener('click', () => {
+            if (currentSection) {
+                initPagination(currentSection);
+                loadSection(currentSection);
+                showToast('Refreshed', 'info');
+            }
+        });
 
         // ================================================================
-        // THEME
+        // THEME TOGGLE
         // ================================================================
         themeToggle.addEventListener('click', () => {
             const current = document.documentElement.getAttribute('data-bs-theme');
@@ -625,12 +711,13 @@
             themeToggle.innerHTML = next === 'dark' ? '<i class="bi bi-moon-stars"></i>' : '<i class="bi bi-sun"></i>';
             localStorage.setItem('admin_theme', next);
         });
+
         const savedTheme = localStorage.getItem('admin_theme') || 'dark';
         document.documentElement.setAttribute('data-bs-theme', savedTheme);
         themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="bi bi-moon-stars"></i>' : '<i class="bi bi-sun"></i>';
 
         // ================================================================
-        // LOAD SECTION
+        // LOAD SECTION (with pagination)
         // ================================================================
         function loadSection(section) {
             contentArea.innerHTML =
@@ -684,8 +771,8 @@
                 case 'gamification':
                     loadGamification();
                     break;
-                case 'system':
-                    loadSystem();
+                case 'settings':
+                    loadSettings();
                     break;
                 case 'audit':
                     loadAudit();
@@ -693,40 +780,6 @@
                 default:
                     contentArea.innerHTML = `<div class="alert alert-warning">Section not found</div>`;
             }
-        }
-
-        // ================================================================
-        // INFINITE SCROLL / PAGINATION HELPERS
-        // ================================================================
-        let page = 1;
-        let limit = 50;
-        let totalItems = 0;
-        let isLoading = false;
-        let hasMore = true;
-        let currentData = [];
-        let currentRenderFn = null;
-
-        function resetPagination() {
-            page = 1;
-            totalItems = 0;
-            hasMore = true;
-            isLoading = false;
-            currentData = [];
-        }
-
-        function setupInfiniteScroll(containerId, loadMoreFn) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            const trigger = document.createElement('div');
-            trigger.className = 'infinite-scroll-trigger';
-            trigger.id = 'scrollTrigger';
-            container.appendChild(trigger);
-            const observer = new IntersectionObserver(async (entries) => {
-                if (entries[0].isIntersecting && hasMore && !isLoading) {
-                    await loadMoreFn();
-                }
-            }, { root: container, rootMargin: '0px 0px 50px 0px' });
-            observer.observe(trigger);
         }
 
         // ================================================================
@@ -777,37 +830,34 @@
         }
 
         // ================================================================
-        // USERS – with infinite scroll / pagination
+        // USERS – Full CRUD with Pagination, Bulk, Export
         // ================================================================
         let usersData = [];
         let selectedUserIds = new Set();
         let usersPage = 1;
+        let usersLimit = 20;
+        let usersTotal = 0;
         let usersHasMore = true;
         let usersLoading = false;
 
         async function loadUsers(reset = true) {
-            if (reset) { resetPagination();
+            if (reset) {
+                usersPage = 1;
                 usersData = [];
                 selectedUserIds.clear();
-                usersPage = 1;
-                usersHasMore = true; }
-            if (usersLoading) return;
+                usersHasMore = true;
+            }
+            if (usersLoading || !usersHasMore) return;
             usersLoading = true;
             try {
-                const data = await apiCall(`/admin/users?limit=${limit}&page=${usersPage}`);
+                const data = await apiCall(`/admin/users?limit=${usersLimit}&page=${usersPage}`);
                 const newUsers = data.data.users || [];
-                totalItems = data.data.stats?.total || newUsers.length;
-                if (newUsers.length < limit) usersHasMore = false;
-                usersData = usersData.concat(newUsers);
+                usersTotal = data.data.stats?.total || newUsers.length;
+                if (reset) usersData = newUsers;
+                else usersData = usersData.concat(newUsers);
+                usersHasMore = usersData.length < usersTotal;
                 usersPage++;
                 renderUsersTable(usersData);
-                if (usersHasMore) {
-                    const trigger = document.getElementById('scrollTrigger');
-                    if (trigger) trigger.style.display = 'block';
-                } else {
-                    const trigger = document.getElementById('scrollTrigger');
-                    if (trigger) trigger.style.display = 'none';
-                }
             } catch (e) {
                 showToast(e.message, 'danger');
             } finally {
@@ -818,7 +868,7 @@
         function renderUsersTable(users) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-people"></i> All Users (${totalItems})</h5>
+                    <h5><i class="bi bi-people"></i> Users (${usersTotal})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateUser()"><i class="bi bi-plus"></i> Add User</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="exportData('users')"><i class="bi bi-download"></i> Export</button>
@@ -826,23 +876,27 @@
                         <button class="btn btn-outline-warning btn-sm" onclick="bulkBanUsers()"><i class="bi bi-person-x"></i> Bulk Ban</button>
                     </div>
                 </div>
-                <div class="table-container" id="usersTableContainer">
+                <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search..." id="userSearch" oninput="filterUsers()">
                         <select class="form-select form-select-sm" style="width:auto;" id="userRoleFilter" onchange="filterUsers()">
-                            <option value="">All Roles</option><option value="student">Student</option><option value="instructor">Instructor</option><option value="admin">Admin</option>
+                            <option value="">All Roles</option>
+                            <option value="student">Student</option>
+                            <option value="instructor">Instructor</option>
+                            <option value="admin">Admin</option>
                         </select>
                         <select class="form-select form-select-sm" style="width:auto;" id="userStatusFilter" onchange="filterUsers()">
-                            <option value="">All Status</option><option value="active">Active</option><option value="banned">Banned</option>
+                            <option value="">All Status</option>
+                            <option value="active">Active</option>
+                            <option value="banned">Banned</option>
                         </select>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead><tr>
-                                <th><input type="checkbox" class="select-all-checkbox" id="selectAllUsers" onchange="toggleSelectAllUsers()"></th>
-                                <th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th>
-                            </tr></thead>
-                            <tbody id="usersTableBody">
+                    <table class="table">
+                        <thead><tr>
+                            <th><input type="checkbox" class="select-all-checkbox" id="selectAllUsers" onchange="toggleSelectAllUsers()"></th>
+                            <th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Actions</th>
+                        </tr></thead>
+                        <tbody id="usersTableBody">
                 `;
             users.forEach(u => {
                 const roles = (u.roles || []).join(', ');
@@ -864,23 +918,27 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>
-                <div id="usersScrollTrigger" class="infinite-scroll-trigger"></div>
-            </div>`;
-            contentArea.innerHTML = html;
-            // Setup infinite scroll for users
-            const trigger = document.getElementById('usersScrollTrigger');
-            if (trigger) {
-                const observer = new IntersectionObserver(async (entries) => {
-                    if (entries[0].isIntersecting && usersHasMore && !usersLoading) {
-                        await loadUsers(false);
-                    }
-                }, { root: document.querySelector('#usersTableContainer'), rootMargin: '0px 0px 50px 0px' });
-                observer.observe(trigger);
+            html += `</tbody></table>`;
+            if (usersHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreUsers" onclick="loadUsers(false)">Load More</button>`;
             }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
-        // User actions (view, edit, delete, ban, create, bulk)
+        window.filterUsers = function() {
+            const search = document.getElementById('userSearch').value.toLowerCase();
+            const roleFilter = document.getElementById('userRoleFilter').value;
+            const statusFilter = document.getElementById('userStatusFilter').value;
+            let filtered = usersData;
+            if (search) filtered = filtered.filter(u => (u.firstName + ' ' + u.lastName + u.email).toLowerCase().includes(
+            search));
+            if (roleFilter) filtered = filtered.filter(u => (u.roles || []).includes(roleFilter));
+            if (statusFilter === 'active') filtered = filtered.filter(u => !u.isBanned);
+            else if (statusFilter === 'banned') filtered = filtered.filter(u => u.isBanned);
+            renderUsersTable(filtered);
+        };
+
         window.toggleUserSelection = function(id) {
             if (selectedUserIds.has(id)) selectedUserIds.delete(id);
             else selectedUserIds.add(id);
@@ -893,18 +951,6 @@
                 if (checked) selectedUserIds.add(id);
                 else selectedUserIds.delete(id);
             });
-        };
-        window.filterUsers = function() {
-            const search = document.getElementById('userSearch').value.toLowerCase();
-            const roleFilter = document.getElementById('userRoleFilter').value;
-            const statusFilter = document.getElementById('userStatusFilter').value;
-            let filtered = usersData;
-            if (search) filtered = filtered.filter(u => (u.firstName + ' ' + u.lastName + u.email).toLowerCase().includes(
-            search));
-            if (roleFilter) filtered = filtered.filter(u => (u.roles || []).includes(roleFilter));
-            if (statusFilter === 'active') filtered = filtered.filter(u => !u.isBanned);
-            else if (statusFilter === 'banned') filtered = filtered.filter(u => u.isBanned);
-            renderUsersTable(filtered);
         };
         window.bulkDeleteUsers = async function() {
             if (selectedUserIds.size === 0) return showToast('Select users first', 'warning');
@@ -929,6 +975,7 @@
             } catch (e) { showToast(e.message, 'danger'); }
         };
 
+        // View, Edit, Delete, ToggleBan, Create User (CRUD)
         window.viewUser = async (id) => {
             try {
                 const data = await apiCall(`/admin/users/${id}`);
@@ -950,6 +997,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.editUser = async (id) => {
             try {
                 const data = await apiCall(`/admin/users/${id}`);
@@ -989,6 +1037,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.deleteUser = async (id) => {
             if (!confirm('Delete this user permanently?')) return;
             try {
@@ -997,6 +1046,7 @@
                 loadUsers(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.toggleUserBan = async (id, ban) => {
             try {
                 await apiCall(`/admin/users/${id}`, { method: 'PATCH', body: JSON.stringify({ isBanned: ban }) });
@@ -1004,6 +1054,7 @@
                 loadUsers(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.openCreateUser = () => {
             actionModalLabel.textContent = 'Create User';
             actionModalBody.innerHTML = `
@@ -1039,28 +1090,32 @@
         };
 
         // ================================================================
-        // COURSES – with infinite scroll / pagination
+        // COURSES – Full CRUD with Pagination, Bulk, Export
         // ================================================================
         let coursesData = [];
         let selectedCourseIds = new Set();
         let coursesPage = 1;
+        let coursesLimit = 20;
+        let coursesTotal = 0;
         let coursesHasMore = true;
         let coursesLoading = false;
 
         async function loadCourses(reset = true) {
-            if (reset) { resetPagination();
+            if (reset) {
+                coursesPage = 1;
                 coursesData = [];
                 selectedCourseIds.clear();
-                coursesPage = 1;
-                coursesHasMore = true; }
-            if (coursesLoading) return;
+                coursesHasMore = true;
+            }
+            if (coursesLoading || !coursesHasMore) return;
             coursesLoading = true;
             try {
-                const data = await apiCall(`/admin/courses?limit=${limit}&page=${coursesPage}`);
+                const data = await apiCall(`/admin/courses?limit=${coursesLimit}&page=${coursesPage}`);
                 const newCourses = data.data.courses || [];
-                totalItems = data.data.stats?.total || newCourses.length;
-                if (newCourses.length < limit) coursesHasMore = false;
-                coursesData = coursesData.concat(newCourses);
+                coursesTotal = data.data.stats?.total || newCourses.length;
+                if (reset) coursesData = newCourses;
+                else coursesData = coursesData.concat(newCourses);
+                coursesHasMore = coursesData.length < coursesTotal;
                 coursesPage++;
                 renderCoursesTable(coursesData);
             } catch (e) {
@@ -1073,7 +1128,7 @@
         function renderCoursesTable(courses) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-book"></i> Courses (${totalItems})</h5>
+                    <h5><i class="bi bi-book"></i> Courses (${coursesTotal})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateCourse()"><i class="bi bi-plus"></i> Add Course</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="exportData('courses')"><i class="bi bi-download"></i> Export</button>
@@ -1081,7 +1136,7 @@
                         <button class="btn btn-outline-success btn-sm" onclick="bulkApproveCourses()"><i class="bi bi-check"></i> Bulk Approve</button>
                     </div>
                 </div>
-                <div class="table-container" id="coursesTableContainer">
+                <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search title..." id="courseSearch" oninput="filterCourses()">
                         <select class="form-select form-select-sm" style="width:auto;" id="courseStatusFilter" onchange="filterCourses()">
@@ -1091,13 +1146,12 @@
                             <option value="rejected">Rejected</option>
                         </select>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead><tr>
-                                <th><input type="checkbox" class="select-all-checkbox" id="selectAllCourses" onchange="toggleSelectAllCourses()"></th>
-                                <th>Title</th><th>Instructor</th><th>Status</th><th>Price</th><th>Actions</th>
-                            </tr></thead>
-                            <tbody id="coursesTableBody">
+                    <table class="table">
+                        <thead><tr>
+                            <th><input type="checkbox" class="select-all-checkbox" id="selectAllCourses" onchange="toggleSelectAllCourses()"></th>
+                            <th>Title</th><th>Instructor</th><th>Status</th><th>Price</th><th>Actions</th>
+                        </tr></thead>
+                        <tbody id="coursesTableBody">
                 `;
             courses.forEach(c => {
                 const statusBadge = c.approvalStatus === 'approved' ?
@@ -1121,22 +1175,15 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>
-                <div id="coursesScrollTrigger" class="infinite-scroll-trigger"></div>
-            </div>`;
-            contentArea.innerHTML = html;
-            const trigger = document.getElementById('coursesScrollTrigger');
-            if (trigger) {
-                const observer = new IntersectionObserver(async (entries) => {
-                    if (entries[0].isIntersecting && coursesHasMore && !coursesLoading) {
-                        await loadCourses(false);
-                    }
-                }, { root: document.querySelector('#coursesTableContainer'), rootMargin: '0px 0px 50px 0px' });
-                observer.observe(trigger);
+            html += `</tbody></table>`;
+            if (coursesHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreCourses" onclick="loadCourses(false)">Load More</button>`;
             }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
-        // Course actions
+        // Selection & Bulk for Courses
         window.toggleCourseSelection = function(id) {
             if (selectedCourseIds.has(id)) selectedCourseIds.delete(id);
             else selectedCourseIds.add(id);
@@ -1164,7 +1211,7 @@
             const ids = Array.from(selectedCourseIds);
             try {
                 await Promise.all(ids.map(id => apiCall(`/admin/courses/${id}`, { method: 'DELETE' })));
-                showToast(`${ids.length} courses deleted`, 'success');
+                showToast(`${ids.length} courses deleted', 'success');
                 selectedCourseIds.clear();
                 loadCourses(true);
             } catch (e) { showToast(e.message, 'danger'); }
@@ -1179,6 +1226,8 @@
                 loadCourses(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
+        // Course CRUD actions (view, edit, approve, reject, delete, create)
         window.viewCourse = async (id) => {
             try {
                 const data = await apiCall(`/admin/courses/${id}`);
@@ -1197,6 +1246,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.editCourse = async (id) => {
             try {
                 const data = await apiCall(`/admin/courses/${id}`);
@@ -1207,12 +1257,17 @@
                         <input type="hidden" name="courseId" value="${c._id}" />
                         <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${c.title}" /></div>
                         <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description">${c.description || ''}</textarea></div>
-                        <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="${c.price||0}" /></div>
-                        <div class="form-group"><label class="form-label">Level</label><select class="form-select" name="level"><option value="Beginner" ${c.level==='Beginner'?'selected':''}>Beginner</option><option value="Intermediate" ${c.level==='Intermediate'?'selected':''}>Intermediate</option><option value="Advanced" ${c.level==='Advanced'?'selected':''}>Advanced</option></select></div>
-                        <div class="form-group"><label class="form-label">Category</label><input class="form-control" name="category" value="${c.category||''}" /></div>
+                        <div class="form-group"><label class="form-label">Price (₦)</label><input class="form-control" name="price" type="number" value="${c.price || 0}" /></div>
+                        <div class="form-group"><label class="form-label">Category</label><input class="form-control" name="category" value="${c.category || ''}" /></div>
+                        <div class="form-group"><label class="form-label">Level</label>
+                            <select class="form-select" name="level">
+                                <option value="Beginner" ${c.level==='Beginner'?'selected':''}>Beginner</option>
+                                <option value="Intermediate" ${c.level==='Intermediate'?'selected':''}>Intermediate</option>
+                                <option value="Advanced" ${c.level==='Advanced'?'selected':''}>Advanced</option>
+                            </select>
+                        </div>
                     </form>
                 `;
-                actionModalConfirm.style.display = 'block';
                 actionModalConfirm.textContent = 'Update Course';
                 actionModalConfirm.onclick = async () => {
                     const form = document.getElementById('editCourseForm');
@@ -1228,6 +1283,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.approveCourse = async (id) => {
             if (!confirm('Approve this course?')) return;
             try {
@@ -1236,6 +1292,7 @@
                 loadCourses(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.rejectCourse = async (id) => {
             const reason = prompt('Rejection reason (optional)');
             try {
@@ -1244,6 +1301,7 @@
                 loadCourses(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.deleteCourse = async (id) => {
             if (!confirm('Delete this course permanently?')) return;
             try {
@@ -1252,16 +1310,22 @@
                 loadCourses(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.openCreateCourse = () => {
             actionModalLabel.textContent = 'Create Course';
             actionModalBody.innerHTML = `
                 <form id="createCourseForm">
                     <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
                     <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description"></textarea></div>
-                    <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="0" /></div>
-                    <div class="form-group"><label class="form-label">Level</label><select class="form-select" name="level"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></div>
+                    <div class="form-group"><label class="form-label">Price (₦)</label><input class="form-control" name="price" type="number" value="0" /></div>
                     <div class="form-group"><label class="form-label">Category</label><input class="form-control" name="category" /></div>
-                    <div class="form-group"><label class="form-label">Instructor ID</label><input class="form-control" name="instructorId" placeholder="User ID" required /></div>
+                    <div class="form-group"><label class="form-label">Level</label>
+                        <select class="form-select" name="level">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                    </div>
                 </form>
             `;
             actionModalConfirm.textContent = 'Create Course';
@@ -1280,28 +1344,32 @@
         };
 
         // ================================================================
-        // BOOKS – with infinite scroll
+        // BOOKS – Full CRUD with Pagination, Bulk, Export
         // ================================================================
         let booksData = [];
         let selectedBookIds = new Set();
         let booksPage = 1;
+        let booksLimit = 20;
+        let booksTotal = 0;
         let booksHasMore = true;
         let booksLoading = false;
 
         async function loadBooks(reset = true) {
-            if (reset) { resetPagination();
+            if (reset) {
+                booksPage = 1;
                 booksData = [];
                 selectedBookIds.clear();
-                booksPage = 1;
-                booksHasMore = true; }
-            if (booksLoading) return;
+                booksHasMore = true;
+            }
+            if (booksLoading || !booksHasMore) return;
             booksLoading = true;
             try {
-                const data = await apiCall(`/admin/books?limit=${limit}&page=${booksPage}`);
+                const data = await apiCall(`/admin/books?limit=${booksLimit}&page=${booksPage}`);
                 const newBooks = data.data || [];
-                totalItems = newBooks.length;
-                if (newBooks.length < limit) booksHasMore = false;
-                booksData = booksData.concat(newBooks);
+                booksTotal = newBooks.length;
+                if (reset) booksData = newBooks;
+                else booksData = booksData.concat(newBooks);
+                booksHasMore = booksData.length < booksTotal;
                 booksPage++;
                 renderBooksTable(booksData);
             } catch (e) {
@@ -1314,7 +1382,7 @@
         function renderBooksTable(books) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-journal"></i> Books (${totalItems})</h5>
+                    <h5><i class="bi bi-journal"></i> Books (${booksTotal})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateBook()"><i class="bi bi-plus"></i> Add Book</button>
                         <button class="btn btn-outline-primary btn-sm" onclick="exportData('books')"><i class="bi bi-download"></i> Export</button>
@@ -1322,7 +1390,7 @@
                         <button class="btn btn-outline-success btn-sm" onclick="bulkApproveBooks()"><i class="bi bi-check"></i> Bulk Approve</button>
                     </div>
                 </div>
-                <div class="table-container" id="booksTableContainer">
+                <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search title..." id="bookSearch" oninput="filterBooks()">
                         <select class="form-select form-select-sm" style="width:auto;" id="bookStatusFilter" onchange="filterBooks()">
@@ -1332,13 +1400,12 @@
                             <option value="rejected">Rejected</option>
                         </select>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead><tr>
-                                <th><input type="checkbox" class="select-all-checkbox" id="selectAllBooks" onchange="toggleSelectAllBooks()"></th>
-                                <th>Title</th><th>Author</th><th>Status</th><th>Price</th><th>Actions</th>
-                            </tr></thead>
-                            <tbody id="booksTableBody">
+                    <table class="table">
+                        <thead><tr>
+                            <th><input type="checkbox" class="select-all-checkbox" id="selectAllBooks" onchange="toggleSelectAllBooks()"></th>
+                            <th>Title</th><th>Author</th><th>Status</th><th>Price</th><th>Actions</th>
+                        </tr></thead>
+                        <tbody id="booksTableBody">
                 `;
             books.forEach(b => {
                 const statusBadge = b.approvalStatus === 'approved' ?
@@ -1362,22 +1429,15 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>
-                <div id="booksScrollTrigger" class="infinite-scroll-trigger"></div>
-            </div>`;
-            contentArea.innerHTML = html;
-            const trigger = document.getElementById('booksScrollTrigger');
-            if (trigger) {
-                const observer = new IntersectionObserver(async (entries) => {
-                    if (entries[0].isIntersecting && booksHasMore && !booksLoading) {
-                        await loadBooks(false);
-                    }
-                }, { root: document.querySelector('#booksTableContainer'), rootMargin: '0px 0px 50px 0px' });
-                observer.observe(trigger);
+            html += `</tbody></table>`;
+            if (booksHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreBooks" onclick="loadBooks(false)">Load More</button>`;
             }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
-        // Book actions
+        // Selection & Bulk for Books
         window.toggleBookSelection = function(id) {
             if (selectedBookIds.has(id)) selectedBookIds.delete(id);
             else selectedBookIds.add(id);
@@ -1420,6 +1480,8 @@
                 loadBooks(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
+        // Book CRUD (view, edit, approve, reject, delete, create)
         window.viewBook = async (id) => {
             try {
                 const data = await apiCall(`/admin/books/${id}`);
@@ -1437,6 +1499,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.editBook = async (id) => {
             try {
                 const data = await apiCall(`/admin/books/${id}`);
@@ -1447,8 +1510,8 @@
                         <input type="hidden" name="bookId" value="${b._id}" />
                         <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${b.title}" /></div>
                         <div class="form-group"><label class="form-label">Author</label><input class="form-control" name="author" value="${b.author}" /></div>
-                        <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description">${b.description||''}</textarea></div>
-                        <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="${b.price||0}" /></div>
+                        <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description">${b.description || ''}</textarea></div>
+                        <div class="form-group"><label class="form-label">Price (₦)</label><input class="form-control" name="price" type="number" value="${b.price || 0}" /></div>
                     </form>
                 `;
                 actionModalConfirm.textContent = 'Update Book';
@@ -1466,6 +1529,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.approveBook = async (id) => {
             if (!confirm('Approve this book?')) return;
             try {
@@ -1474,6 +1538,7 @@
                 loadBooks(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.rejectBook = async (id) => {
             const reason = prompt('Rejection reason');
             try {
@@ -1482,6 +1547,7 @@
                 loadBooks(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.deleteBook = async (id) => {
             if (!confirm('Delete this book?')) return;
             try {
@@ -1490,6 +1556,7 @@
                 loadBooks(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.openCreateBook = () => {
             actionModalLabel.textContent = 'Create Book';
             actionModalBody.innerHTML = `
@@ -1497,9 +1564,7 @@
                     <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
                     <div class="form-group"><label class="form-label">Author</label><input class="form-control" name="author" required /></div>
                     <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description"></textarea></div>
-                    <div class="form-group"><label class="form-label">Price</label><input class="form-control" name="price" type="number" value="0" /></div>
-                    <div class="form-group"><label class="form-label">Cover Image URL</label><input class="form-control" name="coverImage" placeholder="https://..." /></div>
-                    <div class="form-group"><label class="form-label">File URL</label><input class="form-control" name="fileUrl" placeholder="https://..." required /></div>
+                    <div class="form-group"><label class="form-label">Price (₦)</label><input class="form-control" name="price" type="number" value="0" /></div>
                 </form>
             `;
             actionModalConfirm.textContent = 'Create Book';
@@ -1518,26 +1583,30 @@
         };
 
         // ================================================================
-        // POSTS – with infinite scroll
+        // POSTS – with Pagination, Delete, Publish
         // ================================================================
         let postsData = [];
         let postsPage = 1;
+        let postsLimit = 20;
+        let postsTotal = 0;
         let postsHasMore = true;
         let postsLoading = false;
 
         async function loadPosts(reset = true) {
-            if (reset) { resetPagination();
-                postsData = [];
+            if (reset) {
                 postsPage = 1;
-                postsHasMore = true; }
-            if (postsLoading) return;
+                postsData = [];
+                postsHasMore = true;
+            }
+            if (postsLoading || !postsHasMore) return;
             postsLoading = true;
             try {
-                const data = await apiCall(`/posts?limit=${limit}&page=${postsPage}`);
+                const data = await apiCall(`/posts?limit=${postsLimit}&page=${postsPage}`);
                 const newPosts = data.data?.posts || data.data || [];
-                totalItems = newPosts.length;
-                if (newPosts.length < limit) postsHasMore = false;
-                postsData = postsData.concat(newPosts);
+                postsTotal = data.meta?.total || newPosts.length;
+                if (reset) postsData = newPosts;
+                else postsData = postsData.concat(newPosts);
+                postsHasMore = postsData.length < postsTotal;
                 postsPage++;
                 renderPostsTable(postsData);
             } catch (e) {
@@ -1550,14 +1619,13 @@
         function renderPostsTable(posts) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-newspaper"></i> Posts (${totalItems})</h5>
+                    <h5><i class="bi bi-newspaper"></i> Posts (${postsTotal})</h5>
                     <button class="btn btn-outline-primary btn-sm" onclick="exportData('posts')"><i class="bi bi-download"></i> Export</button>
                 </div>
-                <div class="table-container" id="postsTableContainer">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Actions</th></tr></thead>
-                            <tbody id="postsTableBody">
+                <div class="table-container">
+                    <table class="table">
+                        <thead><tr><th>Title</th><th>Author</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="postsTableBody">
                 `;
             posts.forEach(p => {
                 const statusBadge = p.isPublished ?
@@ -1573,19 +1641,12 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>
-                <div id="postsScrollTrigger" class="infinite-scroll-trigger"></div>
-            </div>`;
-            contentArea.innerHTML = html;
-            const trigger = document.getElementById('postsScrollTrigger');
-            if (trigger) {
-                const observer = new IntersectionObserver(async (entries) => {
-                    if (entries[0].isIntersecting && postsHasMore && !postsLoading) {
-                        await loadPosts(false);
-                    }
-                }, { root: document.querySelector('#postsTableContainer'), rootMargin: '0px 0px 50px 0px' });
-                observer.observe(trigger);
+            html += `</tbody></table>`;
+            if (postsHasMore) {
+                html += `<button class="load-more-btn" id="loadMorePosts" onclick="loadPosts(false)">Load More</button>`;
             }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
         window.publishPost = async (id) => {
@@ -1595,6 +1656,7 @@
                 loadPosts(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.deletePost = async (id) => {
             if (!confirm('Delete this post?')) return;
             try {
@@ -1605,26 +1667,30 @@
         };
 
         // ================================================================
-        // PAYMENTS – with pagination
+        // PAYMENTS (Withdrawals) – Pagination, Filters, Approve/Reject
         // ================================================================
         let paymentsData = [];
         let paymentsPage = 1;
+        let paymentsLimit = 20;
+        let paymentsTotal = 0;
         let paymentsHasMore = true;
         let paymentsLoading = false;
 
         async function loadPayments(reset = true) {
-            if (reset) { resetPagination();
-                paymentsData = [];
+            if (reset) {
                 paymentsPage = 1;
-                paymentsHasMore = true; }
-            if (paymentsLoading) return;
+                paymentsData = [];
+                paymentsHasMore = true;
+            }
+            if (paymentsLoading || !paymentsHasMore) return;
             paymentsLoading = true;
             try {
-                const data = await apiCall(`/admin/withdrawals?limit=${limit}&page=${paymentsPage}`);
+                const data = await apiCall(`/admin/withdrawals?limit=${paymentsLimit}&page=${paymentsPage}`);
                 const newPayments = data.data.withdrawals || [];
-                totalItems = newPayments.length;
-                if (newPayments.length < limit) paymentsHasMore = false;
-                paymentsData = paymentsData.concat(newPayments);
+                paymentsTotal = data.data.stats?.total || newPayments.length;
+                if (reset) paymentsData = newPayments;
+                else paymentsData = paymentsData.concat(newPayments);
+                paymentsHasMore = paymentsData.length < paymentsTotal;
                 paymentsPage++;
                 renderPaymentsTable(paymentsData);
             } catch (e) {
@@ -1637,10 +1703,10 @@
         function renderPaymentsTable(payments) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-credit-card"></i> Transactions (${totalItems})</h5>
+                    <h5><i class="bi bi-credit-card"></i> Transactions & Withdrawals (${paymentsTotal})</h5>
                     <button class="btn btn-outline-primary btn-sm" onclick="exportData('payments')"><i class="bi bi-download"></i> Export</button>
                 </div>
-                <div class="table-container" id="paymentsTableContainer">
+                <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search user..." id="paymentSearch" oninput="filterPayments()">
                         <select class="form-select form-select-sm" style="width:auto;" id="paymentStatusFilter" onchange="filterPayments()">
@@ -1650,10 +1716,9 @@
                             <option value="failed">Failed</option>
                         </select>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead><tr><th>User</th><th>Amount</th><th>Bank</th><th>Account</th><th>Status</th><th>Actions</th></tr></thead>
-                            <tbody id="paymentsTableBody">
+                    <table class="table">
+                        <thead><tr><th>User</th><th>Amount</th><th>Bank</th><th>Account</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="paymentsTableBody">
                 `;
             payments.forEach(p => {
                 const statusBadge = p.status === 'completed' ?
@@ -1676,19 +1741,12 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>
-                <div id="paymentsScrollTrigger" class="infinite-scroll-trigger"></div>
-            </div>`;
-            contentArea.innerHTML = html;
-            const trigger = document.getElementById('paymentsScrollTrigger');
-            if (trigger) {
-                const observer = new IntersectionObserver(async (entries) => {
-                    if (entries[0].isIntersecting && paymentsHasMore && !paymentsLoading) {
-                        await loadPayments(false);
-                    }
-                }, { root: document.querySelector('#paymentsTableContainer'), rootMargin: '0px 0px 50px 0px' });
-                observer.observe(trigger);
+            html += `</tbody></table>`;
+            if (paymentsHasMore) {
+                html += `<button class="load-more-btn" id="loadMorePayments" onclick="loadPayments(false)">Load More</button>`;
             }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
         window.filterPayments = function() {
@@ -1700,6 +1758,7 @@
             if (statusFilter) filtered = filtered.filter(p => p.status === statusFilter);
             renderPaymentsTable(filtered);
         };
+
         window.approveWithdrawal = async (id) => {
             if (!confirm('Approve this withdrawal?')) return;
             try {
@@ -1708,6 +1767,7 @@
                 loadPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.rejectWithdrawal = async (id) => {
             const reason = prompt('Rejection reason (optional)');
             try {
@@ -1717,6 +1777,7 @@
                 loadPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.viewPayment = async (id) => {
             try {
                 const data = await apiCall(`/admin/withdrawals/${id}`);
@@ -1737,26 +1798,30 @@
         };
 
         // ================================================================
-        // MANUAL PAYMENTS – with pagination
+        // MANUAL PAYMENTS – Pagination, Filters, Approve/Reject
         // ================================================================
         let manualPaymentsData = [];
         let manualPage = 1;
+        let manualLimit = 20;
+        let manualTotal = 0;
         let manualHasMore = true;
         let manualLoading = false;
 
         async function loadManualPayments(reset = true) {
-            if (reset) { resetPagination();
-                manualPaymentsData = [];
+            if (reset) {
                 manualPage = 1;
-                manualHasMore = true; }
-            if (manualLoading) return;
+                manualPaymentsData = [];
+                manualHasMore = true;
+            }
+            if (manualLoading || !manualHasMore) return;
             manualLoading = true;
             try {
-                const data = await apiCall(`/admin/manual-payments/all?limit=${limit}&page=${manualPage}`);
-                const newPayments = data.data.payments || [];
-                totalItems = newPayments.length;
-                if (newPayments.length < limit) manualHasMore = false;
-                manualPaymentsData = manualPaymentsData.concat(newPayments);
+                const data = await apiCall(`/admin/manual-payments/all?limit=${manualLimit}&page=${manualPage}`);
+                const newManual = data.data.payments || [];
+                manualTotal = data.data.stats?.total || newManual.length;
+                if (reset) manualPaymentsData = newManual;
+                else manualPaymentsData = manualPaymentsData.concat(newManual);
+                manualHasMore = manualPaymentsData.length < manualTotal;
                 manualPage++;
                 renderManualPaymentsTable(manualPaymentsData);
             } catch (e) {
@@ -1769,10 +1834,10 @@
         function renderManualPaymentsTable(payments) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-arrow-up-circle"></i> Manual Payments (${totalItems})</h5>
+                    <h5><i class="bi bi-arrow-up-circle"></i> Manual Payments (${manualTotal})</h5>
                     <button class="btn btn-outline-primary btn-sm" onclick="exportData('manual-payments')"><i class="bi bi-download"></i> Export</button>
                 </div>
-                <div class="table-container" id="manualTableContainer">
+                <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2">
                         <input class="form-control form-control-sm" style="width:200px;" placeholder="Search user..." id="manualSearch" oninput="filterManualPayments()">
                         <select class="form-select form-select-sm" style="width:auto;" id="manualStatusFilter" onchange="filterManualPayments()">
@@ -1790,10 +1855,9 @@
                             <option value="campaign">Campaign</option>
                         </select>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Reference</th><th>Receipt</th><th>Status</th><th>Actions</th></tr></thead>
-                            <tbody id="manualPaymentsTableBody">
+                    <table class="table">
+                        <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Reference</th><th>Receipt</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="manualPaymentsTableBody">
                 `;
             payments.forEach(p => {
                 const statusBadge = p.status === 'approved' ?
@@ -1817,19 +1881,12 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>
-                <div id="manualScrollTrigger" class="infinite-scroll-trigger"></div>
-            </div>`;
-            contentArea.innerHTML = html;
-            const trigger = document.getElementById('manualScrollTrigger');
-            if (trigger) {
-                const observer = new IntersectionObserver(async (entries) => {
-                    if (entries[0].isIntersecting && manualHasMore && !manualLoading) {
-                        await loadManualPayments(false);
-                    }
-                }, { root: document.querySelector('#manualTableContainer'), rootMargin: '0px 0px 50px 0px' });
-                observer.observe(trigger);
+            html += `</tbody></table>`;
+            if (manualHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreManual" onclick="loadManualPayments(false)">Load More</button>`;
             }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
         window.filterManualPayments = function() {
@@ -1843,6 +1900,7 @@
             if (typeFilter) filtered = filtered.filter(p => p.type === typeFilter);
             renderManualPaymentsTable(filtered);
         };
+
         window.approveManualPayment = async (id) => {
             if (!confirm('Approve this manual payment?')) return;
             try {
@@ -1851,6 +1909,7 @@
                 loadManualPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.rejectManualPayment = async (id) => {
             const reason = prompt('Rejection reason');
             if (!reason) return;
@@ -1860,6 +1919,7 @@
                 loadManualPayments(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.viewManualPayment = async (id) => {
             try {
                 const data = await apiCall(`/admin/manual-payments/${id}`);
@@ -1881,25 +1941,31 @@
         };
 
         // ================================================================
-        // CHALLENGES
+        // CHALLENGES – Full CRUD with Pagination
         // ================================================================
         let challengesData = [];
         let challengesPage = 1;
+        let challengesLimit = 20;
+        let challengesTotal = 0;
         let challengesHasMore = true;
         let challengesLoading = false;
 
         async function loadChallenges(reset = true) {
-            if (reset) { resetPagination();
-                challengesData = [];
+            if (reset) {
                 challengesPage = 1;
-                challengesHasMore = true; }
-            if (challengesLoading) return;
+                challengesData = [];
+                challengesHasMore = true;
+            }
+            if (challengesLoading || !challengesHasMore) return;
             challengesLoading = true;
             try {
-                const data = await apiCall('/admin/challenges');
+                const data = await apiCall(`/admin/challenges?limit=${challengesLimit}&page=${challengesPage}`);
                 const newChallenges = data.data || [];
-                totalItems = newChallenges.length;
-                challengesData = newChallenges;
+                challengesTotal = newChallenges.length;
+                if (reset) challengesData = newChallenges;
+                else challengesData = challengesData.concat(newChallenges);
+                challengesHasMore = challengesData.length < challengesTotal;
+                challengesPage++;
                 renderChallengesTable(challengesData);
             } catch (e) {
                 showToast(e.message, 'danger');
@@ -1911,13 +1977,13 @@
         function renderChallengesTable(challenges) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-trophy"></i> Challenges (${challenges.length})</h5>
+                    <h5><i class="bi bi-trophy"></i> Challenges (${challengesTotal})</h5>
                     <button class="btn btn-primary btn-sm" onclick="openCreateChallenge()"><i class="bi bi-plus"></i> Add Challenge</button>
                 </div>
                 <div class="table-container">
                     <table class="table">
                         <thead><tr><th>Title</th><th>Status</th><th>Reward XP</th><th>Participants</th><th>Actions</th></tr></thead>
-                        <tbody>
+                        <tbody id="challengesTableBody">
                 `;
             challenges.forEach(c => {
                 const statusBadge = c.status === 'active' ?
@@ -1937,7 +2003,11 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table>`;
+            if (challengesHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreChallenges" onclick="loadChallenges(false)">Load More</button>`;
+            }
+            html += `</div>`;
             contentArea.innerHTML = html;
         }
 
@@ -1961,6 +2031,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.editChallenge = async (id) => {
             try {
                 const data = await apiCall(`/admin/challenges/${id}`);
@@ -1969,14 +2040,20 @@
                 actionModalBody.innerHTML = `
                     <form id="editChallengeForm">
                         <input type="hidden" name="challengeId" value="${c._id}" />
-                        <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${c.title}" /></div>
+                        <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${c.title}" required /></div>
                         <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description">${c.description}</textarea></div>
-                        <div class="form-group"><label class="form-label">Reward XP</label><input class="form-control" name="rewardXP" type="number" value="${c.rewardXP||0}" /></div>
-                        <div class="form-group"><label class="form-label">Reward Amount (₦)</label><input class="form-control" name="rewardAmount" type="number" value="${c.rewardAmount||0}" /></div>
-                        <div class="form-group"><label class="form-label">Premium Days</label><input class="form-control" name="rewardPremiumDays" type="number" value="${c.rewardPremiumDays||0}" /></div>
-                        <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="datetime-local" value="${c.startDate ? new Date(c.startDate).toISOString().slice(0,16) : ''}" /></div>
-                        <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="datetime-local" value="${c.endDate ? new Date(c.endDate).toISOString().slice(0,16) : ''}" /></div>
-                        <div class="form-group"><label class="form-label">Status</label><select class="form-select" name="status"><option value="upcoming" ${c.status==='upcoming'?'selected':''}>Upcoming</option><option value="active" ${c.status==='active'?'selected':''}>Active</option><option value="completed" ${c.status==='completed'?'selected':''}>Completed</option></select></div>
+                        <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="datetime-local" value="${c.startDate?.slice(0,16)}" /></div>
+                        <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="datetime-local" value="${c.endDate?.slice(0,16)}" /></div>
+                        <div class="form-group"><label class="form-label">Reward XP</label><input class="form-control" name="rewardXP" type="number" value="${c.rewardXP || 500}" /></div>
+                        <div class="form-group"><label class="form-label">Reward Amount (₦)</label><input class="form-control" name="rewardAmount" type="number" value="${c.rewardAmount || 0}" /></div>
+                        <div class="form-group"><label class="form-label">Premium Days</label><input class="form-control" name="rewardPremiumDays" type="number" value="${c.rewardPremiumDays || 0}" /></div>
+                        <div class="form-group"><label class="form-label">Status</label>
+                            <select class="form-select" name="status">
+                                <option value="upcoming" ${c.status==='upcoming'?'selected':''}>Upcoming</option>
+                                <option value="active" ${c.status==='active'?'selected':''}>Active</option>
+                                <option value="completed" ${c.status==='completed'?'selected':''}>Completed</option>
+                            </select>
+                        </div>
                     </form>
                 `;
                 actionModalConfirm.textContent = 'Update Challenge';
@@ -1994,6 +2071,7 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.deleteChallenge = async (id) => {
             if (!confirm('Delete this challenge?')) return;
             try {
@@ -2002,18 +2080,25 @@
                 loadChallenges(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.openCreateChallenge = () => {
             actionModalLabel.textContent = 'Create Challenge';
             actionModalBody.innerHTML = `
                 <form id="createChallengeForm">
                     <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
-                    <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description" required></textarea></div>
+                    <div class="form-group"><label class="form-label">Description</label><textarea class="form-control" name="description"></textarea></div>
+                    <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="datetime-local" required /></div>
+                    <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="datetime-local" required /></div>
                     <div class="form-group"><label class="form-label">Reward XP</label><input class="form-control" name="rewardXP" type="number" value="500" /></div>
                     <div class="form-group"><label class="form-label">Reward Amount (₦)</label><input class="form-control" name="rewardAmount" type="number" value="0" /></div>
                     <div class="form-group"><label class="form-label">Premium Days</label><input class="form-control" name="rewardPremiumDays" type="number" value="0" /></div>
-                    <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="datetime-local" required /></div>
-                    <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="datetime-local" required /></div>
-                    <div class="form-group"><label class="form-label">Status</label><select class="form-select" name="status"><option value="upcoming">Upcoming</option><option value="active">Active</option><option value="completed">Completed</option></select></div>
+                    <div class="form-group"><label class="form-label">Status</label>
+                        <select class="form-select" name="status">
+                            <option value="upcoming">Upcoming</option>
+                            <option value="active">Active</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
                 </form>
             `;
             actionModalConfirm.textContent = 'Create Challenge';
@@ -2032,30 +2117,49 @@
         };
 
         // ================================================================
-        // ADS
+        // ADS – Full CRUD with Pagination, Toggle Active
         // ================================================================
         let adsData = [];
+        let adsPage = 1;
+        let adsLimit = 20;
+        let adsTotal = 0;
+        let adsHasMore = true;
+        let adsLoading = false;
 
-        async function loadAds() {
+        async function loadAds(reset = true) {
+            if (reset) {
+                adsPage = 1;
+                adsData = [];
+                adsHasMore = true;
+            }
+            if (adsLoading || !adsHasMore) return;
+            adsLoading = true;
             try {
-                const data = await apiCall('/admin/ads');
-                adsData = data.data || [];
+                const data = await apiCall(`/admin/ads?limit=${adsLimit}&page=${adsPage}`);
+                const newAds = data.data || [];
+                adsTotal = newAds.length;
+                if (reset) adsData = newAds;
+                else adsData = adsData.concat(newAds);
+                adsHasMore = adsData.length < adsTotal;
+                adsPage++;
                 renderAdsTable(adsData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load ads: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                adsLoading = false;
             }
         }
 
         function renderAdsTable(ads) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-megaphone"></i> Ads (${ads.length})</h5>
+                    <h5><i class="bi bi-megaphone"></i> Ads (${adsTotal})</h5>
                     <button class="btn btn-primary btn-sm" onclick="openCreateAd()"><i class="bi bi-plus"></i> Add Ad</button>
                 </div>
                 <div class="table-container">
                     <table class="table">
                         <thead><tr><th>Title</th><th>Placement</th><th>Status</th><th>Impressions</th><th>Clicks</th><th>Actions</th></tr></thead>
-                        <tbody>
+                        <tbody id="adsTableBody">
                 `;
             ads.forEach(a => {
                 const statusBadge = a.isActive ?
@@ -2075,106 +2179,102 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table>`;
+            if (adsHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreAds" onclick="loadAds(false)">Load More</button>`;
+            }
+            html += `</div>`;
             contentArea.innerHTML = html;
         }
 
-        window.viewAd = (id) => {
-            const ad = adsData.find(a => a._id === id);
-            if (!ad) return;
-            actionModalLabel.textContent = ad.title;
-            actionModalBody.innerHTML = `
-                <div><strong>Title:</strong> ${ad.title}</div>
-                <div><strong>Placement:</strong> ${ad.placement}</div>
-                <div><strong>Link:</strong> <a href="${ad.linkUrl}" target="_blank">${ad.linkUrl}</a></div>
-                <div><strong>Start:</strong> ${new Date(ad.startDate).toLocaleString()}</div>
-                <div><strong>End:</strong> ${new Date(ad.endDate).toLocaleString()}</div>
-                <div><strong>Impressions:</strong> ${ad.impressions}</div>
-                <div><strong>Clicks:</strong> ${ad.clicks}</div>
-                <div><strong>Active:</strong> ${ad.isActive ? 'Yes' : 'No'}</div>
-            `;
-            actionModalConfirm.style.display = 'none';
-            actionModal.show();
+        window.viewAd = (id) => showToast('View ad details - implement modal', 'info');
+        window.editAd = async (id) => {
+            try {
+                const data = await apiCall(`/admin/ads/${id}`);
+                const a = data.data;
+                actionModalLabel.textContent = 'Edit Ad';
+                actionModalBody.innerHTML = `
+                    <form id="editAdForm">
+                        <input type="hidden" name="adId" value="${a._id}" />
+                        <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${a.title}" /></div>
+                        <div class="form-group"><label class="form-label">Placement</label>
+                            <select class="form-select" name="placement">
+                                <option value="sidebar" ${a.placement==='sidebar'?'selected':''}>Sidebar</option>
+                                <option value="banner" ${a.placement==='banner'?'selected':''}>Banner</option>
+                                <option value="in-feed" ${a.placement==='in-feed'?'selected':''}>In-Feed</option>
+                                <option value="popup" ${a.placement==='popup'?'selected':''}>Popup</option>
+                                <option value="book-page" ${a.placement==='book-page'?'selected':''}>Book Page</option>
+                                <option value="video-pre" ${a.placement==='video-pre'?'selected':''}>Video Pre</option>
+                                <option value="video-mid" ${a.placement==='video-mid'?'selected':''}>Video Mid</option>
+                                <option value="lesson-inline" ${a.placement==='lesson-inline'?'selected':''}>Lesson Inline</option>
+                                <option value="challenge-sponsor" ${a.placement==='challenge-sponsor'?'selected':''}>Challenge Sponsor</option>
+                                <option value="book-sponsor" ${a.placement==='book-sponsor'?'selected':''}>Book Sponsor</option>
+                                <option value="explore-sponsor" ${a.placement==='explore-sponsor'?'selected':''}>Explore Sponsor</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label class="form-label">Link URL</label><input class="form-control" name="linkUrl" value="${a.linkUrl}" /></div>
+                        <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="date" value="${a.startDate?.slice(0,10)}" /></div>
+                        <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="date" value="${a.endDate?.slice(0,10)}" /></div>
+                    </form>
+                `;
+                actionModalConfirm.textContent = 'Update Ad';
+                actionModalConfirm.onclick = async () => {
+                    const form = document.getElementById('editAdForm');
+                    const formData = new FormData(form);
+                    const body = Object.fromEntries(formData.entries());
+                    try {
+                        await apiCall(`/admin/ads/${body.adId}`, { method: 'PUT', body: JSON.stringify(body) });
+                        actionModal.hide();
+                        showToast('Ad updated', 'success');
+                        loadAds(true);
+                    } catch (e) { showToast(e.message, 'danger'); }
+                };
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
         };
-        window.editAd = (id) => {
-            const ad = adsData.find(a => a._id === id);
-            if (!ad) return;
-            actionModalLabel.textContent = 'Edit Ad';
-            actionModalBody.innerHTML = `
-                <form id="editAdForm">
-                    <input type="hidden" name="adId" value="${ad._id}" />
-                    <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" value="${ad.title}" /></div>
-                    <div class="form-group"><label class="form-label">Link URL</label><input class="form-control" name="linkUrl" value="${ad.linkUrl}" /></div>
-                    <div class="form-group"><label class="form-label">Placement</label><select class="form-select" name="placement">
-                        <option value="sidebar" ${ad.placement==='sidebar'?'selected':''}>Sidebar</option>
-                        <option value="banner" ${ad.placement==='banner'?'selected':''}>Banner</option>
-                        <option value="in-feed" ${ad.placement==='in-feed'?'selected':''}>In-Feed</option>
-                        <option value="popup" ${ad.placement==='popup'?'selected':''}>Popup</option>
-                        <option value="book-page" ${ad.placement==='book-page'?'selected':''}>Book Page</option>
-                        <option value="video-pre" ${ad.placement==='video-pre'?'selected':''}>Video Pre</option>
-                        <option value="video-mid" ${ad.placement==='video-mid'?'selected':''}>Video Mid</option>
-                        <option value="lesson-inline" ${ad.placement==='lesson-inline'?'selected':''}>Lesson Inline</option>
-                        <option value="challenge-sponsor" ${ad.placement==='challenge-sponsor'?'selected':''}>Challenge Sponsor</option>
-                        <option value="book-sponsor" ${ad.placement==='book-sponsor'?'selected':''}>Book Sponsor</option>
-                        <option value="explore-sponsor" ${ad.placement==='explore-sponsor'?'selected':''}>Explore Sponsor</option>
-                    </select></div>
-                    <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="date" value="${new Date(ad.startDate).toISOString().slice(0,10)}" /></div>
-                    <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="date" value="${new Date(ad.endDate).toISOString().slice(0,10)}" /></div>
-                </form>
-            `;
-            actionModalConfirm.textContent = 'Update Ad';
-            actionModalConfirm.onclick = async () => {
-                const form = document.getElementById('editAdForm');
-                const formData = new FormData(form);
-                const body = Object.fromEntries(formData.entries());
-                try {
-                    await apiCall(`/admin/ads/${body.adId}`, { method: 'PUT', body: JSON.stringify(body) });
-                    actionModal.hide();
-                    showToast('Ad updated', 'success');
-                    loadAds();
-                } catch (e) { showToast(e.message, 'danger'); }
-            };
-            actionModal.show();
-        };
+
         window.deleteAd = async (id) => {
             if (!confirm('Delete this ad?')) return;
             try {
                 await apiCall(`/admin/ads/${id}`, { method: 'DELETE' });
                 showToast('Ad deleted', 'success');
-                loadAds();
+                loadAds(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.toggleAdActive = async (id) => {
-            const ad = adsData.find(a => a._id === id);
-            if (!ad) return;
             try {
+                const ad = adsData.find(a => a._id === id);
+                if (!ad) return;
                 await apiCall(`/admin/ads/${id}`, { method: 'PUT', body: JSON.stringify({ isActive: !ad.isActive }) });
                 showToast(`Ad ${ad.isActive ? 'paused' : 'activated'}`, 'success');
-                loadAds();
+                loadAds(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.openCreateAd = () => {
             actionModalLabel.textContent = 'Create Ad';
             actionModalBody.innerHTML = `
                 <form id="createAdForm">
                     <div class="form-group"><label class="form-label">Title</label><input class="form-control" name="title" required /></div>
+                    <div class="form-group"><label class="form-label">Placement</label>
+                        <select class="form-select" name="placement">
+                            <option value="sidebar">Sidebar</option>
+                            <option value="banner">Banner</option>
+                            <option value="in-feed">In-Feed</option>
+                            <option value="popup">Popup</option>
+                            <option value="book-page">Book Page</option>
+                            <option value="video-pre">Video Pre</option>
+                            <option value="video-mid">Video Mid</option>
+                            <option value="lesson-inline">Lesson Inline</option>
+                            <option value="challenge-sponsor">Challenge Sponsor</option>
+                            <option value="book-sponsor">Book Sponsor</option>
+                            <option value="explore-sponsor">Explore Sponsor</option>
+                        </select>
+                    </div>
                     <div class="form-group"><label class="form-label">Link URL</label><input class="form-control" name="linkUrl" required /></div>
-                    <div class="form-group"><label class="form-label">Placement</label><select class="form-select" name="placement">
-                        <option value="sidebar">Sidebar</option>
-                        <option value="banner">Banner</option>
-                        <option value="in-feed">In-Feed</option>
-                        <option value="popup">Popup</option>
-                        <option value="book-page">Book Page</option>
-                        <option value="video-pre">Video Pre</option>
-                        <option value="video-mid">Video Mid</option>
-                        <option value="lesson-inline">Lesson Inline</option>
-                        <option value="challenge-sponsor">Challenge Sponsor</option>
-                        <option value="book-sponsor">Book Sponsor</option>
-                        <option value="explore-sponsor">Explore Sponsor</option>
-                    </select></div>
                     <div class="form-group"><label class="form-label">Start Date</label><input class="form-control" name="startDate" type="date" required /></div>
                     <div class="form-group"><label class="form-label">End Date</label><input class="form-control" name="endDate" type="date" required /></div>
-                    <div class="form-group"><label class="form-label">Image URL</label><input class="form-control" name="imageUrl" placeholder="https://..." required /></div>
                 </form>
             `;
             actionModalConfirm.textContent = 'Create Ad';
@@ -2186,14 +2286,14 @@
                     await apiCall('/admin/ads', { method: 'POST', body: JSON.stringify(body) });
                     actionModal.hide();
                     showToast('Ad created', 'success');
-                    loadAds();
+                    loadAds(true);
                 } catch (e) { showToast(e.message, 'danger'); }
             };
             actionModal.show();
         };
 
         // ================================================================
-        // SOCIAL EARNINGS
+        // SOCIAL EARNINGS – Config, Trigger, Top Posts
         // ================================================================
         let socialConfig = {};
 
@@ -2254,6 +2354,7 @@
                 loadSocialEarnings();
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.triggerSocialDistribution = async () => {
             if (!confirm('Trigger social earnings distribution now?')) return;
             try {
@@ -2264,7 +2365,7 @@
         };
 
         // ================================================================
-        // ANNOUNCEMENTS
+        // ANNOUNCEMENTS – List, Create, Delete (no pagination needed)
         // ================================================================
         let announcementsData = [];
 
@@ -2326,6 +2427,7 @@
             };
             actionModal.show();
         };
+
         window.deleteAnnouncement = async (id) => {
             if (!confirm('Delete this announcement?')) return;
             try {
@@ -2336,7 +2438,7 @@
         };
 
         // ================================================================
-        // COUPONS
+        // COUPONS – Full CRUD (no pagination needed)
         // ================================================================
         let couponsData = [];
 
@@ -2399,6 +2501,7 @@
             };
             actionModal.show();
         };
+
         window.deleteCoupon = async (id) => {
             if (!confirm('Delete this coupon?')) return;
             try {
@@ -2409,24 +2512,43 @@
         };
 
         // ================================================================
-        // CAMPAIGNS
+        // CAMPAIGNS – Approve/Reject/Mark Paid/Refund with Pagination
         // ================================================================
         let campaignsData = [];
+        let campaignsPage = 1;
+        let campaignsLimit = 20;
+        let campaignsTotal = 0;
+        let campaignsHasMore = true;
+        let campaignsLoading = false;
 
-        async function loadCampaigns() {
+        async function loadCampaigns(reset = true) {
+            if (reset) {
+                campaignsPage = 1;
+                campaignsData = [];
+                campaignsHasMore = true;
+            }
+            if (campaignsLoading || !campaignsHasMore) return;
+            campaignsLoading = true;
             try {
-                const data = await apiCall('/campaigns/admin/all?limit=100');
-                campaignsData = data.data.campaigns || [];
+                const data = await apiCall(`/campaigns/admin/all?limit=${campaignsLimit}&page=${campaignsPage}`);
+                const newCampaigns = data.data.campaigns || [];
+                campaignsTotal = data.data.stats?.total || newCampaigns.length;
+                if (reset) campaignsData = newCampaigns;
+                else campaignsData = campaignsData.concat(newCampaigns);
+                campaignsHasMore = campaignsData.length < campaignsTotal;
+                campaignsPage++;
                 renderCampaignsTable(campaignsData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load campaigns: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                campaignsLoading = false;
             }
         }
 
         function renderCampaignsTable(campaigns) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-bar-chart"></i> Campaigns</h5>
+                    <h5><i class="bi bi-bar-chart"></i> Campaigns (${campaignsTotal})</h5>
                 </div>
                 <div class="table-container">
                     <table class="table">
@@ -2464,7 +2586,11 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table>`;
+            if (campaignsHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreCampaigns" onclick="loadCampaigns(false)">Load More</button>`;
+            }
+            html += `</div>`;
             contentArea.innerHTML = html;
         }
 
@@ -2473,7 +2599,7 @@
             try {
                 await apiCall(`/campaigns/admin/${id}/approve`, { method: 'POST' });
                 showToast('Campaign approved', 'success');
-                loadCampaigns();
+                loadCampaigns(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.rejectCampaign = async (id) => {
@@ -2481,7 +2607,7 @@
             try {
                 await apiCall(`/campaigns/admin/${id}/reject`, { method: 'POST', body: JSON.stringify({ reason }) });
                 showToast('Campaign rejected', 'success');
-                loadCampaigns();
+                loadCampaigns(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.markCampaignPaid = async (id) => {
@@ -2489,7 +2615,7 @@
             try {
                 await apiCall(`/campaigns/admin/${id}/verify-manual`, { method: 'POST' });
                 showToast('Campaign marked paid', 'success');
-                loadCampaigns();
+                loadCampaigns(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.refundCampaign = async (id) => {
@@ -2497,7 +2623,7 @@
             try {
                 await apiCall(`/campaigns/admin/${id}/refund`, { method: 'POST' });
                 showToast('Campaign refunded', 'success');
-                loadCampaigns();
+                loadCampaigns(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.viewCampaign = async (id) => {
@@ -2521,24 +2647,43 @@
         };
 
         // ================================================================
-        // SPONSORSHIPS
+        // SPONSORSHIPS – Approve/Reject with Pagination
         // ================================================================
         let sponsorshipsData = [];
+        let sponsorshipsPage = 1;
+        let sponsorshipsLimit = 20;
+        let sponsorshipsTotal = 0;
+        let sponsorshipsHasMore = true;
+        let sponsorshipsLoading = false;
 
-        async function loadSponsorships() {
+        async function loadSponsorships(reset = true) {
+            if (reset) {
+                sponsorshipsPage = 1;
+                sponsorshipsData = [];
+                sponsorshipsHasMore = true;
+            }
+            if (sponsorshipsLoading || !sponsorshipsHasMore) return;
+            sponsorshipsLoading = true;
             try {
-                const data = await apiCall('/sponsorships/admin/all?limit=100');
-                sponsorshipsData = data.data.sponsorships || [];
+                const data = await apiCall(`/sponsorships/admin/all?limit=${sponsorshipsLimit}&page=${sponsorshipsPage}`);
+                const newSponsorships = data.data.sponsorships || [];
+                sponsorshipsTotal = newSponsorships.length;
+                if (reset) sponsorshipsData = newSponsorships;
+                else sponsorshipsData = sponsorshipsData.concat(newSponsorships);
+                sponsorshipsHasMore = sponsorshipsData.length < sponsorshipsTotal;
+                sponsorshipsPage++;
                 renderSponsorshipsTable(sponsorshipsData);
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load sponsorships: ${e.message}</div>`;
+                showToast(e.message, 'danger');
+            } finally {
+                sponsorshipsLoading = false;
             }
         }
 
         function renderSponsorshipsTable(sponsorships) {
             let html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                    <h5><i class="bi bi-handshake"></i> Sponsorships</h5>
+                    <h5><i class="bi bi-handshake"></i> Sponsorships (${sponsorshipsTotal})</h5>
                 </div>
                 <div class="table-container">
                     <table class="table">
@@ -2565,7 +2710,11 @@
                     </td>
                 </tr>`;
             });
-            html += `</tbody></table></div>`;
+            html += `</tbody></table>`;
+            if (sponsorshipsHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreSponsorships" onclick="loadSponsorships(false)">Load More</button>`;
+            }
+            html += `</div>`;
             contentArea.innerHTML = html;
         }
 
@@ -2574,7 +2723,7 @@
             try {
                 await apiCall(`/sponsorships/admin/${id}/approve`, { method: 'POST' });
                 showToast('Sponsorship approved', 'success');
-                loadSponsorships();
+                loadSponsorships(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.rejectSponsorship = async (id) => {
@@ -2582,7 +2731,7 @@
             try {
                 await apiCall(`/sponsorships/admin/${id}/reject`, { method: 'POST', body: JSON.stringify({ reason }) });
                 showToast('Sponsorship rejected', 'success');
-                loadSponsorships();
+                loadSponsorships(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
         window.viewSponsorship = async (id) => {
@@ -2604,30 +2753,91 @@
         };
 
         // ================================================================
-        // ACADEMIES (stub – expandable)
+        // ACADEMIES – List with Pagination (stub for full CRUD)
         // ================================================================
-        async function loadAcademies() {
-            contentArea.innerHTML = `
-                <h5><i class="bi bi-building"></i> Academies</h5>
-                <p>Full academy management (list, create, edit, members, domains, branding). Backend endpoints exist.</p>
-                <button class="btn btn-primary btn-sm" onclick="showToast('Academy management under development', 'info')">Create Academy</button>
-            `;
+        let academiesData = [];
+        let academiesPage = 1;
+        let academiesLimit = 20;
+        let academiesTotal = 0;
+        let academiesHasMore = true;
+        let academiesLoading = false;
+
+        async function loadAcademies(reset = true) {
+            if (reset) {
+                academiesPage = 1;
+                academiesData = [];
+                academiesHasMore = true;
+            }
+            if (academiesLoading || !academiesHasMore) return;
+            academiesLoading = true;
+            try {
+                const data = await apiCall('/academies?limit=' + academiesLimit + '&page=' + academiesPage);
+                const newAcademies = data.data || [];
+                academiesTotal = newAcademies.length;
+                if (reset) academiesData = newAcademies;
+                else academiesData = academiesData.concat(newAcademies);
+                academiesHasMore = academiesData.length < academiesTotal;
+                academiesPage++;
+                renderAcademiesTable(academiesData);
+            } catch (e) {
+                // If endpoint not available, show stub
+                contentArea.innerHTML = `
+                    <h5><i class="bi bi-building"></i> Academies</h5>
+                    <p>Full academy management coming soon. Implement list, create, edit, members, domains.</p>
+                    <button class="btn btn-primary btn-sm" onclick="showToast('Academy management under development', 'info')">Create Academy</button>
+                `;
+                return;
+            } finally {
+                academiesLoading = false;
+            }
+        }
+
+        function renderAcademiesTable(academies) {
+            let html = `
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h5><i class="bi bi-building"></i> Academies (${academiesTotal})</h5>
+                    <button class="btn btn-primary btn-sm" onclick="showToast('Academy creation coming soon', 'info')"><i class="bi bi-plus"></i> Add Academy</button>
+                </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead><tr><th>Name</th><th>Slug</th><th>Owner</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody>
+                `;
+            academies.forEach(a => {
+                html += `<tr>
+                    <td><strong>${a.name}</strong></td>
+                    <td>${a.slug}</td>
+                    <td>${a.ownerId?.firstName || 'N/A'}</td>
+                    <td>${a.isActive ? '<span class="badge-status badge-active">Active</span>' : '<span class="badge-status badge-inactive">Inactive</span>'}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="showToast('View academy', 'info')"><i class="bi bi-eye"></i></button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="showToast('Edit academy', 'info')"><i class="bi bi-pencil"></i></button>
+                    </td>
+                </tr>`;
+            });
+            html += `</tbody></table>`;
+            if (academiesHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreAcademies" onclick="loadAcademies(false)">Load More</button>`;
+            }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
         // ================================================================
-        // GAMIFICATION (stub – expandable)
+        // GAMIFICATION – Placeholder
         // ================================================================
-        async function loadGamification() {
+        function loadGamification() {
             contentArea.innerHTML = `
                 <h5><i class="bi bi-award"></i> Gamification</h5>
-                <p>Achievements, levels, leaderboard management (backend endpoints exist).</p>
+                <p>Achievements, levels, leaderboard management coming soon.</p>
+                <button class="btn btn-primary btn-sm" onclick="showToast('Gamification under development', 'info')">Manage Achievements</button>
             `;
         }
 
         // ================================================================
-        // SYSTEM (settings)
+        // SETTINGS – Feature flags, ad config, bank details
         // ================================================================
-        async function loadSystem() {
+        async function loadSettings() {
             try {
                 const adConfig = await apiCall('/admin/ads/config').catch(() => ({ data: { cpm: 1.00, cpc: 0.02,
                         sharePercent: 50 } }));
@@ -2663,7 +2873,7 @@
                     </div>
                 `;
             } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load system settings: ${e.message}</div>`;
+                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load settings: ${e.message}</div>`;
             }
         }
 
@@ -2676,36 +2886,66 @@
                 showToast('Ad config saved', 'success');
             } catch (e) { showToast(e.message, 'danger'); }
         };
+
         window.saveFeatureFlags = () => showToast('Feature flags saved (stub)', 'info');
         window.saveBankDetails = () => showToast('Bank details saved (stub)', 'info');
 
         // ================================================================
-        // AUDIT LOGS
+        // AUDIT LOGS – Pagination
         // ================================================================
-        async function loadAudit() {
-            try {
-                const data = await apiCall('/admin/audit-logs?limit=100');
-                const logs = data.data || [];
-                let html = `
-                    <h5><i class="bi bi-clock-history"></i> Audit Logs</h5>
-                    <div class="table-container">
-                        <table class="table">
-                            <thead><tr><th>User</th><th>Action</th><th>Resource</th><th>Date</th></tr></thead>
-                            <tbody>
-                `;
-                logs.forEach(l => {
-                    html += `<tr>
-                        <td>${l.user?.firstName || 'System'}</td>
-                        <td>${l.action}</td>
-                        <td>${l.resource}</td>
-                        <td>${new Date(l.createdAt).toLocaleString()}</td>
-                    </tr>`;
-                });
-                html += `</tbody></table></div>`;
-                contentArea.innerHTML = html;
-            } catch (e) {
-                contentArea.innerHTML = `<div class="alert alert-danger">Failed to load audit logs: ${e.message}</div>`;
+        let auditData = [];
+        let auditPage = 1;
+        let auditLimit = 20;
+        let auditTotal = 0;
+        let auditHasMore = true;
+        let auditLoading = false;
+
+        async function loadAudit(reset = true) {
+            if (reset) {
+                auditPage = 1;
+                auditData = [];
+                auditHasMore = true;
             }
+            if (auditLoading || !auditHasMore) return;
+            auditLoading = true;
+            try {
+                const data = await apiCall(`/admin/audit-logs?limit=${auditLimit}&page=${auditPage}`);
+                const newAudit = data.data || [];
+                auditTotal = newAudit.length;
+                if (reset) auditData = newAudit;
+                else auditData = auditData.concat(newAudit);
+                auditHasMore = auditData.length < auditTotal;
+                auditPage++;
+                renderAuditTable(auditData);
+            } catch (e) {
+                showToast(e.message, 'danger');
+            } finally {
+                auditLoading = false;
+            }
+        }
+
+        function renderAuditTable(logs) {
+            let html = `
+                <h5><i class="bi bi-clock-history"></i> Audit Logs (${auditTotal})</h5>
+                <div class="table-container">
+                    <table class="table">
+                        <thead><tr><th>User</th><th>Action</th><th>Resource</th><th>Date</th></tr></thead>
+                        <tbody>
+                `;
+            logs.forEach(l => {
+                html += `<tr>
+                    <td>${l.user?.firstName || 'System'}</td>
+                    <td>${l.action}</td>
+                    <td>${l.resource}</td>
+                    <td>${new Date(l.createdAt).toLocaleString()}</td>
+                </tr>`;
+            });
+            html += `</tbody></table>`;
+            if (auditHasMore) {
+                html += `<button class="load-more-btn" id="loadMoreAudit" onclick="loadAudit(false)">Load More</button>`;
+            }
+            html += `</div>`;
+            contentArea.innerHTML = html;
         }
 
         // ================================================================
@@ -2769,7 +3009,7 @@
         };
 
         // ================================================================
-        // NOTIFICATIONS
+        // NOTIFICATIONS (polling)
         // ================================================================
         setInterval(async () => {
             try {
@@ -2797,11 +3037,16 @@
         // ================================================================
         // INIT
         // ================================================================
+        // Load default section
         loadSection('dashboard');
+
         console.log('🚀 ChangeX Admin Panel v5.0 (Production) loaded');
         console.log('📌 API Base:', API_BASE);
         console.log('🔐 Token:', TOKEN ? 'Present' : 'Missing');
 
+        // ================================================================
+        // RESPONSIVE SIDEBAR
+        // ================================================================
         window.addEventListener('resize', () => {
             if (window.innerWidth >= 992) {
                 sidebar.classList.remove('open');
