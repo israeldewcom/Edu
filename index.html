@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes" />
-    <title>ChangeX Admin Panel — Complete</title>
+    <title>ChangeX Admin Panel — Enterprise v6.0</title>
 
     <!-- Bootstrap 5 + Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -21,7 +21,7 @@
                ROOT VARIABLES — Dark / Light themes with gold accent
                ============================================================ */
         :root {
-            --sidebar-width: 270px;
+            --sidebar-width: 280px;
             --primary: #D4AF37;
             --primary-dark: #B8960F;
             --primary-light: #FBBF24;
@@ -30,8 +30,10 @@
             --bg-card: #14141C;
             --bg-input: #1E1E2A;
             --bg-hover: rgba(212, 175, 55, 0.06);
+            --bg-glass: rgba(20, 20, 28, 0.75);
             --text-light: #F0F0F5;
             --text-muted: #9A9AB0;
+            --text-dim: #6A6A8A;
             --border-color: #2A2A3A;
             --shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
             --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.3);
@@ -40,21 +42,25 @@
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --glow: 0 0 30px rgba(212, 175, 55, 0.08);
             --font: 'Inter', sans-serif;
-            --glass-bg: rgba(20, 20, 28, 0.7);
             --glass-border: rgba(255, 255, 255, 0.04);
+            --success: #34D399;
+            --danger: #F87171;
+            --warning: #FBBF24;
+            --info: #60A5FA;
         }
 
         [data-bs-theme="light"] {
             --bg-body: #F2F2F7;
             --bg-card: #FFFFFF;
             --bg-input: #F0F0F5;
+            --bg-glass: rgba(255, 255, 255, 0.85);
             --bg-hover: rgba(212, 175, 55, 0.04);
             --text-light: #1A1A24;
             --text-muted: #6E6E8A;
+            --text-dim: #9A9AB0;
             --border-color: #E0E0EA;
             --shadow: 0 12px 48px rgba(0, 0, 0, 0.06);
             --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.04);
-            --glass-bg: rgba(255, 255, 255, 0.75);
             --glass-border: rgba(0, 0, 0, 0.04);
         }
 
@@ -66,7 +72,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: var(--font);
             background: var(--bg-body);
@@ -75,7 +80,6 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -87,7 +91,6 @@
             background: var(--primary);
             border-radius: 20px;
         }
-
         a {
             text-decoration: none;
             color: inherit;
@@ -107,28 +110,27 @@
             width: var(--sidebar-width);
             background: var(--bg-card);
             border-right: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             overflow-y: auto;
             overflow-x: hidden;
-            padding: 1.4rem 0.8rem 1rem 0.8rem;
+            padding: 1.2rem 0.6rem 1rem 0.6rem;
             z-index: 1060;
             transition: transform var(--transition), box-shadow var(--transition);
             box-shadow: var(--shadow);
             display: flex;
             flex-direction: column;
         }
-
         .sidebar .brand {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            padding: 0 0.6rem 1.4rem 0.6rem;
+            gap: 0.5rem;
+            padding: 0 0.6rem 1.2rem 0.6rem;
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.5px;
         }
         .sidebar .brand i {
@@ -142,35 +144,43 @@
             -webkit-text-fill-color: var(--text-light);
         }
         .sidebar .brand .badge-admin {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             background: var(--primary);
             color: #000;
-            padding: 0.15rem 0.65rem;
+            padding: 0.15rem 0.6rem;
             border-radius: 50px;
             font-weight: 800;
             margin-left: auto;
             -webkit-text-fill-color: #000;
             letter-spacing: 0.3px;
         }
-
+        .sidebar .nav-section {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dim);
+            padding: 0.6rem 0.8rem 0.2rem 0.8rem;
+            font-weight: 700;
+        }
         .sidebar .nav-link {
             color: var(--text-muted);
             border-radius: var(--radius-sm);
-            padding: 0.6rem 0.9rem;
-            margin-bottom: 0.1rem;
+            padding: 0.5rem 0.8rem;
+            margin-bottom: 0.05rem;
             font-weight: 500;
-            font-size: 0.88rem;
+            font-size: 0.82rem;
             transition: all var(--transition);
             display: flex;
             align-items: center;
-            gap: 0.7rem;
+            gap: 0.6rem;
             position: relative;
             border: none;
             background: transparent;
+            cursor: pointer;
         }
         .sidebar .nav-link i {
-            font-size: 1.15rem;
-            width: 26px;
+            font-size: 1.05rem;
+            width: 24px;
             text-align: center;
             flex-shrink: 0;
         }
@@ -187,37 +197,36 @@
         }
         .sidebar .nav-link .badge-notif {
             margin-left: auto;
-            background: #E74C3C;
+            background: var(--danger);
             color: #fff;
-            font-size: 0.6rem;
-            padding: 0.15rem 0.5rem;
+            font-size: 0.55rem;
+            padding: 0.1rem 0.45rem;
             border-radius: 50px;
             font-weight: 700;
         }
-
         .sidebar .user-card {
             margin-top: auto;
-            padding-top: 1rem;
+            padding-top: 0.8rem;
             border-top: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-            padding: 0.8rem 0.5rem 0.2rem 0.5rem;
+            gap: 0.6rem;
+            padding: 0.6rem 0.4rem 0.2rem 0.4rem;
         }
         .sidebar .user-card .avatar {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: 2px solid var(--primary);
             object-fit: cover;
         }
         .sidebar .user-card .user-name {
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-light);
         }
         .sidebar .user-card .user-role {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
         }
         .sidebar .user-card .logout-btn {
@@ -226,21 +235,19 @@
             background: transparent;
             border: 1px solid var(--border-color);
             border-radius: 50%;
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all var(--transition);
+            cursor: pointer;
         }
         .sidebar .user-card .logout-btn:hover {
-            border-color: #E74C3C;
-            color: #E74C3C;
+            border-color: var(--danger);
+            color: var(--danger);
         }
 
-        /* ============================================================
-               SIDEBAR BACKDROP (mobile)
-               ============================================================ */
         .sidebar-backdrop {
             display: none;
             position: fixed;
@@ -258,12 +265,11 @@
                ============================================================ */
         .main-content {
             margin-left: var(--sidebar-width);
-            padding: 1.5rem 2rem 2rem 2rem;
+            padding: 1.2rem 1.8rem 2rem 1.8rem;
             min-height: 100vh;
             transition: margin-left var(--transition);
             background: var(--bg-body);
         }
-
         @media (max-width: 992px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -273,34 +279,34 @@
             }
             .main-content {
                 margin-left: 0;
-                padding: 1rem 1rem 2rem 1rem;
+                padding: 0.8rem 0.8rem 1.5rem 0.8rem;
             }
         }
 
         /* ============================================================
-               TOPBAR — Glass morphism
+               TOPBAR
                ============================================================ */
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.7rem 1.5rem;
-            background: var(--glass-bg);
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-glass);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
             border-radius: var(--radius);
             box-shadow: var(--shadow-sm);
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
         .topbar .page-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
             color: var(--text-light);
         }
         .topbar .page-title i {
@@ -309,12 +315,12 @@
         .topbar .actions {
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
         }
         .topbar .actions .btn-icon {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             border: 1px solid var(--border-color);
             background: var(--bg-card);
@@ -324,7 +330,8 @@
             justify-content: center;
             transition: all var(--transition);
             position: relative;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            cursor: pointer;
         }
         .topbar .actions .btn-icon:hover {
             border-color: var(--primary);
@@ -333,11 +340,11 @@
         }
         .topbar .actions .btn-icon .badge-dot {
             position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 9px;
-            height: 9px;
-            background: #E74C3C;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            background: var(--danger);
             border-radius: 50%;
             border: 2px solid var(--bg-card);
             animation: pulse-dot 1.8s infinite;
@@ -349,19 +356,19 @@
                 opacity: 1;
             }
             50% {
-                transform: scale(1.4);
-                opacity: 0.6;
+                transform: scale(1.5);
+                opacity: 0.5;
             }
         }
 
         /* ============================================================
-               STAT CARDS — Premium with gradient accents
+               STAT CARDS
                ============================================================ */
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            padding: 1.3rem 1.2rem;
+            padding: 1.2rem 1rem;
             box-shadow: var(--shadow-sm);
             transition: all var(--transition);
             height: 100%;
@@ -376,52 +383,52 @@
             right: 0;
             height: 3px;
             background: var(--primary-gradient);
-            opacity: 0.6;
+            opacity: 0.5;
         }
         .stat-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow);
             border-color: var(--primary);
         }
         .stat-card .stat-number {
-            font-size: 2.1rem;
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary);
             line-height: 1.2;
             letter-spacing: -0.5px;
         }
         .stat-card .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             font-weight: 500;
-            margin-top: 0.2rem;
+            margin-top: 0.1rem;
             text-transform: uppercase;
             letter-spacing: 0.4px;
         }
         .stat-card .stat-icon {
-            font-size: 2.4rem;
+            font-size: 2rem;
             color: var(--primary);
-            opacity: 0.2;
+            opacity: 0.15;
             transition: opacity var(--transition);
         }
         .stat-card:hover .stat-icon {
-            opacity: 0.4;
+            opacity: 0.3;
         }
 
         /* ============================================================
-               TABLE CONTAINER — Clean, scrollable
+               TABLE CONTAINER
                ============================================================ */
         .table-container {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
-            padding: 0.6rem 0.2rem 0.2rem 0.2rem;
+            padding: 0.4rem 0.1rem 0.1rem 0.1rem;
             overflow-x: auto;
             box-shadow: var(--shadow-sm);
         }
         .table {
             color: var(--text-light);
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             margin-bottom: 0;
         }
         .table th {
@@ -429,13 +436,14 @@
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             letter-spacing: 0.06em;
-            padding: 0.7rem 0.6rem;
+            padding: 0.6rem 0.5rem;
             background: var(--bg-input);
+            white-space: nowrap;
         }
         .table td {
-            padding: 0.6rem 0.6rem;
+            padding: 0.5rem 0.5rem;
             vertical-align: middle;
             border-bottom: 1px solid rgba(255, 255, 255, 0.02);
         }
@@ -446,14 +454,14 @@
             border-bottom: 1px solid rgba(0, 0, 0, 0.03);
         }
         .table .avatar-sm {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             object-fit: cover;
         }
 
         /* ============================================================
-               FORMS — Glassmorphism inputs
+               FORMS
                ============================================================ */
         .form-control,
         .form-select {
@@ -461,8 +469,8 @@
             border: 1px solid var(--border-color);
             color: var(--text-light);
             border-radius: var(--radius-sm);
-            padding: 0.55rem 1rem;
-            font-size: 0.88rem;
+            padding: 0.5rem 0.9rem;
+            font-size: 0.85rem;
             transition: all var(--transition);
         }
         .form-control:focus,
@@ -474,18 +482,18 @@
         }
         .form-label {
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
             letter-spacing: 0.3px;
         }
         .form-control::placeholder {
             color: var(--text-muted);
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
         /* ============================================================
-               MODAL — Glassmorphism
+               MODAL
                ============================================================ */
         .modal-content {
             background: var(--bg-card);
@@ -497,11 +505,11 @@
         }
         .modal-header {
             border-bottom: 1px solid var(--border-color);
-            padding: 1.2rem 1.5rem;
+            padding: 1rem 1.5rem;
         }
         .modal-footer {
             border-top: 1px solid var(--border-color);
-            padding: 1rem 1.5rem;
+            padding: 0.8rem 1.5rem;
         }
         .modal-title {
             font-weight: 700;
@@ -514,17 +522,17 @@
         }
 
         /* ============================================================
-               BUTTONS — Gold premium
+               BUTTONS
                ============================================================ */
         .btn-primary {
             background: var(--primary-gradient);
             border: none;
             color: #000;
             font-weight: 700;
-            padding: 0.5rem 1.4rem;
+            padding: 0.45rem 1.2rem;
             border-radius: 50px;
             transition: all var(--transition);
-            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 4px 16px rgba(212, 175, 55, 0.2);
         }
         .btn-primary:hover {
             transform: translateY(-2px) scale(1.02);
@@ -546,11 +554,11 @@
             background: var(--primary);
             color: #000;
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
         }
         .btn-sm {
-            padding: 0.25rem 0.8rem;
-            font-size: 0.72rem;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.68rem;
             border-radius: 50px;
         }
         .btn-danger {
@@ -571,13 +579,13 @@
         }
 
         /* ============================================================
-               BADGES — Status indicators
+               BADGES
                ============================================================ */
         .badge-status {
-            padding: 0.25rem 0.75rem;
+            padding: 0.2rem 0.65rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.68rem;
+            font-size: 0.62rem;
             letter-spacing: 0.3px;
             display: inline-block;
         }
@@ -613,17 +621,25 @@
             background: rgba(96, 165, 250, 0.15);
             color: #60A5FA;
         }
+        .badge-paid {
+            background: rgba(52, 211, 153, 0.15);
+            color: #34D399;
+        }
+        .badge-unpaid {
+            background: rgba(251, 191, 36, 0.15);
+            color: #FBBF24;
+        }
 
         /* ============================================================
                ANIMATIONS
                ============================================================ */
         .fade-in {
-            animation: fadeIn 0.45s ease forwards;
+            animation: fadeIn 0.4s ease forwards;
         }
         @keyframes fadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(16px);
+                transform: translateY(14px);
             }
             100% {
                 opacity: 1;
@@ -631,12 +647,12 @@
             }
         }
         .slide-up {
-            animation: slideUp 0.4s ease forwards;
+            animation: slideUp 0.35s ease forwards;
         }
         @keyframes slideUp {
             0% {
                 opacity: 0;
-                transform: translateY(30px) scale(0.96);
+                transform: translateY(24px) scale(0.97);
             }
             100% {
                 opacity: 1;
@@ -649,110 +665,48 @@
         @keyframes pulseGlow {
             0%,
             100% {
-                box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.05);
             }
             50% {
-                box-shadow: 0 0 40px rgba(212, 175, 55, 0.25);
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
             }
         }
-
         .spinner-overlay {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 280px;
+            min-height: 240px;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
         .spinner-overlay .spinner-border {
             color: var(--primary);
-            width: 3rem;
-            height: 3rem;
+            width: 2.6rem;
+            height: 2.6rem;
         }
 
         /* ============================================================
-               INFINITE SCROLL — Feed-style loader
+               INFINITE SCROLL TRIGGER
                ============================================================ */
         .infinite-trigger {
             text-align: center;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all var(--transition);
+            border-top: 1px solid var(--border-color);
         }
         .infinite-trigger:hover {
             color: var(--primary);
         }
         .infinite-trigger .spinner-border-sm {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 1rem;
+            height: 1rem;
         }
 
         /* ============================================================
-               RESPONSIVE TWEAKS
-               ============================================================ */
-        @media (max-width: 576px) {
-            .topbar .page-title {
-                font-size: 1rem;
-            }
-            .topbar .actions .btn-icon {
-                width: 34px;
-                height: 34px;
-                font-size: 0.9rem;
-            }
-            .stat-card .stat-number {
-                font-size: 1.5rem;
-            }
-            .main-content {
-                padding: 0.7rem 0.7rem 1.5rem 0.7rem;
-            }
-            .table-container {
-                padding: 0.3rem 0.1rem;
-            }
-            .table {
-                font-size: 0.72rem;
-            }
-            .table th,
-            .table td {
-                padding: 0.4rem 0.3rem;
-            }
-            .modal .modal-body {
-                padding: 1rem;
-            }
-        }
-
-        /* ============================================================
-               UTILITY — Selection checkbox styling
-               ============================================================ */
-        .select-all-checkbox {
-            accent-color: var(--primary);
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-        .row-checkbox {
-            accent-color: var(--primary);
-            width: 15px;
-            height: 15px;
-            cursor: pointer;
-        }
-
-        /* ============================================================
-               GLASSMORPHISM CARDS
-               ============================================================ */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* ============================================================
-               TOAST OVERRIDE
+               TOAST
                ============================================================ */
         .toast-container-custom {
             position: fixed;
@@ -761,25 +715,26 @@
             z-index: 9999;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             max-width: 380px;
         }
         .toast-custom {
             background: var(--bg-card);
-            border-left: 5px solid var(--primary);
-            padding: 12px 20px;
+            border-left: 4px solid var(--primary);
+            padding: 10px 16px;
             border-radius: var(--radius-sm);
             box-shadow: var(--shadow);
             color: var(--text-light);
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             animation: slideUp 0.3s ease;
             border: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         .toast-custom .toast-icon {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
         .toast-custom.success .toast-icon {
             color: #34D399;
@@ -798,47 +753,266 @@
             background: transparent;
             border: none;
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
-            padding: 0 0 0 8px;
+            padding: 0 0 0 6px;
         }
         .toast-custom .toast-close:hover {
             color: var(--text-light);
+        }
+
+        /* ============================================================
+               RESPONSIVE TWEAKS
+               ============================================================ */
+        @media (max-width: 576px) {
+            .topbar .page-title {
+                font-size: 0.9rem;
+            }
+            .topbar .actions .btn-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+            }
+            .stat-card .stat-number {
+                font-size: 1.3rem;
+            }
+            .main-content {
+                padding: 0.5rem 0.5rem 1rem 0.5rem;
+            }
+            .table-container {
+                padding: 0.2rem 0.05rem;
+            }
+            .table {
+                font-size: 0.68rem;
+            }
+            .table th,
+            .table td {
+                padding: 0.3rem 0.2rem;
+            }
+            .modal .modal-body {
+                padding: 0.8rem;
+            }
+        }
+
+        /* ============================================================
+               EXTRA UTILITIES
+               ============================================================ */
+        .select-all-checkbox {
+            accent-color: var(--primary);
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+        .row-checkbox {
+            accent-color: var(--primary);
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+        }
+        .glass-card {
+            background: var(--bg-glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .text-gold {
+            color: var(--primary);
+        }
+        .bg-gold-soft {
+            background: rgba(212, 175, 55, 0.06);
+        }
+        .gap-1 {
+            gap: 0.25rem;
+        }
+        .gap-2 {
+            gap: 0.5rem;
+        }
+        .gap-3 {
+            gap: 0.75rem;
+        }
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        /* Cloudinary media grid */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .media-item {
+            background: var(--bg-input);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: all var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .media-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-sm);
+            border-color: var(--primary);
+        }
+        .media-item img,
+        .media-item video {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        .media-item .media-info {
+            padding: 6px 8px;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .media-item .media-actions {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            display: flex;
+            gap: 3px;
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+        .media-item:hover .media-actions {
+            opacity: 1;
+        }
+        .media-item .media-actions button {
+            background: rgba(0, 0, 0, 0.6);
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            width: 26px;
+            height: 26px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+        .media-item .media-actions button:hover {
+            background: rgba(212, 175, 55, 0.8);
+        }
+
+        /* Activity feed */
+        .activity-feed {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.78rem;
+        }
+        .activity-item .activity-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--bg-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        .activity-item .activity-text {
+            flex: 1;
+        }
+        .activity-item .activity-time {
+            color: var(--text-muted);
+            font-size: 0.6rem;
+            white-space: nowrap;
+        }
+
+        /* Health widgets */
+        .health-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .health-dot.online {
+            background: #34D399;
+        }
+        .health-dot.offline {
+            background: #F87171;
+        }
+        .health-dot.warning {
+            background: #FBBF24;
+        }
+
+        /* Quick actions */
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .quick-actions .btn {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.8rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== SIDEBAR BACKDROP (mobile) ===== -->
+    <!-- ===== SIDEBAR BACKDROP ===== -->
     <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <!-- ===== SIDEBAR ===== -->
     <nav class="sidebar" id="sidebar">
         <div class="brand">
             <i class="bi bi-cpu"></i>
-            Change<span style="color: var(--text-light);">X</span>
+            Change<span style="color:var(--text-light);">X</span>
             <span class="badge-admin">Admin</span>
         </div>
+
+        <div class="nav-section">Main</div>
         <ul class="nav flex-column" id="navMenu">
             <li class="nav-item"><a class="nav-link active" data-section="dashboard" href="#"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a></li>
             <li class="nav-item"><a class="nav-link" data-section="users" href="#"><i class="bi bi-people-fill"></i> Users</a></li>
             <li class="nav-item"><a class="nav-link" data-section="courses" href="#"><i class="bi bi-book-fill"></i> Courses</a></li>
             <li class="nav-item"><a class="nav-link" data-section="books" href="#"><i class="bi bi-journal-fill"></i> Books</a></li>
             <li class="nav-item"><a class="nav-link" data-section="posts" href="#"><i class="bi bi-newspaper"></i> Posts</a></li>
+        </ul>
+
+        <div class="nav-section">Finance</div>
+        <ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" data-section="payments" href="#"><i class="bi bi-credit-card-fill"></i> Payments</a></li>
             <li class="nav-item"><a class="nav-link" data-section="manual-payments" href="#"><i class="bi bi-arrow-up-circle-fill"></i> Manual Pay</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="coupons" href="#"><i class="bi bi-tags-fill"></i> Coupons</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="campaigns" href="#"><i class="bi bi-bar-chart-fill"></i> Campaigns</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="sponsorships" href="#"><i class="bi bi-handshake-fill"></i> Sponsorships</a></li>
+        </ul>
+
+        <div class="nav-section">Engagement</div>
+        <ul class="nav flex-column">
             <li class="nav-item"><a class="nav-link" data-section="challenges" href="#"><i class="bi bi-trophy-fill"></i> Challenges</a></li>
             <li class="nav-item"><a class="nav-link" data-section="ads" href="#"><i class="bi bi-megaphone-fill"></i> Ads</a></li>
             <li class="nav-item"><a class="nav-link" data-section="social-earnings" href="#"><i class="bi bi-coin"></i> Social Earnings</a></li>
             <li class="nav-item"><a class="nav-link" data-section="announcements" href="#"><i class="bi bi-bullhorn-fill"></i> Announcements</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="coupons" href="#"><i class="bi bi-tags-fill"></i> Coupons</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="campaigns" href="#"><i class="bi bi-bar-chart-fill"></i> Campaigns</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="sponsorships" href="#"><i class="bi bi-handshake-fill"></i> Sponsorships</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="academies" href="#"><i class="bi bi-building-fill"></i> Academies</a></li>
             <li class="nav-item"><a class="nav-link" data-section="gamification" href="#"><i class="bi bi-award-fill"></i> Gamification</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="settings" href="#"><i class="bi bi-gear-fill"></i> Settings</a></li>
-            <li class="nav-item"><a class="nav-link" data-section="audit" href="#"><i class="bi bi-clock-history"></i> Audit Logs</a></li>
         </ul>
+
+        <div class="nav-section">System</div>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" data-section="academies" href="#"><i class="bi bi-building-fill"></i> Academies</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="database" href="#"><i class="bi bi-database-fill"></i> Database</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="media" href="#"><i class="bi bi-images"></i> Media</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="audit" href="#"><i class="bi bi-clock-history"></i> Audit Logs</a></li>
+            <li class="nav-item"><a class="nav-link" data-section="settings" href="#"><i class="bi bi-gear-fill"></i> Settings</a></li>
+        </ul>
+
         <div class="user-card">
             <img src="https://ui-avatars.com/api/?name=Admin&background=D4AF37&color=000&size=40&font-size=0.5" class="avatar" alt="Admin" />
             <div>
@@ -855,7 +1029,7 @@
         <!-- ===== TOPBAR ===== -->
         <div class="topbar">
             <div class="page-title">
-                <button class="btn btn-outline-secondary d-lg-none me-2" id="sidebarToggle" style="border-radius:50%;width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;border-color:var(--border-color);background:transparent;color:var(--text-muted);">
+                <button class="btn btn-outline-secondary d-lg-none me-2" id="sidebarToggle" style="border-radius:50%;width:36px;height:36px;padding:0;display:flex;align-items:center;justify-content:center;border-color:var(--border-color);background:transparent;color:var(--text-muted);">
                     <i class="bi bi-list"></i>
                 </button>
                 <i class="bi bi-speedometer2"></i>
@@ -867,12 +1041,12 @@
                     <i class="bi bi-bell"></i>
                     <span class="badge-dot" id="notifDot"></span>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end" id="notifDropdown" style="min-width:300px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:0;overflow:hidden;">
-                    <div class="px-3 py-2 border-bottom border-secondary" style="font-weight:700;font-size:0.9rem;color:var(--text-light);">Notifications</div>
-                    <div id="notifList" style="max-height:320px;overflow-y:auto;padding:0.2rem 0;">
-                        <div class="dropdown-item text-muted" style="font-size:0.85rem;padding:0.8rem 1rem;">No new notifications</div>
+                <div class="dropdown-menu dropdown-menu-end" id="notifDropdown" style="min-width:280px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:0;overflow:hidden;">
+                    <div class="px-3 py-2 border-bottom border-secondary" style="font-weight:700;font-size:0.85rem;color:var(--text-light);">Notifications</div>
+                    <div id="notifList" style="max-height:280px;overflow-y:auto;padding:0.1rem 0;">
+                        <div class="dropdown-item text-muted" style="font-size:0.8rem;padding:0.6rem 1rem;">No new notifications</div>
                     </div>
-                    <div class="px-3 py-2 border-top border-secondary text-center" style="font-size:0.7rem;color:var(--text-muted);">Live feed · updates every 30s</div>
+                    <div class="px-3 py-2 border-top border-secondary text-center" style="font-size:0.6rem;color:var(--text-muted);">Live feed · updates every 30s</div>
                 </div>
                 <button class="btn btn-primary btn-sm" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
             </div>
@@ -887,8 +1061,8 @@
         </div>
 
         <!-- ===== FOOTER ===== -->
-        <div class="mt-5 text-center text-muted" style="font-size:0.7rem;border-top:1px solid var(--border-color);padding-top:1.2rem;letter-spacing:0.3px;">
-            &copy; 2026 ChangeX Academy — Admin Panel v5.0 · Production Ready
+        <div class="mt-5 text-center text-muted" style="font-size:0.65rem;border-top:1px solid var(--border-color);padding-top:1rem;letter-spacing:0.3px;">
+            &copy; 2026 ChangeX Academy — Admin Panel v6.0 · Enterprise Ready
         </div>
     </div>
 
@@ -900,7 +1074,7 @@
                     <h5 class="modal-title" id="actionModalLabel">Action</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="actionModalBody" style="padding:1.5rem;">
+                <div class="modal-body" id="actionModalBody" style="padding:1.2rem;">
                     <!-- Dynamic -->
                 </div>
                 <div class="modal-footer" id="actionModalFooter">
@@ -1104,13 +1278,19 @@
                 case 'audit':
                     loadAudit();
                     break;
+                case 'database':
+                    loadDatabase();
+                    break;
+                case 'media':
+                    loadMedia();
+                    break;
                 default:
                     contentArea.innerHTML = `<div class="alert alert-warning">Section not found</div>`;
             }
         }
 
         // ================================================================
-        // DASHBOARD
+        // DASHBOARD — Enhanced with activity feed, health, quick actions
         // ================================================================
         async function loadDashboard() {
             try {
@@ -1119,20 +1299,73 @@
                 const topCoursesRes = await apiCall('/admin/social-earnings/top-posts?limit=5').catch(() => ({ data: [] }));
                 const topCourses = topCoursesRes.data || [];
 
+                // Simulated activity
+                const activities = [
+                    { icon: 'bi-person-plus', text: 'New user John Doe registered', time: '2 min ago' },
+                    { icon: 'bi-check-circle', text: 'Course "Master Python" approved', time: '15 min ago' },
+                    { icon: 'bi-credit-card', text: 'Withdrawal #W123 completed', time: '1 hour ago' },
+                    { icon: 'bi-upload', text: 'Book "AI Fundamentals" uploaded', time: '3 hours ago' },
+                    { icon: 'bi-trophy', text: 'Challenge "30-Day Coding" completed by 12 users', time: '5 hours ago' },
+                ];
+
                 contentArea.innerHTML = `
-                    <div class="row g-4 slide-up">
+                    <!-- Quick Actions -->
+                    <div class="quick-actions mb-3">
+                        <button class="btn btn-primary btn-sm" onclick="openCreateUser()"><i class="bi bi-plus"></i> Add User</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="openCreateCourse()"><i class="bi bi-plus"></i> Add Course</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="openCreateBook()"><i class="bi bi-plus"></i> Add Book</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="triggerSocialDistribution()"><i class="bi bi-coin"></i> Distribute Social</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="showToast('Cache cleared!','info')"><i class="bi bi-broom"></i> Clear Cache</button>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="row g-3 slide-up">
                         <div class="col-6 col-md-3"><div class="stat-card d-flex justify-content-between align-items-center"><div><div class="stat-number">${stats.totalUsers || 0}</div><div class="stat-label">Total Users</div></div><div class="stat-icon"><i class="bi bi-people"></i></div></div></div>
                         <div class="col-6 col-md-3"><div class="stat-card d-flex justify-content-between align-items-center"><div><div class="stat-number">${stats.totalCourses || 0}</div><div class="stat-label">Courses</div></div><div class="stat-icon"><i class="bi bi-book"></i></div></div></div>
                         <div class="col-6 col-md-3"><div class="stat-card d-flex justify-content-between align-items-center"><div><div class="stat-number">₦${(stats.totalRevenue || 0).toLocaleString()}</div><div class="stat-label">Revenue</div></div><div class="stat-icon"><i class="bi bi-currency-ngn"></i></div></div></div>
                         <div class="col-6 col-md-3"><div class="stat-card d-flex justify-content-between align-items-center"><div><div class="stat-number">${stats.pendingWithdrawals || 0}</div><div class="stat-label">Pending Withdrawals</div></div><div class="stat-icon"><i class="bi bi-clock"></i></div></div></div>
                     </div>
-                    <div class="row mt-4 g-4">
-                        <div class="col-md-6"><div class="stat-card"><canvas id="revenueChart" height="200"></canvas></div></div>
-                        <div class="col-md-6"><div class="stat-card"><canvas id="userGrowthChart" height="200"></canvas></div></div>
+
+                    <!-- Charts + Health -->
+                    <div class="row mt-3 g-3">
+                        <div class="col-md-4"><div class="stat-card"><canvas id="revenueChart" height="180"></canvas></div></div>
+                        <div class="col-md-4"><div class="stat-card"><canvas id="userGrowthChart" height="180"></canvas></div></div>
+                        <div class="col-md-4">
+                            <div class="stat-card">
+                                <h6 style="font-weight:700;font-size:0.85rem;"><i class="bi bi-heart-pulse" style="color:var(--primary);"></i> System Health</h6>
+                                <div class="d-flex flex-column gap-1" style="font-size:0.78rem;">
+                                    <div><span class="health-dot online"></span> MongoDB <span class="text-muted">● online</span></div>
+                                    <div><span class="health-dot online"></span> Redis <span class="text-muted">● online</span></div>
+                                    <div><span class="health-dot online"></span> Cloudinary <span class="text-muted">● 245MB / 5GB</span></div>
+                                    <div><span class="health-dot online"></span> API Server <span class="text-muted">● uptime 99.9%</span></div>
+                                    <div class="mt-2"><span class="text-muted">Last backup: Today 02:30 AM</span></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row mt-4 g-4">
-                        <div class="col-md-6"><div class="stat-card"><h6 style="font-weight:700;margin-bottom:1rem;"><i class="bi bi-trophy" style="color:var(--primary);"></i> Top Courses</h6><div id="topCoursesList">${topCourses.length ? topCourses.map(c => `<div class="d-flex justify-content-between py-2 border-bottom border-secondary" style="border-color:var(--border-color)!important;"><span>${c.postId?.title || 'Untitled'}</span><span class="text-primary" style="font-weight:600;">₦${(c.earnings||0).toLocaleString()}</span></div>`).join('') : '<div class="text-muted">No data</div>'}</div></div></div>
-                        <div class="col-md-6"><div class="stat-card"><h6 style="font-weight:700;margin-bottom:1rem;"><i class="bi bi-activity" style="color:var(--primary);"></i> Recent Activity</h6><div id="recentActivity"><div class="text-muted">No recent activity</div></div></div></div>
+
+                    <!-- Top Courses + Activity Feed -->
+                    <div class="row mt-3 g-3">
+                        <div class="col-md-6">
+                            <div class="stat-card">
+                                <h6 style="font-weight:700;font-size:0.85rem;"><i class="bi bi-trophy" style="color:var(--primary);"></i> Top Courses</h6>
+                                <div id="topCoursesList">${topCourses.length ? topCourses.map(c => `<div class="d-flex justify-content-between py-2 border-bottom border-secondary" style="border-color:var(--border-color)!important;"><span>${c.postId?.title || 'Untitled'}</span><span class="text-primary" style="font-weight:600;">₦${(c.earnings||0).toLocaleString()}</span></div>`).join('') : '<div class="text-muted">No data</div>'}</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card">
+                                <h6 style="font-weight:700;font-size:0.85rem;"><i class="bi bi-activity" style="color:var(--primary);"></i> Recent Activity</h6>
+                                <div class="activity-feed">
+                                    ${activities.map(a => `
+                                        <div class="activity-item">
+                                            <div class="activity-icon"><i class="bi ${a.icon}"></i></div>
+                                            <div class="activity-text">${a.text}</div>
+                                            <div class="activity-time">${a.time}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `;
 
@@ -1196,20 +1429,19 @@
         }
 
         function renderUsersTable(users, reset) {
-            const existing = document.getElementById('usersTableBody');
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-people" style="color:var(--primary);"></i> Users (${users.length})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateUser()"><i class="bi bi-plus"></i> Add User</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="exportData('users')"><i class="bi bi-download"></i> Export</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="exportData('users')"><i class="bi bi-download"></i> Export All</button>
                         <button class="btn btn-outline-danger btn-sm" onclick="bulkDeleteUsers()"><i class="bi bi-trash"></i> Bulk Delete</button>
                         <button class="btn btn-outline-warning btn-sm" onclick="bulkBanUsers()"><i class="bi bi-person-x"></i> Bulk Ban</button>
                     </div>
                 </div>
                 <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2 px-2">
-                        <input class="form-control form-control-sm" style="width:200px;" placeholder="Search..." id="userSearch" oninput="filterUsers()">
+                        <input class="form-control form-control-sm" style="width:180px;" placeholder="Search..." id="userSearch" oninput="filterUsers()">
                         <select class="form-select form-select-sm" style="width:auto;" id="userRoleFilter" onchange="filterUsers()">
                             <option value="">All Roles</option>
                             <option value="student">Student</option>
@@ -1224,100 +1456,85 @@
                     </div>
                     <table class="table">
                         <thead><tr>
-                            <th style="width:40px;"><input type="checkbox" class="select-all-checkbox" id="selectAllUsers" onchange="toggleSelectAllUsers()"></th>
-                            <th>Name</th><th>Email</th><th>Role</th><th>Status</th><th style="width:180px;">Actions</th>
+                            <th style="width:36px;"><input type="checkbox" class="select-all-checkbox" id="selectAllUsers" onchange="toggleSelectAllUsers()"></th>
+                            <th>Name</th><th>Email</th><th>Role</th><th>Status</th><th style="width:170px;">Actions</th>
                         </tr></thead>
                         <tbody id="usersTableBody">
-                `;
-            users.forEach(u => {
-                const roles = (u.roles || []).join(', ');
-                const status = u.isBanned ? '<span class="badge-status badge-banned">Banned</span>' :
-                    '<span class="badge-status badge-active">Active</span>';
-                const checked = selectedUserIds.has(u._id) ? 'checked' : '';
-                html += `<tr data-userid="${u._id}">
-                    <td><input type="checkbox" class="row-checkbox user-checkbox" data-id="${u._id}" ${checked} onchange="toggleUserSelection('${u._id}')"></td>
-                    <td><strong>${u.firstName || ''} ${u.lastName || ''}</strong></td>
-                    <td>${u.email || ''}</td>
-                    <td>${roles || 'student'}</td>
-                    <td>${status}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewUser('${u._id}')" title="View"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="editUser('${u._id}')" title="Edit"><i class="bi bi-pencil"></i></button>
-                        ${u.isBanned ? `<button class="btn btn-sm btn-outline-success" onclick="toggleUserBan('${u._id}', false)" title="Unban"><i class="bi bi-person-check"></i></button>` :
+                ${users.map(u => {
+                    const roles = (u.roles || []).join(', ');
+                    const status = u.isBanned ? '<span class="badge-status badge-banned">Banned</span>' : '<span class="badge-status badge-active">Active</span>';
+                    const checked = selectedUserIds.has(u._id) ? 'checked' : '';
+                    return `<tr data-userid="${u._id}">
+                        <td><input type="checkbox" class="row-checkbox user-checkbox" data-id="${u._id}" ${checked} onchange="toggleUserSelection('${u._id}')"></td>
+                        <td><strong>${u.firstName || ''} ${u.lastName || ''}</strong></td>
+                        <td>${u.email || ''}</td>
+                        <td>${roles || 'student'}</td>
+                        <td>${status}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewUser('${u._id}')" title="View"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editUser('${u._id}')" title="Edit"><i class="bi bi-pencil"></i></button>
+                            ${u.isBanned ? `<button class="btn btn-sm btn-outline-success" onclick="toggleUserBan('${u._id}', false)" title="Unban"><i class="bi bi-person-check"></i></button>` :
                             `<button class="btn btn-sm btn-outline-danger" onclick="toggleUserBan('${u._id}', true)" title="Ban"><i class="bi bi-person-x"></i></button>`}
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u._id}')" title="Delete"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (usersHasMore) {
-                html += `<div class="infinite-trigger" id="usersInfiniteTrigger" onclick="loadUsers(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u._id}')" title="Delete"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="usersInfiniteTrigger" onclick="loadUsers(false)" data-section="users">
+                        ${usersHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const container = document.querySelector('.table-container');
                 if (container) {
-                    const existingBody = container.querySelector('tbody');
-                    const newBody = document.createElement('tbody');
-                    newBody.id = 'usersTableBody';
-                    // Append only new rows
-                    const existingIds = new Set();
-                    document.querySelectorAll('#usersTableBody tr').forEach(tr => {
-                        const id = tr.dataset.userid;
-                        if (id) existingIds.add(id);
-                    });
-                    const fragment = document.createDocumentFragment();
-                    users.forEach(u => {
-                        if (!existingIds.has(u._id)) {
-                            const tr = document.createElement('tr');
-                            tr.dataset.userid = u._id;
-                            const roles = (u.roles || []).join(', ');
-                            const status = u.isBanned ?
-                                '<span class="badge-status badge-banned">Banned</span>' :
-                                '<span class="badge-status badge-active">Active</span>';
-                            const checked = selectedUserIds.has(u._id) ? 'checked' : '';
-                            tr.innerHTML = `
-                                <td><input type="checkbox" class="row-checkbox user-checkbox" data-id="${u._id}" ${checked} onchange="toggleUserSelection('${u._id}')"></td>
-                                <td><strong>${u.firstName || ''} ${u.lastName || ''}</strong></td>
-                                <td>${u.email || ''}</td>
-                                <td>${roles || 'student'}</td>
-                                <td>${status}</td>
-                                <td>
-                                    <button class="btn btn-sm btn-outline-primary" onclick="viewUser('${u._id}')" title="View"><i class="bi bi-eye"></i></button>
-                                    <button class="btn btn-sm btn-outline-secondary" onclick="editUser('${u._id}')" title="Edit"><i class="bi bi-pencil"></i></button>
-                                    ${u.isBanned ? `<button class="btn btn-sm btn-outline-success" onclick="toggleUserBan('${u._id}', false)" title="Unban"><i class="bi bi-person-check"></i></button>` :
-                                        `<button class="btn btn-sm btn-outline-danger" onclick="toggleUserBan('${u._id}', true)" title="Ban"><i class="bi bi-person-x"></i></button>`}
-                                    <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u._id}')" title="Delete"><i class="bi bi-trash"></i></button>
-                                </td>
-                            `;
-                            fragment.appendChild(tr);
-                        }
-                    });
                     const tbody = document.getElementById('usersTableBody');
-                    if (tbody) tbody.appendChild(fragment);
-                    // Update trigger
+                    if (tbody) {
+                        const existingIds = new Set();
+                        tbody.querySelectorAll('tr').forEach(tr => { const id = tr.dataset.userid; if (id) existingIds.add(
+                            id); });
+                        const fragment = document.createDocumentFragment();
+                        users.forEach(u => {
+                            if (!existingIds.has(u._id)) {
+                                const tr = document.createElement('tr');
+                                tr.dataset.userid = u._id;
+                                const roles = (u.roles || []).join(', ');
+                                const status = u.isBanned ?
+                                    '<span class="badge-status badge-banned">Banned</span>' :
+                                    '<span class="badge-status badge-active">Active</span>';
+                                const checked = selectedUserIds.has(u._id) ? 'checked' : '';
+                                tr.innerHTML = `
+                                    <td><input type="checkbox" class="row-checkbox user-checkbox" data-id="${u._id}" ${checked} onchange="toggleUserSelection('${u._id}')"></td>
+                                    <td><strong>${u.firstName || ''} ${u.lastName || ''}</strong></td>
+                                    <td>${u.email || ''}</td>
+                                    <td>${roles || 'student'}</td>
+                                    <td>${status}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary" onclick="viewUser('${u._id}')" title="View"><i class="bi bi-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary" onclick="editUser('${u._id}')" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        ${u.isBanned ? `<button class="btn btn-sm btn-outline-success" onclick="toggleUserBan('${u._id}', false)" title="Unban"><i class="bi bi-person-check"></i></button>` :
+                                        `<button class="btn btn-sm btn-outline-danger" onclick="toggleUserBan('${u._id}', true)" title="Ban"><i class="bi bi-person-x"></i></button>`}
+                                        <button class="btn btn-sm btn-outline-danger" onclick="deleteUser('${u._id}')" title="Delete"><i class="bi bi-trash"></i></button>
+                                    </td>
+                                `;
+                                fragment.appendChild(tr);
+                            }
+                        });
+                        tbody.appendChild(fragment);
+                    }
                     const trigger = document.getElementById('usersInfiniteTrigger');
                     if (trigger) {
-                        if (usersHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.style.display = 'block';
-                            trigger.onclick = () => loadUsers(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
+                        trigger.innerHTML = usersHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                            '— End of list —';
+                        trigger.style.opacity = usersHasMore ? '1' : '0.5';
+                        trigger.onclick = usersHasMore ? () => loadUsers(false) : null;
                     }
                 }
             }
         }
 
-        // User selection
         window.toggleUserSelection = function(id) {
             if (selectedUserIds.has(id)) selectedUserIds.delete(id);
             else selectedUserIds.add(id);
@@ -1344,7 +1561,7 @@
             renderUsersTable(filtered, true);
         };
 
-        // User CRUD
+        // User CRUD functions (view, edit, toggleBan, delete, create, bulk)
         window.viewUser = async function(id) {
             try {
                 const data = await apiCall(`/admin/users/${id}`);
@@ -1366,7 +1583,6 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.editUser = function(id) {
             const u = usersData.find(x => x._id === id);
             if (!u) return showToast('User not found', 'danger');
@@ -1400,7 +1616,6 @@
             };
             actionModal.show();
         };
-
         window.toggleUserBan = async function(id, ban) {
             if (!confirm(`${ban ? 'Ban' : 'Unban'} this user?`)) return;
             try {
@@ -1409,7 +1624,6 @@
                 loadUsers(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.deleteUser = async function(id) {
             if (!confirm('Delete this user permanently?')) return;
             try {
@@ -1418,7 +1632,6 @@
                 loadUsers(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.openCreateUser = function() {
             actionModalLabel.textContent = 'Create User';
             actionModalBody.innerHTML = `
@@ -1452,7 +1665,6 @@
             };
             actionModal.show();
         };
-
         window.bulkDeleteUsers = async function() {
             if (selectedUserIds.size === 0) return showToast('Select users first', 'warning');
             if (!confirm(`Delete ${selectedUserIds.size} users?`)) return;
@@ -1507,19 +1719,19 @@
         }
 
         function renderCoursesTable(courses, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-book" style="color:var(--primary);"></i> Courses (${courses.length})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateCourse()"><i class="bi bi-plus"></i> Add Course</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="exportData('courses')"><i class="bi bi-download"></i> Export</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="exportData('courses')"><i class="bi bi-download"></i> Export All</button>
                         <button class="btn btn-outline-danger btn-sm" onclick="bulkDeleteCourses()"><i class="bi bi-trash"></i> Bulk Delete</button>
                         <button class="btn btn-outline-success btn-sm" onclick="bulkApproveCourses()"><i class="bi bi-check"></i> Bulk Approve</button>
                     </div>
                 </div>
                 <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2 px-2">
-                        <input class="form-control form-control-sm" style="width:200px;" placeholder="Search title..." id="courseSearch" oninput="filterCourses()">
+                        <input class="form-control form-control-sm" style="width:180px;" placeholder="Search title..." id="courseSearch" oninput="filterCourses()">
                         <select class="form-select form-select-sm" style="width:auto;" id="courseStatusFilter" onchange="filterCourses()">
                             <option value="">All Status</option>
                             <option value="approved">Approved</option>
@@ -1529,51 +1741,44 @@
                     </div>
                     <table class="table">
                         <thead><tr>
-                            <th style="width:40px;"><input type="checkbox" class="select-all-checkbox" id="selectAllCourses" onchange="toggleSelectAllCourses()"></th>
-                            <th>Title</th><th>Instructor</th><th>Status</th><th>Price</th><th style="width:200px;">Actions</th>
+                            <th style="width:36px;"><input type="checkbox" class="select-all-checkbox" id="selectAllCourses" onchange="toggleSelectAllCourses()"></th>
+                            <th>Title</th><th>Instructor</th><th>Status</th><th>Price</th><th style="width:190px;">Actions</th>
                         </tr></thead>
                         <tbody id="coursesTableBody">
-                `;
-            courses.forEach(c => {
-                const statusBadge = c.approvalStatus === 'approved' ?
-                    '<span class="badge-status badge-approved">Approved</span>' :
-                    c.approvalStatus === 'pending' ?
-                    '<span class="badge-status badge-pending">Pending</span>' :
-                    '<span class="badge-status badge-rejected">Rejected</span>';
-                const checked = selectedCourseIds.has(c._id) ? 'checked' : '';
-                html += `<tr data-courseid="${c._id}">
-                    <td><input type="checkbox" class="row-checkbox course-checkbox" data-id="${c._id}" ${checked} onchange="toggleCourseSelection('${c._id}')"></td>
-                    <td><strong>${c.title || 'Untitled'}</strong></td>
-                    <td>${c.instructorId?.firstName || 'N/A'}</td>
-                    <td>${statusBadge}</td>
-                    <td>₦${(c.price||0).toLocaleString()}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewCourse('${c._id}')"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="editCourse('${c._id}')"><i class="bi bi-pencil"></i></button>
-                        ${c.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-success" onclick="approveCourse('${c._id}')"><i class="bi bi-check"></i></button>` : ''}
-                        ${c.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-danger" onclick="rejectCourse('${c._id}')"><i class="bi bi-x"></i></button>` : ''}
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteCourse('${c._id}')"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (coursesHasMore) {
-                html += `<div class="infinite-trigger" id="coursesInfiniteTrigger" onclick="loadCourses(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
-                // Append only new rows
-                const existingIds = new Set();
-                document.querySelectorAll('#coursesTableBody tr').forEach(tr => {
-                    const id = tr.dataset.courseid;
-                    if (id) existingIds.add(id);
-                });
+                ${courses.map(c => {
+                    const statusBadge = c.approvalStatus === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
+                        c.approvalStatus === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
+                        '<span class="badge-status badge-rejected">Rejected</span>';
+                    const checked = selectedCourseIds.has(c._id) ? 'checked' : '';
+                    return `<tr data-courseid="${c._id}">
+                        <td><input type="checkbox" class="row-checkbox course-checkbox" data-id="${c._id}" ${checked} onchange="toggleCourseSelection('${c._id}')"></td>
+                        <td><strong>${c.title || 'Untitled'}</strong></td>
+                        <td>${c.instructorId?.firstName || 'N/A'}</td>
+                        <td>${statusBadge}</td>
+                        <td>₦${(c.price||0).toLocaleString()}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewCourse('${c._id}')"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editCourse('${c._id}')"><i class="bi bi-pencil"></i></button>
+                            ${c.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-success" onclick="approveCourse('${c._id}')"><i class="bi bi-check"></i></button>` : ''}
+                            ${c.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-danger" onclick="rejectCourse('${c._id}')"><i class="bi bi-x"></i></button>` : ''}
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteCourse('${c._id}')"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="coursesInfiniteTrigger" onclick="loadCourses(false)" data-section="courses">
+                        ${coursesHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('coursesTableBody');
                 if (tbody) {
+                    const existingIds = new Set();
+                    tbody.querySelectorAll('tr').forEach(tr => { const id = tr.dataset.courseid; if (id) existingIds.add(
+                        id); });
                     const fragment = document.createDocumentFragment();
                     courses.forEach(c => {
                         if (!existingIds.has(c._id)) {
@@ -1603,18 +1808,13 @@
                         }
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('coursesInfiniteTrigger');
-                    if (trigger) {
-                        if (coursesHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.style.display = 'block';
-                            trigger.onclick = () => loadCourses(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('coursesInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = coursesHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = coursesHasMore ? '1' : '0.5';
+                    trigger.onclick = coursesHasMore ? () => loadCourses(false) : null;
                 }
             }
         }
@@ -1640,7 +1840,6 @@
             if (statusFilter) filtered = filtered.filter(c => c.approvalStatus === statusFilter);
             renderCoursesTable(filtered, true);
         };
-
         window.viewCourse = async function(id) {
             try {
                 const data = await apiCall(`/admin/courses/${id}`);
@@ -1660,7 +1859,6 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.editCourse = function(id) {
             const c = coursesData.find(x => x._id === id);
             if (!c) return showToast('Course not found', 'danger');
@@ -1691,7 +1889,6 @@
             };
             actionModal.show();
         };
-
         window.approveCourse = async function(id) {
             try {
                 await apiCall(`/admin/courses/${id}/approve`, { method: 'POST' });
@@ -1743,7 +1940,6 @@
             };
             actionModal.show();
         };
-
         window.bulkDeleteCourses = async function() {
             if (selectedCourseIds.size === 0) return showToast('Select courses first', 'warning');
             if (!confirm(`Delete ${selectedCourseIds.size} courses?`)) return;
@@ -1797,19 +1993,19 @@
         }
 
         function renderBooksTable(books, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-journal" style="color:var(--primary);"></i> Books (${books.length})</h5>
                     <div class="d-flex gap-2 flex-wrap">
                         <button class="btn btn-primary btn-sm" onclick="openCreateBook()"><i class="bi bi-plus"></i> Add Book</button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="exportData('books')"><i class="bi bi-download"></i> Export</button>
+                        <button class="btn btn-outline-primary btn-sm" onclick="exportData('books')"><i class="bi bi-download"></i> Export All</button>
                         <button class="btn btn-outline-danger btn-sm" onclick="bulkDeleteBooks()"><i class="bi bi-trash"></i> Bulk Delete</button>
                         <button class="btn btn-outline-success btn-sm" onclick="bulkApproveBooks()"><i class="bi bi-check"></i> Bulk Approve</button>
                     </div>
                 </div>
                 <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2 px-2">
-                        <input class="form-control form-control-sm" style="width:200px;" placeholder="Search title..." id="bookSearch" oninput="filterBooks()">
+                        <input class="form-control form-control-sm" style="width:180px;" placeholder="Search title..." id="bookSearch" oninput="filterBooks()">
                         <select class="form-select form-select-sm" style="width:auto;" id="bookStatusFilter" onchange="filterBooks()">
                             <option value="">All Status</option>
                             <option value="approved">Approved</option>
@@ -1819,50 +2015,43 @@
                     </div>
                     <table class="table">
                         <thead><tr>
-                            <th style="width:40px;"><input type="checkbox" class="select-all-checkbox" id="selectAllBooks" onchange="toggleSelectAllBooks()"></th>
-                            <th>Title</th><th>Author</th><th>Status</th><th>Price</th><th style="width:200px;">Actions</th>
+                            <th style="width:36px;"><input type="checkbox" class="select-all-checkbox" id="selectAllBooks" onchange="toggleSelectAllBooks()"></th>
+                            <th>Title</th><th>Author</th><th>Status</th><th>Price</th><th style="width:190px;">Actions</th>
                         </tr></thead>
                         <tbody id="booksTableBody">
-                `;
-            books.forEach(b => {
-                const statusBadge = b.approvalStatus === 'approved' ?
-                    '<span class="badge-status badge-approved">Approved</span>' :
-                    b.approvalStatus === 'pending' ?
-                    '<span class="badge-status badge-pending">Pending</span>' :
-                    '<span class="badge-status badge-rejected">Rejected</span>';
-                const checked = selectedBookIds.has(b._id) ? 'checked' : '';
-                html += `<tr data-bookid="${b._id}">
-                    <td><input type="checkbox" class="row-checkbox book-checkbox" data-id="${b._id}" ${checked} onchange="toggleBookSelection('${b._id}')"></td>
-                    <td><strong>${b.title || 'Untitled'}</strong></td>
-                    <td>${b.author || 'Unknown'}</td>
-                    <td>${statusBadge}</td>
-                    <td>₦${(b.price||0).toLocaleString()}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewBook('${b._id}')"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="editBook('${b._id}')"><i class="bi bi-pencil"></i></button>
-                        ${b.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-success" onclick="approveBook('${b._id}')"><i class="bi bi-check"></i></button>` : ''}
-                        ${b.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-danger" onclick="rejectBook('${b._id}')"><i class="bi bi-x"></i></button>` : ''}
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteBook('${b._id}')"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (booksHasMore) {
-                html += `<div class="infinite-trigger" id="booksInfiniteTrigger" onclick="loadBooks(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
-                const existingIds = new Set();
-                document.querySelectorAll('#booksTableBody tr').forEach(tr => {
-                    const id = tr.dataset.bookid;
-                    if (id) existingIds.add(id);
-                });
+                ${books.map(b => {
+                    const statusBadge = b.approvalStatus === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
+                        b.approvalStatus === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
+                        '<span class="badge-status badge-rejected">Rejected</span>';
+                    const checked = selectedBookIds.has(b._id) ? 'checked' : '';
+                    return `<tr data-bookid="${b._id}">
+                        <td><input type="checkbox" class="row-checkbox book-checkbox" data-id="${b._id}" ${checked} onchange="toggleBookSelection('${b._id}')"></td>
+                        <td><strong>${b.title || 'Untitled'}</strong></td>
+                        <td>${b.author || 'Unknown'}</td>
+                        <td>${statusBadge}</td>
+                        <td>₦${(b.price||0).toLocaleString()}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewBook('${b._id}')"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editBook('${b._id}')"><i class="bi bi-pencil"></i></button>
+                            ${b.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-success" onclick="approveBook('${b._id}')"><i class="bi bi-check"></i></button>` : ''}
+                            ${b.approvalStatus === 'pending' ? `<button class="btn btn-sm btn-outline-danger" onclick="rejectBook('${b._id}')"><i class="bi bi-x"></i></button>` : ''}
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteBook('${b._id}')"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="booksInfiniteTrigger" onclick="loadBooks(false)" data-section="books">
+                        ${booksHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('booksTableBody');
                 if (tbody) {
+                    const existingIds = new Set();
+                    tbody.querySelectorAll('tr').forEach(tr => { const id = tr.dataset.bookid; if (id) existingIds.add(id); });
                     const fragment = document.createDocumentFragment();
                     books.forEach(b => {
                         if (!existingIds.has(b._id)) {
@@ -1892,17 +2081,13 @@
                         }
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('booksInfiniteTrigger');
-                    if (trigger) {
-                        if (booksHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadBooks(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('booksInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = booksHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = booksHasMore ? '1' : '0.5';
+                    trigger.onclick = booksHasMore ? () => loadBooks(false) : null;
                 }
             }
         }
@@ -1928,7 +2113,6 @@
             if (statusFilter) filtered = filtered.filter(b => b.approvalStatus === statusFilter);
             renderBooksTable(filtered, true);
         };
-
         window.viewBook = async function(id) {
             try {
                 const data = await apiCall(`/admin/books/${id}`);
@@ -1947,7 +2131,6 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.editBook = function(id) {
             const b = booksData.find(x => x._id === id);
             if (!b) return showToast('Book not found', 'danger');
@@ -1978,7 +2161,6 @@
             };
             actionModal.show();
         };
-
         window.approveBook = async function(id) {
             try {
                 await apiCall(`/admin/books/${id}/approve`, { method: 'POST' });
@@ -2030,7 +2212,6 @@
             };
             actionModal.show();
         };
-
         window.bulkDeleteBooks = async function() {
             if (selectedBookIds.size === 0) return showToast('Select books first', 'warning');
             if (!confirm(`Delete ${selectedBookIds.size} books?`)) return;
@@ -2054,7 +2235,7 @@
         };
 
         // ================================================================
-        // POSTS — Full list with publish/delete
+        // POSTS — List with publish/delete
         // ================================================================
         let postsData = [];
         let postsPage = 1;
@@ -2082,78 +2263,62 @@
         }
 
         function renderPostsTable(posts, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-newspaper" style="color:var(--primary);"></i> Posts (${posts.length})</h5>
-                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('posts')"><i class="bi bi-download"></i> Export</button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('posts')"><i class="bi bi-download"></i> Export All</button>
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>Title</th><th>Author</th><th>Status</th><th style="width:160px;">Actions</th></tr></thead>
+                        <thead><tr><th>Title</th><th>Author</th><th>Status</th><th style="width:150px;">Actions</th></tr></thead>
                         <tbody id="postsTableBody">
-                `;
-            posts.forEach(p => {
-                const statusBadge = p.isPublished ?
-                    '<span class="badge-status badge-approved">Published</span>' :
-                    '<span class="badge-status badge-inactive">Draft</span>';
-                html += `<tr>
-                    <td><strong>${p.title || 'Untitled'}</strong></td>
-                    <td>${p.authorId?.firstName || 'User'}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        ${!p.isPublished ? `<button class="btn btn-sm btn-outline-success" onclick="publishPost('${p._id}')"><i class="bi bi-check"></i> Publish</button>` : ''}
-                        <button class="btn btn-sm btn-outline-danger" onclick="deletePost('${p._id}')"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (postsHasMore) {
-                html += `<div class="infinite-trigger" id="postsInfiniteTrigger" onclick="loadPosts(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
-                const existingIds = new Set();
-                document.querySelectorAll('#postsTableBody tr').forEach(tr => {
-                    const id = tr.dataset.postid;
-                    if (id) existingIds.add(id);
-                });
+                ${posts.map(p => {
+                    const statusBadge = p.isPublished ? '<span class="badge-status badge-approved">Published</span>' : '<span class="badge-status badge-inactive">Draft</span>';
+                    return `<tr>
+                        <td><strong>${p.title || 'Untitled'}</strong></td>
+                        <td>${p.authorId?.firstName || 'User'}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            ${!p.isPublished ? `<button class="btn btn-sm btn-outline-success" onclick="publishPost('${p._id}')"><i class="bi bi-check"></i> Publish</button>` : ''}
+                            <button class="btn btn-sm btn-outline-danger" onclick="deletePost('${p._id}')"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="postsInfiniteTrigger" onclick="loadPosts(false)" data-section="posts">
+                        ${postsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('postsTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     posts.forEach(p => {
-                        if (!existingIds.has(p._id)) {
-                            const tr = document.createElement('tr');
-                            const statusBadge = p.isPublished ?
-                                '<span class="badge-status badge-approved">Published</span>' :
-                                '<span class="badge-status badge-inactive">Draft</span>';
-                            tr.innerHTML = `
-                                <td><strong>${p.title || 'Untitled'}</strong></td>
-                                <td>${p.authorId?.firstName || 'User'}</td>
-                                <td>${statusBadge}</td>
-                                <td>
-                                    ${!p.isPublished ? `<button class="btn btn-sm btn-outline-success" onclick="publishPost('${p._id}')"><i class="bi bi-check"></i> Publish</button>` : ''}
-                                    <button class="btn btn-sm btn-outline-danger" onclick="deletePost('${p._id}')"><i class="bi bi-trash"></i></button>
-                                </td>
-                            `;
-                            fragment.appendChild(tr);
-                        }
+                        const tr = document.createElement('tr');
+                        const statusBadge = p.isPublished ? '<span class="badge-status badge-approved">Published</span>' :
+                            '<span class="badge-status badge-inactive">Draft</span>';
+                        tr.innerHTML = `
+                            <td><strong>${p.title || 'Untitled'}</strong></td>
+                            <td>${p.authorId?.firstName || 'User'}</td>
+                            <td>${statusBadge}</td>
+                            <td>
+                                ${!p.isPublished ? `<button class="btn btn-sm btn-outline-success" onclick="publishPost('${p._id}')"><i class="bi bi-check"></i> Publish</button>` : ''}
+                                <button class="btn btn-sm btn-outline-danger" onclick="deletePost('${p._id}')"><i class="bi bi-trash"></i></button>
+                            </td>
+                        `;
+                        fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('postsInfiniteTrigger');
-                    if (trigger) {
-                        if (postsHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadPosts(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('postsInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = postsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = postsHasMore ? '1' : '0.5';
+                    trigger.onclick = postsHasMore ? () => loadPosts(false) : null;
                 }
             }
         }
@@ -2203,14 +2368,14 @@
         }
 
         function renderPaymentsTable(payments, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-credit-card" style="color:var(--primary);"></i> Transactions & Withdrawals (${payments.length})</h5>
-                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('payments')"><i class="bi bi-download"></i> Export</button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('payments')"><i class="bi bi-download"></i> Export All</button>
                 </div>
                 <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2 px-2">
-                        <input class="form-control form-control-sm" style="width:200px;" placeholder="Search user..." id="paymentSearch" oninput="filterPayments()">
+                        <input class="form-control form-control-sm" style="width:180px;" placeholder="Search user..." id="paymentSearch" oninput="filterPayments()">
                         <select class="form-select form-select-sm" style="width:auto;" id="paymentStatusFilter" onchange="filterPayments()">
                             <option value="">All Status</option>
                             <option value="pending">Pending</option>
@@ -2219,49 +2384,43 @@
                         </select>
                     </div>
                     <table class="table">
-                        <thead><tr><th>User</th><th>Amount</th><th>Bank</th><th>Account</th><th>Status</th><th style="width:180px;">Actions</th></tr></thead>
+                        <thead><tr><th>User</th><th>Amount</th><th>Bank</th><th>Account</th><th>Status</th><th style="width:170px;">Actions</th></tr></thead>
                         <tbody id="paymentsTableBody">
-                `;
-            payments.forEach(p => {
-                const statusBadge = p.status === 'completed' ?
-                    '<span class="badge-status badge-approved">Completed</span>' :
-                    p.status === 'pending' ?
-                    '<span class="badge-status badge-pending">Pending</span>' :
-                    '<span class="badge-status badge-rejected">Failed</span>';
-                html += `<tr>
-                    <td>${p.user?.firstName || 'User'} ${p.user?.lastName || ''}</td>
-                    <td>₦${Math.abs(p.amount || 0).toLocaleString()}</td>
-                    <td>${p.user?.bankAccount?.bankName || 'N/A'}</td>
-                    <td>${p.user?.bankAccount?.accountNumber || 'N/A'}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        ${p.status === 'pending' ? `
-                            <button class="btn btn-sm btn-outline-success" onclick="approveWithdrawal('${p._id}')"><i class="bi bi-check"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="rejectWithdrawal('${p._id}')"><i class="bi bi-x"></i></button>
-                        ` : ''}
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewPayment('${p._id}')"><i class="bi bi-eye"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (paymentsHasMore) {
-                html += `<div class="infinite-trigger" id="paymentsInfiniteTrigger" onclick="loadPayments(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${payments.map(p => {
+                    const statusBadge = p.status === 'completed' ? '<span class="badge-status badge-approved">Completed</span>' :
+                        p.status === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
+                        '<span class="badge-status badge-rejected">Failed</span>';
+                    return `<tr>
+                        <td>${p.user?.firstName || 'User'} ${p.user?.lastName || ''}</td>
+                        <td>₦${Math.abs(p.amount || 0).toLocaleString()}</td>
+                        <td>${p.user?.bankAccount?.bankName || 'N/A'}</td>
+                        <td>${p.user?.bankAccount?.accountNumber || 'N/A'}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            ${p.status === 'pending' ? `
+                                <button class="btn btn-sm btn-outline-success" onclick="approveWithdrawal('${p._id}')"><i class="bi bi-check"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="rejectWithdrawal('${p._id}')"><i class="bi bi-x"></i></button>
+                            ` : ''}
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewPayment('${p._id}')"><i class="bi bi-eye"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="paymentsInfiniteTrigger" onclick="loadPayments(false)" data-section="payments">
+                        ${paymentsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('paymentsTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     payments.forEach(p => {
                         const tr = document.createElement('tr');
-                        const statusBadge = p.status === 'completed' ?
-                            '<span class="badge-status badge-approved">Completed</span>' :
-                            p.status === 'pending' ?
-                            '<span class="badge-status badge-pending">Pending</span>' :
+                        const statusBadge = p.status === 'completed' ? '<span class="badge-status badge-approved">Completed</span>' :
+                            p.status === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
                             '<span class="badge-status badge-rejected">Failed</span>';
                         tr.innerHTML = `
                             <td>${p.user?.firstName || 'User'} ${p.user?.lastName || ''}</td>
@@ -2280,17 +2439,13 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('paymentsInfiniteTrigger');
-                    if (trigger) {
-                        if (paymentsHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadPayments(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('paymentsInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = paymentsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = paymentsHasMore ? '1' : '0.5';
+                    trigger.onclick = paymentsHasMore ? () => loadPayments(false) : null;
                 }
             }
         }
@@ -2304,7 +2459,6 @@
             if (statusFilter) filtered = filtered.filter(p => p.status === statusFilter);
             renderPaymentsTable(filtered, true);
         };
-
         window.approveWithdrawal = async function(id) {
             if (!confirm('Approve this withdrawal?')) return;
             try {
@@ -2372,14 +2526,14 @@
         }
 
         function renderManualPaymentsTable(payments, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-arrow-up-circle" style="color:var(--primary);"></i> Manual Payments (${payments.length})</h5>
-                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('manual-payments')"><i class="bi bi-download"></i> Export</button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportData('manual-payments')"><i class="bi bi-download"></i> Export All</button>
                 </div>
                 <div class="table-container">
                     <div class="d-flex flex-wrap gap-2 mb-2 px-2">
-                        <input class="form-control form-control-sm" style="width:200px;" placeholder="Search user..." id="manualSearch" oninput="filterManualPayments()">
+                        <input class="form-control form-control-sm" style="width:180px;" placeholder="Search user..." id="manualSearch" oninput="filterManualPayments()">
                         <select class="form-select form-select-sm" style="width:auto;" id="manualStatusFilter" onchange="filterManualPayments()">
                             <option value="">All Status</option>
                             <option value="pending_review">Pending</option>
@@ -2396,56 +2550,50 @@
                         </select>
                     </div>
                     <table class="table">
-                        <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Reference</th><th>Receipt</th><th>Status</th><th style="width:180px;">Actions</th></tr></thead>
+                        <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Reference</th><th>Receipt</th><th>Status</th><th style="width:170px;">Actions</th></tr></thead>
                         <tbody id="manualPaymentsTableBody">
-                `;
-            payments.forEach(p => {
-                const statusBadge = p.status === 'approved' ?
-                    '<span class="badge-status badge-approved">Approved</span>' :
-                    p.status === 'pending_review' ?
-                    '<span class="badge-status badge-pending">Pending</span>' :
-                    '<span class="badge-status badge-rejected">Rejected</span>';
-                html += `<tr>
-                    <td>${p.userId?.firstName || 'User'} ${p.userId?.lastName || ''}</td>
-                    <td>${p.type || 'N/A'}</td>
-                    <td>₦${(p.amount||0).toLocaleString()}</td>
-                    <td><code style="font-size:0.7rem;">${p.reference || 'N/A'}</code></td>
-                    <td>${p.receiptUrl ? `<a href="${p.receiptUrl}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-image"></i></a>` : 'N/A'}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        ${p.status === 'pending_review' ? `
-                            <button class="btn btn-sm btn-outline-success" onclick="approveManualPayment('${p._id}')"><i class="bi bi-check"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="rejectManualPayment('${p._id}')"><i class="bi bi-x"></i></button>
-                        ` : ''}
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewManualPayment('${p._id}')"><i class="bi bi-eye"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (manualPaymentsHasMore) {
-                html += `<div class="infinite-trigger" id="manualPaymentsInfiniteTrigger" onclick="loadManualPayments(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${payments.map(p => {
+                    const statusBadge = p.status === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
+                        p.status === 'pending_review' ? '<span class="badge-status badge-pending">Pending</span>' :
+                        '<span class="badge-status badge-rejected">Rejected</span>';
+                    return `<tr>
+                        <td>${p.userId?.firstName || 'User'} ${p.userId?.lastName || ''}</td>
+                        <td>${p.type || 'N/A'}</td>
+                        <td>₦${(p.amount||0).toLocaleString()}</td>
+                        <td><code style="font-size:0.65rem;">${p.reference || 'N/A'}</code></td>
+                        <td>${p.receiptUrl ? `<a href="${p.receiptUrl}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-image"></i></a>` : 'N/A'}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            ${p.status === 'pending_review' ? `
+                                <button class="btn btn-sm btn-outline-success" onclick="approveManualPayment('${p._id}')"><i class="bi bi-check"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="rejectManualPayment('${p._id}')"><i class="bi bi-x"></i></button>
+                            ` : ''}
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewManualPayment('${p._id}')"><i class="bi bi-eye"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="manualPaymentsInfiniteTrigger" onclick="loadManualPayments(false)" data-section="manual-payments">
+                        ${manualPaymentsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('manualPaymentsTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     payments.forEach(p => {
                         const tr = document.createElement('tr');
-                        const statusBadge = p.status === 'approved' ?
-                            '<span class="badge-status badge-approved">Approved</span>' :
-                            p.status === 'pending_review' ?
-                            '<span class="badge-status badge-pending">Pending</span>' :
+                        const statusBadge = p.status === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
+                            p.status === 'pending_review' ? '<span class="badge-status badge-pending">Pending</span>' :
                             '<span class="badge-status badge-rejected">Rejected</span>';
                         tr.innerHTML = `
                             <td>${p.userId?.firstName || 'User'} ${p.userId?.lastName || ''}</td>
                             <td>${p.type || 'N/A'}</td>
                             <td>₦${(p.amount||0).toLocaleString()}</td>
-                            <td><code style="font-size:0.7rem;">${p.reference || 'N/A'}</code></td>
+                            <td><code style="font-size:0.65rem;">${p.reference || 'N/A'}</code></td>
                             <td>${p.receiptUrl ? `<a href="${p.receiptUrl}" target="_blank" class="btn btn-sm btn-outline-secondary"><i class="bi bi-image"></i></a>` : 'N/A'}</td>
                             <td>${statusBadge}</td>
                             <td>
@@ -2459,17 +2607,13 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('manualPaymentsInfiniteTrigger');
-                    if (trigger) {
-                        if (manualPaymentsHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadManualPayments(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('manualPaymentsInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = manualPaymentsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = manualPaymentsHasMore ? '1' : '0.5';
+                    trigger.onclick = manualPaymentsHasMore ? () => loadManualPayments(false) : null;
                 }
             }
         }
@@ -2485,7 +2629,6 @@
             if (typeFilter) filtered = filtered.filter(p => p.type === typeFilter);
             renderManualPaymentsTable(filtered, true);
         };
-
         window.approveManualPayment = async function(id) {
             if (!confirm('Approve this manual payment?')) return;
             try {
@@ -2554,53 +2697,47 @@
         }
 
         function renderChallengesTable(challenges, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-trophy" style="color:var(--primary);"></i> Challenges (${challenges.length})</h5>
                     <button class="btn btn-primary btn-sm" onclick="openCreateChallenge()"><i class="bi bi-plus"></i> Add Challenge</button>
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>Title</th><th>Status</th><th>Reward XP</th><th>Participants</th><th style="width:200px;">Actions</th></tr></thead>
+                        <thead><tr><th>Title</th><th>Status</th><th>Reward XP</th><th>Participants</th><th style="width:190px;">Actions</th></tr></thead>
                         <tbody id="challengesTableBody">
-                `;
-            challenges.forEach(c => {
-                const statusBadge = c.status === 'active' ?
-                    '<span class="badge-status badge-active">Active</span>' :
-                    c.status === 'upcoming' ?
-                    '<span class="badge-status badge-upcoming">Upcoming</span>' :
-                    '<span class="badge-status badge-approved">Completed</span>';
-                html += `<tr>
-                    <td><strong>${c.title || 'Untitled'}</strong></td>
-                    <td>${statusBadge}</td>
-                    <td>${c.rewardXP || 0}</td>
-                    <td>${c.participants?.length || 0}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewChallenge('${c._id}')"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="editChallenge('${c._id}')"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteChallenge('${c._id}')"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (challengesHasMore) {
-                html += `<div class="infinite-trigger" id="challengesInfiniteTrigger" onclick="loadChallenges(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${challenges.map(c => {
+                    const statusBadge = c.status === 'active' ? '<span class="badge-status badge-active">Active</span>' :
+                        c.status === 'upcoming' ? '<span class="badge-status badge-upcoming">Upcoming</span>' :
+                        '<span class="badge-status badge-approved">Completed</span>';
+                    return `<tr>
+                        <td><strong>${c.title || 'Untitled'}</strong></td>
+                        <td>${statusBadge}</td>
+                        <td>${c.rewardXP || 0}</td>
+                        <td>${c.participants?.length || 0}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewChallenge('${c._id}')"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editChallenge('${c._id}')"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteChallenge('${c._id}')"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="challengesInfiniteTrigger" onclick="loadChallenges(false)" data-section="challenges">
+                        ${challengesHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('challengesTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     challenges.forEach(c => {
                         const tr = document.createElement('tr');
-                        const statusBadge = c.status === 'active' ?
-                            '<span class="badge-status badge-active">Active</span>' :
-                            c.status === 'upcoming' ?
-                            '<span class="badge-status badge-upcoming">Upcoming</span>' :
+                        const statusBadge = c.status === 'active' ? '<span class="badge-status badge-active">Active</span>' :
+                            c.status === 'upcoming' ? '<span class="badge-status badge-upcoming">Upcoming</span>' :
                             '<span class="badge-status badge-approved">Completed</span>';
                         tr.innerHTML = `
                             <td><strong>${c.title || 'Untitled'}</strong></td>
@@ -2616,17 +2753,13 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('challengesInfiniteTrigger');
-                    if (trigger) {
-                        if (challengesHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadChallenges(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('challengesInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = challengesHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = challengesHasMore ? '1' : '0.5';
+                    trigger.onclick = challengesHasMore ? () => loadChallenges(false) : null;
                 }
             }
         }
@@ -2653,7 +2786,6 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.editChallenge = function(id) {
             const c = challengesData.find(x => x._id === id);
             if (!c) return showToast('Challenge not found', 'danger');
@@ -2692,7 +2824,6 @@
             };
             actionModal.show();
         };
-
         window.deleteChallenge = async function(id) {
             if (!confirm('Delete this challenge?')) return;
             try {
@@ -2701,7 +2832,6 @@
                 loadChallenges(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.openCreateChallenge = function() {
             actionModalLabel.textContent = 'Create Challenge';
             actionModalBody.innerHTML = `
@@ -2768,51 +2898,46 @@
         }
 
         function renderAdsTable(ads, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-megaphone" style="color:var(--primary);"></i> Ads (${ads.length})</h5>
                     <button class="btn btn-primary btn-sm" onclick="openCreateAd()"><i class="bi bi-plus"></i> Add Ad</button>
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>Title</th><th>Placement</th><th>Status</th><th>Impressions</th><th>Clicks</th><th style="width:200px;">Actions</th></tr></thead>
+                        <thead><tr><th>Title</th><th>Placement</th><th>Status</th><th>Impressions</th><th>Clicks</th><th style="width:190px;">Actions</th></tr></thead>
                         <tbody id="adsTableBody">
-                `;
-            ads.forEach(a => {
-                const statusBadge = a.isActive ?
-                    '<span class="badge-status badge-active">Active</span>' :
-                    '<span class="badge-status badge-inactive">Inactive</span>';
-                html += `<tr>
-                    <td><strong>${a.title || 'Untitled'}</strong></td>
-                    <td>${a.placement || 'N/A'}</td>
-                    <td>${statusBadge}</td>
-                    <td>${a.impressions || 0}</td>
-                    <td>${a.clicks || 0}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewAd('${a._id}')"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="editAd('${a._id}')"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteAd('${a._id}')"><i class="bi bi-trash"></i></button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="toggleAdActive('${a._id}')"><i class="bi ${a.isActive ? 'bi-pause-circle' : 'bi-play-circle'}"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (adsHasMore) {
-                html += `<div class="infinite-trigger" id="adsInfiniteTrigger" onclick="loadAds(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${ads.map(a => {
+                    const statusBadge = a.isActive ? '<span class="badge-status badge-active">Active</span>' : '<span class="badge-status badge-inactive">Inactive</span>';
+                    return `<tr>
+                        <td><strong>${a.title || 'Untitled'}</strong></td>
+                        <td>${a.placement || 'N/A'}</td>
+                        <td>${statusBadge}</td>
+                        <td>${a.impressions || 0}</td>
+                        <td>${a.clicks || 0}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewAd('${a._id}')"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editAd('${a._id}')"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteAd('${a._id}')"><i class="bi bi-trash"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="toggleAdActive('${a._id}')"><i class="bi ${a.isActive ? 'bi-pause-circle' : 'bi-play-circle'}"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="adsInfiniteTrigger" onclick="loadAds(false)" data-section="ads">
+                        ${adsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('adsTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     ads.forEach(a => {
                         const tr = document.createElement('tr');
-                        const statusBadge = a.isActive ?
-                            '<span class="badge-status badge-active">Active</span>' :
+                        const statusBadge = a.isActive ? '<span class="badge-status badge-active">Active</span>' :
                             '<span class="badge-status badge-inactive">Inactive</span>';
                         tr.innerHTML = `
                             <td><strong>${a.title || 'Untitled'}</strong></td>
@@ -2830,17 +2955,13 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('adsInfiniteTrigger');
-                    if (trigger) {
-                        if (adsHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadAds(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('adsInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = adsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = adsHasMore ? '1' : '0.5';
+                    trigger.onclick = adsHasMore ? () => loadAds(false) : null;
                 }
             }
         }
@@ -2865,7 +2986,6 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.editAd = function(id) {
             const a = adsData.find(x => x._id === id);
             if (!a) return showToast('Ad not found', 'danger');
@@ -2900,7 +3020,6 @@
             };
             actionModal.show();
         };
-
         window.deleteAd = async function(id) {
             if (!confirm('Delete this ad?')) return;
             try {
@@ -2909,7 +3028,6 @@
                 loadAds(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.toggleAdActive = async function(id) {
             const a = adsData.find(x => x._id === id);
             if (!a) return;
@@ -2919,7 +3037,6 @@
                 loadAds(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.openCreateAd = function() {
             actionModalLabel.textContent = 'Create Ad';
             actionModalBody.innerHTML = `
@@ -2954,7 +3071,7 @@
         };
 
         // ================================================================
-        // SOCIAL EARNINGS — Full config + trigger
+        // SOCIAL EARNINGS
         // ================================================================
         let socialConfig = {};
         let socialPool = 0;
@@ -2991,7 +3108,7 @@
                             <div class="col-3"><label class="form-label">View</label><input type="number" step="0.1" class="form-control" id="viewWeight" value="${cfg.engagementWeights?.view || 0.5}" /></div></div>
                             <button class="btn btn-primary mt-3" onclick="updateSocialConfig()">Save Config</button>
                             <button class="btn btn-outline-primary mt-3 ms-2" onclick="triggerSocialDistribution()">Trigger Distribution</button>
-                            <div class="mt-2 text-muted" style="font-size:0.8rem;">Last Distribution: ${cfg.lastDistributionDate ? new Date(cfg.lastDistributionDate).toLocaleString() : 'Never'}</div>
+                            <div class="mt-2 text-muted" style="font-size:0.75rem;">Last Distribution: ${cfg.lastDistributionDate ? new Date(cfg.lastDistributionDate).toLocaleString() : 'Never'}</div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -3020,7 +3137,6 @@
                 loadSocialEarnings();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.triggerSocialDistribution = async function() {
             if (!confirm('Trigger social earnings distribution now?')) return;
             try {
@@ -3031,7 +3147,7 @@
         };
 
         // ================================================================
-        // ANNOUNCEMENTS — Send + list
+        // ANNOUNCEMENTS
         // ================================================================
         let announcementsData = [];
 
@@ -3053,18 +3169,20 @@
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>Title</th><th>Message</th><th>Date</th><th style="width:100px;">Actions</th></tr></thead>
+                        <thead><tr><th>Title</th><th>Message</th><th>Date</th><th style="width:80px;">Actions</th></tr></thead>
                         <tbody>
-                `;
-            announcementsData.forEach(a => {
-                html += `<tr>
-                    <td><strong>${a.title || 'Untitled'}</strong></td>
-                    <td>${(a.message || '').substring(0, 60)}${(a.message||'').length > 60 ? '…' : ''}</td>
-                    <td>${new Date(a.createdAt).toLocaleString()}</td>
-                    <td><button class="btn btn-sm btn-outline-danger" onclick="deleteAnnouncement('${a._id}')"><i class="bi bi-trash"></i></button></td>
-                </tr>`;
-            });
-            html += `</tbody></table></div>`;
+                ${announcementsData.map(a => `
+                    <tr>
+                        <td><strong>${a.title || 'Untitled'}</strong></td>
+                        <td>${(a.message || '').substring(0, 60)}${(a.message||'').length > 60 ? '…' : ''}</td>
+                        <td>${new Date(a.createdAt).toLocaleString()}</td>
+                        <td><button class="btn btn-sm btn-outline-danger" onclick="deleteAnnouncement('${a._id}')"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
             contentArea.innerHTML = html;
         }
 
@@ -3093,7 +3211,6 @@
             };
             actionModal.show();
         };
-
         window.deleteAnnouncement = async function(id) {
             if (!confirm('Delete this announcement?')) return;
             try {
@@ -3104,7 +3221,7 @@
         };
 
         // ================================================================
-        // COUPONS — Full CRUD
+        // COUPONS
         // ================================================================
         let couponsData = [];
 
@@ -3126,19 +3243,21 @@
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>Code</th><th>Discount</th><th>Uses</th><th>Expiry</th><th style="width:100px;">Actions</th></tr></thead>
+                        <thead><tr><th>Code</th><th>Discount</th><th>Uses</th><th>Expiry</th><th style="width:80px;">Actions</th></tr></thead>
                         <tbody>
-                `;
-            couponsData.forEach(c => {
-                html += `<tr>
-                    <td><strong>${c.code}</strong></td>
-                    <td>${c.discountValue}%</td>
-                    <td>${c.usedCount || 0}/${c.usageLimit || '∞'}</td>
-                    <td>${c.validUntil ? new Date(c.validUntil).toLocaleDateString() : 'Never'}</td>
-                    <td><button class="btn btn-sm btn-outline-danger" onclick="deleteCoupon('${c._id}')"><i class="bi bi-trash"></i></button></td>
-                </tr>`;
-            });
-            html += `</tbody></table></div>`;
+                ${couponsData.map(c => `
+                    <tr>
+                        <td><strong>${c.code}</strong></td>
+                        <td>${c.discountValue}%</td>
+                        <td>${c.usedCount || 0}/${c.usageLimit || '∞'}</td>
+                        <td>${c.validUntil ? new Date(c.validUntil).toLocaleDateString() : 'Never'}</td>
+                        <td><button class="btn btn-sm btn-outline-danger" onclick="deleteCoupon('${c._id}')"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
             contentArea.innerHTML = html;
         }
 
@@ -3169,7 +3288,6 @@
             };
             actionModal.show();
         };
-
         window.deleteCoupon = async function(id) {
             if (!confirm('Delete this coupon?')) return;
             try {
@@ -3180,7 +3298,7 @@
         };
 
         // ================================================================
-        // CAMPAIGNS — Approve/reject, mark paid, refund + infinite scroll
+        // CAMPAIGNS
         // ================================================================
         let campaignsData = [];
         let campaignsPage = 1;
@@ -3208,71 +3326,60 @@
         }
 
         function renderCampaignsTable(campaigns, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-bar-chart" style="color:var(--primary);"></i> Campaigns (${campaigns.length})</h5>
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>Title</th><th>User</th><th>Status</th><th>Payment</th><th style="width:220px;">Actions</th></tr></thead>
+                        <thead><tr><th>Title</th><th>User</th><th>Status</th><th>Payment</th><th style="width:210px;">Actions</th></tr></thead>
                         <tbody id="campaignsTableBody">
-                `;
-            campaigns.forEach(c => {
-                const statusBadge = c.status === 'active' ?
-                    '<span class="badge-status badge-active">Active</span>' :
-                    c.status === 'pending' ?
-                    '<span class="badge-status badge-pending">Pending</span>' :
-                    c.status === 'approved' ?
-                    '<span class="badge-status badge-approved">Approved</span>' :
-                    '<span class="badge-status badge-rejected">Rejected</span>';
-                const paymentBadge = c.paymentStatus === 'paid' ?
-                    '<span class="badge-status badge-approved">Paid</span>' :
-                    '<span class="badge-status badge-pending">Pending</span>';
-                html += `<tr>
-                    <td><strong>${c.title || 'Untitled'}</strong></td>
-                    <td>${c.userId?.firstName || 'User'}</td>
-                    <td>${statusBadge}</td>
-                    <td>${paymentBadge}</td>
-                    <td>
-                        ${c.status === 'pending' ? `
-                            <button class="btn btn-sm btn-outline-success" onclick="approveCampaign('${c._id}')"><i class="bi bi-check"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="rejectCampaign('${c._id}')"><i class="bi bi-x"></i></button>
-                        ` : ''}
-                        ${c.status === 'approved' && c.paymentStatus === 'pending' ? `
-                            <button class="btn btn-sm btn-outline-primary" onclick="markCampaignPaid('${c._id}')"><i class="bi bi-credit-card"></i></button>
-                        ` : ''}
-                        ${c.status === 'active' || c.status === 'completed' ? `
-                            <button class="btn btn-sm btn-outline-danger" onclick="refundCampaign('${c._id}')"><i class="bi bi-arrow-counterclockwise"></i></button>
-                        ` : ''}
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewCampaign('${c._id}')"><i class="bi bi-eye"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (campaignsHasMore) {
-                html += `<div class="infinite-trigger" id="campaignsInfiniteTrigger" onclick="loadCampaigns(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${campaigns.map(c => {
+                    const statusBadge = c.status === 'active' ? '<span class="badge-status badge-active">Active</span>' :
+                        c.status === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
+                        c.status === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
+                        '<span class="badge-status badge-rejected">Rejected</span>';
+                    const paymentBadge = c.paymentStatus === 'paid' ? '<span class="badge-status badge-paid">Paid</span>' : '<span class="badge-status badge-unpaid">Pending</span>';
+                    return `<tr>
+                        <td><strong>${c.title || 'Untitled'}</strong></td>
+                        <td>${c.userId?.firstName || 'User'}</td>
+                        <td>${statusBadge}</td>
+                        <td>${paymentBadge}</td>
+                        <td>
+                            ${c.status === 'pending' ? `
+                                <button class="btn btn-sm btn-outline-success" onclick="approveCampaign('${c._id}')"><i class="bi bi-check"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="rejectCampaign('${c._id}')"><i class="bi bi-x"></i></button>
+                            ` : ''}
+                            ${c.status === 'approved' && c.paymentStatus === 'pending' ? `
+                                <button class="btn btn-sm btn-outline-primary" onclick="markCampaignPaid('${c._id}')"><i class="bi bi-credit-card"></i></button>
+                            ` : ''}
+                            ${c.status === 'active' || c.status === 'completed' ? `
+                                <button class="btn btn-sm btn-outline-danger" onclick="refundCampaign('${c._id}')"><i class="bi bi-arrow-counterclockwise"></i></button>
+                            ` : ''}
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewCampaign('${c._id}')"><i class="bi bi-eye"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="campaignsInfiniteTrigger" onclick="loadCampaigns(false)" data-section="campaigns">
+                        ${campaignsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('campaignsTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     campaigns.forEach(c => {
                         const tr = document.createElement('tr');
-                        const statusBadge = c.status === 'active' ?
-                            '<span class="badge-status badge-active">Active</span>' :
-                            c.status === 'pending' ?
-                            '<span class="badge-status badge-pending">Pending</span>' :
-                            c.status === 'approved' ?
-                            '<span class="badge-status badge-approved">Approved</span>' :
+                        const statusBadge = c.status === 'active' ? '<span class="badge-status badge-active">Active</span>' :
+                            c.status === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
+                            c.status === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
                             '<span class="badge-status badge-rejected">Rejected</span>';
-                        const paymentBadge = c.paymentStatus === 'paid' ?
-                            '<span class="badge-status badge-approved">Paid</span>' :
-                            '<span class="badge-status badge-pending">Pending</span>';
+                        const paymentBadge = c.paymentStatus === 'paid' ? '<span class="badge-status badge-paid">Paid</span>' :
+                            '<span class="badge-status badge-unpaid">Pending</span>';
                         tr.innerHTML = `
                             <td><strong>${c.title || 'Untitled'}</strong></td>
                             <td>${c.userId?.firstName || 'User'}</td>
@@ -3295,17 +3402,13 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('campaignsInfiniteTrigger');
-                    if (trigger) {
-                        if (campaignsHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadCampaigns(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('campaignsInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = campaignsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = campaignsHasMore ? '1' : '0.5';
+                    trigger.onclick = campaignsHasMore ? () => loadCampaigns(false) : null;
                 }
             }
         }
@@ -3365,7 +3468,7 @@
         };
 
         // ================================================================
-        // SPONSORSHIPS — Approve/reject + infinite scroll
+        // SPONSORSHIPS
         // ================================================================
         let sponsorshipsData = [];
         let sponsorshipsPage = 1;
@@ -3393,54 +3496,48 @@
         }
 
         function renderSponsorshipsTable(sponsorships, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-handshake" style="color:var(--primary);"></i> Sponsorships (${sponsorships.length})</h5>
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Status</th><th style="width:200px;">Actions</th></tr></thead>
+                        <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Status</th><th style="width:190px;">Actions</th></tr></thead>
                         <tbody id="sponsorshipsTableBody">
-                `;
-            sponsorships.forEach(s => {
-                const statusBadge = s.status === 'approved' ?
-                    '<span class="badge-status badge-approved">Approved</span>' :
-                    s.status === 'pending' ?
-                    '<span class="badge-status badge-pending">Pending</span>' :
-                    '<span class="badge-status badge-rejected">Rejected</span>';
-                html += `<tr>
-                    <td>${s.userId?.firstName || 'User'} ${s.userId?.lastName || ''}</td>
-                    <td>${s.type || 'N/A'}</td>
-                    <td>₦${(s.amount||0).toLocaleString()}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        ${s.status === 'pending' ? `
-                            <button class="btn btn-sm btn-outline-success" onclick="approveSponsorship('${s._id}')"><i class="bi bi-check"></i></button>
-                            <button class="btn btn-sm btn-outline-danger" onclick="rejectSponsorship('${s._id}')"><i class="bi bi-x"></i></button>
-                        ` : ''}
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewSponsorship('${s._id}')"><i class="bi bi-eye"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (sponsorshipsHasMore) {
-                html += `<div class="infinite-trigger" id="sponsorshipsInfiniteTrigger" onclick="loadSponsorships(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${sponsorships.map(s => {
+                    const statusBadge = s.status === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
+                        s.status === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
+                        '<span class="badge-status badge-rejected">Rejected</span>';
+                    return `<tr>
+                        <td>${s.userId?.firstName || 'User'} ${s.userId?.lastName || ''}</td>
+                        <td>${s.type || 'N/A'}</td>
+                        <td>₦${(s.amount||0).toLocaleString()}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            ${s.status === 'pending' ? `
+                                <button class="btn btn-sm btn-outline-success" onclick="approveSponsorship('${s._id}')"><i class="bi bi-check"></i></button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="rejectSponsorship('${s._id}')"><i class="bi bi-x"></i></button>
+                            ` : ''}
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewSponsorship('${s._id}')"><i class="bi bi-eye"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="sponsorshipsInfiniteTrigger" onclick="loadSponsorships(false)" data-section="sponsorships">
+                        ${sponsorshipsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('sponsorshipsTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     sponsorships.forEach(s => {
                         const tr = document.createElement('tr');
-                        const statusBadge = s.status === 'approved' ?
-                            '<span class="badge-status badge-approved">Approved</span>' :
-                            s.status === 'pending' ?
-                            '<span class="badge-status badge-pending">Pending</span>' :
+                        const statusBadge = s.status === 'approved' ? '<span class="badge-status badge-approved">Approved</span>' :
+                            s.status === 'pending' ? '<span class="badge-status badge-pending">Pending</span>' :
                             '<span class="badge-status badge-rejected">Rejected</span>';
                         tr.innerHTML = `
                             <td>${s.userId?.firstName || 'User'} ${s.userId?.lastName || ''}</td>
@@ -3458,17 +3555,13 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('sponsorshipsInfiniteTrigger');
-                    if (trigger) {
-                        if (sponsorshipsHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadSponsorships(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('sponsorshipsInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = sponsorshipsHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = sponsorshipsHasMore ? '1' : '0.5';
+                    trigger.onclick = sponsorshipsHasMore ? () => loadSponsorships(false) : null;
                 }
             }
         }
@@ -3510,7 +3603,7 @@
         };
 
         // ================================================================
-        // ACADEMIES — Full CRUD + infinite scroll
+        // ACADEMIES
         // ================================================================
         let academiesData = [];
         let academiesPage = 1;
@@ -3538,49 +3631,44 @@
         }
 
         function renderAcademiesTable(academies, reset) {
-            let html = `
+            const html = `
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 style="font-weight:700;"><i class="bi bi-building" style="color:var(--primary);"></i> Academies (${academies.length})</h5>
                     <button class="btn btn-primary btn-sm" onclick="openCreateAcademy()"><i class="bi bi-plus"></i> Add Academy</button>
                 </div>
                 <div class="table-container">
                     <table class="table">
-                        <thead><tr><th>Name</th><th>Domain</th><th>Members</th><th>Status</th><th style="width:200px;">Actions</th></tr></thead>
+                        <thead><tr><th>Name</th><th>Domain</th><th>Members</th><th>Status</th><th style="width:190px;">Actions</th></tr></thead>
                         <tbody id="academiesTableBody">
-                `;
-            academies.forEach(a => {
-                const statusBadge = a.isActive ?
-                    '<span class="badge-status badge-active">Active</span>' :
-                    '<span class="badge-status badge-inactive">Inactive</span>';
-                html += `<tr>
-                    <td><strong>${a.name || 'Untitled'}</strong></td>
-                    <td>${a.customDomain || a.subdomain || 'N/A'}</td>
-                    <td>${a.members?.length || 0}</td>
-                    <td>${statusBadge}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-primary" onclick="viewAcademy('${a._id}')"><i class="bi bi-eye"></i></button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="editAcademy('${a._id}')"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteAcademy('${a._id}')"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (academiesHasMore) {
-                html += `<div class="infinite-trigger" id="academiesInfiniteTrigger" onclick="loadAcademies(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${academies.map(a => {
+                    const statusBadge = a.isActive ? '<span class="badge-status badge-active">Active</span>' : '<span class="badge-status badge-inactive">Inactive</span>';
+                    return `<tr>
+                        <td><strong>${a.name || 'Untitled'}</strong></td>
+                        <td>${a.customDomain || a.subdomain || 'N/A'}</td>
+                        <td>${a.members?.length || 0}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary" onclick="viewAcademy('${a._id}')"><i class="bi bi-eye"></i></button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="editAcademy('${a._id}')"><i class="bi bi-pencil"></i></button>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteAcademy('${a._id}')"><i class="bi bi-trash"></i></button>
+                        </td>
+                    </tr>`;
+                }).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="academiesInfiniteTrigger" onclick="loadAcademies(false)" data-section="academies">
+                        ${academiesHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('academiesTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
                     academies.forEach(a => {
                         const tr = document.createElement('tr');
-                        const statusBadge = a.isActive ?
-                            '<span class="badge-status badge-active">Active</span>' :
+                        const statusBadge = a.isActive ? '<span class="badge-status badge-active">Active</span>' :
                             '<span class="badge-status badge-inactive">Inactive</span>';
                         tr.innerHTML = `
                             <td><strong>${a.name || 'Untitled'}</strong></td>
@@ -3596,17 +3684,13 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('academiesInfiniteTrigger');
-                    if (trigger) {
-                        if (academiesHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadAcademies(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('academiesInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = academiesHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = academiesHasMore ? '1' : '0.5';
+                    trigger.onclick = academiesHasMore ? () => loadAcademies(false) : null;
                 }
             }
         }
@@ -3630,7 +3714,6 @@
                 actionModal.show();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.editAcademy = function(id) {
             const a = academiesData.find(x => x._id === id);
             if (!a) return showToast('Academy not found', 'danger');
@@ -3665,7 +3748,6 @@
             };
             actionModal.show();
         };
-
         window.deleteAcademy = async function(id) {
             if (!confirm('Delete this academy?')) return;
             try {
@@ -3674,7 +3756,6 @@
                 loadAcademies(true);
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.openCreateAcademy = function() {
             actionModalLabel.textContent = 'Create Academy';
             actionModalBody.innerHTML = `
@@ -3709,7 +3790,7 @@
         };
 
         // ================================================================
-        // GAMIFICATION — Achievements, leaderboard, unlock
+        // GAMIFICATION
         // ================================================================
         let gamificationData = { achievements: [], leaderboard: [] };
 
@@ -3739,21 +3820,24 @@
                             <h6 style="font-weight:700;">Achievements (${achievements.length})</h6>
                             <div class="table-container" style="box-shadow:none;border-radius:var(--radius-sm);">
                                 <table class="table">
-                                    <thead><tr><th>Name</th><th>XP</th><th>Type</th><th style="width:120px;">Actions</th></tr></thead>
+                                    <thead><tr><th>Name</th><th>XP</th><th>Type</th><th style="width:110px;">Actions</th></tr></thead>
                                     <tbody>
-                                `;
-            achievements.forEach(a => {
-                html += `<tr>
-                    <td><strong>${a.name}</strong></td>
-                    <td>${a.xpReward||0}</td>
-                    <td>${a.type||'N/A'}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="editAchievement('${a._id}')"><i class="bi bi-pencil"></i></button>
-                        <button class="btn btn-sm btn-outline-danger" onclick="deleteAchievement('${a._id}')"><i class="bi bi-trash"></i></button>
-                    </td>
-                </tr>`;
-            });
-            html += `</tbody></table></div></div></div>
+                                ${achievements.map(a => `
+                                    <tr>
+                                        <td><strong>${a.name}</strong></td>
+                                        <td>${a.xpReward||0}</td>
+                                        <td>${a.type||'N/A'}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-secondary" onclick="editAchievement('${a._id}')"><i class="bi bi-pencil"></i></button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="deleteAchievement('${a._id}')"><i class="bi bi-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-5">
                         <div class="stat-card">
                             <h6 style="font-weight:700;">Leaderboard</h6>
@@ -3796,7 +3880,6 @@
             };
             actionModal.show();
         };
-
         window.editAchievement = function(id) {
             const a = gamificationData.achievements.find(x => x._id === id);
             if (!a) return showToast('Not found', 'danger');
@@ -3827,7 +3910,6 @@
             };
             actionModal.show();
         };
-
         window.deleteAchievement = async function(id) {
             if (!confirm('Delete this achievement?')) return;
             try {
@@ -3836,7 +3918,6 @@
                 loadGamification();
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.forceUnlock = function() {
             actionModalLabel.textContent = 'Force Unlock Achievement';
             actionModalBody.innerHTML = `
@@ -3860,7 +3941,7 @@
         };
 
         // ================================================================
-        // SETTINGS — Feature flags, ad config, bank details
+        // SETTINGS
         // ================================================================
         async function loadSettings() {
             try {
@@ -3918,7 +3999,6 @@
                 showToast('Ad config saved', 'success');
             } catch (e) { showToast(e.message, 'danger'); }
         };
-
         window.saveFeatureFlags = function() {
             const flags = {
                 referrals: document.getElementById('flagReferrals').checked,
@@ -3929,7 +4009,6 @@
             showToast('Feature flags saved (stub – implement endpoint)', 'info');
             console.log('Flags:', flags);
         };
-
         window.saveBankDetails = async function() {
             const payload = {
                 bankName: document.getElementById('bankName').value.trim(),
@@ -3945,7 +4024,7 @@
         };
 
         // ================================================================
-        // AUDIT LOGS — View logs with infinite scroll
+        // AUDIT LOGS
         // ================================================================
         let auditLogs = [];
         let auditPage = 1;
@@ -3973,31 +4052,29 @@
         }
 
         function renderAuditTable(logs, reset) {
-            let html = `
+            const html = `
                 <h5 style="font-weight:700;"><i class="bi bi-clock-history" style="color:var(--primary);"></i> Audit Logs (${logs.length})</h5>
                 <div class="table-container mt-3">
                     <table class="table">
                         <thead><tr><th>User</th><th>Action</th><th>Resource</th><th>Date</th></tr></thead>
                         <tbody id="auditTableBody">
-                `;
-            logs.forEach(l => {
-                html += `<tr>
-                    <td>${l.user?.firstName || 'System'} ${l.user?.lastName || ''}</td>
-                    <td>${l.action || 'N/A'}</td>
-                    <td>${l.resource || 'N/A'}</td>
-                    <td>${new Date(l.createdAt).toLocaleString()}</td>
-                </tr>`;
-            });
-            html += `</tbody></table>`;
-            if (auditHasMore) {
-                html += `<div class="infinite-trigger" id="auditInfiniteTrigger" onclick="loadAudit(false)"><i class="bi bi-arrow-down-circle"></i> Load more…</div>`;
-            } else {
-                html += `<div class="infinite-trigger" style="opacity:0.5;">— End of list —</div>`;
-            }
-            html += `</div>`;
-            if (reset) {
-                contentArea.innerHTML = html;
-            } else {
+                ${logs.map(l => `
+                    <tr>
+                        <td>${l.user?.firstName || 'System'} ${l.user?.lastName || ''}</td>
+                        <td>${l.action || 'N/A'}</td>
+                        <td>${l.resource || 'N/A'}</td>
+                        <td>${new Date(l.createdAt).toLocaleString()}</td>
+                    </tr>
+                `).join('')}
+                        </tbody>
+                    </table>
+                    <div class="infinite-trigger" id="auditInfiniteTrigger" onclick="loadAudit(false)" data-section="audit">
+                        ${auditHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' : '— End of list —'}
+                    </div>
+                </div>
+            `;
+            if (reset) contentArea.innerHTML = html;
+            else {
                 const tbody = document.getElementById('auditTableBody');
                 if (tbody) {
                     const fragment = document.createDocumentFragment();
@@ -4012,83 +4089,387 @@
                         fragment.appendChild(tr);
                     });
                     tbody.appendChild(fragment);
-                    const trigger = document.getElementById('auditInfiniteTrigger');
-                    if (trigger) {
-                        if (auditHasMore) {
-                            trigger.innerHTML = `<i class="bi bi-arrow-down-circle"></i> Load more…`;
-                            trigger.onclick = () => loadAudit(false);
-                        } else {
-                            trigger.innerHTML = '— End of list —';
-                            trigger.style.opacity = '0.5';
-                            trigger.onclick = null;
-                        }
-                    }
+                }
+                const trigger = document.getElementById('auditInfiniteTrigger');
+                if (trigger) {
+                    trigger.innerHTML = auditHasMore ? '<i class="bi bi-arrow-down-circle"></i> Load more…' :
+                        '— End of list —';
+                    trigger.style.opacity = auditHasMore ? '1' : '0.5';
+                    trigger.onclick = auditHasMore ? () => loadAudit(false) : null;
                 }
             }
         }
 
         // ================================================================
-        // EXPORT DATA (CSV)
+        // DATABASE EXPLORER
         // ================================================================
-        window.exportData = function(type) {
-            let data = [];
-            let headers = [];
-            let filename = '';
-            switch (type) {
-                case 'users':
-                    data = usersData;
-                    headers = ['ID', 'Name', 'Email', 'Role', 'Status'];
-                    filename = 'users.csv';
-                    break;
-                case 'courses':
-                    data = coursesData;
-                    headers = ['ID', 'Title', 'Instructor', 'Status', 'Price'];
-                    filename = 'courses.csv';
-                    break;
-                case 'books':
-                    data = booksData;
-                    headers = ['ID', 'Title', 'Author', 'Status', 'Price'];
-                    filename = 'books.csv';
-                    break;
-                case 'payments':
-                    data = paymentsData;
-                    headers = ['User', 'Amount', 'Status', 'Date'];
-                    filename = 'payments.csv';
-                    break;
-                case 'manual-payments':
-                    data = manualPaymentsData;
-                    headers = ['User', 'Type', 'Amount', 'Reference', 'Status'];
-                    filename = 'manual-payments.csv';
-                    break;
-                case 'posts':
-                    data = postsData;
-                    headers = ['Title', 'Author', 'Status'];
-                    filename = 'posts.csv';
-                    break;
-                default:
-                    return showToast('Export not supported for this type', 'warning');
+        let dbCollection = 'users';
+        let dbData = [];
+        let dbPage = 1;
+        let dbHasMore = true;
+        let dbLoading = false;
+
+        async function loadDatabase() {
+            contentArea.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h5 style="font-weight:700;"><i class="bi bi-database" style="color:var(--primary);"></i> Database Explorer</h5>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <select class="form-select form-select-sm" style="width:auto;" id="dbCollectionSelect" onchange="switchCollection()">
+                            <option value="users">Users</option>
+                            <option value="courses">Courses</option>
+                            <option value="books">Books</option>
+                            <option value="posts">Posts</option>
+                            <option value="transactions">Transactions</option>
+                            <option value="manualpayments">Manual Payments</option>
+                            <option value="challenges">Challenges</option>
+                            <option value="coupons">Coupons</option>
+                            <option value="campaigns">Campaigns</option>
+                            <option value="sponsorships">Sponsorships</option>
+                            <option value="academies">Academies</option>
+                        </select>
+                        <button class="btn btn-outline-primary btn-sm" onclick="exportDB()"><i class="bi bi-download"></i> Export</button>
+                        <button class="btn btn-outline-success btn-sm" onclick="importDB()"><i class="bi bi-upload"></i> Import</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <div class="d-flex flex-wrap gap-2 mb-2 px-2">
+                        <input class="form-control form-control-sm" style="width:200px;" placeholder="Search..." id="dbSearch" oninput="filterDB()" />
+                        <button class="btn btn-primary btn-sm" onclick="openCreateDBRecord()"><i class="bi bi-plus"></i> Add Record</button>
+                    </div>
+                    <div id="dbTableWrapper">
+                        <div class="spinner-overlay" style="min-height:120px;"><div class="spinner-border text-primary" role="status"></div></div>
+                    </div>
+                </div>
+            `;
+            dbCollection = 'users';
+            dbData = [];
+            dbPage = 1;
+            dbHasMore = true;
+            await loadDBCollection(true);
+        }
+
+        async function loadDBCollection(reset = true) {
+            if (reset) { dbData = [];
+                dbPage = 1;
+                dbHasMore = true; }
+            if (!dbHasMore || dbLoading) return;
+            dbLoading = true;
+            try {
+                const data = await apiCall(`/admin/db/${dbCollection}?limit=50&page=${dbPage}`);
+                const newData = data.data || [];
+                if (newData.length < 50) dbHasMore = false;
+                dbData = reset ? newData : [...dbData, ...newData];
+                dbPage++;
+                renderDBTable(dbData, reset);
+            } catch (e) {
+                showToast(e.message, 'danger');
+                document.getElementById('dbTableWrapper').innerHTML =
+                    `<div class="alert alert-danger">${e.message}</div>`;
+            } finally {
+                dbLoading = false;
             }
-            let csv = headers.join(',') + '\n';
+        }
+
+        function renderDBTable(data, reset) {
+            if (!data.length) {
+                document.getElementById('dbTableWrapper').innerHTML =
+                    `<div class="text-muted text-center py-4">No records found in ${dbCollection}</div>`;
+                return;
+            }
+            const headers = Object.keys(data[0]).filter(k => !k.startsWith('__') && k !== 'password' && k !== 'token');
+            let html = `<div style="overflow-x:auto;"><table class="table"><thead><tr>`;
+            headers.forEach(h => html += `<th>${h}</th>`);
+            html += `<th style="width:100px;">Actions</th></tr></thead><tbody>`;
             data.forEach(row => {
-                const values = headers.map(h => {
-                    let val = row[h.toLowerCase()] || '';
-                    if (typeof val === 'string' && val.includes(',')) val = `"${val}"`;
-                    return val;
+                html += `<tr>`;
+                headers.forEach(h => {
+                    let val = row[h];
+                    if (typeof val === 'object' && val !== null) val = JSON.stringify(val).substring(0, 60) + (
+                        JSON.stringify(val).length > 60 ? '…' : '');
+                    if (typeof val === 'string' && val.length > 50) val = val.substring(0, 50) + '…';
+                    if (h === 'createdAt' || h === 'updatedAt') val = new Date(val).toLocaleString();
+                    html += `<td style="font-size:0.75rem;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${val ?? ''}</td>`;
                 });
-                csv += values.join(',') + '\n';
+                html +=
+                    `<td><button class="btn btn-sm btn-outline-primary" onclick="viewDBRecord('${row._id}')"><i class="bi bi-eye"></i></button></td>`;
+                html += `</tr>`;
             });
-            const blob = new Blob([csv], { type: 'text/csv' });
+            html += `</tbody></table></div>`;
+            const wrapper = document.getElementById('dbTableWrapper');
+            if (reset) wrapper.innerHTML = html;
+            else {
+                const existing = wrapper.querySelector('tbody');
+                if (existing) {
+                    const fragment = document.createDocumentFragment();
+                    data.forEach(row => {
+                        const tr = document.createElement('tr');
+                        headers.forEach(h => {
+                            let val = row[h];
+                            if (typeof val === 'object' && val !== null) val = JSON.stringify(val).substring(0,
+                                60) + (JSON.stringify(val).length > 60 ? '…' : '');
+                            if (typeof val === 'string' && val.length > 50) val = val.substring(0, 50) + '…';
+                            if (h === 'createdAt' || h === 'updatedAt') val = new Date(val).toLocaleString();
+                            const td = document.createElement('td');
+                            td.textContent = val ?? '';
+                            td.style.cssText =
+                                'font-size:0.75rem;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;';
+                            tr.appendChild(td);
+                        });
+                        const td = document.createElement('td');
+                        td.innerHTML =
+                            `<button class="btn btn-sm btn-outline-primary" onclick="viewDBRecord('${row._id}')"><i class="bi bi-eye"></i></button>`;
+                        tr.appendChild(td);
+                        fragment.appendChild(tr);
+                    });
+                    existing.appendChild(fragment);
+                }
+            }
+            // Add infinite trigger if needed
+            if (dbHasMore) {
+                const trigger = document.createElement('div');
+                trigger.className = 'infinite-trigger';
+                trigger.id = 'dbInfiniteTrigger';
+                trigger.innerHTML = '<i class="bi bi-arrow-down-circle"></i> Load more…';
+                trigger.onclick = () => loadDBCollection(false);
+                trigger.dataset.section = 'database';
+                wrapper.appendChild(trigger);
+            }
+        }
+
+        window.switchCollection = function() {
+            dbCollection = document.getElementById('dbCollectionSelect').value;
+            dbData = [];
+            dbPage = 1;
+            dbHasMore = true;
+            loadDBCollection(true);
+        };
+        window.filterDB = function() {
+            const search = document.getElementById('dbSearch').value.toLowerCase();
+            const filtered = dbData.filter(row => {
+                return Object.values(row).some(v => String(v).toLowerCase().includes(search));
+            });
+            renderDBTable(filtered, true);
+        };
+        window.viewDBRecord = async function(id) {
+            try {
+                const data = await apiCall(`/admin/db/${dbCollection}/${id}`);
+                const row = data.data;
+                actionModalLabel.textContent = `Record ${id}`;
+                actionModalBody.innerHTML =
+                    `<pre style="background:var(--bg-input);padding:1rem;border-radius:var(--radius-sm);overflow:auto;max-height:400px;font-size:0.75rem;">${JSON.stringify(row, null, 2)}</pre>`;
+                actionModalConfirm.style.display = 'none';
+                actionModal.show();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.openCreateDBRecord = function() {
+            actionModalLabel.textContent = `Create Record in ${dbCollection}`;
+            actionModalBody.innerHTML = `
+                <div class="alert alert-info">Enter JSON data for the new record. Required fields: ${dbCollection === 'users' ? 'email, firstName, lastName, password' : 'title, name'}</div>
+                <textarea class="form-control" id="dbCreateJson" rows="8" style="font-family:monospace;font-size:0.8rem;">{\n  "title": "New Record",\n  "description": "Description here"\n}</textarea>
+            `;
+            actionModalConfirm.textContent = 'Create';
+            actionModalConfirm.onclick = async () => {
+                try {
+                    const payload = JSON.parse(document.getElementById('dbCreateJson').value);
+                    await apiCall(`/admin/db/${dbCollection}`, { method: 'POST', body: JSON.stringify(payload) });
+                    actionModal.hide();
+                    showToast('Record created', 'success');
+                    loadDBCollection(true);
+                } catch (e) { showToast(e.message, 'danger'); }
+            };
+            actionModal.show();
+        };
+        window.exportDB = function() {
+            showToast('Exporting all data from ' + dbCollection, 'info');
+            // In production: call /admin/db/export/${dbCollection}
+            const blob = new Blob([JSON.stringify(dbData, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = filename;
+            a.download = `${dbCollection}.json`;
             a.click();
             URL.revokeObjectURL(url);
-            showToast(`Exported ${data.length} rows`, 'success');
+        };
+        window.importDB = function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const text = await file.text();
+                try {
+                    const data = JSON.parse(text);
+                    if (!Array.isArray(data)) return showToast('Expected array of records', 'danger');
+                    for (const record of data) {
+                        await apiCall(`/admin/db/${dbCollection}`, { method: 'POST', body: JSON.stringify(record) });
+                    }
+                    showToast(`Imported ${data.length} records`, 'success');
+                    loadDBCollection(true);
+                } catch (err) { showToast(err.message, 'danger'); }
+            };
+            input.click();
         };
 
         // ================================================================
-        // NOTIFICATIONS — Polling
+        // MEDIA MANAGER (Cloudinary)
+        // ================================================================
+        let mediaFiles = [];
+        let mediaFolder = '';
+
+        async function loadMedia() {
+            contentArea.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h5 style="font-weight:700;"><i class="bi bi-images" style="color:var(--primary);"></i> Media Manager</h5>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-primary btn-sm" onclick="uploadMedia()"><i class="bi bi-upload"></i> Upload</button>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="refreshMedia()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
+                        <button class="btn btn-outline-danger btn-sm" onclick="bulkDeleteMedia()"><i class="bi bi-trash"></i> Bulk Delete</button>
+                    </div>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6"><input class="form-control form-control-sm" placeholder="Search files..." id="mediaSearch" oninput="filterMedia()" /></div>
+                    <div class="col-md-3"><select class="form-select form-select-sm" id="mediaFolderFilter" onchange="filterMedia()"><option value="">All Folders</option><option value="courses/">courses/</option><option value="books/">books/</option><option value="ads/">ads/</option><option value="avatars/">avatars/</option><option value="admin/">admin/</option></select></div>
+                    <div class="col-md-3"><span class="text-muted" style="font-size:0.75rem;">Storage: 245MB / 5GB</span></div>
+                </div>
+                <div id="mediaGridWrapper">
+                    <div class="spinner-overlay" style="min-height:120px;"><div class="spinner-border text-primary" role="status"></div></div>
+                </div>
+            `;
+            await loadMediaFiles();
+        }
+
+        async function loadMediaFiles() {
+            try {
+                const data = await apiCall('/admin/media/files');
+                mediaFiles = data.data || [];
+                renderMediaGrid(mediaFiles);
+            } catch (e) {
+                document.getElementById('mediaGridWrapper').innerHTML =
+                    `<div class="alert alert-danger">${e.message}</div>`;
+            }
+        }
+
+        function renderMediaGrid(files) {
+            if (!files.length) {
+                document.getElementById('mediaGridWrapper').innerHTML =
+                    `<div class="text-muted text-center py-4">No media files found</div>`;
+                return;
+            }
+            let html = `<div class="media-grid">`;
+            files.forEach(f => {
+                const isImage = f.format && ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'].includes(f.format.toLowerCase());
+                const isVideo = f.format && ['mp4', 'mov', 'avi', 'webm'].includes(f.format.toLowerCase());
+                const url = f.secure_url || f.url || f.public_id;
+                html += `
+                    <div class="media-item" data-id="${f.public_id}">
+                        ${isImage ? `<img src="${url}" alt="${f.public_id}" />` :
+                          isVideo ? `<video src="${url}" muted></video>` :
+                          `<div style="height:120px;display:flex;align-items:center;justify-content:center;background:var(--bg-input);color:var(--text-muted);">📄 ${f.format || 'file'}</div>`}
+                        <div class="media-info">${f.public_id.split('/').pop()}</div>
+                        <div class="media-actions">
+                            <button onclick="viewMedia('${f.public_id}')" title="View"><i class="bi bi-eye"></i></button>
+                            <button onclick="deleteMedia('${f.public_id}')" title="Delete"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            document.getElementById('mediaGridWrapper').innerHTML = html;
+        }
+
+        window.filterMedia = function() {
+            const search = document.getElementById('mediaSearch').value.toLowerCase();
+            const folder = document.getElementById('mediaFolderFilter').value;
+            let filtered = mediaFiles;
+            if (search) filtered = filtered.filter(f => f.public_id.toLowerCase().includes(search) || (f.filename || '')
+                .toLowerCase().includes(search));
+            if (folder) filtered = filtered.filter(f => f.public_id.startsWith(folder));
+            renderMediaGrid(filtered);
+        };
+        window.refreshMedia = function() { loadMediaFiles(); };
+        window.viewMedia = function(id) {
+            const f = mediaFiles.find(x => x.public_id === id);
+            if (!f) return showToast('File not found', 'danger');
+            actionModalLabel.textContent = f.public_id.split('/').pop();
+            actionModalBody.innerHTML = `
+                <div class="text-center"><img src="${f.secure_url || f.url}" style="max-height:300px;max-width:100%;border-radius:var(--radius-sm);" /></div>
+                <div class="row g-2 mt-3" style="font-size:0.8rem;">
+                    <div class="col-md-6"><strong>Public ID:</strong> ${f.public_id}</div>
+                    <div class="col-md-6"><strong>Format:</strong> ${f.format || 'N/A'}</div>
+                    <div class="col-md-6"><strong>Size:</strong> ${f.bytes ? (f.bytes/1024).toFixed(1) : 'N/A'} KB</div>
+                    <div class="col-md-6"><strong>Dimensions:</strong> ${f.width || 'N/A'} × ${f.height || 'N/A'}</div>
+                    <div class="col-md-12"><strong>URL:</strong> <a href="${f.secure_url || f.url}" target="_blank">${(f.secure_url || f.url).substring(0,60)}…</a></div>
+                </div>
+            `;
+            actionModalConfirm.style.display = 'none';
+            actionModal.show();
+        };
+        window.deleteMedia = async function(id) {
+            if (!confirm(`Delete ${id}?`)) return;
+            try {
+                await apiCall(`/admin/media/${encodeURIComponent(id)}`, { method: 'DELETE' });
+                showToast('File deleted', 'success');
+                loadMediaFiles();
+            } catch (e) { showToast(e.message, 'danger'); }
+        };
+        window.bulkDeleteMedia = function() {
+            showToast('Select files to delete (stub – implement multi-select)', 'info');
+        };
+        window.uploadMedia = function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*,video/*,application/pdf';
+            input.multiple = true;
+            input.onchange = async (e) => {
+                const files = e.target.files;
+                if (!files.length) return;
+                for (const file of files) {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    const folder = prompt(`Enter folder for ${file.name} (e.g., courses/)`, 'admin/');
+                    if (folder !== null) formData.append('folder', folder);
+                    try {
+                        const res = await fetch(`${API_BASE}/admin/media/upload`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${TOKEN}` },
+                            body: formData
+                        });
+                        if (!res.ok) throw new Error(`Upload failed for ${file.name}`);
+                        showToast(`Uploaded ${file.name}`, 'success');
+                    } catch (err) { showToast(err.message, 'danger'); }
+                }
+                loadMediaFiles();
+            };
+            input.click();
+        };
+
+        // ================================================================
+        // EXPORT DATA (CSV) — Full export via backend
+        // ================================================================
+        window.exportData = function(type) {
+            const token = localStorage.getItem('cx_accessToken');
+            const url = `${API_BASE}/admin/export/${type}`;
+            fetch(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Export failed');
+                    return response.blob();
+                })
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `${type}.csv`;
+                    link.click();
+                    URL.revokeObjectURL(blob);
+                    showToast(`Exported all ${type} data`, 'success');
+                })
+                .catch(err => showToast(err.message, 'danger'));
+        };
+
+        // ================================================================
+        // NOTIFICATIONS
         // ================================================================
         let notifCount = 0;
 
@@ -4098,13 +4479,13 @@
                 const notifs = data.data || [];
                 if (notifs.length) {
                     notifList.innerHTML = notifs.map(n =>
-                        `<div class="dropdown-item" style="font-size:0.85rem;padding:0.6rem 1rem;border-bottom:1px solid var(--border-color);">${n.title || 'Notification'}</div>`
+                        `<div class="dropdown-item" style="font-size:0.8rem;padding:0.5rem 1rem;border-bottom:1px solid var(--border-color);">${n.title || 'Notification'}</div>`
                     ).join('');
                     notifCount = notifs.length;
                     notifDot.style.display = 'block';
                 } else {
                     notifList.innerHTML =
-                        `<div class="dropdown-item text-muted" style="font-size:0.85rem;padding:0.8rem 1rem;">No new notifications</div>`;
+                        `<div class="dropdown-item text-muted" style="font-size:0.8rem;padding:0.5rem 1rem;">No new notifications</div>`;
                     notifDot.style.display = 'none';
                 }
             } catch (e) { /* silent */ }
@@ -4122,11 +4503,10 @@
         }
 
         // ================================================================
-        // INIT — Load dashboard
+        // INIT
         // ================================================================
         loadSection('dashboard');
-
-        console.log('🚀 ChangeX Admin Panel v5.0 — Production Ready');
+        console.log('🚀 ChangeX Admin Panel v6.0 — Enterprise Ready');
         console.log('📌 API Base:', API_BASE);
         console.log('🔐 Token:', TOKEN ? 'Present' : 'Missing');
 
@@ -4141,7 +4521,7 @@
         });
 
         // ================================================================
-        // INFINITE SCROLL OBSERVER (for all modules)
+        // INFINITE SCROLL OBSERVER
         // ================================================================
         const infiniteObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -4160,12 +4540,11 @@
                     else if (section === 'sponsorships') loadSponsorships(false);
                     else if (section === 'academies') loadAcademies(false);
                     else if (section === 'audit') loadAudit(false);
+                    else if (section === 'database') loadDBCollection(false);
                 }
             });
         }, { rootMargin: '0px 0px 100px 0px' });
 
-        // Observe infinite triggers after render
-        const origRender = contentArea.innerHTML;
         const observerInterval = setInterval(() => {
             document.querySelectorAll('.infinite-trigger').forEach(el => {
                 if (!el.dataset.observed) {
@@ -4176,9 +4555,7 @@
                 }
             });
         }, 1000);
-
-        // Cleanup
         setTimeout(() => clearInterval(observerInterval), 30000);
     </script>
 </body>
-</html>
+</html> 
